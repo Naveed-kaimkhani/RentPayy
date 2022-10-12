@@ -5,6 +5,7 @@ import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
 import 'package:rentpayy/view/login_screen.dart';
 import 'package:rentpayy/view/onboard_screen.dart';
+import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
               // theme: ThemeData(
               //   primarySwatch: Colors.blue,
               // ),
-              home: login_screen(),
+              home: login_with_rentpayy(),
               // initialRoute: RoutesName.login,
               // onGenerateRoutes: Routes.onGenerateRoute(settings),
               onGenerateRoute: Routes.onGenerateRoute,
