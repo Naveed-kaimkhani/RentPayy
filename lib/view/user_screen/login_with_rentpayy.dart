@@ -7,6 +7,8 @@ import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
+import 'package:rentpayy/components/or_line_widget.dart';
+import 'package:rentpayy/components/terms_and_condition.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 
 import '../../utils/style/Images.dart';
@@ -44,8 +46,8 @@ class login_with_rentpayy extends StatelessWidget {
                       EdgeInsets.symmetric(horizontal: 137.w, vertical: 36.h),
                   child: Text(
                     "Login",
-                    style: TextStyle(
-                        fontSize: 26.sp, fontWeight: FontWeight.w500),
+                    style:
+                        TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500),
                   )),
               inputfields(
                 hint_text: "  Email",
@@ -66,7 +68,23 @@ class login_with_rentpayy extends StatelessWidget {
                 currentNode: passwordFocusNode,
                 nextNode: passwordFocusNode,
               ),
-              authButton(text: "Login", func:(){}, color: AppColors.primaryColor)
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 38.h, horizontal: 58.w),
+                child: authButton(
+                    text: "Login", func: () {}, color: AppColors.primaryColor),
+              ),
+              or_line_widget(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 39.w, vertical: 27.h),
+                child: Image.asset(
+                  Images.google,
+                ),
+              ),
+              Image.asset(Images.facebook),
+              SizedBox(
+                height: 50.h,
+              ),
+              terms_and_conditions()
             ],
           ),
         ),

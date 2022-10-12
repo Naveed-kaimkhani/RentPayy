@@ -8,8 +8,7 @@ class inputfields extends StatelessWidget {
   FocusNode? currentNode;
   FocusNode? nextNode;
   FocusNode? focusNode;
-  
-  
+
   // TextInputType keyboardType;
   Widget? icon;
   TextEditingController? controller;
@@ -19,15 +18,15 @@ class inputfields extends StatelessWidget {
     required this.focusNode,
     required this.nextNode,
     required this.controller,
-   this.icon,
+    this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Container(
-      height: 70.h,
-      width: 326.w,
+      height: 60.h,
+      width: 371.w,
       //  color: Colors.white,
       decoration: BoxDecoration(
           color: AppColors.textfieldsColor,
@@ -35,7 +34,8 @@ class inputfields extends StatelessWidget {
       // ignore: prefer_const_constructors
       child: TextField(
         // keyboardType: keyboardType,
-        onEditingComplete:()=> utils.fieldFocusChange(context, currentNode!, nextNode!),
+        onEditingComplete: () =>
+            utils.fieldFocusChange(context, currentNode!, nextNode!),
         controller: controller,
         cursorColor: Colors.black,
         focusNode: focusNode,
@@ -52,7 +52,7 @@ class inputfields extends StatelessWidget {
             ),
             suffixIcon: IconButton(
               onPressed: () {},
-              icon: icon??Container(),
+              icon: icon ?? Container(),
             )),
       ),
     );

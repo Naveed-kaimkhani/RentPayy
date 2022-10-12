@@ -4,7 +4,6 @@ import 'package:rentpayy/test.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
 import 'package:rentpayy/view/login_screen.dart';
-import 'package:rentpayy/view/onboard_screen.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 
 void main() {
