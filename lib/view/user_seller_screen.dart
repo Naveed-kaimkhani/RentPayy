@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
-
-import '../components/mini_container.dart';
 import '../components/user_seller_component.dart';
 
 class UserSellerScreen extends StatelessWidget {
@@ -20,7 +18,7 @@ class UserSellerScreen extends StatelessWidget {
               height: 833.h,
               width: 428.w,
               decoration: const BoxDecoration(
-                color: Color(0xffFFFFFF),
+                color: Color(0xffffffff),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50),
                     topRight: Radius.circular(50)),

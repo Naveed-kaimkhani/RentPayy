@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:rentpayy/utils/routes/RoutesName.dart';
-import 'package:rentpayy/utils/utils.dart';
-
 import '../components/authButton.dart';
 import '../components/auth_screens_decor.dart';
 import '../components/custom_appbar.dart';
