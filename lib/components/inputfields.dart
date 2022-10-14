@@ -11,6 +11,7 @@ class inputfields extends StatelessWidget {
 
   // TextInputType keyboardType;
   Widget? icon;
+  Widget? preicon;
   TextEditingController? controller;
   inputfields({
     required this.hint_text,
@@ -19,6 +20,7 @@ class inputfields extends StatelessWidget {
     required this.nextNode,
     required this.controller,
     this.icon,
+    this.preicon,
   });
 
   @override
@@ -50,6 +52,7 @@ class inputfields extends StatelessWidget {
               color: Colors.black,
               fontSize: 17.sp,
             ),
+            prefixIcon: preicon,
             suffixIcon: IconButton(
               onPressed: () {},
               icon: icon ?? Container(),
