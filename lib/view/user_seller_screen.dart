@@ -1,42 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rentpayy/components/custom_appbar.dart';
 
 import '../components/mini_container.dart';
 import '../components/user_seller_component.dart';
 
-class UserSellerScree extends StatelessWidget {
-  const UserSellerScree({Key? key}) : super(key: key);
+class UserSellerScreen extends StatelessWidget {
+  const UserSellerScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffF5AD0D),
+        appBar: custom_appbar(),
         body: Stack(
           children: [
-             Positioned(
-              top: 30,
-                left: 23,
-                child: MiniContainer(height: 35, width: 35, image: 'assets/backButton.png',)),
-            Positioned(
-              top: 90,
-              right: 0,
-              bottom: 0,
-              left: 0,
-              child: Container(
-                height: 700,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Color(0xffFFFFFF),
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(50) , topRight: Radius.circular(50)),
-                ),
-                child: Column(
-                  children: const [
-                    SizedBox(height: 80,),
-                    UserSellerComponent(height: 190, width: 200, image: 'assets/female.png', text: "User"),
-                    SizedBox(height: 40,),
-                    UserSellerComponent(height: 190, width: 200, image: 'assets/male.png', text: "Seller"),
-                  ],
-                ),
+            Container(
+              height: 833.h,
+              width: 428.w,
+              decoration: const BoxDecoration(
+                color: Color(0xffFFFFFF),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50)),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 139.h,
+                  ),
+                  UserSellerComponent(
+                      height: 189.01.h,
+                      width: 199.w,
+                      image: 'asset/female.png',
+                      text: "User"),
+                  SizedBox(
+                    height: 112.h,
+                  ),
+                  UserSellerComponent(
+                      height: 189.01.h,
+                      width: 199.w,
+                      image: 'asset/male.png',
+                      text: "Seller"),
+                ],
               ),
             ),
           ],
