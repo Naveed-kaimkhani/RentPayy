@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserSellerComponent extends StatelessWidget {
   final double height;
@@ -17,9 +18,9 @@ class UserSellerComponent extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
             border: Border.all(color: const Color(0xff000000)),
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(24),
           ),
-          child: Image.asset(image),
+          child: Image.asset(image ,),
         ),
         const SizedBox(height: 10,),
         Text(text, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold ,),)
