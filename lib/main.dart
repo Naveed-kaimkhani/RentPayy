@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
+
 import 'package:rentpayy/view/Hostler_screen/Hostel_signup.dart';
-import 'package:rentpayy/view/user_screen/User_signup.dart';
-import 'package:rentpayy/view/user_seller_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
               // theme: ThemeData(
               //   primarySwatch: Colors.blue,
               // ),
-              home: User_signup_page(),
+              home: Hostel_Signup(),
               // initialRoute: RoutesName.login,
               // onGenerateRoutes: Routes.onGenerateRoute(settings),
               onGenerateRoute: Routes.onGenerateRoute,

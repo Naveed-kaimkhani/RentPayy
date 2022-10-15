@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
-
 import '../../components/auth_screens_decor.dart';
 import '../../components/mini_Button.dart';
 
@@ -35,6 +34,19 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
   TextEditingController _confirmpasswordController = TextEditingController();
 
   @override
+  void dispose() {
+    _nameController.dispose();
+    _hostelcontactController.dispose();
+    _hostelOwnernameController.dispose();
+    _hostelOwnerphoneController.dispose();
+    _hostelOwneraddressController.dispose();
+    _hosteladdressController.dispose();
+    _passwordController.dispose();
+    _confirmpasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -46,17 +58,17 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
               child: Container(
                 decoration: auth_screens_decor(),
                 child: Padding(
-                  padding: EdgeInsets.only(left: 28.h, right: 28.h, top: 10.h),
+                  padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
                         SizedBox(
                           height: 48.h,
                         ),
-                        const Text(
+                        Text(
                           "Hostel Signup",
                           style: TextStyle(
-                              fontSize: 26, fontWeight: FontWeight.w500),
+                              fontSize: 26.sp, fontWeight: FontWeight.w500),
                         ),
                         SizedBox(
                           height: 28.h,
@@ -86,13 +98,13 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           nextNode: hostelOwnernameFocusNode,
                           controller: _hostelcontactController,
                           preicon: Container(
-                            width: 60.h,
+                            width: 60.w,
                             height: 60.h,
                             child: Row(
                               children: [
                                 Text(
                                   "+92",
-                                  style: TextStyle(fontSize: 17),
+                                  style: TextStyle(fontSize: 17.sp),
                                 ),
                                 VerticalDivider(
                                   thickness: 2,
@@ -130,13 +142,13 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           nextNode: passwordFocusNode,
                           controller: _hostelOwnerphoneController,
                           preicon: Container(
-                            width: 60.h,
+                            width: 60.w,
                             height: 60.h,
                             child: Row(
                               children: [
                                 Text(
                                   "+92",
-                                  style: TextStyle(fontSize: 17),
+                                  style: TextStyle(fontSize: 17.sp),
                                 ),
                                 VerticalDivider(
                                   thickness: 2,

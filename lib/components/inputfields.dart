@@ -32,7 +32,7 @@ class inputfields extends StatelessWidget {
       //  color: Colors.white,
       decoration: BoxDecoration(
           color: AppColors.textfieldsColor,
-          borderRadius: BorderRadius.circular(12.r)),
+          borderRadius: BorderRadius.circular(7.r)),
       // ignore: prefer_const_constructors
       child: TextField(
         // keyboardType: keyboardType,
@@ -43,7 +43,7 @@ class inputfields extends StatelessWidget {
         focusNode: focusNode,
         decoration: InputDecoration(
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(7.r),
               borderSide: BorderSide(color: AppColors.primaryColor, width: 1.0),
             ),
             border: InputBorder.none,

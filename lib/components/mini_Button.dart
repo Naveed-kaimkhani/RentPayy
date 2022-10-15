@@ -31,7 +31,7 @@ class MiniButton extends StatelessWidget {
             Text(
               text!,
               style: TextStyle(
-                  fontSize: 17.h, color: Colors.white),
+                  fontSize: 17.sp, color: Colors.white),
             ),
             Icon(
               icon!,
@@ -40,7 +40,7 @@ class MiniButton extends StatelessWidget {
           ],
         ),
       ),
-      onTap: func,
+      onTap: func!,
     );
   }
 }
