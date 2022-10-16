@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rentpayy/test.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
+import 'package:rentpayy/view/Hostler_screen/Hostel_Registration.dart';
 
 import 'package:rentpayy/view/Hostler_screen/Hostel_signup.dart';
+import 'package:rentpayy/view/facilities.dart';
 
 
 void main() {

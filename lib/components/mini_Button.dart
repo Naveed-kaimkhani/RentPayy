@@ -8,7 +8,7 @@ class MiniButton extends StatelessWidget {
   String? text;
   Function()? func;
   Color? color;
-  IconData? icon;
+  String? icon;
   MiniButton({ required this.text,
     required this.func,
     required this.color,
@@ -33,10 +33,8 @@ class MiniButton extends StatelessWidget {
               style: TextStyle(
                   fontSize: 17.sp, color: Colors.white),
             ),
-            Icon(
-              icon!,
-              color: Colors.white,
-            ),
+            SizedBox(width: 10.w,),
+            Image.asset(icon!.toString(),height: 16.h,width: 14.w,),
           ],
         ),
       ),

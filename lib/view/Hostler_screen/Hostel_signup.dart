@@ -187,7 +187,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                               text: 'Next',
                               func: () {},
                               color: AppColors.primaryColor,
-                              icon: Icons.arrow_forward_rounded),
+                              icon: "asset/arrow.png"),
                         ),
                       ],
                     ),
