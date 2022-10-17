@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../utils/style/AppColors.dart';
+import '../utils/style/Images.dart';
 
 
 class Dropdown_button extends StatefulWidget {
@@ -23,8 +24,6 @@ class _Dropdown_buttonState extends State<Dropdown_button> {
   @override
   Widget build(BuildContext context) {
 
-
-
     return Container(
       height: 60.h,
       width: 185.w,
@@ -34,11 +33,13 @@ class _Dropdown_buttonState extends State<Dropdown_button> {
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton2(
+          focusColor: AppColors.primaryColor,
+
           dropdownElevation: 0,
           buttonElevation: 0,
           icon: Padding(
             padding: EdgeInsets.only(right: 17.w),
-            child: Image.asset("asset/dropdown.png"),
+            child: Image.asset(Images.dropdown),
           ),
           dropdownDecoration: BoxDecoration(
             color: AppColors.textfieldsColor,

@@ -17,7 +17,7 @@ class authButton extends StatelessWidget {
     return InkWell(
       child: Container(
         width: 321.w,
-        height: 76.h,
+        height: 67.h,
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(14.r),

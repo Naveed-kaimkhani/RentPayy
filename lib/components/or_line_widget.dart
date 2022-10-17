@@ -11,13 +11,26 @@ class or_line_widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(2.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(Images.line),
+          Expanded(
+            child: new Container(
+                margin: const EdgeInsets.only(left: 10.0, right: 15.0),
+                child: Divider(
+                  color: Colors.black,
+                  height: 50,
+                )),
+          ),
           Text("Or"),
-          Image.asset(Images.line),
+          Expanded(
+            child: new Container(
+                margin: const EdgeInsets.only(left: 10.0, right: 15.0),
+                child: Divider(
+                  color: Colors.black,
+                  height: 50,
+                )),
+          ),
         ],
       ),
     );

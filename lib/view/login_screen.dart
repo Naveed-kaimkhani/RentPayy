@@ -23,67 +23,69 @@ class login_screen extends StatelessWidget {
         appBar: const custom_appbar(),
         backgroundColor: AppColors.primaryColor,
         body: Container(
-          margin: EdgeInsets.only(top: 32.h),
+          color: AppColors.primaryColor,
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: auth_screens_decor(),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 147.w, vertical: 39.h),
-                  child: Image.asset(Images.mainicon),
-                ),
-                // EdgeInsets.symmetric(horizontal: 54.w, vertical: 170.h),
-                SizedBox(
-                  height: 60.h,
-                ),
-                authButton(
-                  text: "Login",
-                  color: Colors.black,
-                  func: () {},
-                ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                authButton(
-                  text: "Sign Up",
-                  color: AppColors.primaryColor,
-                  func: () {},
-                ),
-                SizedBox(
-                  height: 80.h,
-                ),
-                or_line_widget(),
-                // Container(
-                //   height: 80.h,
-                //   width: 321.w,
-                //   decoration: BoxDecoration(
-                //     color: Colors.white,
-                //     borderRadius: BorderRadius.circular(10),
-                //     border: Border.all(color: Colors.black, width: 2),
-                //     // border: BoxBorder()
-                //   ),
-                // ),
-                Image.asset(
-                  Images.google,
-                  height: 76.h,
-                  width: 321.w,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Image.asset(
-                  Images.facebook,
-                  height: 76.h,
-                  width: 321.w,
-                ),
-                SizedBox(
-                  height: 58.h,
-                ),
-                terms_and_conditions()
-              ],
+          child: Container(
+            decoration: auth_screens_decor(),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 39,),
+                  Container(
+                    height: 52.86.h,
+                      width: 135.w,
+                      child: Image.asset(Images.mainicon)),
+                  // EdgeInsets.symmetric(horizontal: 54.w, vertical: 170.h),
+                  SizedBox(
+                    height: 76.14.h,
+                  ),
+                  authButton(
+                    text: "Login",
+                    color: Colors.black,
+                    func: () {},
+                  ),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  authButton(
+                    text: "Sign Up",
+                    color: AppColors.primaryColor,
+                    func: () {},
+                  ),
+                  SizedBox(
+                    height: 80.h,
+                  ),
+                  or_line_widget(),
+                  // Container(
+                  //   height: 80.h,
+                  //   width: 321.w,
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.white,
+                  //     borderRadius: BorderRadius.circular(10),
+                  //     border: Border.all(color: Colors.black, width: 2),
+                  //     // border: BoxBorder()
+                  //   ),
+                  // ),
+                  Image.asset(
+                    Images.google,
+                    height: 76.h,
+                    width: 321.w,
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Image.asset(
+                    Images.facebook,
+                    height: 76.h,
+                    width: 321.w,
+                  ),
+                  SizedBox(
+                    height: 58.h,
+                  ),
+                  terms_and_conditions()
+                ],
+              ),
             ),
           ),
         ),

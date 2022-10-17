@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 
+import '../utils/style/Images.dart';
+
 class Point_increament_button extends StatelessWidget {
 
 
@@ -33,7 +35,7 @@ class Point_increament_button extends StatelessWidget {
                 bottomLeft: Radius.circular(7.r),
               ),
             ),
-            child: Image.asset("asset/Minus.png"),
+            child: Image.asset(Images.minus),
           ),
         onTap: () {print("Minus");},
       ),
@@ -71,7 +73,7 @@ class Point_increament_button extends StatelessWidget {
                   bottomRight: Radius.circular(7.r),
                 ),
               ),
-              child: Image.asset("asset/Plus.png"),
+              child: Image.asset(Images.plus),
             ),
             onTap: () {print("Plus"); },
           ),

@@ -7,6 +7,8 @@ import 'package:rentpayy/view/Hostler_screen/Hostel_Registration.dart';
 
 import 'package:rentpayy/view/Hostler_screen/Hostel_signup.dart';
 import 'package:rentpayy/view/facilities.dart';
+import 'package:rentpayy/view/login_screen.dart';
+import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 
 
 void main() {
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
               // theme: ThemeData(
               //   primarySwatch: Colors.blue,
               // ),
-              home: Hostel_Signup(),
+              home: login_screen(),
               // initialRoute: RoutesName.login,
               // onGenerateRoutes: Routes.onGenerateRoute(settings),
               onGenerateRoute: Routes.onGenerateRoute,
