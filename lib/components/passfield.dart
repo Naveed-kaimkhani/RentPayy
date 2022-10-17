@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
 
-class inputfields extends StatelessWidget {
-  String? hint_text;
+import '../utils/style/AppColors.dart';
+
+class passfield extends StatelessWidget {
+String? hint_text;
   FocusNode? currentNode;
   FocusNode? nextNode;
-  bool? obsecureText;
   FocusNode? focusNode;
+  Function()? onIconPress;
+  bool? visiblity;
   // TextInputType keyboardType;
   Widget? icon;
   TextEditingController? controller;
-  inputfields({
+  passfield({
     required this.hint_text,
     required this.currentNode,
     required this.focusNode,
     required this.nextNode,
     required this.controller,
     this.icon,
-    this.obsecureText,
+    this.onIconPress,
+    this.visiblity,
   });
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Container(
       height: 60.h,
       width: 371.w,
@@ -51,10 +55,10 @@ class inputfields extends StatelessWidget {
               color: Colors.black,
               fontSize: 17.sp,
             ),
-            suffixIcon: icon??Container()
+            suffixIcon: icon
+            ,
             ),
-            obscureText: obsecureText??false,
       ),
-    );
+    );;
   }
 }
