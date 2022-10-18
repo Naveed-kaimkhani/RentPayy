@@ -40,6 +40,7 @@ dependencies:
   fluttertoast: ^8.0.9
   another_flushbar: ^1.12.29
   flutter_svg: ^1.1.5
+  dropdown_button2:
   flutter_launcher_icons: ^0.10.0
   firebase_auth: ^3.11.2
   firebase_storage: ^10.3.11

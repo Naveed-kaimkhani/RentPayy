@@ -50,6 +50,7 @@ String? hint_text;
               borderSide: BorderSide(color: AppColors.primaryColor, width: 1.0),
             ),
             border: InputBorder.none,
+          
             hintText: hint_text,
             hintStyle: TextStyle(
               color: Colors.black,

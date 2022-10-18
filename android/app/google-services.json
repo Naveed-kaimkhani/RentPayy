@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "543945907406",
+    "project_id": "rentpayy-8a0c0",
+    "storage_bucket": "rentpayy-8a0c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543945907406:android:123ad881565c6b5b2e049f",
+        "android_client_info": {
+          "package_name": "com.example.rentpayy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543945907406-d6866v2m2i6kaajqidhrnoo3gfb0o08k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABDo_MqFtwiD1xP35LwZcyTrLPet_lIgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543945907406-d6866v2m2i6kaajqidhrnoo3gfb0o08k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,8 +9,10 @@ class inputfields extends StatelessWidget {
   FocusNode? nextNode;
   bool? obsecureText;
   FocusNode? focusNode;
-  // TextInputType keyboardType;
-  Widget? icon;
+  IconData? icon;
+  Widget? preicon;
+  // bool? visiblity;
+  Function()? onIconPress;
   TextEditingController? controller;
   inputfields({
     required this.hint_text,
@@ -19,7 +21,11 @@ class inputfields extends StatelessWidget {
     required this.nextNode,
     required this.controller,
     this.icon,
+    this.preicon,
+    this.onIconPress,
     this.obsecureText,
+
+    // this.visiblity,
   });
 
   @override
@@ -31,29 +37,41 @@ class inputfields extends StatelessWidget {
       //  color: Colors.white,
       decoration: BoxDecoration(
           color: AppColors.textfieldsColor,
-          borderRadius: BorderRadius.circular(12.r)),
+          borderRadius: BorderRadius.circular(7.r)),
       // ignore: prefer_const_constructors
       child: TextField(
         // keyboardType: keyboardType,
+        obscureText: obsecureText ?? false,
         onEditingComplete: () =>
             utils.fieldFocusChange(context, currentNode!, nextNode!),
         controller: controller,
         cursorColor: Colors.black,
         focusNode: focusNode,
         decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
-              borderSide: BorderSide(color: AppColors.primaryColor, width: 1.0),
-            ),
-            border: InputBorder.none,
-            hintText: hint_text,
-            hintStyle: TextStyle(
-              color: Colors.black,
-              fontSize: 17.sp,
-            ),
-            suffixIcon: icon??Container()
-            ),
-            obscureText: obsecureText??false,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(7.r),
+            borderSide: BorderSide(color: AppColors.primaryColor, width: 1.0),
+          ),
+          border: InputBorder.none,
+          hintText: hint_text,
+          hintStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 17.sp,
+          ),
+          prefixIcon: preicon,
+          suffixIcon: InkWell(
+            child: obsecureText!
+                ? Icon(
+                    Icons.visibility_off,
+                    color: Color.fromARGB(255, 65, 61, 61),
+                  )
+                : Icon(
+                    icon,
+                    color: Color.fromARGB(255, 65, 61, 61),
+                  ),
+            onTap: onIconPress,
+          ),
+        ),
       ),
     );
   }
