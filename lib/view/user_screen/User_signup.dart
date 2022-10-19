@@ -365,7 +365,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                           height: 31.h,
                         ),
                         authButton(
-                          text: "Sign Up",
+                          text: isLoadingNow ? "Please wait...":"Sign Up",
                           color: Color(0xffF5AD0D),
                           func: () {
                                   _validateFields();

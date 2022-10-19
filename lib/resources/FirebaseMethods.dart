@@ -4,13 +4,14 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:rentpayy/utils/Strings.dart';
 
 import '../model/UserModel.dart';
 
 class FirebaseMethods{
     final FirebaseAuth _auth = FirebaseAuth.instance;
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
- static final CollectionReference _userCollection = firestore.collection('users');
+ static final CollectionReference _userCollection = firestore.collection(USERS_COLLECTION);
 
   Reference _storageReference = FirebaseStorage.instance.ref();
 
