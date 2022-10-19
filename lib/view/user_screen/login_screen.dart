@@ -15,8 +15,7 @@ import '../../utils/style/Images.dart';
 class login_screen extends StatelessWidget {
   login_screen({Key? key}) : super(key: key);
 
-  @override
-  void dispose() {}
+ 
 
   @override
   Widget build(BuildContext context) {

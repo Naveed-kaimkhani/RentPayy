@@ -8,13 +8,13 @@ class UserModel {
   String? age;
   
   UserModel({
-   required this.uid,
-   required this.profileImage,
-   required this.name,
-  required  this.phone,
-   required this.email,
-required this.gender,
-required this.age,
+   this.uid,
+   this.profileImage,
+    this.name,
+    this.phone,
+    this.email,
+    this.gender,
+    this.age,
    
     // ignore: non_constant_identifier_names
 
