@@ -40,8 +40,9 @@ dependencies:
   fluttertoast: ^8.0.9
   another_flushbar: ^1.12.29
   flutter_svg: ^1.1.5
-  dropdown_button2:
   flutter_launcher_icons: ^0.10.0
+  image_picker: ^0.8.6
+  multi_image_picker: ^4.8.1
 
 dev_dependencies:
   flutter_test:
