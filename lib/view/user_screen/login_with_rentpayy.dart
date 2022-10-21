@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
@@ -9,8 +9,13 @@ import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/components/or_line_widget.dart';
 import 'package:rentpayy/components/terms_and_condition.dart';
+import 'package:rentpayy/utils/StorageService.dart';
+import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+import 'package:rentpayy/utils/utils.dart';
 
+import '../../model/UserModel.dart';
+import '../../resources/FirebaseRepository.dart';
 import '../../utils/style/Images.dart';
 
 class login_with_rentpayy extends StatefulWidget {
@@ -21,6 +26,7 @@ class login_with_rentpayy extends StatefulWidget {
 }
 
 class _login_with_rentpayyState extends State<login_with_rentpayy> {
+
   TextEditingController _emailController = TextEditingController();
 
   final ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(true);
@@ -30,9 +36,14 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
   FocusNode emailFocusNode = FocusNode();
 
   FocusNode passwordFocusNode = FocusNode();
-
+  bool isLoadingNow = false;
   bool _obsecureText = true;
-
+  final FirebaseRepository _firebaseRepository = FirebaseRepository();
+void isLoading(bool value) {
+    setState(() {
+      isLoadingNow = value;
+    });
+  }
   void dispose() {
     _emailController.dispose();
     _passController.dispose();
@@ -42,6 +53,49 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
     super.dispose();
   }
 
+  void _validateFields() {
+    if (_emailController.text.trim().isEmpty &&
+        _passController.text.trim().isEmpty) {
+          utils.flushBarErrorMessage('Enter your email and password', context);
+      // showFailureDialog(context, 'Enter your email and password').show(context);
+    } else if (_emailController.text.trim().isEmpty) {
+                utils.flushBarErrorMessage('Enter your email', context);
+    } else if (_passController.text.trim().isEmpty) {
+               utils.flushBarErrorMessage('Enter your password', context);
+    } else if (!EmailValidator.validate(_emailController.text)) {
+                     utils.flushBarErrorMessage('Invalid Email', context);
+    } else {
+      isLoading(true);
+      _login();
+    }
+  }
+void _login(){
+  _firebaseRepository.login(_emailController.text,_passController.text).then((User? user) {
+      if (user!=null) {
+        _getUserDetails(user.uid);
+      }else{
+        isLoading(false);
+        utils.flushBarErrorMessage("Failed to login", context);
+      }
+  });
+}
+void _getUserDetails(String uid){
+  _firebaseRepository.getUserDetails(uid).then((UserModel? userModel){
+    if(userModel!=null){
+        StorageService.saveUser(userModel).then((value) {
+            isLoading(false);
+            Navigator.pushNamed(context, RoutesName.homeScreen);
+        }).catchError((error){
+              utils.flushBarErrorMessage(error.message.toString(), context);
+        });
+    }else{
+
+    }
+  }).catchError((error){
+      isLoading(false);
+      utils.flushBarErrorMessage(error.message.toString(), context);
+  });
+}
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -95,7 +149,9 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                   ),
                   authButton(
                       text: "Login",
-                      func: () {},
+                      func: () {
+                        _validateFields();
+                      },
                       color: AppColors.primaryColor),
                   SizedBox(
                     height: 73.h,

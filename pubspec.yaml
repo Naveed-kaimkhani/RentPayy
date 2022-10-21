@@ -48,6 +48,7 @@ dependencies:
   cloud_firestore: ^4.0.1
   email_validator: ^2.1.17
   shared_preferences: ^2.0.15
+  image_picker: ^0.8.6
 
 dev_dependencies:
   flutter_test:

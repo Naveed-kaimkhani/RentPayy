@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,9 +49,10 @@ class _User_signup_pageState extends State<User_signup_page> {
 
   List<String> genderList = ["Male", "Female"];
   String? selectedvalue = "Gender";
-  File? _profileImage;
   bool isLoadingNow = false;
   bool _obsecureText = true;
+  // Uint8List? _profileImage;
+  Uint8List? _profileImage;
 
   @override
   void dispose() {
@@ -121,7 +123,6 @@ class _User_signup_pageState extends State<User_signup_page> {
         .then((User? user) async {
       if (user != null) {
         userModel.uid = user.uid;
-        userModel.uid = user.uid;
         userModel.profileImage = await _firebaseRepository.uploadProfileImage(
             imageFile: _profileImage!, uid: userModel.uid!);
         _saveUser(user, userModel);
@@ -176,34 +177,33 @@ class _User_signup_pageState extends State<User_signup_page> {
                         SizedBox(
                           height: 32.h,
                         ),
-                        CircleAvatar(
-                          minRadius: 50.r,
-                          maxRadius: 50.r,
-                          backgroundImage: const AssetImage("asset/avatar.png"),
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Container(
-                              width: 36.w,
-                              height: 36.h,
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryColor,
-                                borderRadius: BorderRadius.circular(50.r),
-                              ),
-                              child: Container(
-                                width: 20.w,
-                                height: 20.h,
-                                child: Container(
-                                  child: Image.asset('asset/gallery.png'),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        // CircleAvatar(
+                        //   minRadius: 50.r,
+                        //   maxRadius: 50.r,
+                        //   backgroundImage: const AssetImage("asset/avatar.png"),
+                        //   child: Align(
+                        //     alignment: Alignment.bottomRight,
+                        //     child: Container(
+                        //       width: 36.w,
+                        //       height: 36.h,
+                        //       decoration: BoxDecoration(
+                        //         color: AppColors.primaryColor,
+                        //         borderRadius: BorderRadius.circular(50.r),
+                        //       ),
+                        //       child: Container(
+                        //         width: 20.w,
+                        //         height: 20.h,
+                        //         child: Image.asset('asset/gallery.png'),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        UploadProfile(_profileImage),
                         SizedBox(
                           height: 15.16.h,
                         ),
                         inputfields(
-                          hint_text: "Enter name",
+                          hint_text: "   Enter name",
                           currentNode: nameFocusNode,
                           focusNode: nameFocusNode,
                           nextNode: numberFocusNode,
@@ -214,7 +214,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "Enter phone number",
+                          hint_text: "  Enter phone number",
                           currentNode: numberFocusNode,
                           focusNode: numberFocusNode,
                           nextNode: ageFocusNode,
@@ -309,7 +309,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                                           width: 1.0),
                                     ),
                                     border: InputBorder.none,
-                                    hintText: "Age",
+                                    hintText: " Age",
                                     hintStyle: TextStyle(
                                       color: Colors.black,
                                       fontSize: 17.sp,
@@ -324,7 +324,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "Enter email address",
+                          hint_text: "  Enter email address",
                           currentNode: emailFocusNode,
                           focusNode: emailFocusNode,
                           nextNode: passwordFocusNode,
@@ -335,7 +335,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "Set password",
+                          hint_text: "  Set password",
                           currentNode: passwordFocusNode,
                           focusNode: passwordFocusNode,
                           nextNode: confirmpasswordFocusNode,
@@ -348,7 +348,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "Confirm password",
+                          hint_text: "  Confirm password",
                           currentNode: confirmpasswordFocusNode,
                           focusNode: confirmpasswordFocusNode,
                           nextNode: confirmpasswordFocusNode,
@@ -382,4 +382,94 @@ class _User_signup_pageState extends State<User_signup_page> {
       _obsecureText = !_obsecureText;
     });
   }
+
+  Widget UploadProfile(Uint8List? image) {
+    return image == null
+        ? Stack(
+            children: [
+              // Image.network(
+              //   "https://m.media-amazon.com/images/I/11uufjN3lYL._SX90_SY90_.png",
+              //   height: 60,
+              // ),
+              Image.asset(
+                "asset/avatar.png",
+                height: 100.h,
+                width: 100.w,
+              ),
+              Positioned(
+                left: 45.w,
+                bottom: 0.h,
+                child: IconButton(
+                  onPressed: () async {
+                    Uint8List? _image = await utils.PickImage();
+                    if (_image != null) {
+                      setState(() {
+                        _profileImage = _image;
+                      });
+                    } else {
+                      print("Image not loaded");
+                    }
+                  },
+                  icon: Container(
+                    width: 36.w,
+                    height: 36.h,
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      borderRadius: BorderRadius.circular(50.r),
+                    ),
+                    child: Container(
+                      width: 20.w,
+                      height: 20.h,
+                      child: Image.asset('asset/gallery.png'),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
+        : Stack(
+            children: [
+              CircleAvatar(
+                minRadius: 50.r,
+                maxRadius: 50.r,
+                child: ClipOval(
+                    child: Image.memory(
+                  image,
+                  height: 200.h,
+                  width: 200.w,
+                  fit: BoxFit.cover,
+                )),
+                // child: ,
+              ),
+              Positioned(
+                left: 45.w,
+                bottom: 0.h,
+                child: IconButton(
+                  onPressed: () async {
+                    Uint8List? _image = await utils.PickImage();
+                    if (_image != null) {
+                      setState(() {
+                        image = _image;
+                      });
+                    }
+                    print("Image not loaded");
+                  },
+                  icon: Container(
+                    width: 36.w,
+                    height: 36.h,
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      borderRadius: BorderRadius.circular(50.r),
+                    ),
+                    child: Container(
+                      width: 20.w,
+                      height: 20.h,
+                      child: Image.asset('asset/gallery.png'),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+  } // for 1st image
 }

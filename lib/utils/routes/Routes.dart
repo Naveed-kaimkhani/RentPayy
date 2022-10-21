@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/view/user_screen/User_signup.dart';
+import 'package:rentpayy/view/user_screen/home_screen.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 
 import '../../view/user_screen/login_screen.dart';
@@ -16,6 +17,8 @@ class Routes{
    
       case RoutesName.loginWithRentPayy:
         return _buildRoute( login_with_rentpayy(), settings);  
+      case RoutesName.homeScreen:
+        return _buildRoute( home_screen(), settings);  
    
          default:
         return _buildRoute(const Scaffold(), settings);

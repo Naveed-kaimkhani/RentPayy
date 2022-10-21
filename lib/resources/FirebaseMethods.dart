@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:rentpayy/utils/Strings.dart';
 
 import '../model/UserModel.dart';
@@ -35,19 +36,27 @@ class FirebaseMethods{
 
     return userCredential.user;
   }
+
   Future<void> signOut() async {
     await _auth.signOut();
   }
 
   
   Future<String> uploadProfileImage(
-      {required File imageFile, required String uid}) async {
+      {required Uint8List? imageFile, required String uid}) async {
     await _storageReference
         .child('profile_images')
         .child(uid)
-        .putFile(imageFile);
+        .putData(imageFile!);
     String downloadURL =
         await _storageReference.child('profile_images/$uid').getDownloadURL();
     return downloadURL;
+  }
+
+    Future<UserModel> getUserDetails(String? uid) async {
+    DocumentSnapshot documentSnapshot = await _userCollection.doc(uid).get();
+    UserModel userModel =
+        UserModel.fromMap(documentSnapshot.data() as Map<String, dynamic>);
+    return userModel;
   }
 }
