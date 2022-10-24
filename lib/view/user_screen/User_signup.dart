@@ -6,9 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/authButton.dart';
+import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
-import 'package:rentpayy/utils/StorageService.dart';
+import 'package:rentpayy/resources/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import '../../components/auth_screens_decor.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -358,7 +359,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                         SizedBox(
                           height: 31.h,
                         ),
-                        authButton(
+                       isLoadingNow?circle_progress():authButton(
                           text: isLoadingNow ? "Please wait..." : "Sign Up",
                           color: Color(0xffF5AD0D),
                           func: () {

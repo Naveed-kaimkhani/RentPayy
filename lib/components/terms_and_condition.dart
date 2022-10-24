@@ -11,7 +11,7 @@ class terms_and_conditions extends StatelessWidget {
     return Text(
       "If you continue, you are accepting RentPayy Terms and Conditions\n                                         and Privacy Policy",
       style: TextStyle(
-        fontSize: 15.sp,
+        fontSize: 13.sp,
         fontWeight: FontWeight.w300,
       ),
     );

@@ -1,11 +1,16 @@
 
-import 'dart:io';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rentpayy/utils/Strings.dart';
+import 'package:rentpayy/view/user_screen/home_screen.dart';
+import 'package:rentpayy/view/user_screen/login_screen.dart';
 
 import '../model/UserModel.dart';
 
@@ -16,6 +21,36 @@ class FirebaseMethods{
 
   Reference _storageReference = FirebaseStorage.instance.ref();
 
+ static handleAuthState() {
+    return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasData) {
+            return home_screen();
+          } else {
+            return login_screen ();
+          }
+        });
+  }
+   Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(
+        scopes: <String>["email"]).signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+
+
+  // Create a new credential  
+final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+// UserCredential authResult = await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
     Future<User?> signUp(String email, String password) async {
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
       email: email,

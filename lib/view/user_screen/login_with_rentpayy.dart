@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
+import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/components/or_line_widget.dart';
 import 'package:rentpayy/components/terms_and_condition.dart';
-import 'package:rentpayy/utils/StorageService.dart';
+import 'package:rentpayy/resources/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
@@ -147,7 +148,7 @@ void _getUserDetails(String uid){
                   SizedBox(
                     height: 38.h,
                   ),
-                  authButton(
+                 isLoadingNow?circle_progress(): authButton(
                       text: "Login",
                       func: () {
                         _validateFields();

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "543945907406-vsunbuiqfb7d8i74933f9krf7njhlueo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rentpayy",
+            "certificate_hash": "dd8be21f5b6fbfd51fff014cb0875681608319c9"
+          }
+        },
+        {
           "client_id": "543945907406-d6866v2m2i6kaajqidhrnoo3gfb0o08k.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "543945907406-d6866v2m2i6kaajqidhrnoo3gfb0o08k.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "543945907406-fgkgesd0op2bd694bh183rqma8rige6m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rentpayy"
+              }
             }
           ]
         }
