@@ -127,6 +127,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+<<<<<<< HEAD
   dbus:
     dependency: transitive
     description:
@@ -148,6 +149,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.17"
+=======
+>>>>>>> RentPayy_UI
   fake_async:
     dependency: transitive
     description:
@@ -429,6 +432,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.2"
+<<<<<<< HEAD
   intl:
     dependency: transitive
     description:
@@ -436,6 +440,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.17.0"
+=======
+>>>>>>> RentPayy_UI
   js:
     dependency: transitive
     description:
@@ -471,6 +477,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  multi_image_picker:
+    dependency: "direct main"
+    description:
+      name: multi_image_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.8.01"
   path:
     dependency: transitive
     description:
@@ -520,6 +533,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
+<<<<<<< HEAD
   platform:
     dependency: transitive
     description:
@@ -527,6 +541,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+=======
+>>>>>>> RentPayy_UI
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -534,6 +550,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.3"
+<<<<<<< HEAD
   process:
     dependency: transitive
     description:
@@ -604,6 +621,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+=======
+>>>>>>> RentPayy_UI
   sky_engine:
     dependency: transitive
     description: flutter
@@ -709,4 +728,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.18.2 <3.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=2.11.0-0.1.pre"

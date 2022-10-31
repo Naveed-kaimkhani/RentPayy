@@ -12,7 +12,6 @@ import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/resources/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import '../../components/auth_screens_decor.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:rentpayy/utils/utils.dart';
 import '../../model/UserModel.dart';
 import '../../resources/FirebaseRepository.dart';
@@ -243,47 +242,47 @@ class _User_signup_pageState extends State<User_signup_page> {
                         ),
                         Row(
                           children: [
-                            Container(
-                              width: 185.w,
-                              height: 60.h,
-                              decoration: BoxDecoration(
-                                color: AppColors.textfieldsColor,
-                                borderRadius: BorderRadius.circular(7.r),
-                              ),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton2(
-                                  buttonElevation: 0,
-                                  dropdownElevation: 0,
-                                  itemHeight: 40,
-                                  icon: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                  focusNode: dropdownFocusNode,
-                                  hint: Text(
-                                    selectedvalue!,
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  buttonWidth: 150,
-                                  dropdownDecoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(7.r),
-                                      color: AppColors.textfieldsColor),
-                                  items: genderList
-                                      .map(
-                                        (value) => DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        ),
-                                      )
-                                      .toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedvalue = value as String;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
+                            // Container(
+                            //   width: 185.w,
+                            //   height: 60.h,
+                            //   decoration: BoxDecoration(
+                            //     color: AppColors.textfieldsColor,
+                            //     borderRadius: BorderRadius.circular(7.r),
+                            //   ),
+                            //   child: DropdownButtonHideUnderline(
+                            //     child: DropdownButton2(
+                            //       buttonElevation: 0,
+                            //       dropdownElevation: 0,
+                            //       itemHeight: 40,
+                            //       icon: Icon(
+                            //         Icons.arrow_drop_down,
+                            //         color: AppColors.primaryColor,
+                            //       ),
+                            //       focusNode: dropdownFocusNode,
+                            //       hint: Text(
+                            //         selectedvalue!,
+                            //         style: TextStyle(color: Colors.black),
+                            //       ),
+                            //       buttonWidth: 150,
+                            //       dropdownDecoration: BoxDecoration(
+                            //           borderRadius: BorderRadius.circular(7.r),
+                            //           color: AppColors.textfieldsColor),
+                            //       items: genderList
+                            //           .map(
+                            //             (value) => DropdownMenuItem<String>(
+                            //               value: value,
+                            //               child: Text(value),
+                            //             ),
+                            //           )
+                            //           .toList(),
+                            //       onChanged: (value) {
+                            //         setState(() {
+                            //           selectedvalue = value as String;
+                            //         });
+                            //       },
+                            //     ),
+                            //   ),
+                            // ),
                             SizedBox(
                               width: 7.w,
                             ),
