@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
-import 'package:rentpayy/components/image_video_component.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 
 class AddGallery extends StatefulWidget {
