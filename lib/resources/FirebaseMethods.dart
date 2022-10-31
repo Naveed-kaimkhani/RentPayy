@@ -8,6 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:rentpayy/model/NewMessage.dart';
 import 'package:rentpayy/utils/Strings.dart';
 import 'package:rentpayy/view/user_screen/home_screen.dart';
 import 'package:rentpayy/view/user_screen/login_screen.dart';
@@ -18,6 +19,7 @@ class FirebaseMethods{
     final FirebaseAuth _auth = FirebaseAuth.instance;
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
  static final CollectionReference _userCollection = firestore.collection(USERS_COLLECTION);
+//  static final CollectionReference _chatCollection = firestore.collection(USERS_COLLECTION);
 
   Reference _storageReference = FirebaseStorage.instance.ref();
 
@@ -76,7 +78,7 @@ final credential = GoogleAuthProvider.credential(
     await _auth.signOut();
   }
 
-  
+  User? getCurrentUser() => _auth.currentUser;
   Future<String> uploadProfileImage(
       {required Uint8List? imageFile, required String uid}) async {
     await _storageReference
@@ -94,4 +96,22 @@ final credential = GoogleAuthProvider.credential(
         UserModel.fromMap(documentSnapshot.data() as Map<String, dynamic>);
     return userModel;
   }
+
+//  static Future uploadMessage(String idUser, String message)async{
+
+//   final refMessage=FirebaseFirestore.instance.collection('chats/$idUser/messages');
+ 
+//  final newMessage=NewMessage(
+//   idUser: 'zknfdi343443k4jj', //myid
+//   urlAvatar: 'https://celebsupdate.com/wp-content/uploads/2020/03/Bilal-Abbas-Age-Bio-Wiki-Parents-Siblings-Career-Net-Worth-Awards.jpg',
+//    username: 'naveed', 
+//    message: message,
+//     createdAt: DateTime.now());
+//  await refMessage.add(newMessage.toJson());
+
+//   //inform 2nd user that he got a new message
+//   _userCollection.doc(idUser)  //id of the user we want to send message
+//   .update({UserField.lastMessageTime:})
+//   }
+ 
 }

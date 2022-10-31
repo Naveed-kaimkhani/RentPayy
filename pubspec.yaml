@@ -46,6 +46,8 @@ dependencies:
   firebase_storage: ^11.0.1
   firebase_core: ^2.0.0
   cloud_firestore: ^4.0.1
+  flutter_local_notifications: ^12.0.2
+  firebase_messaging: ^14.0.2
   email_validator: ^2.1.17
   shared_preferences: ^2.0.15
   image_picker: ^0.8.6
