@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/resources/FirebaseMethods.dart';
 
@@ -14,7 +15,7 @@ Future<User?> signUp(String email, String password) =>
       _firebaseMethods.signUp(email, password);
 
   Future<String> uploadProfileImage(
-          {required File imageFile, required String uid}) =>
+          {required Uint8List imageFile, required String uid}) =>
       _firebaseMethods.uploadProfileImage(imageFile: imageFile, uid: uid);
 
     Future<void> saveUserDataToFirestore(UserModel userModel) =>
@@ -22,4 +23,10 @@ Future<User?> signUp(String email, String password) =>
 
     Future<void> saveHostelDataToFirestore(hostelModel hostelModel) =>
         _firebaseMethods.saveHostelDataToFirestore(hostelModel);
+
+    Future<User?> login(String email, String password) =>
+      _firebaseMethods.login(email, password);    
+
+    Future<UserModel> getUserDetails(String? uid) =>
+      _firebaseMethods.getUserDetails(uid);
 }

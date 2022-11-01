@@ -1,19 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rentpayy/test.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
-import 'package:rentpayy/view/Hostel_Screen/Hostel_Registration.dart';
 import 'package:rentpayy/view/Hostel_Screen/Hostel_signup.dart';
-import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
-import 'package:rentpayy/view/forgot_password/forgot_password.dart';
-import 'package:rentpayy/view/starter_screen.dart';
 
 
-import 'package:rentpayy/view/user_screen/login_screen.dart';
-import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 
 
 void main() async{

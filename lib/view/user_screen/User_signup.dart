@@ -52,8 +52,8 @@ class _User_signup_pageState extends State<User_signup_page> {
   String? selectedvalue = "Gender";
   bool isLoadingNow = false;
   bool _obsecureText = true;
-  // Uint8List? _profileImage;
   Uint8List? _profileImage;
+  // File? _profileImage;
 
   @override
   void dispose() {
