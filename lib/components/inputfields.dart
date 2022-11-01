@@ -60,15 +60,11 @@ class inputfields extends StatelessWidget {
           ),
           prefixIcon: preicon,
           suffixIcon: InkWell(
-            child: obsecureText!
-                ? Icon(
-                    Icons.visibility_off,
-                    color: Color.fromARGB(255, 65, 61, 61),
-                  )
-                : Icon(
-                    icon,
-                    color: Color.fromARGB(255, 65, 61, 61),
-                  ),
+            child:
+            Icon(
+            icon,
+            color: Color.fromARGB(255, 65, 61, 61),
+          ),
             onTap: onIconPress,
           ),
         ),

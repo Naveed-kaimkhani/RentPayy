@@ -1,12 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/mini_Button.dart';
 import 'package:rentpayy/components/point_increament_button.dart';
+import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
 
 import '../../components/dropdown_button.dart';
+import '../../model/hostelModel.dart';
+import '../../model/hostelModel.dart';
+
 
 class Hostel_Registration extends StatefulWidget {
   const Hostel_Registration({Key? key}) : super(key: key);
@@ -16,177 +23,249 @@ class Hostel_Registration extends StatefulWidget {
 }
 
 class _Hostel_RegistrationState extends State<Hostel_Registration> {
-  TextEditingController totalCapacityController = TextEditingController();
-  TextEditingController availableCapacityController = TextEditingController();
-  TextEditingController personPerRoomController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  hostelModel HostelModel = hostelModel();
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
+  final user = FirebaseAuth.instance.currentUser!.uid;
 
   List<String> genderList = ["Male", "Female"];
   List<String> HostelList = ["Bachelor Hostel", "Working Hostel"];
   String? hostelselectedvalue = "Hostel Type";
   String? typeselectedvalue = "Type";
 
+  int total_capacity_increment = 0;
+  int available_capacity_increment = 0;
+  int person_per_room = 0;
   @override
   void dispose() {
-    totalCapacityController.dispose();
-    availableCapacityController.dispose();
-    personPerRoomController.dispose();
+    descriptionController.dispose();
     super.dispose();
   }
 
+  Facilities fac = Facilities();
+
+
+  void savedata() {
+    db.collection("hostels").doc(user).update({
+      "hostel_gender_type": typeselectedvalue,
+      "hostel_type": hostelselectedvalue,
+      "total_capacity": total_capacity_increment,
+      "available_capacity": available_capacity_increment,
+      "person_per_room": person_per_room,
+      "description": descriptionController.text
+    });
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: custom_appbar(),
-      body: Stack(
-        children: [
-          Container(
-            color: AppColors.primaryColor,
-            child: Container(
-              decoration: auth_screens_decor(),
-              child: Padding(
-                padding: EdgeInsets.only(left: 21.w, right: 22.w,top: 20.h),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 57.h,
-                      ),
-                      Text(
-                        "Hostel Registration",
-                        style: TextStyle(
-                            fontSize: 26.sp, fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                        height: 42.h,
-                      ),
-                      Row(
-                        children: [
-                          Dropdown_button(
-                            list: HostelList,
-                            hinttext: hostelselectedvalue,
-                          ),
-                          SizedBox(
-                            width: 15.w,
-                          ),
-                          Dropdown_button(
-                            list: genderList,
-                            hinttext: typeselectedvalue,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 37.h,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Total Capacity",
-                            style: TextStyle(
-                                fontSize: 17.sp, fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            width: 98.w,
-                          ),
-                          Text(
-                            "Availabile Capacity",
-                            style: TextStyle(
-                                fontSize: 17.sp, fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 13.h,
-                      ),
-                      Row(
-                        children: [
-                          Point_increament_button(
-                            pointscotroller: totalCapacityController,
-                          ),
-                          SizedBox(
-                            width: 21.w,
-                          ),
-                          Point_increament_button(
-                            pointscotroller: availableCapacityController,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 37.04.h,
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+      child: Scaffold(
+        appBar: custom_appbar(),
+        body: Stack(
+          children: [
+            Container(
+              color: AppColors.primaryColor,
+              child: Container(
+                decoration: auth_screens_decor(),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 21.w, right: 22.w),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 57.h,
+                        ),
+                        Text(
+                          "Hostel Registration",
+                          style: TextStyle(
+                              fontSize: 26.sp, fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(
+                          height: 42.h,
+                        ),
+                        Row(
+                          children: [
+                            Dropdown_button(
+                              list: HostelList,
+                              hinttext: hostelselectedvalue,
+                            ),
+                            SizedBox(
+                              width: 15.w,
+                            ),
+                            Dropdown_button(
+                              list: genderList,
+                              hinttext: typeselectedvalue,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 37.h,
+                        ),
+                        Row(
                           children: [
                             Text(
-                              "Person per Room",
+                              "Total Capacity",
                               style: TextStyle(
                                   fontSize: 17.sp, fontWeight: FontWeight.w500),
                             ),
                             SizedBox(
-                              height: 13.04.h,
+                              width: 98.w,
+                            ),
+                            Text(
+                              "Availabile Capacity",
+                              style: TextStyle(
+                                  fontSize: 17.sp, fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 13.h,
+                        ),
+                        Row(
+                          children: [
+                            Point_increament_button(
+                              minus: () {
+                                setState(() {
+                                  if (total_capacity_increment == 0)
+                                    total_capacity_increment = 0;
+                                  else
+                                    total_capacity_increment--;
+                                });
+                              },
+                              plus: () {
+                                setState(() {
+                                  total_capacity_increment++;
+                                  print(total_capacity_increment);
+                                });
+                              },
+                              increment: total_capacity_increment,
+                            ),
+                            SizedBox(
+                              width: 21.w,
                             ),
                             Point_increament_button(
-                              pointscotroller: personPerRoomController,
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 37.04.h,
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Description",
-                              style: TextStyle(
-                                  fontSize: 17.sp, fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              height: 13,
-                            ),
-                            Container(
-                              width: 385.w,
-                              height: 149,
-                              decoration: BoxDecoration(
-                                color: AppColors.textfieldsColor,
-                                borderRadius: BorderRadius.circular(7.r),
-                              ),
-                              child: TextField(
-                                maxLength: 250,
-                                maxLines: 8,
-                                decoration: InputDecoration.collapsed(
-                                    hintText: "Write a description"),
-                              ),
+                              minus: () {
+                                setState(() {
+                                  if (available_capacity_increment == 0)
+                                    available_capacity_increment = 0;
+                                  else
+                                    available_capacity_increment--;
+                                });
+                              },
+                              plus: () {
+                                setState(() {
+                                  available_capacity_increment++;
+                                  print("object");
+                                });
+                              },
+                              increment: available_capacity_increment,
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 13.85.h,
-                      ),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: MiniButton(
-                            text: "Next",
-                            func: () {},
-                            color: AppColors.primaryColor,
-                            icon: "asset/arrow.png"),
-                      )
-                    ],
+                        SizedBox(
+                          height: 37.04.h,
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Person per Room",
+                                style: TextStyle(
+                                    fontSize: 17.sp,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(
+                                height: 13.04.h,
+                              ),
+                              Point_increament_button(
+                                minus: () {
+                                  setState(() {
+                                    if (person_per_room == 0)
+                                      person_per_room = 0;
+                                    else
+                                      person_per_room--;
+                                  });
+                                },
+                                plus: () {
+                                  setState(() {
+                                    person_per_room++;
+                                  });
+                                },
+                                increment: person_per_room,
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 37.04.h,
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Description",
+                                style: TextStyle(
+                                    fontSize: 17.sp,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(
+                                height: 13,
+                              ),
+                              Container(
+                                width: 385.w,
+                                height: 149,
+                                decoration: BoxDecoration(
+                                  color: AppColors.textfieldsColor,
+                                  borderRadius: BorderRadius.circular(7.r),
+                                ),
+                                child: TextField(
+                                  maxLength: 250,
+                                  maxLines: 8,
+                                  controller: descriptionController,
+                                  decoration: InputDecoration.collapsed(
+                                      hintText: "Write a description"),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 13.85.h,
+                        ),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: MiniButton(
+                              text: "Next",
+                              func: () {
+                                setState(() {
+                                  savedata();
+                                });
+                              },
+                              color: AppColors.primaryColor,
+                              icon: "asset/arrow.png"),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),);
+    );
   }
 }

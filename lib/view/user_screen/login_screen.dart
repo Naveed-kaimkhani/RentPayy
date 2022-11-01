@@ -3,9 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rentpayy/model/UserModel.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
-import 'package:rentpayy/utils/utils.dart';
+
+import '../../components/authButton.dart';
+import '../../components/auth_screens_decor.dart';
+import '../../components/custom_appbar.dart';
+import '../../components/or_line_widget.dart';
+import '../../components/terms_and_condition.dart';
+import '../../utils/style/AppColors.dart';
+import '../../utils/style/Images.dart';
 
 import '../../components/authButton.dart';
 import '../../components/auth_screens_decor.dart';
@@ -20,42 +26,7 @@ import '../../utils/style/Images.dart';
 class login_screen extends StatefulWidget {
   login_screen({Key? key}) : super(key: key);
 
-  @override
-  State<login_screen> createState() => _login_screenState();
-}
-
-class _login_screenState extends State<login_screen> {
-    FirebaseMethods _firebaseMethods = FirebaseMethods();
-
-    final FirebaseRepository _firebaseRepository = FirebaseRepository();
-
- void handleGoogleSignIn(){
-  // UserCredential authResult = await _firebaseMethods.signInWithGoogle();
-  _firebaseMethods.signInWithGoogle().then((authResult) => (){
-  var user=authResult.user;
-  if (user!=null) {
-      _firebaseRepository.saveUserDataToFirestore(UserModel(
-        uid: user.uid,
-        email: user.email,
-        name: user.displayName,
-        profileImage: user.photoURL,
-        phone: user.phoneNumber,
-        gender: '',
-        age: '',
-      )).then((value) => (){
-        Navigator.pushNamed(context,RoutesName.homeScreen);
-      }).catchError((error){
-        utils.flushBarErrorMessage(error.message.toString(), context);
-      });
-  }else{
-    utils.flushBarErrorMessage("user null", context);
-  }
-
-  }).catchError((error){
-    utils.flushBarErrorMessage(error.message.toString(), context);
-  });
-  // var user=authResult.user;
- }
+ 
 
   @override
   Widget build(BuildContext context) {

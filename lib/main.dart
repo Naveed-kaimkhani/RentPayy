@@ -5,16 +5,20 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/test.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:rentpayy/view/user_screen/chat_page.dart';
-import 'package:rentpayy/view/user_screen/chat_screen.dart';
-import 'package:rentpayy/view/user_screen/login_screen.dart';
+import 'package:rentpayy/view/Hostel_Screen/Hostel_Registration.dart';
+import 'package:rentpayy/view/Hostel_Screen/Hostel_signup.dart';
+import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
+import 'package:rentpayy/view/forgot_password/forgot_password.dart';
+import 'package:rentpayy/view/starter_screen.dart';
 
-void main() async {
+
+import 'package:rentpayy/view/user_screen/login_screen.dart';
+import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
+
+
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await FirebaseMessaging.instance.getInitialMessage();
-
   runApp(const MyApp());
 }
 
@@ -41,7 +45,7 @@ class _MyAppState extends State<MyApp> {
               // theme: ThemeData(
               //   primarySwatch: Colors.blue,
               // ),
-              home: chat_page(),
+              home: Hostel_Signup(),
               // initialRoute: RoutesName.login,
               // onGenerateRoutes: Routes.onGenerateRoute(settings),
               onGenerateRoute: Routes.onGenerateRoute,

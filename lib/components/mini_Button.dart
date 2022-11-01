@@ -19,7 +19,7 @@ class MiniButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        width: 157.h,
+        width: 157.w,
         height: 67.h,
         decoration: BoxDecoration(
           color: color!,

@@ -7,7 +7,11 @@ packages:
       name: _flutterfire_internals
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.0.5"
+=======
+    version: "1.0.4"
+>>>>>>> RentPayy_UI
   another_flushbar:
     dependency: "direct main"
     description:
@@ -84,14 +88,22 @@ packages:
       name: cloud_firestore_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "5.8.2"
+=======
+    version: "5.8.1"
+>>>>>>> RentPayy_UI
   cloud_firestore_web:
     dependency: transitive
     description:
       name: cloud_firestore_web
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "3.0.2"
+=======
+    version: "3.0.1"
+>>>>>>> RentPayy_UI
   collection:
     dependency: transitive
     description:
@@ -127,6 +139,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+<<<<<<< HEAD
   dbus:
     dependency: transitive
     description:
@@ -134,13 +147,19 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.8"
+=======
+>>>>>>> RentPayy_UI
   dropdown_button2:
     dependency: "direct main"
     description:
       name: dropdown_button2
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.8.5"
+=======
+    version: "1.8.9"
+>>>>>>> RentPayy_UI
   email_validator:
     dependency: "direct main"
     description:
@@ -196,7 +215,11 @@ packages:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.1.0"
+=======
+    version: "2.0.0"
+>>>>>>> RentPayy_UI
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -211,6 +234,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+<<<<<<< HEAD
   firebase_messaging:
     dependency: "direct main"
     description:
@@ -232,6 +256,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.3"
+=======
+>>>>>>> RentPayy_UI
   firebase_storage:
     dependency: "direct main"
     description:
@@ -331,6 +357,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.1.1"
+<<<<<<< HEAD
   google_sign_in:
     dependency: "direct main"
     description:
@@ -366,6 +393,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.2"
+=======
+>>>>>>> RentPayy_UI
   html:
     dependency: transitive
     description:
@@ -541,6 +570,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
+<<<<<<< HEAD
   quiver:
     dependency: transitive
     description:
@@ -548,6 +578,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+=======
+>>>>>>> RentPayy_UI
   shared_preferences:
     dependency: "direct main"
     description:

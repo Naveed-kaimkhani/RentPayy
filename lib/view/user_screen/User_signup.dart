@@ -9,7 +9,7 @@ import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
-import 'package:rentpayy/resources/StorageService.dart';
+import 'package:rentpayy/utils/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import '../../components/auth_screens_decor.dart';
 import 'package:rentpayy/utils/utils.dart';
@@ -47,6 +47,7 @@ class _User_signup_pageState extends State<User_signup_page> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmpasswordController = TextEditingController();
 
+  bool? obsecureText =false;
   List<String> genderList = ["Male", "Female"];
   String? selectedvalue = "Gender";
   bool isLoadingNow = false;
@@ -122,6 +123,7 @@ class _User_signup_pageState extends State<User_signup_page> {
     )
         .then((User? user) async {
       if (user != null) {
+        userModel.uid = user.uid;
         userModel.uid = user.uid;
         userModel.profileImage = await _firebaseRepository.uploadProfileImage(
             imageFile: _profileImage!, uid: userModel.uid!);
@@ -353,12 +355,18 @@ class _User_signup_pageState extends State<User_signup_page> {
                           focusNode: confirmpasswordFocusNode,
                           nextNode: confirmpasswordFocusNode,
                           controller: _confirmpasswordController,
-                          obsecureText: false,
+                          icon: obsecureText! ? Icons.remove_red_eye : Icons.visibility_off ,
+                          obsecureText: obsecureText,
+                            onIconPress: () {
+                          setState(() {
+                            obsecureText = !obsecureText!;
+                          });
+                        }
                         ),
                         SizedBox(
                           height: 31.h,
                         ),
-                       isLoadingNow?circle_progress():authButton(
+                        authButton(
                           text: isLoadingNow ? "Please wait..." : "Sign Up",
                           color: Color(0xffF5AD0D),
                           func: () {

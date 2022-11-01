@@ -5,80 +5,73 @@ import 'package:rentpayy/utils/style/AppColors.dart';
 import '../utils/style/Images.dart';
 
 class Point_increament_button extends StatelessWidget {
+  Point_increament_button({required this.minus,required this.plus,required this.increment,Key? key}) : super(key: key);
 
-
-  Point_increament_button(
-      {
-        required this.pointscotroller,
-        Key? key}
-      ) : super(key: key);
-
-
-  TextEditingController pointscotroller =TextEditingController();
+  int increment;
+  Function()? minus;
+  Function()? plus;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 179.w,
-      height: 60.h,
-      child: Row(
-        children: [
-      InkWell(
-      child:
-          Container(
-            width: 44.w,
-            height: 60.h,
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(7.h),
-                bottomLeft: Radius.circular(7.r),
-              ),
-            ),
-            child:Icon(Icons.remove),
-          ),
-        onTap: () {print("Minus");},
-      ),
-          Container(
-            decoration: BoxDecoration( color: AppColors.textfieldsColor,
-              border: Border(
-                left: BorderSide(
-                  color: Colors.black,
-                  width: 1
+    return StatefulBuilder(
+      builder: (BuildContext context, void Function(void Function()) setState) {
+        return Container(
+          width: 179.w,
+          height: 60.h,
+          child: Row(
+            children: [
+              InkWell(
+                child: Container(
+                  width: 44.w,
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(7.h),
+                      bottomLeft: Radius.circular(7.r),
+                    ),
+                  ),
+                  // child: Image.asset(Images.minus),
+                  child: Icon(Icons.remove),
                 ),
-                right: BorderSide(
-                  color: Colors.black,
-                  width: 1
-                )
-              )
-            ),
-            width: 91.w,
-            child: TextField(
-              textAlign: TextAlign.center,
-              controller: pointscotroller,
-              decoration: InputDecoration(
-                hintText: "0",
-                border: InputBorder.none
-              )
-            ),
-          ),
-          InkWell(
-            child: Container(
-              width: 44.w,
-              height: 60.h,
-              decoration: BoxDecoration(
-                color: AppColors.primaryColor,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(7.r),
-                  bottomRight: Radius.circular(7.r),
+                onTap: minus
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: AppColors.textfieldsColor,
+                    border: Border(
+                        left: BorderSide(color: Colors.black, width: 1),
+                        right: BorderSide(color: Colors.black, width: 1))),
+                width: 91.w,
+                height: 60.h,
+                child: Container(
+                  color: AppColors.textfieldsColor,
+                  child: Center(
+                      child: Text(
+                    increment.toString(),
+                    textAlign: TextAlign.center,
+                  )),
                 ),
               ),
-              child: Icon(Icons.add),
-            ),
-            onTap: () {print("Plus"); },
+              InkWell(
+                child: Container(
+                  width: 44.w,
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(7.r),
+                      bottomRight: Radius.circular(7.r),
+                    ),
+                  ),
+                  child: Icon(Icons.add),
+                ),
+                onTap: plus,
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

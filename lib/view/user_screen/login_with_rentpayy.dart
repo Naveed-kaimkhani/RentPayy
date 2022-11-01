@@ -27,7 +27,6 @@ class login_with_rentpayy extends StatefulWidget {
 }
 
 class _login_with_rentpayyState extends State<login_with_rentpayy> {
-
   TextEditingController _emailController = TextEditingController();
 
   final ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(true);
@@ -45,6 +44,9 @@ void isLoading(bool value) {
       isLoadingNow = value;
     });
   }
+
+  // bool _obsecureText = true;
+
   void dispose() {
     _emailController.dispose();
     _passController.dispose();

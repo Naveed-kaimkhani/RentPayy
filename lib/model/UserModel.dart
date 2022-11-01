@@ -4,7 +4,7 @@ class UserModel {
   String? name;
   String? phone;
   String? email;
- String? gender;
+  String? gender;
   String? age;
   
   UserModel({
@@ -30,10 +30,6 @@ class UserModel {
     data['email'] = user.email;
     data['gender'] = user.gender;
     data['age'] = user.age;
-    
-
-    
-  
     return data;
   }
 
