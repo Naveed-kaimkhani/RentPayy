@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../components/authButton.dart';
-import '../components/auth_screens_decor.dart';
-import '../components/custom_appbar.dart';
-import '../components/or_line_widget.dart';
-import '../components/terms_and_condition.dart';
-import '../utils/style/AppColors.dart';
-import '../utils/style/Images.dart';
+import 'package:rentpayy/utils/routes/RoutesName.dart';
+
+import '../../components/authButton.dart';
+import '../../components/auth_screens_decor.dart';
+import '../../components/custom_appbar.dart';
+import '../../components/or_line_widget.dart';
+import '../../components/terms_and_condition.dart';
+import '../../utils/style/AppColors.dart';
+import '../../utils/style/Images.dart';
 
 class login_screen extends StatelessWidget {
   login_screen({Key? key}) : super(key: key);
 
-  @override
-  void dispose() {}
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +32,11 @@ class login_screen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 39,),
+                  SizedBox(
+                    height: 39,
+                  ),
                   Container(
-                    height: 52.86.h,
+                      height: 52.86.h,
                       width: 135.w,
                       child: Image.asset(Images.mainicon)),
                   // EdgeInsets.symmetric(horizontal: 54.w, vertical: 170.h),
@@ -43,7 +46,10 @@ class login_screen extends StatelessWidget {
                   authButton(
                     text: "Login",
                     color: Colors.black,
-                    func: () {},
+                    func: () {
+                      Navigator.pushNamed(
+                          context, RoutesName.loginWithRentPayy);
+                    },
                   ),
                   SizedBox(
                     height: 15.h,
@@ -51,7 +57,9 @@ class login_screen extends StatelessWidget {
                   authButton(
                     text: "Sign Up",
                     color: AppColors.primaryColor,
-                    func: () {},
+                    func: () {
+                      Navigator.pushNamed(context, RoutesName.userSignup);
+                    },
                   ),
                   SizedBox(
                     height: 80.h,

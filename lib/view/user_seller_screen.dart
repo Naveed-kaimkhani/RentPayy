@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
+import 'package:rentpayy/view/Hostel_Screen/Hostel_signup.dart';
+import 'package:rentpayy/view/user_screen/User_signup.dart';
 import '../components/user_seller_component.dart';
 
 class UserSellerScreen extends StatelessWidget {
@@ -29,10 +31,19 @@ class UserSellerScreen extends StatelessWidget {
                     height: 139.h,
                   ),
                   UserSellerComponent(
-                      height: 189.01.h,
-                      width: 199.w,
-                      image: 'asset/female.png',
-                      text: "User"),
+                    height: 189.01.h,
+                    width: 199.w,
+                    image: 'asset/female.png',
+                    text: "User",
+                    ontap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => User_signup_page(),
+                        ),
+                      );
+                    },
+                  ),
                   SizedBox(
                     height: 112.h,
                   ),
@@ -40,7 +51,15 @@ class UserSellerScreen extends StatelessWidget {
                       height: 189.01.h,
                       width: 199.w,
                       image: 'asset/male.png',
-                      text: "Seller"),
+                      text: "Seller",
+                      ontap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Hostel_Signup(),
+                          ),
+                        );
+                      }),
                 ],
               ),
             ),

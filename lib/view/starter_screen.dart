@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/authButton.dart';
+import 'package:rentpayy/view/user_screen/login_screen.dart';
 import 'package:rentpayy/view/user_seller_screen.dart';
 
 import '../components/buttons.dart';
@@ -98,7 +99,9 @@ class StarterScreen extends StatelessWidget {
                     SizedBox(
                       height: 60.h,
                     ),
-                   authButton(text: 'Get Started', func:(){} , color: Color(0xffF5AD0D))
+                   authButton(text: 'Get Started', func:(){
+                     Navigator.push(context, MaterialPageRoute(builder: (context)=> UserSellerScreen()));
+                   } , color: Color(0xffF5AD0D))
                   ],
                 ),
               ),

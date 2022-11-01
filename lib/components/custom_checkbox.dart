@@ -4,7 +4,8 @@ import 'package:rentpayy/utils/style/AppColors.dart';
 
 class Custom_Checkbox extends StatefulWidget {
   String? text;
-  Custom_Checkbox({required this.text, Key? key}) : super(key: key);
+  Function()? func;
+  Custom_Checkbox({required this.text, required this.func, Key? key}) : super(key: key);
 
   @override
   State<Custom_Checkbox> createState() => _Custom_CheckboxState();
@@ -27,26 +28,18 @@ class _Custom_CheckboxState extends State<Custom_Checkbox> {
             SizedBox(
               width: 14.w,
             ),
+            InkWell(
+              child:
             isselected
-                ? Container(
-                    width: 31.w,
-                    height: 31.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
-                      borderRadius: BorderRadius.circular(5.r),
-                    ),
-                    child: Center(
-                      child: Image.asset("asset/check.png"),
-                    ),
-                  )
-                : Container(
-                    width: 31.w,
-                    height: 31.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.r),
-                    ),
-              child: Image.asset("asset/uncheck.png"),
-                  ),
+                ?  Image.asset("asset/checkbox.png",height: 31.h,width: 31.w,)
+                :  Image.asset("asset/uncheck.png",height: 31.h,width: 31.w,),
+              onTap: ()
+              {
+                setState(() {
+                  isselected = !isselected;
+                });
+              },
+            ),
             SizedBox(
               width: 21.w,
             ),
@@ -57,11 +50,7 @@ class _Custom_CheckboxState extends State<Custom_Checkbox> {
           ],
         ),
       ),
-      onTap: () {
-        setState(() {
-          isselected = !isselected;
-        });
-      },
+      onTap: widget.func!,
     );
   }
 }

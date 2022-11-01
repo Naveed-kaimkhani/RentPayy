@@ -14,7 +14,7 @@ class Dropdown_button extends StatefulWidget {
 
 List<String> list=[];
 
-String? hinttext="";
+String? hinttext;
 
   @override
   State<Dropdown_button> createState() => _Dropdown_buttonState();
@@ -39,7 +39,7 @@ class _Dropdown_buttonState extends State<Dropdown_button> {
           buttonElevation: 0,
           icon: Padding(
             padding: EdgeInsets.only(right: 17.w),
-            child: Image.asset(Images.dropdown),
+            child: Icon(Icons.arrow_drop_down_circle_outlined),
           ),
           dropdownDecoration: BoxDecoration(
             color: AppColors.textfieldsColor,

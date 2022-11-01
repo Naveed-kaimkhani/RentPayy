@@ -7,11 +7,12 @@ class inputfields extends StatelessWidget {
   String? hint_text;
   FocusNode? currentNode;
   FocusNode? nextNode;
+  bool? obsecureText;
   FocusNode? focusNode;
-
-  // TextInputType keyboardType;
-  Widget? icon;
+  IconData? icon;
   Widget? preicon;
+  // bool? visiblity;
+  Function()? onIconPress;
   TextEditingController? controller;
   inputfields({
     required this.hint_text,
@@ -21,6 +22,10 @@ class inputfields extends StatelessWidget {
     required this.controller,
     this.icon,
     this.preicon,
+    this.onIconPress,
+    this.obsecureText,
+
+    // this.visiblity,
   });
 
   @override
@@ -36,27 +41,33 @@ class inputfields extends StatelessWidget {
       // ignore: prefer_const_constructors
       child: TextField(
         // keyboardType: keyboardType,
+        obscureText: obsecureText ?? false,
         onEditingComplete: () =>
             utils.fieldFocusChange(context, currentNode!, nextNode!),
         controller: controller,
         cursorColor: Colors.black,
         focusNode: focusNode,
         decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(7.r),
-              borderSide: BorderSide(color: AppColors.primaryColor, width: 1.0),
-            ),
-            border: InputBorder.none,
-            hintText: hint_text,
-            hintStyle: TextStyle(
-              color: Colors.black,
-              fontSize: 17.sp,
-            ),
-            prefixIcon: preicon,
-            suffixIcon: IconButton(
-              onPressed: () {},
-              icon: icon ?? Container(),
-            )),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(7.r),
+            borderSide: BorderSide(color: AppColors.primaryColor, width: 1.0),
+          ),
+          border: InputBorder.none,
+          hintText: hint_text,
+          hintStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 17.sp,
+          ),
+          prefixIcon: preicon,
+          suffixIcon: InkWell(
+            child:
+            Icon(
+            icon,
+            color: Color.fromARGB(255, 65, 61, 61),
+          ),
+            onTap: onIconPress,
+          ),
+        ),
       ),
     );
   }

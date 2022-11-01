@@ -13,19 +13,33 @@ import 'package:rentpayy/utils/style/AppColors.dart';
 
 import '../../utils/style/Images.dart';
 
-class login_with_rentpayy extends StatelessWidget {
-  TextEditingController _emailController = TextEditingController();
-  final ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(true);
-  TextEditingController _passController = TextEditingController();
-  FocusNode emailFocusNode = FocusNode();
-  FocusNode passwordFocusNode = FocusNode();
+class login_with_rentpayy extends StatefulWidget {
   login_with_rentpayy({super.key});
+
+  @override
+  State<login_with_rentpayy> createState() => _login_with_rentpayyState();
+}
+
+class _login_with_rentpayyState extends State<login_with_rentpayy> {
+  TextEditingController _emailController = TextEditingController();
+
+  final ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(true);
+
+  TextEditingController _passController = TextEditingController();
+
+  FocusNode emailFocusNode = FocusNode();
+
+  FocusNode passwordFocusNode = FocusNode();
+
+  bool _obsecureText = true;
+
   void dispose() {
     _emailController.dispose();
     _passController.dispose();
 
     emailFocusNode.dispose();
     passwordFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -42,19 +56,26 @@ class login_with_rentpayy extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 36.h,),
+                  SizedBox(
+                    height: 36.h,
+                  ),
                   Text(
                     "Login",
                     style:
                         TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500),
-                  ),SizedBox(height:73.h,),
+                  ),
+                  SizedBox(
+                    height: 73.h,
+                  ),
                   inputfields(
                     hint_text: "  Email",
                     controller: _emailController,
                     focusNode: emailFocusNode,
-                    icon: Icon(Icons.remove),
+                    icon: Icons.remove,
                     currentNode: emailFocusNode,
                     nextNode: passwordFocusNode,
+                    obsecureText: false,
+                    onIconPress: () {},
                   ),
                   SizedBox(
                     height: 14.h,
@@ -63,24 +84,35 @@ class login_with_rentpayy extends StatelessWidget {
                     hint_text: "  Password",
                     controller: _passController,
                     focusNode: passwordFocusNode,
-                    icon: Icon(Icons.remove_red_eye),
+                    icon: Icons.remove_red_eye,
                     currentNode: passwordFocusNode,
                     nextNode: passwordFocusNode,
+                    obsecureText: _obsecureText,
+                    onIconPress: onIconPress,
                   ),
-                  SizedBox(height: 38.h,),
+                  SizedBox(
+                    height: 38.h,
+                  ),
                   authButton(
-                      text: "Login", func: () {}, color: AppColors.primaryColor),
-                  SizedBox(height: 73.h,),
+                      text: "Login",
+                      func: () {},
+                      color: AppColors.primaryColor),
+                  SizedBox(
+                    height: 73.h,
+                  ),
                   or_line_widget(),
-                  Container(width: 349.w,
+                  Container(
+                    width: 349.w,
                     height: 53.h,
                     child: Image.asset(
                       Images.google,
                     ),
                   ),
-                  SizedBox(height: 17.h,),
+                  SizedBox(
+                    height: 17.h,
+                  ),
                   Container(
-                    width: 349.w,
+                      width: 349.w,
                       height: 53.h,
                       child: Image.asset(Images.facebook)),
                   SizedBox(
@@ -94,5 +126,11 @@ class login_with_rentpayy extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void onIconPress() {
+    setState(() {
+      _obsecureText = !_obsecureText;
+    });
   }
 }
