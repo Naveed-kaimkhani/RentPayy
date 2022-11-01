@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,9 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/Strings.dart';
-
 import '../model/UserModel.dart';
-
 class FirebaseMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -48,9 +44,6 @@ final credential = GoogleAuthProvider.credential(
 
     return userCredential.user;
   }
-
-
-
 
   Future<void> saveUserDataToFirestore(UserModel userModel) async {
     await _userCollection.doc(userModel.uid).set(userModel.toMap(userModel));
