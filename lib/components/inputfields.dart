@@ -55,16 +55,15 @@ class inputfields extends StatelessWidget {
           border: InputBorder.none,
           hintText: hint_text,
           hintStyle: TextStyle(
-            color: Colors.black,
+            color: Color.fromARGB(255, 112, 102, 102),
             fontSize: 17.sp,
           ),
           prefixIcon: preicon,
           suffixIcon: InkWell(
-            child:
-            Icon(
-            icon,
-            color: Color.fromARGB(255, 65, 61, 61),
-          ),
+            child: Icon(
+              icon,
+              color: Color.fromARGB(255, 65, 61, 61),
+            ),
             onTap: onIconPress,
           ),
         ),

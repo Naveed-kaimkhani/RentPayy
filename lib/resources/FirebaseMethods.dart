@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/Strings.dart';
+import 'package:rentpayy/utils/utils.dart';
 import '../model/UserModel.dart';
 class FirebaseMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -37,12 +38,17 @@ final credential = GoogleAuthProvider.credential(
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
   Future<User?> signUp(String email, String password) async {
-    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+    try {
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
 
     return userCredential.user;
+    } catch (e) {
+      print(e);
+      // utils.flushBarErrorMessage(message, context)
+    }
   }
 
   Future<void> saveUserDataToFirestore(UserModel userModel) async {
