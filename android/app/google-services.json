@@ -14,7 +14,6 @@
       },
       "oauth_client": [
         {
-<<<<<<< HEAD
           "client_id": "543945907406-vsunbuiqfb7d8i74933f9krf7njhlueo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -23,8 +22,6 @@
           }
         },
         {
-=======
->>>>>>> RentPayy_UI
           "client_id": "543945907406-d6866v2m2i6kaajqidhrnoo3gfb0o08k.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -40,7 +37,6 @@
             {
               "client_id": "543945907406-d6866v2m2i6kaajqidhrnoo3gfb0o08k.apps.googleusercontent.com",
               "client_type": 3
-<<<<<<< HEAD
             },
             {
               "client_id": "543945907406-fgkgesd0op2bd694bh183rqma8rige6m.apps.googleusercontent.com",
@@ -48,8 +44,6 @@
               "ios_info": {
                 "bundle_id": "com.example.rentpayy"
               }
-=======
->>>>>>> RentPayy_UI
             }
           ]
         }
