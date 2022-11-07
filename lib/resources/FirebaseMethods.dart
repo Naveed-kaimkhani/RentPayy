@@ -44,12 +44,18 @@ class FirebaseMethods {
   }
 
   Future<User?> signUp(String email, String password) async {
-    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-    return userCredential.user;
+      return userCredential.user;
+    } catch (e) {
+      print(e);
+      // utils.flushBarErrorMessage(message, context)
+    }
   }
 
   Future<void> saveUserDataToFirestore(UserModel userModel) async {

@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -90,15 +91,20 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
     } else if (_hosteladdressController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Enter your full address', context);
     } else if (_hostelcontactController.text.length != 11) {
-      utils.flushBarErrorMessage('Invalid Phone Number', context);
+      utils.flushBarErrorMessage('Invalid hostel Phone Number', context);
     } else if (_hostelOwnernameController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Enter the full name', context);
     } else if (_hostelOwnerEmailController.text.trim().isEmpty) {
-      utils.flushBarErrorMessage('Enter your full address', context);
+      utils.flushBarErrorMessage('Enter your email address', context);
+    } else if (!EmailValidator.validate(_hostelOwnerEmailController.text)) {
+      utils.flushBarErrorMessage('Invalid Email', context);
     } else if (_hostelOwnerphoneController.text.length != 11) {
-      utils.flushBarErrorMessage('Invalid phone number', context);
+      utils.flushBarErrorMessage('Invalid owner phone number', context);
     } else if (_passwordController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Enter your password', context);
+    } else if (_passwordController.text.length < 6) {
+      utils.flushBarErrorMessage(
+          'Password must be atleast 6 characters', context);
     } else if (_confirmpasswordController.text.trim().isEmpty) {
       utils.flushBarErrorMessage(
           'Enter your password again to confirm', context);

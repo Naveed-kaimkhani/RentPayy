@@ -55,7 +55,7 @@ class inputfields extends StatelessWidget {
           border: InputBorder.none,
           hintText: hint_text,
           hintStyle: TextStyle(
-            color: Color.fromARGB(255, 120, 111, 111),
+            color: Color.fromARGB(255, 112, 102, 102),
             fontSize: 17.sp,
           ),
           prefixIcon: preicon,

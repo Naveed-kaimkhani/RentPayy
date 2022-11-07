@@ -8,13 +8,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/style/AppColors.dart';
 import '../utils/style/Images.dart';
 
-
 class Dropdown_button extends StatefulWidget {
-   Dropdown_button({required this.list, required this.hinttext,Key? key}) : super(key: key);
+  Dropdown_button({required this.list, required this.hinttext, Key? key})
+      : super(key: key);
 
-List<String> list=[];
+  List<String> list = [];
 
-String? hinttext;
+  String? hinttext;
 
   @override
   State<Dropdown_button> createState() => _Dropdown_buttonState();
@@ -23,7 +23,6 @@ String? hinttext;
 class _Dropdown_buttonState extends State<Dropdown_button> {
   @override
   Widget build(BuildContext context) {
-
     return Container(
       height: 60.h,
       width: 185.w,
@@ -34,12 +33,11 @@ class _Dropdown_buttonState extends State<Dropdown_button> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton2(
           focusColor: AppColors.primaryColor,
-
           dropdownElevation: 0,
           buttonElevation: 0,
           icon: Padding(
             padding: EdgeInsets.only(right: 17.w),
-            child: Icon(Icons.arrow_drop_down_circle_outlined),
+            child: Image.asset(Images.dropdown),
           ),
           dropdownDecoration: BoxDecoration(
             color: AppColors.textfieldsColor,
@@ -49,12 +47,13 @@ class _Dropdown_buttonState extends State<Dropdown_button> {
           items: widget.list!
               .map(
                 (value) => DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            ),
-          )
+                  value: value,
+                  child: Text(value),
+                ),
+              )
               .toList(),
           onChanged: (value) {
+            print(value);
             setState(() {
               widget.hinttext = value as String;
             });
