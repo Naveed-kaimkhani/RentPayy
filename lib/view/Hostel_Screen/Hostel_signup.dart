@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
@@ -9,12 +9,10 @@ import '../../components/auth_screens_decor.dart';
 import '../../components/mini_Button.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/storage_service_hostel.dart';
-import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/view/Hostel_Screen/Hostel_Registration.dart';
-import '../../components/auth_screens_decor.dart';
-import '../../components/mini_Button.dart';
+
+import '../../components/upper_design.dart';
 import '../../resources/FirebaseRepository.dart';
-import '../../utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/utils.dart';
 
 class Hostel_Signup extends StatefulWidget {
@@ -61,6 +59,8 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
         .then((User? user) async {
       if (user != null) {
         hostelModel.uid = user.uid;
+        print("user created");
+        print(user.uid);
         _saveHostel(hostelModel);
       } else {
         isLoading(false);
@@ -107,27 +107,28 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
     } else {
       isLoading(true);
       hostelModel HostelModel = hostelModel(
-        name: _nameController.text.trim(),
-        hostel_address: _hosteladdressController.text.trim(),
-        hostel_phone: _hostelcontactController.text.trim(),
-        owner_name: _hostelOwnernameController.text.trim(),
-        email: _hostelOwnerEmailController.text.trim(),
-        owner_phone: _hostelOwnerphoneController.text.trim(),
-        hostel_type: "",
-        hostel_gender_type: "",
-        total_capacity: "",
-        available_capacity: "",
-        person_per_room: "",
-        description: ""
-      );
+          name: _nameController.text.trim(),
+          hostel_address: _hosteladdressController.text.trim(),
+          hostel_phone: _hostelcontactController.text.trim(),
+          owner_name: _hostelOwnernameController.text.trim(),
+          email: _hostelOwnerEmailController.text.trim(),
+          owner_phone: _hostelOwnerphoneController.text.trim(),
+          hostel_type: "",
+          hostel_gender_type: "",
+          total_capacity: "",
+          available_capacity: "",
+          person_per_room: "",
+          description: "");
       _signup(HostelModel);
     }
   }
+
   void _saveHostel(hostelModel hostelModels) {
     _firebaseRepository.saveHostelDataToFirestore(hostelModels).then((value) {
       storage_service_hostel.saveUser(hostelModels).then((value) {
         isLoading(false);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Hostel_Registration()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => Hostel_Registration()));
       });
     }).catchError((error) {
       isLoading(false);
@@ -145,6 +146,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
     _hosteladdressController.dispose();
     _passwordController.dispose();
     _confirmpasswordController.dispose();
+
     super.dispose();
   }
 
@@ -153,7 +155,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: custom_appbar(),
+        appBar: upper_design(),
         body: Stack(
           children: [
             Container(
@@ -177,7 +179,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 28.h,
                         ),
                         inputfields(
-                          hint_text: "Enter Hostel name",
+                          hint_text: "  Enter Hostel name",
                           currentNode: nameFocusNode,
                           focusNode: nameFocusNode,
                           nextNode: hosteladdrFocusNode,
@@ -191,7 +193,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "Enter Hostel address",
+                          hint_text: "  Enter Hostel address",
                           currentNode: hosteladdrFocusNode,
                           focusNode: hosteladdrFocusNode,
                           nextNode: hostelcontactFocusNode,
@@ -205,7 +207,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "Hostel Contact number",
+                          hint_text: "  3XXXXXXXXX",
                           currentNode: hostelcontactFocusNode,
                           focusNode: hostelcontactFocusNode,
                           nextNode: hostelOwnernameFocusNode,
@@ -216,8 +218,11 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                             child: Row(
                               children: [
                                 Text(
-                                  "+92",
-                                  style: TextStyle(fontSize: 17.sp),
+                                  " +92",
+                                  style: TextStyle(
+                                      fontSize: 17.sp,
+                                      color:
+                                          Color.fromARGB(255, 120, 111, 111)),
                                 ),
                                 VerticalDivider(
                                   thickness: 2,
@@ -232,7 +237,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "Hostel Owner name",
+                          hint_text: "  Hostel Owner name",
                           currentNode: hostelOwnernameFocusNode,
                           focusNode: hostelOwnernameFocusNode,
                           nextNode: hostelOwnerEmailFocusNode,
@@ -243,7 +248,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "Enter your Email address",
+                          hint_text: "  Enter your Email address",
                           currentNode: hostelOwnerEmailFocusNode,
                           focusNode: hostelOwnerEmailFocusNode,
                           nextNode: hostelOwnercontactFocusNode,
@@ -254,7 +259,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "Owner phone number",
+                          hint_text: "  3XXXXXXXXX",
                           currentNode: hostelOwnercontactFocusNode,
                           focusNode: hostelOwnercontactFocusNode,
                           nextNode: passwordFocusNode,
@@ -270,7 +275,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                                 ),
                                 VerticalDivider(
                                   thickness: 2,
-                                  color: Colors.grey.shade700,
+                                  color: Color.fromARGB(255, 120, 111, 111),
                                 ),
                               ],
                             ),
@@ -281,7 +286,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "Set Password",
+                          hint_text: "  Set Password",
                           currentNode: passwordFocusNode,
                           focusNode: passwordFocusNode,
                           nextNode: confirmpasswordFocusNode,
@@ -292,7 +297,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                            hint_text: "Confirm Password",
+                            hint_text: "  Confirm Password",
                             currentNode: confirmpasswordFocusNode,
                             focusNode: confirmpasswordFocusNode,
                             nextNode: confirmpasswordFocusNode,
@@ -311,15 +316,17 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                         ),
                         Container(
                           alignment: Alignment.centerRight,
-                          child: MiniButton(
-                              text: 'Next',
-                              func: () {
-                                setState(() {
-                                  _validateFields();
-                                });
-                              },
-                              color: AppColors.primaryColor,
-                              icon: "asset/arrow.png"),
+                          child: isLoadingNow
+                              ? circle_progress()
+                              : MiniButton(
+                                  text: 'Next',
+                                  func: () {
+                                    setState(() {
+                                      _validateFields();
+                                    });
+                                  },
+                                  color: AppColors.primaryColor,
+                                  icon: "asset/arrow.png"),
                         ),
                       ],
                     ),

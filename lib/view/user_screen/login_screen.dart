@@ -1,7 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/model/UserModel.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
@@ -12,6 +9,7 @@ import '../../components/auth_screens_decor.dart';
 import '../../components/custom_appbar.dart';
 import '../../components/or_line_widget.dart';
 import '../../components/terms_and_condition.dart';
+import '../../components/upper_design.dart';
 import '../../resources/FirebaseMethods.dart';
 import '../../resources/FirebaseRepository.dart';
 import '../../utils/style/AppColors.dart';
@@ -25,43 +23,48 @@ class login_screen extends StatefulWidget {
 }
 
 class _login_screenState extends State<login_screen> {
-    FirebaseMethods _firebaseMethods = FirebaseMethods();
+  FirebaseMethods _firebaseMethods = FirebaseMethods();
 
-    final FirebaseRepository _firebaseRepository = FirebaseRepository();
+  final FirebaseRepository _firebaseRepository = FirebaseRepository();
 
- void handleGoogleSignIn(){
-  // UserCredential authResult = await _firebaseMethods.signInWithGoogle();
-  _firebaseMethods.signInWithGoogle().then((authResult) => (){
-  var user=authResult.user;
-  if (user!=null) {
-      _firebaseRepository.saveUserDataToFirestore(UserModel(
-        uid: user.uid,
-        email: user.email,
-        name: user.displayName,
-        profileImage: user.photoURL,
-        phone: user.phoneNumber,
-        gender: '',
-        age: '',
-      )).then((value) => (){
-        Navigator.pushNamed(context,RoutesName.homeScreen);
-      }).catchError((error){
-        utils.flushBarErrorMessage(error.message.toString(), context);
-      });
-  }else{
-    utils.flushBarErrorMessage("user null", context);
+  void handleGoogleSignIn() {
+    // UserCredential authResult = await _firebaseMethods.signInWithGoogle();
+    _firebaseMethods
+        .signInWithGoogle()
+        .then((authResult) => () {
+              var user = authResult.user;
+              if (user != null) {
+                _firebaseRepository
+                    .saveUserDataToFirestore(UserModel(
+                      uid: user.uid,
+                      email: user.email,
+                      name: user.displayName,
+                      profileImage: user.photoURL,
+                      phone: user.phoneNumber,
+                      gender: '',
+                      age: '',
+                    ))
+                    .then((value) => () {
+                          Navigator.pushNamed(context, RoutesName.homeScreen);
+                        })
+                    .catchError((error) {
+                  utils.flushBarErrorMessage(error.message.toString(), context);
+                });
+              } else {
+                utils.flushBarErrorMessage("user null", context);
+              }
+            })
+        .catchError((error) {
+      utils.flushBarErrorMessage(error.message.toString(), context);
+    });
+    // var user=authResult.user;
   }
-
-  }).catchError((error){
-    utils.flushBarErrorMessage(error.message.toString(), context);
-  });
-  // var user=authResult.user;
- }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: const custom_appbar(),
+        appBar: upper_design(),
         backgroundColor: AppColors.primaryColor,
         body: Container(
           color: AppColors.primaryColor,
@@ -143,4 +146,4 @@ class _login_screenState extends State<login_screen> {
       ),
     );
   }
-  }
+}

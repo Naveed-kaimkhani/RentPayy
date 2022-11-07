@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
@@ -5,19 +7,22 @@ import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/custom_checkbox.dart';
 import 'package:rentpayy/components/mini_Button.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/Hostel_Screen/Hostel_Registration.dart';
 
+import '../../utils/routes/RoutesName.dart';
 import '../../utils/style/Images.dart';
 
 class Facilities extends StatefulWidget {
   Facilities({Key? key}) : super(key: key);
-  List<String> checkboxList = [];
   @override
   State<Facilities> createState() => _FacilitiesState();
 }
 
 class _FacilitiesState extends State<Facilities> {
   TextEditingController controller = TextEditingController();
+  List<String> checkboxList = [];
+  bool isLoadingNow = false;
   String? filled;
 
   bool waterIsSelected = false,
@@ -34,6 +39,9 @@ class _FacilitiesState extends State<Facilities> {
       GeneratorIsSelected = false,
       LoungeIsSelected = false,
       WifiIsSelected = false;
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
+  final user = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   void initState() {
@@ -42,12 +50,33 @@ class _FacilitiesState extends State<Facilities> {
     super.initState();
   }
 
-  void savelist() {
-    setState(() {
-      for(int i =0;i < widget.checkboxList.length; i++)
-        print(widget.checkboxList[i]);
-    });
+  // void savelist() {
+  //   setState(() {
+  //     for(int i =0;i < widget.checkboxList.length; i++)
+  //       print(widget.checkboxList[i]);
+  //   });
 
+  // }
+//   List<String> toList() {
+
+//   chipstuete.forEach((item) {
+//     newtuete.add(item.toString());
+//   });
+
+//   return newtuete.toList();
+// }
+
+  void savedata() {
+    if (checkboxList.isEmpty) {
+      utils.flushBarErrorMessage("Please select facilites", context);
+    } else {
+      db.collection("hostels").doc(user).update({
+        'facilities': checkboxList,
+      }).then((value) {
+        print("data updated for facilities");
+        Navigator.popAndPushNamed(context, RoutesName.uploadPictures);
+      });
+    }
   }
 
   @override
@@ -87,9 +116,9 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 waterIsSelected = !waterIsSelected;
                                 if (waterIsSelected)
-                                  widget.checkboxList.add("water");
+                                  checkboxList.add("water,");
                                 else
-                                  widget. checkboxList.remove("water");
+                                  checkboxList.remove("water,");
                               });
                             },
                           ),
@@ -102,7 +131,7 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 studyHallIsSelected = !studyHallIsSelected;
                                 if (!studyHallIsSelected)
-                                  widget.checkboxList.add("Study Hall");
+                                  checkboxList.add("Study Hall,");
                               });
                             },
                           ),
@@ -119,7 +148,7 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 SecurityIsSelected = !SecurityIsSelected;
                                 if (SecurityIsSelected)
-                                  widget.checkboxList.add("Security");
+                                  checkboxList.add("Security,");
                               });
                             },
                           ),
@@ -131,7 +160,7 @@ class _FacilitiesState extends State<Facilities> {
                             func: () {
                               setState(() {
                                 SolarIsSelected = !SolarIsSelected;
-                                if (SolarIsSelected) widget.checkboxList.add("Solar");
+                                if (SolarIsSelected) checkboxList.add("Solar,");
                               });
                             },
                           ),
@@ -148,7 +177,7 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 LaundaryIsSelected = !LaundaryIsSelected;
                                 if (LaundaryIsSelected)
-                                  widget.checkboxList.add("Laundary");
+                                  checkboxList.add("Laundary,");
                               });
                             },
                           ),
@@ -161,9 +190,9 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 KitchenIsSelected = !KitchenIsSelected;
                                 if (KitchenIsSelected)
-                                  widget.checkboxList.add("Kitchen");
-                                else if(!KitchenIsSelected)
-                                  widget.checkboxList.remove("Kitchen");
+                                  checkboxList.add("Kitchen,");
+                                else if (!KitchenIsSelected)
+                                  checkboxList.remove("Kitchen,");
                               });
                             },
                           ),
@@ -179,7 +208,7 @@ class _FacilitiesState extends State<Facilities> {
                             func: () {
                               setState(() {
                                 MessIsSelected = !MessIsSelected;
-                                if (MessIsSelected) widget.checkboxList.add("Mess");
+                                if (MessIsSelected) checkboxList.add("Mess,");
                               });
                             },
                           ),
@@ -192,7 +221,7 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 CanteenIsSelected = !CanteenIsSelected;
                                 if (CanteenIsSelected)
-                                  widget.checkboxList.add("Canteen");
+                                  checkboxList.add("Canteen,");
                               });
                             },
                           ),
@@ -208,7 +237,7 @@ class _FacilitiesState extends State<Facilities> {
                             func: () {
                               setState(() {
                                 LawnIsSelected = !LawnIsSelected;
-                                if (LawnIsSelected) widget.checkboxList.add("Lawn");
+                                if (LawnIsSelected) checkboxList.add("Lawn,");
                               });
                             },
                           ),
@@ -221,7 +250,7 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 TransportIsSelected = !TransportIsSelected;
                                 if (TransportIsSelected)
-                                  widget.checkboxList.add("Transport");
+                                  checkboxList.add("Transport,");
                               });
                             },
                           ),
@@ -238,7 +267,7 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 ElectricityIsSelected = !ElectricityIsSelected;
                                 if (ElectricityIsSelected)
-                                  widget.checkboxList.add("Electricity");
+                                  checkboxList.add("Electricity,");
                               });
                             },
                           ),
@@ -251,7 +280,7 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 GeneratorIsSelected = !GeneratorIsSelected;
                                 if (GeneratorIsSelected)
-                                  widget.checkboxList.add("Generator");
+                                  checkboxList.add("Generator,");
                               });
                             },
                           ),
@@ -316,9 +345,10 @@ class _FacilitiesState extends State<Facilities> {
                       MiniButton(
                         text: "next",
                         func: () {
-                          setState(() {
-                            Navigator.push(context,MaterialPageRoute(builder: (context)=> Hostel_Registration() ));
-                          });
+                          // setState(() {
+                          //   Navigator.push(context,MaterialPageRoute(builder: (context)=> Hostel_Registration() ));
+                          // });
+                          savedata();
                         },
                         color: AppColors.primaryColor,
                         icon: Images.arrow,

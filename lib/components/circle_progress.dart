@@ -8,7 +8,7 @@ class circle_progress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 321.w,
+      width: 157.w,
       height: 67.h,
       decoration: BoxDecoration(
         color: AppColors.primaryColor,
@@ -21,12 +21,17 @@ class circle_progress extends StatelessWidget {
             Text(
               "Please wait",
               style: TextStyle(
-                  fontSize: 25.sp,
+                  fontSize: 17.sp,
                   fontWeight: FontWeight.w500,
                   color: Colors.white),
             ),
-            CircularProgressIndicator(
-              color: Colors.white,
+            SizedBox(
+              height: 25,
+              width: 25,
+              child: CircularProgressIndicator(
+                strokeWidth: 3.0,
+                color: Colors.white,
+              ),
             ),
           ],
         ),

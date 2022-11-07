@@ -24,8 +24,8 @@ Future<User?> signUp(String email, String password) =>
     Future<void> saveHostelDataToFirestore(hostelModel hostelModel) =>
         _firebaseMethods.saveHostelDataToFirestore(hostelModel);
 
-    Future<User?> login(String email, String password) =>
-      _firebaseMethods.login(email, password);    
+    Future<User?> login(String email, String password,context)=>
+      _firebaseMethods.login(email, password, context);    
 
     Future<UserModel> getUserDetails(String? uid) =>
       _firebaseMethods.getUserDetails(uid);

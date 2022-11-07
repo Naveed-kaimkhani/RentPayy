@@ -3,17 +3,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
+import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/mini_Button.dart';
 import 'package:rentpayy/components/point_increament_button.dart';
 import 'package:rentpayy/model/hostelModel.dart';
+import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
 
 import '../../components/dropdown_button.dart';
 import '../../model/hostelModel.dart';
 import '../../model/hostelModel.dart';
-
 
 class Hostel_Registration extends StatefulWidget {
   const Hostel_Registration({Key? key}) : super(key: key);
@@ -34,7 +36,7 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
   List<String> HostelList = ["Bachelor Hostel", "Working Hostel"];
   String? hostelselectedvalue = "Hostel Type";
   String? typeselectedvalue = "Type";
-
+  bool isLoadingNow = false;
   int total_capacity_increment = 0;
   int available_capacity_increment = 0;
   int person_per_room = 0;
@@ -46,23 +48,40 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
 
   Facilities fac = Facilities();
 
-
   void savedata() {
-    db.collection("hostels").doc(user).update({
-      "hostel_gender_type": typeselectedvalue,
-      "hostel_type": hostelselectedvalue,
-      "total_capacity": total_capacity_increment,
-      "available_capacity": available_capacity_increment,
-      "person_per_room": person_per_room,
-      "description": descriptionController.text
-    });
+    isLoading(true);
+    if (person_per_room == 0 &&
+        total_capacity_increment == 0 &&
+        available_capacity_increment == 0) {
+      utils.flushBarErrorMessage("Please enter hostel details", context);
+    } else {
+      print("in else");
+      db.collection("hostels").doc(user).update({
+        "hostel_gender_type": typeselectedvalue,
+        "hostel_type": hostelselectedvalue,
+        "total_capacity": total_capacity_increment,
+        "available_capacity": available_capacity_increment,
+        "person_per_room": person_per_room,
+        "description": descriptionController.text
+      });
+      print("data stored");
+      Navigator.popAndPushNamed(context, RoutesName.facilities);
+    }
+    isLoading(false);
+    print("data updated on hostel registration screen");
   }
 
+  void isLoading(bool value) {
+    setState(() {
+      isLoadingNow = value;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -247,15 +266,15 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
                         ),
                         Container(
                           alignment: Alignment.centerRight,
-                          child: MiniButton(
-                              text: "Next",
-                              func: () {
-                                setState(() {
-                                  savedata();
-                                });
-                              },
-                              color: AppColors.primaryColor,
-                              icon: "asset/arrow.png"),
+                          child: isLoadingNow
+                              ? circle_progress()
+                              : MiniButton(
+                                  text: "Next",
+                                  func: () {
+                                    savedata();
+                                  },
+                                  color: AppColors.primaryColor,
+                                  icon: "asset/arrow.png"),
                         )
                       ],
                     ),

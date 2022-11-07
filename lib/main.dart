@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
 import 'package:rentpayy/view/Hostel_Screen/Hostel_signup.dart';
+import 'package:rentpayy/view/add_gallery.dart';
+import 'package:rentpayy/view/user_screen/login_screen.dart';
+import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 
-
-
-
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -23,7 +23,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-        return ScreenUtilInit(
+    return ScreenUtilInit(
       designSize: const Size(360, 690),
       builder: (context, child) {
         return ScreenUtilInit(

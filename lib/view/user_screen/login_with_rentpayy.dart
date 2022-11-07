@@ -39,7 +39,7 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
   bool isLoadingNow = false;
   bool _obsecureText = true;
   final FirebaseRepository _firebaseRepository = FirebaseRepository();
-void isLoading(bool value) {
+  void isLoading(bool value) {
     setState(() {
       isLoadingNow = value;
     });
@@ -59,46 +59,51 @@ void isLoading(bool value) {
   void _validateFields() {
     if (_emailController.text.trim().isEmpty &&
         _passController.text.trim().isEmpty) {
-          utils.flushBarErrorMessage('Enter your email and password', context);
+      utils.flushBarErrorMessage('Enter your email and password', context);
       // showFailureDialog(context, 'Enter your email and password').show(context);
     } else if (_emailController.text.trim().isEmpty) {
-                utils.flushBarErrorMessage('Enter your email', context);
+      utils.flushBarErrorMessage('Enter your email', context);
     } else if (_passController.text.trim().isEmpty) {
-               utils.flushBarErrorMessage('Enter your password', context);
+      utils.flushBarErrorMessage('Enter your password', context);
     } else if (!EmailValidator.validate(_emailController.text)) {
-                     utils.flushBarErrorMessage('Invalid Email', context);
+      utils.flushBarErrorMessage('Invalid Email', context);
     } else {
       isLoading(true);
       _login();
     }
   }
-void _login(){
-  _firebaseRepository.login(_emailController.text,_passController.text).then((User? user) {
-      if (user!=null) {
-        _getUserDetails(user.uid);
-      }else{
-        isLoading(false);
-        utils.flushBarErrorMessage("Failed to login", context);
-      }
-  });
-}
-void _getUserDetails(String uid){
-  _firebaseRepository.getUserDetails(uid).then((UserModel? userModel){
-    if(userModel!=null){
-        StorageService.saveUser(userModel).then((value) {
-            isLoading(false);
-            Navigator.pushNamed(context, RoutesName.homeScreen);
-        }).catchError((error){
-              utils.flushBarErrorMessage(error.message.toString(), context);
-        });
-    }else{
 
-    }
-  }).catchError((error){
+  void _login() {
+    _firebaseRepository
+        .login(_emailController.text, _passController.text, context)
+        .then((User? user) {
+      if (user != null) {
+        _getUserDetails(user.uid);
+      } else {
+        isLoading(false);
+        //utils.flushBarErrorMessage("Failed to login", context);
+      }
+    });
+  }
+
+  void _getUserDetails(String uid) {
+    _firebaseRepository.getUserDetails(uid).then((UserModel? userModel) {
+      if (userModel != null) {
+        StorageService.saveUser(userModel).then((value) {
+          isLoading(false);
+          Navigator.pushNamed(context, RoutesName.homeScreen);
+        }).catchError((error) {
+          utils.flushBarErrorMessage(error.message.toString(), context);
+        });
+      } else {
+        utils.flushBarErrorMessage("User is null", context);
+      }
+    }).catchError((error) {
       isLoading(false);
       utils.flushBarErrorMessage(error.message.toString(), context);
-  });
-}
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -150,12 +155,14 @@ void _getUserDetails(String uid){
                   SizedBox(
                     height: 38.h,
                   ),
-                 isLoadingNow?circle_progress(): authButton(
-                      text: "Login",
-                      func: () {
-                        _validateFields();
-                      },
-                      color: AppColors.primaryColor),
+                  isLoadingNow
+                      ? circle_progress()
+                      : authButton(
+                          text: "Login",
+                          func: () {
+                            _validateFields();
+                          },
+                          color: AppColors.primaryColor),
                   SizedBox(
                     height: 73.h,
                   ),
