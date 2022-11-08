@@ -141,6 +141,20 @@ class FirebaseMethods {
     return userModel;
   }
 
+ static Future<List<hostelModel>> getDataFromDb()async{
+   List<hostelModel> hostelModels=[];
+   QuerySnapshot<Map<String,dynamic>> snap= await FirebaseFirestore.instance.collection("hostels").get();
+    print(snap.docs.length);
+    for (var i = 0; i < snap.docs.length;i++) {
+
+    DocumentSnapshot docsSnap=  snap.docs[i];
+
+    hostelModel model=hostelModel.fromJson(docsSnap.data() as dynamic);
+    //print(model.Category);
+  hostelModels.add(model);
+    }
+    return hostelModels;
+  }
   // Future<void> uploadHostelImages(List<XFile> imageList, String uid)async{
   //   for (var image in imageList) {
   //     await _storageReference

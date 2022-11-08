@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rentpayy/components/mini_container.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 
 import '../../components/bottom_navigation_bar.dart';

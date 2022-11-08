@@ -51,16 +51,22 @@ class hostelModel {
     return data;
   }
 
-  hostelModel.fromMap(Map<String, dynamic> mapData) {
-    this.uid = mapData['uid'];
-    this.name = mapData['name'];
-    this.hostel_address = mapData['hostel_address'];
-    this.hostel_phone = mapData['hostel_phone'];
-    this.owner_name= mapData['owner_name'];
-    this.email = mapData['email'];
-    this.owner_phone = mapData['owner_phone'];
-
+     factory hostelModel.fromJson(Map<String,dynamic> json) {
+      return hostelModel(
+      uid: json['uid'],
+      name: json['name'],
+      hostel_address: json['hostel_address'],
+         hostel_phone:json['hostel_phone'],
+         owner_name: json['owner_phone'],
+         hostel_type: json['hostel_type'],
+         hostel_gender_type: json['hostel_gender_type'],
+         total_capacity: json['total_capacity'],
+         available_capacity: json['available_capacity'],
+         person_per_room: json['person_per_room'],
+         description: json['description']
+      );
   }
+
 
   bool equals(hostelModel hostel) => hostel.uid == this.uid;
 }

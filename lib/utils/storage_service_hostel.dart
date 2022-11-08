@@ -17,7 +17,7 @@ class storage_service_hostel{
     _sharedPreferences = await SharedPreferences.getInstance();
     return _sharedPreferences.getString(HOSTEL_PREFS_KEY) == null
         ? null
-        : hostelModel.fromMap(
+        : hostelModel.fromJson(
         json.decode(_sharedPreferences.getString(HOSTEL_PREFS_KEY)!));
   }
 
