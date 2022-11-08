@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
               // theme: ThemeData(
               //   primarySwatch: Colors.blue,
               // ),
-              home: UserScreen(),
+              home: user_front_screen(),
               // initialRoute: RoutesName.login,
               // onGenerateRoutes: Routes.onGenerateRoute(settings),
               onGenerateRoute: Routes.onGenerateRoute,

@@ -37,12 +37,13 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _hostelcontactController = TextEditingController();
-  TextEditingController _hostelOwnernameController = TextEditingController();
+  TextEditingController _chargesController = TextEditingController();
   TextEditingController _hostelOwnerphoneController = TextEditingController();
   TextEditingController _hostelOwnerEmailController = TextEditingController();
   TextEditingController _hosteladdressController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmpasswordController = TextEditingController();
+  TextEditingController _ChargesController = TextEditingController();
 
   bool isLoadingNow = false;
   void isLoading(bool value) {
@@ -80,7 +81,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
         _nameController.text.trim().isEmpty &&
             _hosteladdressController.text.trim().isEmpty &&
             _hostelcontactController.text.trim().isEmpty &&
-            _hostelOwnernameController.text.trim().isEmpty &&
+            _chargesController.text.trim().isEmpty &&
             _hostelOwnerEmailController.text.trim().isEmpty &&
             _hostelOwnerphoneController.text.trim().isEmpty &&
             _passwordController.text.trim().isEmpty &&
@@ -90,15 +91,15 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
       utils.flushBarErrorMessage('Enter your full name', context);
     } else if (_hosteladdressController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Enter your full address', context);
-    } else if (_hostelcontactController.text.length != 11) {
+    } else if (_hostelcontactController.text.length != 10) {
       utils.flushBarErrorMessage('Invalid hostel Phone Number', context);
-    } else if (_hostelOwnernameController.text.trim().isEmpty) {
+    } else if (_chargesController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Enter the full name', context);
     } else if (_hostelOwnerEmailController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Enter your email address', context);
     } else if (!EmailValidator.validate(_hostelOwnerEmailController.text)) {
       utils.flushBarErrorMessage('Invalid Email', context);
-    } else if (_hostelOwnerphoneController.text.length != 11) {
+    } else if (_hostelOwnerphoneController.text.length != 10) {
       utils.flushBarErrorMessage('Invalid owner phone number', context);
     } else if (_passwordController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Enter your password', context);
@@ -116,14 +117,14 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
           name: _nameController.text.trim(),
           hostel_address: _hosteladdressController.text.trim(),
           hostel_phone: _hostelcontactController.text.trim(),
-          owner_name: _hostelOwnernameController.text.trim(),
+          charges: int.parse(_chargesController.text),
           email: _hostelOwnerEmailController.text.trim(),
           owner_phone: _hostelOwnerphoneController.text.trim(),
           hostel_type: "",
           hostel_gender_type: "",
-          total_capacity: "",
-          available_capacity: "",
-          person_per_room: "",
+          total_capacity: 0,
+          available_capacity: 0,
+          person_per_room: 0,
           description: "");
       _signup(HostelModel);
     }
@@ -146,12 +147,13 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
   void dispose() {
     _nameController.dispose();
     _hostelcontactController.dispose();
-    _hostelOwnernameController.dispose();
+    _chargesController.dispose();
     _hostelOwnerphoneController.dispose();
     _hostelOwnerEmailController.dispose();
     _hosteladdressController.dispose();
     _passwordController.dispose();
     _confirmpasswordController.dispose();
+    _ChargesController.dispose();
 
     super.dispose();
   }
@@ -185,7 +187,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 28.h,
                         ),
                         inputfields(
-                          hint_text: "  Enter Hostel name",
+                          hint_text: "Enter Hostel name",
                           currentNode: nameFocusNode,
                           focusNode: nameFocusNode,
                           nextNode: hosteladdrFocusNode,
@@ -199,7 +201,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "  Enter Hostel address",
+                          hint_text: "Enter Hostel address",
                           currentNode: hosteladdrFocusNode,
                           focusNode: hosteladdrFocusNode,
                           nextNode: hostelcontactFocusNode,
@@ -213,11 +215,12 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "  3XXXXXXXXX",
+                          hint_text: "3XXXXXXXXX",
                           currentNode: hostelcontactFocusNode,
                           focusNode: hostelcontactFocusNode,
                           nextNode: hostelOwnernameFocusNode,
                           controller: _hostelcontactController,
+                          keyboardType: TextInputType.number,
                           preicon: Container(
                             width: 60.w,
                             height: 60.h,
@@ -243,33 +246,36 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "  Hostel Owner name",
+                          hint_text: "Charges/month",
                           currentNode: hostelOwnernameFocusNode,
                           focusNode: hostelOwnernameFocusNode,
                           nextNode: hostelOwnerEmailFocusNode,
-                          controller: _hostelOwnernameController,
+                          controller: _chargesController,
                           obsecureText: false,
+                          keyboardType: TextInputType.number,
                         ),
                         SizedBox(
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "  Enter your Email address",
+                          hint_text: "Enter your Email address",
                           currentNode: hostelOwnerEmailFocusNode,
                           focusNode: hostelOwnerEmailFocusNode,
                           nextNode: hostelOwnercontactFocusNode,
                           controller: _hostelOwnerEmailController,
                           obsecureText: false,
+                          keyboardType: TextInputType.emailAddress,
                         ),
                         SizedBox(
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "  3XXXXXXXXX",
+                          hint_text: "3XXXXXXXXX",
                           currentNode: hostelOwnercontactFocusNode,
                           focusNode: hostelOwnercontactFocusNode,
                           nextNode: passwordFocusNode,
                           controller: _hostelOwnerphoneController,
+                          keyboardType: TextInputType.number,
                           preicon: Container(
                             width: 60.w,
                             height: 60.h,
@@ -292,7 +298,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "  Set Password",
+                          hint_text: "Set Password",
                           currentNode: passwordFocusNode,
                           focusNode: passwordFocusNode,
                           nextNode: confirmpasswordFocusNode,
@@ -303,7 +309,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                           height: 16.h,
                         ),
                         inputfields(
-                            hint_text: "  Confirm Password",
+                            hint_text: "Confirm Password",
                             currentNode: confirmpasswordFocusNode,
                             focusNode: confirmpasswordFocusNode,
                             nextNode: confirmpasswordFocusNode,

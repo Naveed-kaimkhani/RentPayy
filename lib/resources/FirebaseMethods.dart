@@ -141,7 +141,7 @@ class FirebaseMethods {
     return userModel;
   }
 
- static Future<List<hostelModel>> getDataFromDb()async{
+ static Future<List<hostelModel>> getHostelsData()async{
    List<hostelModel> hostelModels=[];
    QuerySnapshot<Map<String,dynamic>> snap= await FirebaseFirestore.instance.collection("hostels").get();
     print(snap.docs.length);

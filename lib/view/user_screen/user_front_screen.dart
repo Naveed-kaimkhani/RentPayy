@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rentpayy/model/hostelModel.dart';
+import 'package:rentpayy/resources/FirebaseMethods.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+import 'package:rentpayy/utils/utils.dart';
 
 import '../../components/bottom_navigation_bar.dart';
 import '../../components/hostel_container.dart';
 import '../../components/user_recommended_portion.dart';
 
-class UserScreen extends StatefulWidget {
-  const UserScreen({Key? key}) : super(key: key);
+class user_front_screen extends StatefulWidget {
+  const user_front_screen({Key? key}) : super(key: key);
 
   @override
-  State<UserScreen> createState() => _UserScreenState();
+  State<user_front_screen> createState() => _user_front_screenState();
 }
 
-class _UserScreenState extends State<UserScreen> {
+class _user_front_screenState extends State<user_front_screen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -209,17 +212,17 @@ class _UserScreenState extends State<UserScreen> {
                   //   scrollDirection: Axis.horizontal,
                   //   child: Row(
                   //     children: [
-                  //       UserScreenContainer(
+                  //       user_front_screenContainer(
                   //           image: 'asset/bulding1.png', text: 'Hostels'),
-                  //       UserScreenContainer(
+                  //       user_front_screenContainer(
                   //           image: 'asset/car2.png', text: 'Vehicle'),
-                  //       UserScreenContainer(
+                  //       user_front_screenContainer(
                   //           image: 'asset/headphone2.png', text: 'Electronics'),
-                  //       UserScreenContainer(
+                  //       user_front_screenContainer(
                   //           image: 'asset/shirt2.png', text: 'Clothes'),
-                  //       UserScreenContainer(
+                  //       user_front_screenContainer(
                   //           image: 'asset/books2.png', text: 'Books'),
-                  //       UserScreenContainer(
+                  //       user_front_screenContainer(
                   //           image: 'asset/sofa2.png', text: 'Furniture'),
                   //     ],
                   //   ),
@@ -244,19 +247,44 @@ class _UserScreenState extends State<UserScreen> {
                   SizedBox(
                     height: 16.h,
                   ),
-                  Row(
-                    children: [
-                      HostelContainer(),
-                      HostelContainer(),
-                    ],
+                FutureBuilder(
+          builder: (ctx, AsyncSnapshot<List<hostelModel>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text(
+                    '${snapshot.error} occurred',
+                    style: TextStyle(fontSize: 18),
                   ),
-                  SizedBox(height: 12.h,),
-                  Row(
-                    children: [
-                      HostelContainer(),
-                      HostelContainer(),
-                    ],
-                  ),
+                );
+ 
+                // if we got our data
+              } else if (snapshot.hasData) {
+                // Extracting data from snapshot object
+                //final data = snapshot.data as String;
+                return   Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: GridView.builder(
+                          itemCount: snapshot.data!.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
+                          itemBuilder: (context, index) {
+                            return HostelContainer(hostel: snapshot.data![index],);
+                          }));
+              }
+            }
+ 
+            // Displaying LoadingSpinner to indicate waiting state
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+ 
+          // Future that needs to be resolved
+          // inorder to display something on the Canvas
+          future: FirebaseMethods.getHostelsData(),
+        ),
+      
                 ],
               ),
               Positioned(

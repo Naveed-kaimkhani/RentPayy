@@ -11,6 +11,7 @@ class inputfields extends StatelessWidget {
   FocusNode? focusNode;
   IconData? icon;
   Widget? preicon;
+  TextInputType? keyboardType;
   // bool? visiblity;
   Function()? onIconPress;
   TextEditingController? controller;
@@ -24,7 +25,7 @@ class inputfields extends StatelessWidget {
     this.preicon,
     this.onIconPress,
     this.obsecureText,
-
+    this.keyboardType,
     // this.visiblity,
   });
 
@@ -40,7 +41,7 @@ class inputfields extends StatelessWidget {
           borderRadius: BorderRadius.circular(7.r)),
       // ignore: prefer_const_constructors
       child: TextField(
-        // keyboardType: keyboardType,
+       keyboardType: keyboardType??TextInputType.text,
         obscureText: obsecureText ?? false,
         onEditingComplete: () =>
             utils.fieldFocusChange(context, currentNode!, nextNode!),
@@ -48,12 +49,14 @@ class inputfields extends StatelessWidget {
         cursorColor: Colors.black,
         focusNode: focusNode,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(12),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(7.r),
             borderSide: BorderSide(color: AppColors.primaryColor, width: 1.0),
           ),
           border: InputBorder.none,
           hintText: hint_text,
+        
           hintStyle: TextStyle(
             color: Color.fromARGB(255, 112, 102, 102),
             fontSize: 17.sp,
