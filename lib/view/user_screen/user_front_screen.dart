@@ -245,19 +245,15 @@ class _UserScreenState extends State<UserScreen> {
                   SizedBox(
                     height: 16.h,
                   ),
-                  Row(
-                    children: [
-                      HostelContainer(),
-                      HostelContainer(),
-                    ],
-                  ),
-                  SizedBox(height: 12.h,),
-                  Row(
-                    children: [
-                      HostelContainer(),
-                      HostelContainer(),
-                    ],
-                  ),
+                  Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: GridView.builder(
+                          itemCount: 10,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
+                          itemBuilder: (context, index) {
+                            return HostelContainer();
+                          })),
                 ],
               ),
               Positioned(
