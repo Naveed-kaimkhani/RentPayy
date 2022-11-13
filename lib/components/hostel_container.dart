@@ -12,7 +12,9 @@ class _HostelContainerState extends State<HostelContainer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 18.sp,),
+      padding: EdgeInsets.only(
+        left: 18.sp,
+      ),
       child: Container(
         height: 198.h,
         width: 187.w,
@@ -43,8 +45,7 @@ class _HostelContainerState extends State<HostelContainer> {
                       child: Text(
                         'Featured',
                         style: TextStyle(
-                            fontSize: 9.sp,
-                            fontWeight: FontWeight.w500),
+                            fontSize: 9.sp, fontWeight: FontWeight.w500),
                       ),
                     ),
                   ),
@@ -67,55 +68,72 @@ class _HostelContainerState extends State<HostelContainer> {
                 children: [
                   Text(
                     'Bakhtawar Hostel',
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500),
+                    style:
+                        TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
                   ),
                   // SizedBox(width: 12.sp,),
                   RichText(
                       text: TextSpan(children: [
-                        TextSpan(
-                            text: '200',
-                            style: TextStyle(
-                                color:
-                                Color.fromRGBO(245, 173, 13, 1),
-                                fontSize: 23.sp,
-                                fontWeight: FontWeight.w700)),
-                        TextSpan(
-                          text: '/month',
-                          style: TextStyle(
-                              fontSize: 6.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ]))
+                    TextSpan(
+                        text: '200',
+                        style: TextStyle(
+                            color: Color.fromRGBO(245, 173, 13, 1),
+                            fontSize: 23.sp,
+                            fontWeight: FontWeight.w700)),
+                    TextSpan(
+                      text: '/month',
+                      style: TextStyle(
+                          fontSize: 6.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ]))
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left:9.w ),
+              padding: EdgeInsets.only(left: 9.w),
               child: Row(
                 children: [
-                  Image(image: AssetImage('asset/hostelRoom.png')),
-                  SizedBox(width: 2.w,),
+
+                  SizedBox(
+                    width: 2.w,
+                  ),
                   Text(
                     'Jamshoro,Pakistan',
-                    style: TextStyle(
-                        fontSize: 8.sp,
-                        fontWeight: FontWeight.w400),
+                    style:
+                        TextStyle(fontSize: 8.sp, fontWeight: FontWeight.w400),
                   )
                 ],
               ),
             ),
             Padding(
-              padding:EdgeInsets.only(left: 9.w , top: 10.41.h),
+              padding: EdgeInsets.only(left: 9.w, top: 10.41.h),
               child: Row(
                 children: [
-                  Image(image: AssetImage('asset/human1.png' ,),height: 12.h,),
-                  SizedBox(width: 7.w,),
-                  Image(image: AssetImage('asset/humanBed.png' ,) , width: 13.w,),
-                  SizedBox(width: 2.sp,),
-                  Text('6', style: TextStyle(fontSize: 10.sp , fontWeight: FontWeight.w500),)
+                  Image(
+                    image: AssetImage(
+                      'asset/human1.png',
+                    ),
+                    height: 12.h,
+                  ),
+                  SizedBox(
+                    width: 7.w,
+                  ),
+                  Image(
+                    image: AssetImage(
+                      'asset/humanBed.png',
+                    ),
+                    width: 13.w,
+                  ),
+                  SizedBox(
+                    width: 2.sp,
+                  ),
+                  Text(
+                    '6',
+                    style:
+                        TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
+                  )
                 ],
               ),
             ),

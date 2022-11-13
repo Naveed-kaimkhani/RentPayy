@@ -1,185 +1,166 @@
-// import 'package:flutter/material.dart';
-// import 'package:textfield_tags/textfield_tags.dart';
-//
-// class Home extends StatefulWidget {
-//   @override
-//   State<Home> createState() => _HomeState();
-// }
-//
-// class _HomeState extends State<Home> {
-//   late double _distanceToField;
-//   late TextfieldTagsController _controller;
-//
-//   @override
-//   void didChangeDependencies() {
-//     super.didChangeDependencies();
-//     _distanceToField = MediaQuery.of(context).size.width;
-//   }
-//
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     _controller.dispose();
-//   }
-//
-//   Function(String)? add;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _controller = TextfieldTagsController();
-//   }
-//
-//   List<String>? tagss = [];
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: "wellcome",
-//       home: Scaffold(
-//         appBar: AppBar(
-//           backgroundColor: const Color.fromARGB(255, 74, 137, 92),
-//           centerTitle: true,
-//           title: const Text('Enter a tag...'),
-//         ),
-//         body: Column(
-//           children: [
-//             TextFieldTags(
-//               textfieldTagsController: _controller,
-//               textSeparators: const [' ', ','],
-//               letterCase: LetterCase.normal,
-//               validator: (String tag) {
-//                 if (tag == 'php') {
-//                   return 'No, please just no';
-//                 } else if (_controller.getTags!.contains(tag)) {
-//                   return 'you already entered that';
-//                 }
-//                 return null;
-//               },
-//               inputfieldBuilder:
-//                   (context, tec, fn, error, onChanged, onSubmitted) {
-//                 return ((context, sc, tags, onTagDelete) {
-//                   return Padding(
-//                     padding: const EdgeInsets.all(10.0),
-//                     child: TextField(
-//                       controller: tec,
-//                       focusNode: fn,
-//                       decoration: InputDecoration(
-//                         isDense: true,
-//                         border: const OutlineInputBorder(
-//                           borderSide: BorderSide(
-//                             color: Color.fromARGB(255, 74, 137, 92),
-//                             width: 3.0,
-//                           ),
-//                         ),
-//                         focusedBorder: const OutlineInputBorder(
-//                           borderSide: BorderSide(
-//                             color: Color.fromARGB(255, 74, 137, 92),
-//                             width: 3.0,
-//                           ),
-//                         ),
-//                         helperText: 'Enter language...',
-//                         helperStyle: const TextStyle(
-//                           color: Color.fromARGB(255, 74, 137, 92),
-//                         ),
-//                         hintText: _controller.hasTags ? '' : "Enter tag...",
-//                         errorText: error,
-//                         prefixIconConstraints:
-//                             BoxConstraints(maxWidth: _distanceToField * 0.74),
-//                         prefixIcon: tags.isNotEmpty
-//                             ? SingleChildScrollView(
-//                                 controller: sc,
-//                                 scrollDirection: Axis.horizontal,
-//                                 child: Row(
-//                                     children: tags.map((String tag) {
-//                                   return Container(
-//                                     decoration: const BoxDecoration(
-//                                       borderRadius: BorderRadius.all(
-//                                         Radius.circular(20.0),
-//                                       ),
-//                                       color: Color.fromARGB(255, 74, 137, 92),
-//                                     ),
-//                                     margin: const EdgeInsets.symmetric(
-//                                         horizontal: 5.0),
-//                                     padding: const EdgeInsets.symmetric(
-//                                         horizontal: 10.0, vertical: 5.0),
-//                                     child: Row(
-//                                       mainAxisAlignment:
-//                                           MainAxisAlignment.spaceBetween,
-//                                       children: [
-//                                         InkWell(
-//                                           child: Text(
-//                                             tag.toString(),
-//                                             style: const TextStyle(
-//                                                 color: Colors.white),
-//                                           ),
-//                                           onTap: () {
-//                                             setState(() {
-//                                               add = onSubmitted;
-//                                             });
-//                                             print("$tag selected");
-//                                           },
-//                                         ),
-//                                         const SizedBox(width: 4.0),
-//                                         InkWell(
-//                                           child: const Icon(
-//                                             Icons.cancel,
-//                                             size: 14.0,
-//                                             color: Color.fromARGB(
-//                                                 255, 233, 233, 233),
-//                                           ),
-//                                           onTap: () {
-//                                             onTagDelete(tag);
-//                                           },
-//                                         )
-//                                       ],
-//                                     ),
-//                                   );
-//                                 }).toList()),
-//                               )
-//                             : null,
-//                       ),
-//                       onChanged: onChanged,
-//                       onSubmitted: (value) {
-//                         setState(() {
-//                           tagss!.add(value);
-//                         });
-//                       },
-//                     ),
-//                   );
-//                 });
-//               },
-//             ),
-//             ElevatedButton(
-//               style: ButtonStyle(
-//                 backgroundColor: MaterialStateProperty.all<Color>(
-//                   const Color.fromARGB(255, 74, 137, 92),
-//                 ),
-//               ),
-//               onPressed: () {
-//                 _controller.clearTags();
-//               },
-//               child: const Text('CLEAR TAGS'),
-//             ),
-//             Container(
-//               width: MediaQuery.of(context).size.width,
-//               height: 400,
-//               child: ListView.builder(
-//                   itemCount: tagss!.length,
-//                   itemBuilder: (context, index) {
-//                     return Text(tagss![index]);
-//                     // Expanded(
-//                     //   child: Container(
-//                     //      height: 300,
-//                     //     width: MediaQuery.of(context).size.width, child: Column(
-//                     //     children:
-//                     //   ),
-//                     //   ),
-//                     // );
-//                   }),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rentpayy/utils/style/AppColors.dart';
+
+class test extends StatefulWidget {
+  const test({Key? key}) : super(key: key);
+
+  @override
+  State<test> createState() => _testState();
+}
+
+class _testState extends State<test> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 160,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: Column(children: [
+          SizedBox(
+            height: 13.h,
+          ),
+          Container(
+            width: 397.w,
+            height: 190.h,
+            child: Stack(
+              children: [
+                Container(
+                  width: 397.w,
+                  height: 145.h,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(242, 246, 255, 1),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(35.r),
+                        topRight: Radius.circular(35.r)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 17.h, left: 14.w),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Jamshoro',
+                              style: TextStyle(
+                                color: Color(0xff000000),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            Container(
+                              height: 15.h,
+                              width: 15.w,
+                              decoration: BoxDecoration(
+                                color: AppColors.primaryColor,
+                                borderRadius:
+                                BorderRadius.circular(3.r),
+                              ),
+                              child: Image.asset(
+                                'asset/downArrow.png',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: 14.w, right: 15.w, top: 26.h),
+                        child: Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Hello Osama!',
+                                  style: TextStyle(
+                                      color: Color(0xff000000),
+                                      fontSize: 35.sp,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  'Welcome back, Ready to Rent?',
+                                  style: TextStyle(
+                                      color: Color(0xff000000),
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w300),
+                                )
+                              ],
+                            ),
+                            Container(
+                              height: 61.h,
+                              width: 61.w,
+                              child: CircleAvatar(
+                                backgroundImage: AssetImage(
+                                    'asset/profileImage.png'),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  left: 30.w,
+                  top: 140.h,
+                  child: Container(
+                    height: 42.h,
+                    width: 339.w,
+                    decoration: BoxDecoration(
+                        color: Color(0xffFFFFFF),
+                        borderRadius: BorderRadius.circular(7.r),
+                        boxShadow: [
+                          BoxShadow(
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            color: Colors.grey.withOpacity(0.3),
+                          ),
+                        ]),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: AppColors.primaryColor,
+                          ),
+                          hintText: 'Search',
+                          hintStyle: TextStyle(
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w400),
+                          contentPadding: EdgeInsets.only(top: 1.h),
+                          suffixIcon:
+                          Image.asset('asset/vector(1).png'),
+                          border: InputBorder.none),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SliverList(
+            // Use a delegate to build items as they're scrolled on screen.
+            delegate: SliverChildBuilderDelegate(
+              // The builder function returns a ListTile with a title that
+              // displays the index of the current item.
+                  (context, index) => ListTile(title: Text('Item #$index')),
+              // Builds 1000 ListTiles
+              childCount: 1000,
+            ),
+          )
+        ]),
+
+              ),
+
+    );
+  }
+}

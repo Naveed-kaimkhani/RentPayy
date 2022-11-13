@@ -1,12 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rentpayy/test.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
 import 'package:rentpayy/view/Hostel_Screen/Hostel_signup.dart';
 import 'package:rentpayy/view/add_gallery.dart';
 import 'package:rentpayy/view/starter_screen.dart';
 import 'package:rentpayy/view/user_screen/login_screen.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
+import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +39,7 @@ class _MyAppState extends State<MyApp> {
               // theme: ThemeData(
               //   primarySwatch: Colors.blue,
               // ),
-              home: StarterScreen(),
+              home:UserScreen(),
               // initialRoute: RoutesName.login,
               // onGenerateRoutes: Routes.onGenerateRoute(settings),
               onGenerateRoute: Routes.onGenerateRoute,

@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/view/Hostel_Screen/Hostel_signup.dart';
 import 'package:rentpayy/view/user_screen/User_signup.dart';
+import 'package:rentpayy/view/user_screen/login_screen.dart';
+import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 import '../components/user_seller_component.dart';
 
 class UserSellerScreen extends StatelessWidget {
@@ -39,7 +41,7 @@ class UserSellerScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => User_signup_page(),
+                          builder: (context) => login_screen(),
                         ),
                       );
                     },
@@ -56,7 +58,7 @@ class UserSellerScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Hostel_Signup(),
+                            builder: (context) => login_screen(),
                           ),
                         );
                       }),

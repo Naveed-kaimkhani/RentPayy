@@ -14,6 +14,7 @@ import 'package:rentpayy/resources/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
+import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 
 import '../../model/UserModel.dart';
 import '../../resources/FirebaseRepository.dart';
@@ -91,7 +92,7 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
       if (userModel != null) {
         StorageService.saveUser(userModel).then((value) {
           isLoading(false);
-          Navigator.pushNamed(context, RoutesName.homeScreen);
+          Navigator.push(context, MaterialPageRoute(builder: (context) =>  UserScreen() ));
         }).catchError((error) {
           utils.flushBarErrorMessage(error.message.toString(), context);
         });

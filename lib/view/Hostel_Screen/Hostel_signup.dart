@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/circle_progress.dart';
-import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import '../../components/auth_screens_decor.dart';

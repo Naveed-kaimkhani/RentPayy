@@ -60,6 +60,7 @@ dev_dependencies:
 flutter_native_splash:
   color: "#ffffff"
   image: asset/mainicon.png
+
   android: true
   ios: true
 
