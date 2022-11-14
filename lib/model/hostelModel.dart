@@ -14,42 +14,35 @@ class hostelModel {
   int? person_per_room;
   String? description;
   List<dynamic>? facilities;
-  String? pic1;
-  String? pic2;
-  String? pic3;
-  String? pic4;
-  String? pic5;
-  String? pic6;
-  String? pic7;
-  String? pic8;
-  hostelModel(
-      {this.uid,
-      this.name,
-      this.charges,
-      this.hostel_address,
-      this.hostel_phone,
-      this.owner_name,
-      this.email,
-      this.owner_phone,
-      this.hostel_gender_type,
-      this.hostel_type,
-      this.total_capacity,
-      this.available_capacity,
-      this.person_per_room,
-      this.description,
-      this.facilities,
-      this.pic1,
-      this.pic2,
-      this.pic3,
-      this.pic4,
-      this.pic5,
-      this.pic6,
-      this.pic7,
-      this.pic8
+  // String? pic1;
+  // String? pic2;
+  // String? pic3;
+  // String? pic4;
+  // String? pic5;
+  // String? pic6;
+  // String? pic7;
+  // String? pic8;
+  List<dynamic>? pictures;
+  hostelModel({
+    this.uid,
+    this.name,
+    this.charges,
+    this.hostel_address,
+    this.hostel_phone,
+    this.owner_name,
+    this.email,
+    this.owner_phone,
+    this.hostel_gender_type,
+    this.hostel_type,
+    this.total_capacity,
+    this.available_capacity,
+    this.person_per_room,
+    this.description,
+    this.facilities,
+     this.pictures,
 
-      // ignore: non_constant_identifier_names
-
-      });
+    // ignore: non_constant_identifier_names
+  });
 
   Map toMap(hostelModel hostel) {
     var data = Map<String, dynamic>();
@@ -67,15 +60,16 @@ class hostelModel {
     data['available_capacity'] = hostel.available_capacity;
     data['person_per_room'] = hostel.person_per_room;
     data['description'] = hostel.description;
-    
-    data['pic1'] = hostel.pic1;
-    data['pic2'] = hostel.pic2;
-    data['pic3'] = hostel.pic3;
-    data['pic4'] = hostel.pic4;
-    data['pic5'] = hostel.pic5;
-    data['pic6'] = hostel.pic6;
-    data['pic7'] = hostel.pic7;
-    data['pic8'] = hostel.pic8;
+    data['pictures'] = hostel.pictures;
+  
+    // data['pic1'] = hostel.pic1;
+    // data['pic2'] = hostel.pic2;
+    // data['pic3'] = hostel.pic3;
+    // data['pic4'] = hostel.pic4;
+    // data['pic5'] = hostel.pic5;
+    // data['pic6'] = hostel.pic6;
+    // data['pic7'] = hostel.pic7;
+    // data['pic8'] = hostel.pic8;
     return data;
   }
 
@@ -94,14 +88,15 @@ class hostelModel {
       person_per_room: json['person_per_room'],
       description: json['description'],
       facilities: json['facilities'],
-      pic1: json['pictures'][0],
-      pic2: json['pictures'][1],
-      pic3: json['pictures'][2],
-      pic4: json['pictures'][3],
-      pic5: json['pictures'][4],
-      pic6: json['pictures'][5],
-      pic7: json['pictures'][6],
-      pic8: json['pictures'][7],
+      pictures: json['pictures'],
+      // pic1: json['pictures'][0],
+      // pic2: json['pictures'][1],
+      // pic3: json['pictures'][2],
+      // pic4: json['pictures'][3],
+      // pic5: json['pictures'][4],
+      // pic6: json['pictures'][5],
+      // pic7: json['pictures'][6],
+      // pic8: json['pictures'][7],
       // pic1: json['pic1'],
       // pic2: json['pic2'],
       // pic3: json['pic3'],

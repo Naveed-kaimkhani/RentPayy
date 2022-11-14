@@ -9,6 +9,7 @@ import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
+import 'package:rentpayy/components/upper_design.dart';
 import 'package:rentpayy/utils/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import '../../components/auth_screens_decor.dart';
@@ -47,7 +48,7 @@ class _User_signup_pageState extends State<User_signup_page> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmpasswordController = TextEditingController();
 
-  bool? obsecureText =false;
+  bool? obsecureText = false;
   List<String> genderList = ["Male", "Female"];
   String? selectedvalue = "Gender";
   bool isLoadingNow = false;
@@ -117,10 +118,7 @@ class _User_signup_pageState extends State<User_signup_page> {
 
   void _signup(UserModel userModel) {
     _firebaseRepository
-        .signUp(
-      _emailController.text,
-      _passwordController.text,
-    )
+        .signUp(_emailController.text, _passwordController.text, context)
         .then((User? user) async {
       if (user != null) {
         userModel.uid = user.uid;
@@ -154,7 +152,7 @@ class _User_signup_pageState extends State<User_signup_page> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: custom_appbar(),
+        appBar: upper_design(),
         body: Stack(
           children: [
             Container(
@@ -205,7 +203,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                           height: 15.16.h,
                         ),
                         inputfields(
-                          hint_text: "   Enter name",
+                          hint_text: "Enter name",
                           currentNode: nameFocusNode,
                           focusNode: nameFocusNode,
                           nextNode: numberFocusNode,
@@ -216,11 +214,12 @@ class _User_signup_pageState extends State<User_signup_page> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "  Enter phone number",
+                          hint_text: "Enter phone number",
                           currentNode: numberFocusNode,
                           focusNode: numberFocusNode,
                           nextNode: ageFocusNode,
                           controller: _numberController,
+                          keyboardType: TextInputType.number,
                           obsecureText: false,
                           preicon: Container(
                             width: 60.w,
@@ -326,43 +325,45 @@ class _User_signup_pageState extends State<User_signup_page> {
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "  Enter email address",
+                          hint_text: "Enter email address",
                           currentNode: emailFocusNode,
                           focusNode: emailFocusNode,
                           nextNode: passwordFocusNode,
                           controller: _emailController,
                           obsecureText: false,
+                          keyboardType: TextInputType.emailAddress,
                         ),
                         SizedBox(
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "  Set password",
+                          hint_text: "Set password",
                           currentNode: passwordFocusNode,
                           focusNode: passwordFocusNode,
                           nextNode: confirmpasswordFocusNode,
                           controller: _passwordController,
                           obsecureText: _obsecureText,
-                          onIconPress: onIconPress,
-                          icon: Icons.remove_red_eye,
+                          // onIconPress: onIconPress,
+                          // icon: Icons.remove_red_eye,
                         ),
                         SizedBox(
                           height: 16.h,
                         ),
                         inputfields(
-                          hint_text: "  Confirm password",
-                          currentNode: confirmpasswordFocusNode,
-                          focusNode: confirmpasswordFocusNode,
-                          nextNode: confirmpasswordFocusNode,
-                          controller: _confirmpasswordController,
-                          icon: obsecureText! ? Icons.remove_red_eye : Icons.visibility_off ,
-                          obsecureText: obsecureText,
+                            hint_text: "Confirm password",
+                            currentNode: confirmpasswordFocusNode,
+                            focusNode: confirmpasswordFocusNode,
+                            nextNode: confirmpasswordFocusNode,
+                            controller: _confirmpasswordController,
+                            icon: obsecureText!
+                                ? Icons.remove_red_eye
+                                : Icons.visibility_off,
+                            obsecureText: obsecureText,
                             onIconPress: () {
-                          setState(() {
-                            obsecureText = !obsecureText!;
-                          });
-                        }
-                        ),
+                              setState(() {
+                                obsecureText = !obsecureText!;
+                              });
+                            }),
                         SizedBox(
                           height: 31.h,
                         ),

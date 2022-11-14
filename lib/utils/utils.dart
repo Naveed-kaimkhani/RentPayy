@@ -20,7 +20,7 @@ class utils {
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         padding: EdgeInsets.all(15),
         message: message,
-        duration: const Duration(seconds: 3),
+        duration: const Duration(seconds: 4),
         borderRadius: BorderRadius.circular(8),
         flushbarPosition: FlushbarPosition.TOP,
         // backgroundColor: const Color.fromARGB(255, 90, 89, 89),
@@ -42,8 +42,6 @@ class utils {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
-
-
   // static Future<File?> pickImage(ImageSource imageSource,
   //     [int quality = 85, double width = 500, double height = 500]) async {
   //   ImagePicker imagePicker = ImagePicker();
@@ -63,15 +61,15 @@ class utils {
   //   print('size: ${imageToCompress.statSync().size}');
   //   return imageToCompress;
   // }
- static Future<Uint8List?> PickImage() async {
-  //    ImagePicker picker=ImagePicker();
-  ImagePicker picker =ImagePicker();
-      XFile? file= await picker.pickImage(source: ImageSource.gallery);
-      
-     if (file!=null) {
-       return file.readAsBytes();
-     } 
+  static Future<Uint8List?> PickImage() async {
+    //    ImagePicker picker=ImagePicker();
+    ImagePicker picker = ImagePicker();
+    XFile? file = await picker.pickImage(source: ImageSource.gallery);
+
+    if (file != null) {
+      return file.readAsBytes();
     }
+  }
 
 // Widget UploadImage1(Uint8List? image) {
 //     return image == null

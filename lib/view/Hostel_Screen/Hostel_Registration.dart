@@ -7,6 +7,7 @@ import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/mini_Button.dart';
 import 'package:rentpayy/components/point_increament_button.dart';
+import 'package:rentpayy/components/upper_design.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
@@ -14,11 +15,10 @@ import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
 
 import '../../components/dropdown_button.dart';
-import '../../model/hostelModel.dart';
-import '../../model/hostelModel.dart';
 
 class Hostel_Registration extends StatefulWidget {
-  const Hostel_Registration({Key? key}) : super(key: key);
+  final hostelModel? hostel;
+  const Hostel_Registration({Key? key, this.hostel}) : super(key: key);
 
   @override
   State<Hostel_Registration> createState() => _Hostel_RegistrationState();
@@ -86,7 +86,7 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: custom_appbar(),
+        appBar: upper_design(),
         body: Stack(
           children: [
             Container(

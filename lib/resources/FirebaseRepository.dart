@@ -11,8 +11,9 @@ import '../model/UserModel.dart';
 class FirebaseRepository{
     FirebaseMethods _firebaseMethods = FirebaseMethods();
     
-Future<User?> signUp(String email, String password) =>
-      _firebaseMethods.signUp(email, password);
+Future<User?> signUp(String email, String password,context) =>
+
+      _firebaseMethods.signUp(email, password,context);
 
   Future<String> uploadProfileImage(
           {required Uint8List imageFile, required String uid}) =>

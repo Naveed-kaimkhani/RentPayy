@@ -51,6 +51,8 @@ dependencies:
   firebase_auth: ^4.0.1
   dropdown_button2: ^1.8.5
   google_sign_in: ^5.4.2
+  carousel_slider: ^4.1.1
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:

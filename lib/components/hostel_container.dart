@@ -26,7 +26,10 @@ class HostelContainer extends StatelessWidget {
                 Container(
                   height: 125.h,
                   width: 187.w,
-                  child: Image.network(hostel!.pic1!),
+                  decoration: BoxDecoration(
+                  
+                  ),
+                  child: Image.network(hostel!.pictures![0]!,),
                 ),
                 Positioned(
                   top: 103.h,

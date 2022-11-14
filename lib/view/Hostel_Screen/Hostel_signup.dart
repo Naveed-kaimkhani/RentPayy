@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/circle_progress.dart';
-import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import '../../components/auth_screens_decor.dart';
@@ -52,11 +51,12 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
     });
   }
 
-  void _signup(hostelModel hostelModel) {
+  void _signup(hostelModel hostelModel,context) {
     _firebaseRepository
         .signUp(
       _hostelOwnerEmailController.text,
       _passwordController.text,
+      context,
     )
         .then((User? user) async {
       if (user != null) {
@@ -126,7 +126,9 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
           available_capacity: 0,
           person_per_room: 0,
           description: "");
-      _signup(HostelModel);
+ Navigator.push(context,
+            MaterialPageRoute(builder: (context) => Hostel_Registration()));
+      _signup(HostelModel,context);
     }
   }
 

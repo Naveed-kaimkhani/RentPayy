@@ -43,18 +43,33 @@ class FirebaseMethods {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  Future<User?> signUp(String email, String password) async {
+  Future<User?> signUp(String email, String password, context) async {
+    // User? user=FirebaseAuth.instance.currentUser;
+    // if (user==null) {
+    //   try {
+    //   UserCredential userCredential =
+    //       await _auth.createUserWithEmailAndPassword(
+    //     email: email,
+    //     password: password,
+    //   );
+    //   return userCredential.user;
+    // } catch (e) {
+    //   // print(e);
+    //   utils.flushBarErrorMessage(e.toString(), context);
+    // }
+    // } else {
+    //   return user;
+    // }
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-
       return userCredential.user;
     } catch (e) {
-      print(e);
-      // utils.flushBarErrorMessage(message, context)
+      // print(e);
+      utils.flushBarErrorMessage(e.toString(), context);
     }
   }
 
@@ -141,17 +156,17 @@ class FirebaseMethods {
     return userModel;
   }
 
- static Future<List<hostelModel>> getHostelsData()async{
-   List<hostelModel> hostelModels=[];
-   QuerySnapshot<Map<String,dynamic>> snap= await FirebaseFirestore.instance.collection("hostels").get();
+  static Future<List<hostelModel>> getHostelsData() async {
+    List<hostelModel> hostelModels = [];
+    QuerySnapshot<Map<String, dynamic>> snap =
+        await FirebaseFirestore.instance.collection("hostels").get();
     print(snap.docs.length);
-    for (var i = 0; i < snap.docs.length;i++) {
+    for (var i = 0; i < snap.docs.length; i++) {
+      DocumentSnapshot docsSnap = snap.docs[i];
 
-    DocumentSnapshot docsSnap=  snap.docs[i];
-
-    hostelModel model=hostelModel.fromJson(docsSnap.data() as dynamic);
-    //print(model.Category);
-  hostelModels.add(model);
+      hostelModel model = hostelModel.fromJson(docsSnap.data() as dynamic);
+      //print(model.Category);
+      hostelModels.add(model);
     }
     return hostelModels;
   }

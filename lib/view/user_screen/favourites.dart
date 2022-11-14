@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/hostel_list.dart';
-import '../../utils/style/AppColors.dart';
 
 class favourites extends StatefulWidget {
   const favourites({Key? key}) : super(key: key);

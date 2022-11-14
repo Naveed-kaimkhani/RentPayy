@@ -16,4 +16,6 @@ class Images {
      static const String facilities1 = 'asset/facilities1.png';
      static const String arrow = 'asset/arrow.png';
      static const String dropdown = 'asset/dropdown.png';
+     static const String human1= 'asset/human1.png';
+     static const String humanBed= 'asset/humanBed.png';
 }
