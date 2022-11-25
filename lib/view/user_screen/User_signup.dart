@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:email_validator/email_validator.dart';
@@ -7,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/circle_progress.dart';
-import 'package:rentpayy/components/custom_appbar.dart';
+
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/components/upper_design.dart';
 import 'package:rentpayy/utils/StorageService.dart';
@@ -88,7 +87,7 @@ class _User_signup_pageState extends State<User_signup_page> {
       utils.flushBarErrorMessage('Enter your phone', context);
     } else if (_emailController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Enter your email', context);
-    } else if (_numberController.text.length != 11) {
+    } else if (_numberController.text.length != 10) {
       utils.flushBarErrorMessage('Invalid Phone Number', context);
     } else if (_passwordController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Enter your password', context);
@@ -128,7 +127,7 @@ class _User_signup_pageState extends State<User_signup_page> {
         _saveUser(user, userModel);
       } else {
         isLoading(false);
-        utils.flushBarErrorMessage('Failed to Signup', context);
+        // utils.flushBarErrorMessage('Failed to Signup', context);
       }
     }).catchError((error) {
       isLoading(false);
@@ -140,7 +139,7 @@ class _User_signup_pageState extends State<User_signup_page> {
     _firebaseRepository.saveUserDataToFirestore(userModel).then((value) {
       StorageService.saveUser(userModel).then((value) {
         isLoading(false);
-        Navigator.pushNamed(context, RoutesName.loginWithRentPayy);
+        Navigator.pushNamed(context, RoutesName.user_front_screen);
       });
     }).catchError((error) {
       isLoading(false);
@@ -302,6 +301,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                                   controller: _ageController,
                                   cursorColor: Colors.black,
                                   focusNode: ageFocusNode,
+                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12.r),
@@ -356,8 +356,8 @@ class _User_signup_pageState extends State<User_signup_page> {
                             nextNode: confirmpasswordFocusNode,
                             controller: _confirmpasswordController,
                             icon: obsecureText!
-                                ? Icons.remove_red_eye
-                                : Icons.visibility_off,
+                                ? Icons.visibility_off
+                                : Icons.remove_red_eye,
                             obsecureText: obsecureText,
                             onIconPress: () {
                               setState(() {

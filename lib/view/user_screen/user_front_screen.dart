@@ -6,7 +6,6 @@ import 'package:rentpayy/view/user_screen/add_page.dart';
 import '../../components/banner.dart';
 import '../../components/bottom_navigation_bar.dart';
 import '../../components/hostel_container.dart';
-import '../../components/user_recommended_portion.dart';
 import '../../model/hostelModel.dart';
 import '../../resources/FirebaseMethods.dart';
 
@@ -24,8 +23,8 @@ class _user_front_ScreenState extends State<user_front_Screen> {
   @override
   void initState() {
     super.initState();
-    _scrollViewController!.addListener(() {
-      if (_scrollViewController!.position.userScrollDirection ==
+    _scrollViewController.addListener(() {
+      if (_scrollViewController.position.userScrollDirection ==
           ScrollDirection.reverse) {
         if (!isScrollingDown) {
           isScrollingDown = true;
@@ -45,11 +44,14 @@ class _user_front_ScreenState extends State<user_front_Screen> {
     });
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: BottomNavigationBarExample(),
+      
         appBar: AppBar(
           toolbarHeight: 160,
           backgroundColor: Colors.transparent,

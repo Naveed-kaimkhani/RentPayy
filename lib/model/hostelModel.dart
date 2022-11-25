@@ -44,7 +44,7 @@ class hostelModel {
     // ignore: non_constant_identifier_names
   });
 
-  Map toMap(hostelModel hostel) {
+  Map<String,dynamic> toMap(hostelModel hostel) {
     var data = Map<String, dynamic>();
     data['uid'] = hostel.uid;
     data['name'] = hostel.name;

@@ -4,6 +4,7 @@ import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
 import 'package:rentpayy/view/add_gallery.dart';
 import 'package:rentpayy/view/user_screen/User_signup.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
+import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 
 import '../../view/user_screen/login_screen.dart';
 
@@ -24,6 +25,9 @@ class Routes {
 
       case RoutesName.uploadPictures:
         return _buildRoute(add_gallery(), settings);
+      
+      case RoutesName.user_front_screen:
+        return _buildRoute(user_front_Screen(), settings);
 
       default:
         return _buildRoute(const Scaffold(), settings);

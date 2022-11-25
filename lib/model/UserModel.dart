@@ -25,7 +25,6 @@ class UserModel {
     data['uid'] = user.uid;
     data['profile_image'] = user.profileImage;
     data['name'] = user.name;
-  
     data['phone'] = user.phone;
     data['email'] = user.email;
     data['gender'] = user.gender;

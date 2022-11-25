@@ -351,7 +351,7 @@ class _FacilitiesState extends State<Facilities> {
                           savedata();
                         },
                         color: AppColors.primaryColor,
-                        icon: Images.arrow,
+                        icon: Icons.arrow_forward,
                       ),
                     ],
                   ),

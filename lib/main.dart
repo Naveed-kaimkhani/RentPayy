@@ -9,6 +9,8 @@ import 'package:rentpayy/view/user_screen/login_screen.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 
+import 'mainpage.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -38,7 +40,7 @@ class _MyAppState extends State<MyApp> {
               // theme: ThemeData(
               //   primarySwatch: Colors.blue,
               // ),
-              home: user_front_Screen(),              // initialRoute: RoutesName.login,
+              home: mainpage(), // initialRoute: RoutesName.login,
               // onGenerateRoutes: Routes.onGenerateRoute(settings),
               onGenerateRoute: Routes.onGenerateRoute,
             );

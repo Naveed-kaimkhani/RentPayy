@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rentpayy/components/circle_progress.dart';
 
 class home_screen extends StatelessWidget {
   const home_screen({Key? key}) : super(key: key);
@@ -7,7 +8,7 @@ class home_screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("home screen"),
+        child: circle_progress(),
       ),
     );
   }

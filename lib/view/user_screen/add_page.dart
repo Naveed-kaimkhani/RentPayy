@@ -1,16 +1,19 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rentpayy/resources/FirebaseRepository.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../model/hostelModel.dart';
 import '../../utils/style/Images.dart';
+import 'ad_page_container.dart';
 // import '../components/ad_page_container.dart';
 // import '../components/profile_reviews_component.dart';
 // import '../utils/style/Images.dart';
 
 class AdPage extends StatefulWidget {
+  
   final hostelModel hostel;
 
   AdPage({Key? key, required this.hostel}) : super(key: key);
@@ -24,6 +27,7 @@ class _AdPageState extends State<AdPage> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseRepository _firebaseRepository=new FirebaseRepository();
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -39,7 +43,9 @@ class _AdPageState extends State<AdPage> {
           elevation: 0.0,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () async{
+             await   _firebaseRepository.addToFavourites(widget.hostel);
+              },
               icon: Image.asset(Images.favourite),
             ),
             IconButton(
@@ -96,14 +102,14 @@ class _AdPageState extends State<AdPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 15.h,
+                        height: 18.h,
                       ),
                       AnimatedSmoothIndicator(
                         activeIndex: selectedIndex,
                         count: widget.hostel.pictures!.length,
                         effect: WormEffect(
-                          dotWidth: 18.w,
-                          dotHeight: 18.h,
+                          dotWidth: 14.w,
+                          dotHeight: 14.h,
                           activeDotColor: AppColors.primaryColor,
                           dotColor: Color.fromARGB(255, 177, 167, 167),
                         ),
@@ -123,7 +129,8 @@ class _AdPageState extends State<AdPage> {
                     ),
                     Row(
                       children: [
-                        Image(image: AssetImage(Images.location)),
+                        // Image(image: AssetImage(Images.location)),
+                        Icon(Icons.location_on_outlined,color: Color.fromARGB(255, 0, 63, 114),),
                         SizedBox(
                           width: 2.w,
                         ),
@@ -244,10 +251,10 @@ class _AdPageState extends State<AdPage> {
                     //     SizedBox(
                     //       width: 82.w,
                     //     ),
-                    //     ad_page_container(
-                    //       text: 'Electricity',
-                    //       image: Images.facilities,
-                    //     ),
+                    ad_page_container(
+                      text: 'Electricity',
+                      // image: Images.facilities,
+                    ),
                     //     SizedBox(
                     //       width: 80.w,
                     //     ),

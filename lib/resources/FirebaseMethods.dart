@@ -19,6 +19,9 @@ class FirebaseMethods {
   static final CollectionReference _userCollection =
       firestore.collection(USERS_COLLECTION);
 
+  static final CollectionReference _favoritesCollection =
+      firestore.collection("favorites");
+
   static final CollectionReference _hostelCollection =
       firestore.collection(HOSTEL_COLLECTION);
 
@@ -84,6 +87,19 @@ class FirebaseMethods {
     print("user created in firebase");
   }
 
+  Future<void> addToFavourites(hostelModel hostel) async {
+//  await FirebaseFirestore.instance.collection("favorites").doc(FirebaseAuth.instance.currentUser!.uid).collection("cart").doc(product.uid).set(product.getJson());
+    // await _userCollection.doc(FirebaseAuth.instance.currentUser!.uid).collection("favorites").doc(hostel.uid).set(hostel.toMap(hostel));
+
+    print(FirebaseAuth.instance.currentUser!.uid);
+    await _favoritesCollection
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection(hostel.uid!)
+        .doc("user_fav")
+        .set(hostel.toMap(hostel));
+    utils.toastMessage("Added to Favorites");
+  }
+
   Future<User?> login(String email, String password, context) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
@@ -107,15 +123,9 @@ class FirebaseMethods {
     });
   }
 
-  // Future<String> uploadProfileImage(
-  //     {required Uint8List imageFile, required String uid}) async {
-  //   await _storageReference
-  //       .child('profile_images')
-  //       .child(uid)
-  //       .putFile(imageFile);
-  //   String downloadURL =
-  //       await _storageReference.child('profile_images/$uid').getDownloadURL();
-  //   return downloadURL;
+  //  static Future<void> AddToFav({required hostelModel hostel}) async{
+
+  //     await FirebaseFirestore.instance.collection("Fav").doc(FirebaseAuth.instance.currentUser!.uid).collection(hostel.uid!).set(product.getJson());
   // }
 
   Future<String> uploadProfileImage(
@@ -170,11 +180,4 @@ class FirebaseMethods {
     }
     return hostelModels;
   }
-  // Future<void> uploadHostelImages(List<XFile> imageList, String uid)async{
-  //   for (var image in imageList) {
-  //     await _storageReference
-  //       .child('HostelsImages')
-  //       .child(uid).child(path.b)
-  //   }
-  // }
 }

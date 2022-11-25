@@ -274,7 +274,7 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
                                     savedata();
                                   },
                                   color: AppColors.primaryColor,
-                                  icon: "asset/arrow.png"),
+                                  icon: Icons.arrow_forward),
                         )
                       ],
                     ),

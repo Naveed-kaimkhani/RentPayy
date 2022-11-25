@@ -340,7 +340,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                                     });
                                   },
                                   color: AppColors.primaryColor,
-                                  icon: "asset/arrow.png"),
+                                  icon: Icons.arrow_forward),
                         ),
                       ],
                     ),
