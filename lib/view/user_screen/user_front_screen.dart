@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+import 'package:rentpayy/view/Hostel_Screen/seller_dashboad.dart';
 import 'package:rentpayy/view/user_screen/add_page.dart';
+
 import '../../components/banner.dart';
-import '../../components/bottom_navigation_bar.dart';
 import '../../components/hostel_container.dart';
 import '../../model/hostelModel.dart';
 import '../../resources/FirebaseMethods.dart';
@@ -44,14 +45,10 @@ class _user_front_ScreenState extends State<user_front_Screen> {
     });
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-      
         appBar: AppBar(
           toolbarHeight: 160,
           backgroundColor: Colors.transparent,
@@ -190,7 +187,18 @@ class _user_front_ScreenState extends State<user_front_Screen> {
               AnimatedContainer(
                   duration: Duration(milliseconds: 500),
                   height: _showAppbar ? 150 : 0,
-                  child: banner()),
+                  // child: banner()),
+
+                  // Show Seller Dashboard Screen When Click on banner
+
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => SellerDashboard()));
+                      },
+                      child: banner())),
               SizedBox(
                 height: 25.h,
               ),
