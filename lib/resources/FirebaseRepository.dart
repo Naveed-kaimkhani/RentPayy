@@ -25,6 +25,9 @@ Future<User?> signUp(String email, String password,context) =>
          Future<void> addToFavourites(hostelModel hostel) =>
       _firebaseMethods.addToFavourites(hostel);
  
+         Future<void> removeFromFavourites(String hostel_uid) =>
+      _firebaseMethods.removeFromFavourites(hostel_uid);
+ 
     Future<void> saveHostelDataToFirestore(hostelModel hostelModel) =>
         _firebaseMethods.saveHostelDataToFirestore(hostelModel);
 

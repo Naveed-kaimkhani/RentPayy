@@ -80,6 +80,16 @@ class FirebaseMethods {
     await _userCollection.doc(userModel.uid).set(userModel.toMap(userModel));
   }
 
+  Future<void> removeFromFavourites(String hostel_id) async {
+    await _favoritesCollection
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("user_fav")
+        .doc(hostel_id)
+        .delete();
+
+    utils.toastMessage("Removed from Favorites");
+  }
+
   Future<void> saveHostelDataToFirestore(hostelModel hostelModel) async {
     await _hostelCollection.doc(hostelModel.uid).set(
           hostelModel.toMap(hostelModel),
@@ -94,9 +104,10 @@ class FirebaseMethods {
     print(FirebaseAuth.instance.currentUser!.uid);
     await _favoritesCollection
         .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection(hostel.uid!)
-        .doc("user_fav")
+        .collection("user_fav")
+        .doc(hostel.uid)
         .set(hostel.toMap(hostel));
+
     utils.toastMessage("Added to Favorites");
   }
 

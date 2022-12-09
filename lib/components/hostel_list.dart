@@ -5,15 +5,19 @@ import 'package:rentpayy/utils/style/AppColors.dart';
 class hostel_list extends StatelessWidget {
   hostel_list(
       {required this.name,
+      required this.pic,
       required this.price,
       required this.rating,
       required this.ontap,
+      //  required this.hostel_id,
       Key? key})
       : super(key: key);
 
   String name;
   int rating;
   int price;
+  String pic;
+  // String hostel_id;
   Function() ontap;
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,8 @@ class hostel_list extends StatelessWidget {
                   padding: const EdgeInsets.only(
                       left: 7, right: 10, top: 7, bottom: 7),
                   child: ClipRRect(
-                    child: Image.asset("asset/roomrec.png"),
+                    // child: Image.asset("asset/roomrec.png"),
+                    child: Image.network(pic),
                   ),
                 ),
                 Container(
@@ -56,6 +61,7 @@ class hostel_list extends StatelessWidget {
                         height: 5.h,
                       ),
                       Image.asset("asset/stars.png"),
+                      // Image.network(hostel),
                       SizedBox(
                         height: 8.h,
                       ),
