@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,7 @@ import 'package:rentpayy/resources/FirebaseRepository.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../components/appbar_buttons.dart';
 import '../../model/hostelModel.dart';
 import '../../utils/style/Images.dart';
 import 'ad_page_container.dart';
@@ -13,7 +15,6 @@ import 'ad_page_container.dart';
 // import '../utils/style/Images.dart';
 
 class AdPage extends StatefulWidget {
-  
   final hostelModel hostel;
 
   AdPage({Key? key, required this.hostel}) : super(key: key);
@@ -27,7 +28,7 @@ class _AdPageState extends State<AdPage> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseRepository _firebaseRepository=new FirebaseRepository();
+    FirebaseRepository _firebaseRepository = new FirebaseRepository();
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -37,20 +38,21 @@ class _AdPageState extends State<AdPage> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset(Images.backIcon),
+            // icon: Image.asset(Images.backIcon),
+            icon: appbar_buttons(icon: Icons.arrow_back_ios_new),
           ),
           centerTitle: true,
           elevation: 0.0,
           actions: [
             IconButton(
-              onPressed: () async{
-             await   _firebaseRepository.addToFavourites(widget.hostel);
+              onPressed: () async {
+                await _firebaseRepository.addToFavourites(widget.hostel);
               },
-              icon: Image.asset(Images.favourite),
+              icon: appbar_buttons(icon: Icons.favorite_border),
             ),
             IconButton(
               onPressed: () {},
-              icon: Image.asset(Images.share),
+              icon: appbar_buttons(icon: Icons.share),
             ),
             SizedBox(
               width: 22.w,
@@ -88,18 +90,42 @@ class _AdPageState extends State<AdPage> {
                         itemCount: widget.hostel.pictures!.length,
                         itemBuilder: (BuildContext context, int itemIndex,
                                 int pageViewIndex) =>
-                            Container(
-                          height: 469.h,
-                          width: 428.w,
-                          margin: EdgeInsets.symmetric(horizontal: 8.0),
-                          decoration: BoxDecoration(
+                            CachedNetworkImage(
+                          imageUrl: widget.hostel.pictures![itemIndex],
+                          imageBuilder: (context, imageProvider) => Container(
+                            width: 428.w,
+                            height: 469.h,
+                            margin: EdgeInsets.symmetric(horizontal: 4.0),
+                            decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.r),
+
+                              // shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: NetworkImage(
-                                    widget.hostel.pictures![itemIndex]),
-                                fit: BoxFit.cover,
-                              )),
+                                  image: imageProvider, fit: BoxFit.cover),
+                            ),
+                          ),
+                          placeholder: (context, url) => Center(
+                              widthFactor: 2.0,
+                              heightFactor: 2.0,
+                              child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
+                        //     Container(
+                        //   height: 469.h,
+                        //   width: 428.w,
+                        //   margin: EdgeInsets.symmetric(horizontal: 8.0),
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(30.r),
+                        //       image:
+                        //       DecorationImage(
+                        //         image:
+                        //         NetworkImage(
+                        //             widget.hostel.pictures![itemIndex]),
+                        //         fit: BoxFit.cover,
+                        //       )
+                        //       ),
+                        // ),
                       ),
                       SizedBox(
                         height: 18.h,
@@ -130,7 +156,10 @@ class _AdPageState extends State<AdPage> {
                     Row(
                       children: [
                         // Image(image: AssetImage(Images.location)),
-                        Icon(Icons.location_on_outlined,color: Color.fromARGB(255, 0, 63, 114),),
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: Color.fromARGB(255, 0, 63, 114),
+                        ),
                         SizedBox(
                           width: 2.w,
                         ),

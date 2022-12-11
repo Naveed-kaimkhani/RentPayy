@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rentpayy/model/UserModel.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/view/user_screen/add_page.dart';
 import '../../components/banner.dart';
-import '../../components/bottom_navigation_bar.dart';
 import '../../components/hostel_container.dart';
 import '../../model/hostelModel.dart';
 import '../../resources/FirebaseMethods.dart';
+import '../../view_model/UserDetailsProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class user_front_Screen extends StatefulWidget {
   const user_front_Screen({Key? key}) : super(key: key);
@@ -33,7 +36,7 @@ class _user_front_ScreenState extends State<user_front_Screen> {
         }
       }
 
-      if (_scrollViewController!.position.userScrollDirection ==
+      if (_scrollViewController.position.userScrollDirection ==
           ScrollDirection.forward) {
         if (isScrollingDown) {
           isScrollingDown = false;
@@ -44,14 +47,12 @@ class _user_front_ScreenState extends State<user_front_Screen> {
     });
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
+    UserModel? user =
+        Provider.of<UserDetailsProvider>(context, listen: false).userDetails;
     return SafeArea(
       child: Scaffold(
-      
         appBar: AppBar(
           toolbarHeight: 160,
           backgroundColor: Colors.transparent,
@@ -115,7 +116,7 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Hello Osama!',
+                                      user!.name!,
                                       style: TextStyle(
                                           color: Color(0xff000000),
                                           fontSize: 35.sp,
@@ -130,14 +131,33 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                     )
                                   ],
                                 ),
-                                Container(
-                                  height: 61.h,
-                                  width: 61.w,
-                                  child: CircleAvatar(
-                                    backgroundImage:
-                                        AssetImage('asset/profileImage.png'),
+                                ClipOval(
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        user.profileImage!,
+                                    width: 61.0,
+                                    height: 61.0,
                                   ),
-                                )
+                                ),
+// CachedNetworkImage()
+// Container(
+//   width: 60.0,
+//   height: 60.0,
+//   decoration: BoxDecoration(
+//     shape: BoxShape.circle,
+//   ),
+//   child: CachedNetworkImage('https://pbs.twimg.com/profile_images/945853318273761280/0U40alJG_400x400.jpg'),
+// )
+                                // Container(
+                                //   height: 61.h,
+                                //   width: 61.w,
+                                //   child:
+                                //   CircleAvatar(
+                                //     backgroundImage:
+                                //         NetworkImage(user.profileImage!),
+                                //     //AssetImage('asset/profileImage.png'),
+                                //   ),
+                                // )
                               ],
                             ),
                           ),

@@ -51,7 +51,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
     });
   }
 
-  void _signup(hostelModel hostelModel,context) {
+  Future<void> _signup(hostelModel hostelModel,context)async {
     _firebaseRepository
         .signUp(
       _hostelOwnerEmailController.text,
@@ -74,7 +74,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
     });
   }
 
-  void _validateFields() {
+  Future<void> _validateFields() async {
     if (
 
         // _workTypeController.text.trim().isEmpty &&
@@ -126,13 +126,14 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
           available_capacity: 0,
           person_per_room: 0,
           description: "");
- Navigator.push(context,
-            MaterialPageRoute(builder: (context) => Hostel_Registration()));
-      _signup(HostelModel,context);
+           _signup(HostelModel,context);
+//  Navigator.push(context,
+//             MaterialPageRoute(builder: (context) => Hostel_Registration()));
+    
     }
   }
 
-  void _saveHostel(hostelModel hostelModels) {
+  void _saveHostel(hostelModel hostelModels){
     _firebaseRepository.saveHostelDataToFirestore(hostelModels).then((value) {
       storage_service_hostel.saveUser(hostelModels).then((value) {
         isLoading(false);

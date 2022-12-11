@@ -4,6 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/circle_progress.dart';
 
@@ -16,6 +17,7 @@ import 'package:rentpayy/utils/utils.dart';
 import '../../model/UserModel.dart';
 import '../../resources/FirebaseRepository.dart';
 import '../../utils/style/AppColors.dart';
+import '../../view_model/UserDetailsProvider.dart';
 
 class User_signup_page extends StatefulWidget {
   const User_signup_page({Key? key}) : super(key: key);
@@ -125,6 +127,7 @@ class _User_signup_pageState extends State<User_signup_page> {
         userModel.profileImage = await _firebaseRepository.uploadProfileImage(
             imageFile: _profileImage!, uid: userModel.uid!);
         _saveUser(user, userModel);
+
       } else {
         isLoading(false);
         // utils.flushBarErrorMessage('Failed to Signup', context);
@@ -136,10 +139,14 @@ class _User_signup_pageState extends State<User_signup_page> {
   }
 
   void _saveUser(User firebaseUser, UserModel userModel) {
-    _firebaseRepository.saveUserDataToFirestore(userModel).then((value) {
-      StorageService.saveUser(userModel).then((value) {
+    _firebaseRepository.saveUserDataToFirestore(userModel).then((value)async {
+     await StorageService.saveUser(userModel).then((value)async {
+      //await  StorageService.readUser();
+           Provider.of<UserDetailsProvider>(context,
+                                listen: false)
+                            .getUserLocally();
         isLoading(false);
-        Navigator.pushNamed(context, RoutesName.user_front_screen);
+        Navigator.pushNamed(context, RoutesName.navigation);
       });
     }).catchError((error) {
       isLoading(false);

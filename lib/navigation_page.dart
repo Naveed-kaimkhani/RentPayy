@@ -5,14 +5,14 @@ import 'package:rentpayy/view/user_screen/favourites.dart';
 import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-class mainpage extends StatefulWidget {
-  const mainpage({Key? key}) : super(key: key);
+class navigation_page extends StatefulWidget {
+  const navigation_page({Key? key}) : super(key: key);
 
   @override
-  State<mainpage> createState() => _mainpageState();
+  State<navigation_page> createState() => _navigation_pageState();
 }
 
-class _mainpageState extends State<mainpage> {
+class _navigation_pageState extends State<navigation_page> {
   List pages = [
     user_front_Screen(),
     favourites(),

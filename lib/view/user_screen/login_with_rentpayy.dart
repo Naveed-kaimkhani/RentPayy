@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
 import 'package:rentpayy/components/circle_progress.dart';
@@ -18,6 +19,7 @@ import 'package:rentpayy/utils/utils.dart';
 import '../../model/UserModel.dart';
 import '../../resources/FirebaseRepository.dart';
 import '../../utils/style/Images.dart';
+import '../../view_model/UserDetailsProvider.dart';
 
 class login_with_rentpayy extends StatefulWidget {
   login_with_rentpayy({super.key});
@@ -90,8 +92,11 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
     _firebaseRepository.getUserDetails(uid).then((UserModel? userModel) {
       if (userModel != null) {
         StorageService.saveUser(userModel).then((value) {
+             Provider.of<UserDetailsProvider>(context,
+                                listen: false)
+                            .getUserLocally();
           isLoading(false);
-          Navigator.pushNamed(context, RoutesName.homeScreen);
+          Navigator.pushNamed(context, RoutesName.navigation);
         }).catchError((error) {
           utils.flushBarErrorMessage(error.message.toString(), context);
         });

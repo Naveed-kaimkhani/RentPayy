@@ -5,7 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/hostel_list.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/resources/FirebaseRepository.dart';
+import 'package:rentpayy/utils/routes/RoutesName.dart';
+import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/view/user_screen/add_page.dart';
+
+import '../../utils/style/Images.dart';
 
 class favourites extends StatefulWidget {
   const favourites({Key? key}) : super(key: key);
@@ -17,15 +21,25 @@ class favourites extends StatefulWidget {
 class _favouritesState extends State<favourites> {
   @override
   Widget build(BuildContext context) {
-     FirebaseRepository _firebaseRepository =FirebaseRepository();
+    FirebaseRepository _firebaseRepository = FirebaseRepository();
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            onPressed: (() => Navigator.pop(context)),
-            icon: Image.asset("asset/back2.png"),
+            onPressed: (() => 
+            Navigator.pushNamed(context, RoutesName.user_front_screen)
+            ),
+            icon: Container(
+              height: 32,
+              width: 32,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: AppColors.primaryColor,
+              ),
+              child: Center(child: Image.asset(Images.backButton)),
+            ),
           ),
           centerTitle: true,
           title: Text(
@@ -67,19 +81,19 @@ class _favouritesState extends State<favourites> {
                           pic: hostel.pictures![0],
                           // hostel_id: hostel.uid!,
                           rating: 4,
-                          ontap: (){
-                           _firebaseRepository.removeFromFavourites(hostel.uid!);
-                          }
-                          ),
-                          onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AdPage(
-                                      hostel: hostel,
-                                    )),
-                          );
-                        },
+                          ontap: () {
+                            _firebaseRepository
+                                .removeFromFavourites(hostel.uid!);
+                          }),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AdPage(
+                                    hostel: hostel,
+                                  )),
+                        );
+                      },
                     );
                   });
             }

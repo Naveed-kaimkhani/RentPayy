@@ -39,12 +39,12 @@ class hostelModel {
     this.person_per_room,
     this.description,
     this.facilities,
-     this.pictures,
+    this.pictures,
 
     // ignore: non_constant_identifier_names
   });
 
-  Map<String,dynamic> toMap(hostelModel hostel) {
+  Map<String, dynamic> toMap(hostelModel hostel) {
     var data = Map<String, dynamic>();
     data['uid'] = hostel.uid;
     data['name'] = hostel.name;
@@ -61,7 +61,7 @@ class hostelModel {
     data['person_per_room'] = hostel.person_per_room;
     data['description'] = hostel.description;
     data['pictures'] = hostel.pictures;
-  
+
     // data['pic1'] = hostel.pic1;
     // data['pic2'] = hostel.pic2;
     // data['pic3'] = hostel.pic3;
