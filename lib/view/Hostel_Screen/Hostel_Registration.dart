@@ -31,6 +31,7 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   final user = FirebaseAuth.instance.currentUser!.uid;
+  // final users = FirebaseAuth.instance.currentUser;
 
   List<String> genderList = ["Male", "Female"];
   List<String> HostelList = ["Bachelor Hostel", "Working Hostel"];
@@ -86,7 +87,7 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: upper_design(),
+        appBar: upper_design(needcolor: true,needicon: true,isUserDelete: true,),
         body: Stack(
           children: [
             Container(

@@ -37,7 +37,7 @@ class _Dropdown_buttonState extends State<Dropdown_button> {
           buttonElevation: 0,
           icon: Padding(
             padding: EdgeInsets.only(right: 17.w),
-            child: Image.asset(Images.dropdown),
+            child: Icon(Icons.arrow_drop_down,color: AppColors.primaryColor,),
           ),
           dropdownDecoration: BoxDecoration(
             color: AppColors.textfieldsColor,

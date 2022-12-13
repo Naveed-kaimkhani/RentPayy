@@ -51,7 +51,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
     });
   }
 
-  Future<void> _signup(hostelModel hostelModel,context)async {
+  Future<void> _signup(hostelModel hostelModel, context) async {
     _firebaseRepository
         .signUp(
       _hostelOwnerEmailController.text,
@@ -66,7 +66,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
         _saveHostel(hostelModel);
       } else {
         isLoading(false);
-        utils.flushBarErrorMessage('Failed to Signup', context);
+        // utils.flushBarErrorMessage('Failed to Signup', context);
       }
     }).catchError((error) {
       isLoading(false);
@@ -126,14 +126,13 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
           available_capacity: 0,
           person_per_room: 0,
           description: "");
-           _signup(HostelModel,context);
+      _signup(HostelModel, context);
 //  Navigator.push(context,
 //             MaterialPageRoute(builder: (context) => Hostel_Registration()));
-    
     }
   }
 
-  void _saveHostel(hostelModel hostelModels){
+  void _saveHostel(hostelModel hostelModels) {
     _firebaseRepository.saveHostelDataToFirestore(hostelModels).then((value) {
       storage_service_hostel.saveUser(hostelModels).then((value) {
         isLoading(false);
@@ -166,7 +165,11 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: upper_design(),
+        appBar: upper_design(
+          needcolor: true,
+          needicon: false,
+          isUserDelete: false,
+        ),
         body: Stack(
           children: [
             Container(

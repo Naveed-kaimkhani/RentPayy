@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/view/user_screen/favourites.dart';
 import 'package:rentpayy/view/user_screen/user_front_screen.dart';
+import 'package:rentpayy/view/user_screen/settings.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class navigation_page extends StatefulWidget {
@@ -17,7 +18,7 @@ class _navigation_pageState extends State<navigation_page> {
     user_front_Screen(),
     favourites(),
     favourites(),
-    favourites(),
+    setting_screen(),
   ];
   int currentindex = 0;
   void onTap(int index) {

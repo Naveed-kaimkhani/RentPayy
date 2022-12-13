@@ -1,8 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
@@ -92,9 +94,8 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
     _firebaseRepository.getUserDetails(uid).then((UserModel? userModel) {
       if (userModel != null) {
         StorageService.saveUser(userModel).then((value) {
-             Provider.of<UserDetailsProvider>(context,
-                                listen: false)
-                            .getUserLocally();
+          Provider.of<UserDetailsProvider>(context, listen: false)
+              .getUserLocally();
           isLoading(false);
           Navigator.pushNamed(context, RoutesName.navigation);
         }).catchError((error) {
@@ -106,6 +107,35 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
     }).catchError((error) {
       isLoading(false);
       utils.flushBarErrorMessage(error.message.toString(), context);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnectivity() {}
+    //Internet connectivity checker
+    InternetConnectionChecker().onStatusChange.listen((status) {
+      final connected = status == InternetConnectionStatus.connected;
+      // showSimpleNotification(connected
+      //     ? Text("Connected To Internet")
+      //     : Text("No Internet Connected"));
+      // utils.flushBarErrorMessage(
+      //     connected ? "Connected To Internet" : "No Internet Connection",
+      //     context);
+      // if (connected == false) {
+      //   showDialog(
+      //       barrierDismissible: false,
+      //       context: context,
+      //       builder: (context) => CupertinoAlertDialog(
+      //             title: Text("No Internet Connection"),
+      //             content: Text("Please check your Internet Connection"),
+      //             actions: [
+      //               CupertinoButton.filled(
+      //                   child: Text("Retry"), onPressed: () {})
+      //             ],
+      //           ));
+      // }
     });
   }
 
@@ -147,16 +177,31 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                   SizedBox(
                     height: 14.h,
                   ),
+                  // inputfields(
+                  //   hint_text: "  Password",
+                  //   controller: _passController,
+                  //   focusNode: passwordFocusNode,
+                  //   icon: Icons.remove_red_eye,
+                  //   currentNode: passwordFocusNode,
+                  //   nextNode: passwordFocusNode,
+                  //   obsecureText: _obsecureText,
+                  //   onIconPress: onIconPress,
+                  // ),
                   inputfields(
-                    hint_text: "  Password",
-                    controller: _passController,
-                    focusNode: passwordFocusNode,
-                    icon: Icons.remove_red_eye,
-                    currentNode: passwordFocusNode,
-                    nextNode: passwordFocusNode,
-                    obsecureText: _obsecureText,
-                    onIconPress: onIconPress,
-                  ),
+                      hint_text: "Password",
+                      currentNode: passwordFocusNode,
+                      focusNode: passwordFocusNode,
+                      nextNode: passwordFocusNode,
+                      controller: _passController,
+                      icon: _obsecureText
+                          ? Icons.visibility_off
+                          : Icons.remove_red_eye,
+                      obsecureText: _obsecureText,
+                      onIconPress: () {
+                        setState(() {
+                          _obsecureText = !_obsecureText;
+                        });
+                      }),
                   SizedBox(
                     height: 38.h,
                   ),

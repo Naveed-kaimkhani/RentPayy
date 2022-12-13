@@ -9,7 +9,6 @@ import 'package:rentpayy/view/Hostel_Screen/Hostel_signup.dart';
 import 'package:rentpayy/view/Hostel_Screen/publish_ad_screen.dart';
 import 'package:rentpayy/view/user_screen/User_signup.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
-import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 import 'package:rentpayy/view_model/UserDetailsProvider.dart';
 
 void main() async {
@@ -45,7 +44,7 @@ class _MyAppState extends State<MyApp> {
                 // theme: ThemeData(
                 //   primarySwatch: Colors.blue,
                 // ),
-                home: user_front_Screen(), // initialRoute: RoutesName.login,
+                home: login_with_rentpayy(), // initialRoute: RoutesName.login,
                 // onGenerateRoutes: Routes.onGenerateRoute(settings),
                 onGenerateRoute: Routes.onGenerateRoute,
               ),

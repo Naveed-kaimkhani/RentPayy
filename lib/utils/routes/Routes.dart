@@ -4,15 +4,17 @@ import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
 import 'package:rentpayy/view/Hostel_Screen/publish_ad_screen.dart';
 import 'package:rentpayy/view/user_screen/User_signup.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
-import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 
 import '../../navigation_page.dart';
 import '../../view/Hostel_Screen/add_gallery.dart';
 import '../../view/user_screen/login_screen.dart';
+import '../../view/user_screen/user_front_screen.dart';
 
 class Routes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+
     switch (settings.name) {
+      
       case RoutesName.login:
         return _buildRoute(login_screen(), settings);
 

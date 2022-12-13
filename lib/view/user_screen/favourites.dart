@@ -29,7 +29,8 @@ class _favouritesState extends State<favourites> {
           backgroundColor: Colors.transparent,
           leading: IconButton(
             onPressed: (() => 
-            Navigator.pushNamed(context, RoutesName.user_front_screen)
+            // Navigator.pushNamed(context, RoutesName.user_front_screen)
+            Navigator.pop(context)
             ),
             icon: Container(
               height: 32,
@@ -38,7 +39,7 @@ class _favouritesState extends State<favourites> {
                 borderRadius: BorderRadius.circular(30),
                 color: AppColors.primaryColor,
               ),
-              child: Center(child: Image.asset(Images.backButton)),
+              child: Center(child: Image.asset(Images.whitebackButton)),
             ),
           ),
           centerTitle: true,

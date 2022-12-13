@@ -6,10 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/components/authButton.dart';
-import 'package:rentpayy/components/circle_progress.dart';
+import 'package:rentpayy/components/custom_appbar.dart';
 
 import 'package:rentpayy/components/inputfields.dart';
-import 'package:rentpayy/components/upper_design.dart';
 import 'package:rentpayy/utils/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import '../../components/auth_screens_decor.dart';
@@ -158,7 +157,7 @@ class _User_signup_pageState extends State<User_signup_page> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: upper_design(),
+        appBar: custom_appbar(),
         body: Stack(
           children: [
             Container(

@@ -26,10 +26,10 @@ class HostelContainer extends StatelessWidget {
                 Container(
                   height: 125.h,
                   width: 187.w,
-                  decoration: BoxDecoration(
-                  
+                  decoration: BoxDecoration(),
+                  child: Image.network(
+                    hostel!.pictures![0]!,
                   ),
-                  child: Image.network(hostel!.pictures![0]!,),
                 ),
                 Positioned(
                   top: 103.h,
@@ -54,7 +54,10 @@ class HostelContainer extends StatelessWidget {
                   top: 11.h,
                   right: 17.w,
                   left: 150.w,
-                  child: Image.asset('asset/heart.png'),
+                  child: Icon(
+                    Icons.favorite_border,
+                    color: Colors.white,
+                  ),
                 )
               ],
             ),
@@ -68,8 +71,9 @@ class HostelContainer extends StatelessWidget {
                 children: [
                   Text(
                     hostel!.name.toString(),
-                    style:
-                        TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                        fontSize: hostel!.name!.length > 15 ? 12.sp : 15.sp,
+                        fontWeight: FontWeight.w500),
                   ),
                   // SizedBox(width: 12.sp,),
                   RichText(

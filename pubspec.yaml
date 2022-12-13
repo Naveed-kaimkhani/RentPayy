@@ -57,6 +57,8 @@ dependencies:
   provider: ^6.0.4
   google_nav_bar: ^5.0.6
   cached_network_image: ^3.2.3
+  internet_connection_checker: ^1.0.0+1
+  shimmer: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -64,7 +66,7 @@ dev_dependencies:
   flutter_native_splash: ^2.2.11
 flutter_native_splash:
   color: "#ffffff"
-  image: asset/mainicon.png
+  image: asset/splash.png
   android: true
   ios: true
 

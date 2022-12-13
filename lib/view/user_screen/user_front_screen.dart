@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:rentpayy/components/no_internetConnection.dart';
+import 'package:rentpayy/components/shimmer_hostel_container.dart';
 import 'package:rentpayy/model/UserModel.dart';
+import 'package:rentpayy/utils/Internet.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/user_screen/add_page.dart';
 import '../../components/banner.dart';
 import '../../components/hostel_container.dart';
+import '../../components/profilePic.dart';
 import '../../model/hostelModel.dart';
 import '../../resources/FirebaseMethods.dart';
 import '../../view_model/UserDetailsProvider.dart';
@@ -26,6 +32,16 @@ class _user_front_ScreenState extends State<user_front_Screen> {
   @override
   void initState() {
     super.initState();
+
+    //Internet connectivity checker
+    InternetConnectionChecker().onStatusChange.listen((status) {
+      final connected = status == InternetConnectionStatus.connected;
+      // showSimpleNotification(connected?Text("Connected To Internet"):Text("No Internet Connected"));
+      utils.flushBarErrorMessage(
+          connected ? "Connected To Internet" : "No Internet Connection",
+          context);
+    });
+
     _scrollViewController.addListener(() {
       if (_scrollViewController.position.userScrollDirection ==
           ScrollDirection.reverse) {
@@ -93,16 +109,19 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                   width: 2.w,
                                 ),
                                 Container(
-                                  height: 15.h,
-                                  width: 15.w,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.primaryColor,
-                                    borderRadius: BorderRadius.circular(3.r),
-                                  ),
-                                  child: Image.asset(
-                                    'asset/downArrow.png',
-                                  ),
-                                ),
+                                    height: 15.h,
+                                    width: 15.w,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primaryColor,
+                                      borderRadius: BorderRadius.circular(3.r),
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.location_on_outlined,
+                                        // color: AppColors.primaryColor,
+                                        size: 10,
+                                      ),
+                                    )),
                               ],
                             ),
                           ),
@@ -131,33 +150,14 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                     )
                                   ],
                                 ),
-                                ClipOval(
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        user.profileImage!,
-                                    width: 61.0,
-                                    height: 61.0,
-                                  ),
-                                ),
-// CachedNetworkImage()
-// Container(
-//   width: 60.0,
-//   height: 60.0,
-//   decoration: BoxDecoration(
-//     shape: BoxShape.circle,
-//   ),
-//   child: CachedNetworkImage('https://pbs.twimg.com/profile_images/945853318273761280/0U40alJG_400x400.jpg'),
-// )
-                                // Container(
-                                //   height: 61.h,
-                                //   width: 61.w,
-                                //   child:
-                                //   CircleAvatar(
-                                //     backgroundImage:
-                                //         NetworkImage(user.profileImage!),
-                                //     //AssetImage('asset/profileImage.png'),
+                                // ClipOval(
+                                //   child: CachedNetworkImage(
+                                //     imageUrl: user.profileImage!,
+                                //     width: 61.0,
+                                //     height: 61.0,
                                 //   ),
-                                // )
+                                // ),
+                                profilePic(url: user.profileImage)
                               ],
                             ),
                           ),
@@ -208,7 +208,7 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                 height: 13.h,
               ),
               AnimatedContainer(
-                  duration: Duration(milliseconds: 500),
+                  duration: Duration(milliseconds: 200),
                   height: _showAppbar ? 150 : 0,
                   child: banner()),
               SizedBox(
@@ -239,12 +239,14 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                 builder: (ctx, AsyncSnapshot<List<hostelModel>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasError) {
-                      return Center(
-                        child: Text(
-                          '${snapshot.error} occurred',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      );
+                      return no_internetConnection();
+                      // Material(
+                      //   child: Contain,
+                      //   // child: Text(
+                      //   //   '${snapshot.error} occurred',
+                      //   //   style: TextStyle(fontSize: 18),
+                      //   // ),
+                      // );
 
                       // if we got our data
                     } else if (snapshot.hasData) {
@@ -288,7 +290,12 @@ class _user_front_ScreenState extends State<user_front_Screen> {
 
                   // Displaying LoadingSpinner to indicate waiting state
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: Column(
+                      children: [
+                        shimmer_hostel_container(),
+                        shimmer_hostel_container()
+                      ],
+                    ),
                   );
                 },
 

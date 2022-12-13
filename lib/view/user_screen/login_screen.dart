@@ -64,7 +64,7 @@ class _login_screenState extends State<login_screen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: upper_design(),
+        appBar: upper_design(needcolor: true,needicon: false,isUserDelete: false,),
         backgroundColor: AppColors.primaryColor,
         body: Container(
           color: AppColors.primaryColor,

@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:rentpayy/utils/style/Images.dart';
 
 import '../utils/style/AppColors.dart';
-import '../utils/style/Images.dart';
+import 'hostel_appBarButton.dart';
 
 class custom_appbar extends StatelessWidget implements PreferredSizeWidget {
   const custom_appbar({
@@ -16,7 +16,10 @@ class custom_appbar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColors.primaryColor,
       leading: IconButton(
         onPressed: (() => Navigator.pop(context)),
-        icon: Image.asset(Images.backIcon),
+        icon: hostel_appBarButton(
+          Buttoncolor: Colors.white,
+          IconUrl: Images.yellowBackIcon,
+        ),
         // SvgPicture.asset('asset/backIcon.png')
       ),
     );

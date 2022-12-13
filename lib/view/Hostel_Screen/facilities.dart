@@ -341,7 +341,9 @@ class _FacilitiesState extends State<Facilities> {
                       //     ],
                       //   ),
                       // ),
-
+                      SizedBox(
+                        height: 5,
+                      ),
                       MiniButton(
                         text: "next",
                         func: () {
