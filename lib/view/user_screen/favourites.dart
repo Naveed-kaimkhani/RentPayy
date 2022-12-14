@@ -27,21 +27,21 @@ class _favouritesState extends State<favourites> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          leading: IconButton(
-            onPressed: (() => 
-            // Navigator.pushNamed(context, RoutesName.user_front_screen)
-            Navigator.pop(context)
-            ),
-            icon: Container(
-              height: 32,
-              width: 32,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: AppColors.primaryColor,
-              ),
-              child: Center(child: Image.asset(Images.whitebackButton)),
-            ),
-          ),
+          // leading: IconButton(
+          //   onPressed: (() =>
+          //   // Navigator.pushNamed(context, RoutesName.user_front_screen)
+          //   Navigator.pop(context)
+          //   ),
+          //   icon: Container(
+          //     height: 32,
+          //     width: 32,
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(30),
+          //       color: AppColors.primaryColor,
+          //     ),
+          //     child: Center(child: Image.asset(Images.whitebackButton)),
+          //   ),
+          // ),
           centerTitle: true,
           title: Text(
             "Favourites",

@@ -58,6 +58,7 @@ dependencies:
   google_nav_bar: ^5.0.6
   cached_network_image: ^3.2.3
   internet_connection_checker: ^1.0.0+1
+  share_plus: ^6.3.0
   shimmer: ^2.0.0
 dev_dependencies:
   flutter_test:

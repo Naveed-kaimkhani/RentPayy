@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 
+import '../resources/FirebaseRepository.dart';
+
 class HostelContainer extends StatelessWidget {
   final hostelModel? hostel;
   const HostelContainer({Key? key, required this.hostel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+  FirebaseRepository _firebaseRepository = new FirebaseRepository();
+
     return Padding(
       padding: EdgeInsets.only(
         left: 18.sp,
@@ -54,9 +58,12 @@ class HostelContainer extends StatelessWidget {
                   top: 11.h,
                   right: 17.w,
                   left: 150.w,
-                  child: Icon(
-                    Icons.favorite_border,
-                    color: Colors.white,
+                  child: InkWell(
+                    child: Icon(
+                      Icons.favorite_border,
+                      color: Colors.white,
+                    ),
+                    onTap: ()async{await _firebaseRepository.addToFavourites(hostel!);},
                   ),
                 )
               ],

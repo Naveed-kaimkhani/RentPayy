@@ -12,6 +12,7 @@ import 'package:rentpayy/view/user_screen/add_page.dart';
 import '../../components/banner.dart';
 import '../../components/hostel_container.dart';
 import '../../components/profilePic.dart';
+import '../../components/search_bar.dart';
 import '../../model/hostelModel.dart';
 import '../../resources/FirebaseMethods.dart';
 import '../../view_model/UserDetailsProvider.dart';
@@ -73,16 +74,18 @@ class _user_front_ScreenState extends State<user_front_Screen> {
           toolbarHeight: 160,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          centerTitle: true,
+          centerTitle: false,
           title: Column(
             children: [
               Container(
                 width: 397.w,
+                // width: 450.w,
                 height: 190.h,
                 child: Stack(
                   children: [
                     Container(
                       width: 397.w,
+                      // width: 450.w,
                       height: 145.h,
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(242, 246, 255, 1),
@@ -180,19 +183,7 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                 color: Colors.grey.withOpacity(0.3),
                               ),
                             ]),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: AppColors.primaryColor,
-                              ),
-                              hintText: 'Search',
-                              hintStyle: TextStyle(
-                                  fontSize: 15.sp, fontWeight: FontWeight.w400),
-                              contentPadding: EdgeInsets.only(top: 1.h),
-                              suffixIcon: Image.asset('asset/vector(1).png'),
-                              border: InputBorder.none),
-                        ),
+                        child: search_bar(isReadOnly: true),
                       ),
                     ),
                   ],

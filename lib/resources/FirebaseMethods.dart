@@ -181,12 +181,28 @@ class FirebaseMethods {
     List<hostelModel> hostelModels = [];
     QuerySnapshot<Map<String, dynamic>> snap =
         await FirebaseFirestore.instance.collection("hostels").get();
-    print(snap.docs.length);
+    // print(snap.docs.length);
     for (var i = 0; i < snap.docs.length; i++) {
       DocumentSnapshot docsSnap = snap.docs[i];
 
       hostelModel model = hostelModel.fromJson(docsSnap.data() as dynamic);
       //print(model.Category);
+      hostelModels.add(model);
+    }
+    return hostelModels;
+  }
+
+  static Future<List<hostelModel>> getHostelByCategory(
+      {required String query}) async {
+    List<hostelModel> hostelModels = [];
+    QuerySnapshot<Map<String, dynamic>> snap = await FirebaseFirestore.instance
+        .collection("hostels")
+        .where("name", isEqualTo: query)
+        .get();
+    for (var i = 0; i < snap.docs.length; i++) {
+      DocumentSnapshot docsSnap = snap.docs[i];
+
+      hostelModel model = hostelModel.fromJson(docsSnap.data() as dynamic);
       hostelModels.add(model);
     }
     return hostelModels;

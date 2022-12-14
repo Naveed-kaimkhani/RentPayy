@@ -6,6 +6,7 @@ import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/hostel_appBarButton.dart';
 import 'package:rentpayy/resources/FirebaseRepository.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../components/appbar_buttons.dart';
@@ -27,6 +28,7 @@ class AdPage extends StatefulWidget {
 
 class _AdPageState extends State<AdPage> {
   var selectedIndex = 0;
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -50,15 +52,21 @@ class _AdPageState extends State<AdPage> {
           actions: [
             IconButton(
               onPressed: () async {
+                setState(() {
+                  isSelected = !isSelected;
+                });
                 await _firebaseRepository.addToFavourites(widget.hostel);
               },
-              icon: appbar_buttons(icon: Icons.favorite_border),
+              icon: appbar_buttons(
+                  icon: isSelected ? Icons.favorite : Icons.favorite_border),
               // icon: LikeButton(
               //   size: 30,
               // ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                await Share.share(widget.hostel.pictures![1]);
+              },
               icon: appbar_buttons(icon: Icons.share),
             ),
             SizedBox(
@@ -288,7 +296,7 @@ class _AdPageState extends State<AdPage> {
                     //   // image: Images.facilities,
                     // ),
                     Container(
-                      height: 117.h,
+                      height: 80.h,
                       child: GridView.builder(
                         // controller: _scrollViewController,
                         itemCount: widget.hostel.facilities!.length,

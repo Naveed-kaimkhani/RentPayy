@@ -23,14 +23,14 @@ class setting_screen extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          leading: IconButton(
-            onPressed: (() => Navigator.pop(context)),
-            icon: hostel_appBarButton(
-              Buttoncolor: AppColors.primaryColor,
-              IconUrl: Images.whitebackButton,
-            ),
-            // SvgPicture.asset('asset/backIcon.png')
-          ),
+          // leading: IconButton(
+          //   onPressed: (() => Navigator.pop(context)),
+          //   icon: hostel_appBarButton(
+          //     Buttoncolor: AppColors.primaryColor,
+          //     IconUrl: Images.whitebackButton,
+          //   ),
+          //   // SvgPicture.asset('asset/backIcon.png')
+          // ),
         ),
         body: SingleChildScrollView(
           child: Padding(
