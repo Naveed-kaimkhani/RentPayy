@@ -5,14 +5,15 @@ import 'package:rentpayy/utils/style/AppColors.dart';
 class Custom_Checkbox extends StatefulWidget {
   String? text;
   Function()? func;
-  Custom_Checkbox({required this.text, required this.func, Key? key}) : super(key: key);
+  bool isselected = false;
+  Custom_Checkbox({required this.text, required this.func,required this.isselected, Key? key}) : super(key: key);
 
   @override
   State<Custom_Checkbox> createState() => _Custom_CheckboxState();
 }
 
 class _Custom_CheckboxState extends State<Custom_Checkbox> {
-  bool isselected = false;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -28,17 +29,11 @@ class _Custom_CheckboxState extends State<Custom_Checkbox> {
             SizedBox(
               width: 14.w,
             ),
-            InkWell(
+            Container(
               child:
-            isselected
+            widget.isselected
                 ?  Image.asset("asset/checkbox.png",height: 31.h,width: 31.w,)
                 :  Image.asset("asset/uncheck.png",height: 31.h,width: 31.w,),
-              onTap: ()
-              {
-                setState(() {
-                  isselected = !isselected;
-                });
-              },
             ),
             SizedBox(
               width: 21.w,

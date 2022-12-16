@@ -9,6 +9,7 @@ import 'package:rentpayy/view/user_screen/search_screen.dart';
 import '../../navigation_page.dart';
 import '../../view/Hostel_Screen/add_gallery.dart';
 import '../../view/user_screen/login_screen.dart';
+import '../../view/user_screen/settings.dart';
 import '../../view/user_screen/user_front_screen.dart';
 
 class Routes {
@@ -31,6 +32,9 @@ class Routes {
       case RoutesName.uploadPictures:
         return _buildRoute(add_gallery(), settings);
 
+      case RoutesName.setting:
+        return _buildRoute(setting_screen(), settings);
+
       case RoutesName.publish_ad_screen:
         return _buildRoute(publish_ad_screen(), settings);
 
@@ -38,7 +42,7 @@ class Routes {
         return _buildRoute(user_front_Screen(), settings);
       case RoutesName.search_screen:
         return _buildRoute(search_screen(), settings);
-        case RoutesName.navigation_page:
+      case RoutesName.navigation_page:
         return _buildRoute(navigation_page(), settings);
       default:
         return _buildRoute(const Scaffold(), settings);

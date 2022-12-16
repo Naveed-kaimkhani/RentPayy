@@ -62,23 +62,25 @@ class _add_galleryState extends State<add_gallery> {
 
   void saveImagestoFireStore() async {
     if (imageFileList!.isEmpty) {
-      utils.flushBarErrorMessage("Pictures not selected", context);}
-      else if (imageFileList!.length<8 ) {
-      utils.flushBarErrorMessage("select atleast 8 pictures", context);}
-      else if (imageFileList!.length>8 ) {
+      utils.flushBarErrorMessage("Pictures not selected", context);
+    } else if (imageFileList!.length < 8) {
+      utils.flushBarErrorMessage("select atleast 8 pictures", context);
+    } else if (imageFileList!.length > 8) {
       utils.flushBarErrorMessage("only 8 pictures are allowed", context);
     } else {
       isLoading(true);
+      utils.toastMessage("Please wait it may take somoe time");
       List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
           imageFile: imageFileList!, uid: user);
-      print("list of hostel images");
-      print(listOfImages);
+      // print("list of hostel images");
+      // print(listOfImages);
+
       db.collection("hostels").doc(user).update({
         'pictures': listOfImages,
       });
     }
     isLoading(false);
-      Navigator.popAndPushNamed(context, RoutesName.publish_ad_screen);
+    Navigator.popAndPushNamed(context, RoutesName.publish_ad_screen);
   }
 
   bool onClick = false;

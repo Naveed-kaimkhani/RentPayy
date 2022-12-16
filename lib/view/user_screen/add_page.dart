@@ -8,15 +8,10 @@ import 'package:rentpayy/resources/FirebaseRepository.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../components/appbar_buttons.dart';
 import '../../model/hostelModel.dart';
 import '../../utils/style/Images.dart';
 import 'facility_container.dart';
-// import '../components/ad_page_container.dart';
-// import '../components/profile_reviews_component.dart';
-// import '../utils/style/Images.dart';
-
 class AdPage extends StatefulWidget {
   final hostelModel hostel;
 
@@ -80,14 +75,6 @@ class _AdPageState extends State<AdPage> {
               Container(
                   height: 469.h,
                   width: 428.w,
-                  // decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(50.r),
-                  //     image: DecorationImage(
-                  //       image: AssetImage(
-                  //         Images.hostelImage,
-                  //       ),
-                  //       fit: BoxFit.cover,
-                  //     )),
                   child: Column(
                     children: [
                       CarouselSlider.builder(
@@ -287,9 +274,9 @@ class _AdPageState extends State<AdPage> {
                       style: TextStyle(
                           fontWeight: FontWeight.w600, fontSize: 15.sp),
                     ),
-                    SizedBox(
-                      height: 11.h,
-                    ),
+                    // SizedBox(
+                    //   height: 2.h,
+                    // ),
 
                     // facility_container(
                     //   text: 'Electricity',
@@ -303,7 +290,7 @@ class _AdPageState extends State<AdPage> {
                       mainAxisSpacing: 0,
 
                       physics: new NeverScrollableScrollPhysics(),
-                      crossAxisCount: 3,
+                      crossAxisCount: 4,
                       childAspectRatio: 1,
                       children: widget.hostel.facilities!
                           .map<Widget>(
@@ -312,9 +299,9 @@ class _AdPageState extends State<AdPage> {
                           .toList(),
                       //  childAspectRatio: 1.1,
                     ),
-                    SizedBox(
-                      height: 24.h,
-                    ),
+                    // SizedBox(
+                    //   height: 24.h,
+                    // ),
                     Text(
                       'Ad ID 10231445',
                       style: TextStyle(fontSize: 10.sp),

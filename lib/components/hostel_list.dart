@@ -45,6 +45,8 @@ class hostel_list extends StatelessWidget {
                     // child: Image.asset("asset/roomrec.png"),
                     child: CachedNetworkImage(
                       imageUrl: pic,
+                      height: 240.h,
+                      width: 220.w,
                       placeholder: (context, url) =>
                           CircularProgressIndicator(),
                       errorWidget: (context, url, error) => Icon(Icons.error),

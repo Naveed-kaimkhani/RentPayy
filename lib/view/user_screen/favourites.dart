@@ -100,46 +100,6 @@ class _favouritesState extends State<favourites> {
             }
           },
         )
-        // Padding(
-        //   padding: EdgeInsets.only(left: 18, right: 18),
-        //   child: Column(
-        //     children: [
-        //       SizedBox(
-        //         height: 38.h,
-        //       ),
-        //       hostel_list(
-        //         name: "Bakhtawar Hostel",
-        //         price: 200,
-        //         rating: 4,
-        //         ontap: () {
-        //           setState(() {});
-        //         },
-        //       ),
-        //       SizedBox(
-        //         height: 12.h,
-        //       ),
-        //       hostel_list(
-        //         name: "Bakhtawar Hostel",
-        //         price: 200,
-        //         rating: 4,
-        //         ontap: () {
-        //           setState(() {});
-        //         },
-        //       ),
-        //       SizedBox(
-        //         height: 12.h,
-        //       ),
-        //       hostel_list(
-        //         name: "Bakhtawar Hostel",
-        //         price: 200,
-        //         rating: 4,
-        //         ontap: () {
-        //           setState(() {});
-        //         },
-        //       ),
-        //     ],
-        //   ),
-        // ),
         );
   }
 }

@@ -13,6 +13,7 @@ import 'package:rentpayy/utils/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import '../../components/auth_screens_decor.dart';
 import 'package:rentpayy/utils/utils.dart';
+import '../../components/circle_progress.dart';
 import '../../model/UserModel.dart';
 import '../../resources/FirebaseRepository.dart';
 import '../../utils/style/AppColors.dart';
@@ -373,13 +374,22 @@ class _User_signup_pageState extends State<User_signup_page> {
                         SizedBox(
                           height: 31.h,
                         ),
-                        authButton(
-                          text: isLoadingNow ? "Please wait..." : "Sign Up",
-                          color: Color(0xffF5AD0D),
+                          isLoadingNow
+                      ? circle_progress()
+                      : authButton(
+                          text: "Signup",
                           func: () {
                             _validateFields();
                           },
-                        )
+                          color: AppColors.primaryColor),
+
+                        // authButton(
+                        //   text: isLoadingNow ? "Please wait..." : "Sign Up",
+                        //   color: Color(0xffF5AD0D),
+                        //   func: () {
+                        //     _validateFields();
+                        //   },
+                        // )
                       ],
                     ),
                   ),

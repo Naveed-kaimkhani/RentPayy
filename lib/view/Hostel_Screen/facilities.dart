@@ -111,6 +111,7 @@ class _FacilitiesState extends State<Facilities> {
                                   checkboxList.remove("water");
                               });
                             },
+                            isselected: waterIsSelected,
                           ),
                           SizedBox(
                             width: 20.w,
@@ -126,6 +127,7 @@ class _FacilitiesState extends State<Facilities> {
                                   checkboxList.remove("Study Hall");
                               });
                             },
+                            isselected: studyHallIsSelected,
                           ),
                         ],
                       ),
@@ -145,6 +147,7 @@ class _FacilitiesState extends State<Facilities> {
                                   checkboxList.remove("Security");
                               });
                             },
+                            isselected: SecurityIsSelected,
                           ),
                           SizedBox(
                             width: 20.w,
@@ -160,6 +163,7 @@ class _FacilitiesState extends State<Facilities> {
                                   checkboxList.remove("Solar");
                               });
                             },
+                            isselected: SolarIsSelected,
                           ),
                         ],
                       ),
@@ -179,6 +183,7 @@ class _FacilitiesState extends State<Facilities> {
                                   checkboxList.remove("Laundary");
                               });
                             },
+                            isselected: LaundaryIsSelected,
                           ),
                           SizedBox(
                             width: 20.w,
@@ -194,6 +199,7 @@ class _FacilitiesState extends State<Facilities> {
                                   checkboxList.remove("Kitchen");
                               });
                             },
+                            isselected: KitchenIsSelected,
                           ),
                         ],
                       ),
@@ -213,6 +219,7 @@ class _FacilitiesState extends State<Facilities> {
                                   checkboxList.remove("Mess");
                               });
                             },
+                            isselected: MessIsSelected,
                           ),
                           SizedBox(
                             width: 20.w,
@@ -228,6 +235,7 @@ class _FacilitiesState extends State<Facilities> {
                                   checkboxList.remove("Canteen");
                               });
                             },
+                            isselected: CanteenIsSelected,
                           ),
                         ],
                       ),
@@ -247,6 +255,7 @@ class _FacilitiesState extends State<Facilities> {
                                   checkboxList.remove("Lawn");
                               });
                             },
+                            isselected: LawnIsSelected,
                           ),
                           SizedBox(
                             width: 20.w,
@@ -262,6 +271,7 @@ class _FacilitiesState extends State<Facilities> {
                                   checkboxList.remove("Transport");
                               });
                             },
+                            isselected: TransportIsSelected,
                           ),
                         ],
                       ),
@@ -285,6 +295,7 @@ class _FacilitiesState extends State<Facilities> {
                                 }
                               });
                             },
+                            isselected: ElectricityIsSelected,
                           ),
                           SizedBox(
                             width: 20.w,
@@ -300,83 +311,33 @@ class _FacilitiesState extends State<Facilities> {
                                   checkboxList.remove("Generator");
                               });
                             },
+                            isselected: GeneratorIsSelected,
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 20.h,
+                        height: 60.h,
                       ),
-                      SizedBox(
-                        height: 22.6.h,
-                      ),
-                      // Container(
-                      //   alignment: Alignment.centerLeft,
-                      //   child: Text(
-                      //     "Others",
-                      //     style: TextStyle(
-                      //         fontSize: 17.sp, fontWeight: FontWeight.w600),
-                      //   ),
+                      // SizedBox(
+                      //   height: 22.6.h,
                       // ),
-                      // Container(
-                      //   height: 20.h,
-                      //   width: 20.w,
-                      //   child: Row(
-                      //     children: [
-                      //       Wrap(
-                      //         children: list,
-                      //       ),
-                      //     ],
-                      //   ),
+                      // SizedBox(
+                      //   height: 5,
                       // ),
-                      // Container(
-                      //   height: 50.h,
-                      //   width: 400.w,
-                      //   child: TextField(
-                      //     controller: controller,
-                      //     onSubmitted: (value) {
-                      //       setState(() {
-                      //         filled = value;
-                      //         print(filled);
-                      //         list.add(Text(filled!));
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
-                      // Container(
-                      //   height: 20.h,
-                      //   width: 20.w,
-                      //   child: Row(
-                      //     children: [
-                      //       Container(
-                      //         width: 20.w,
-                      //         height: 20.h,
-                      //         child: ListView(
-                      //           scrollDirection: Axis.horizontal,
-                      //           children: list,
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      MiniButton(
-                        text: "next",
-                        func: () {
-                          // setState(() {
-                          //   Navigator.push(context,MaterialPageRoute(builder: (context)=> Hostel_Registration() ));
-                          // });
-                          savedata();
-                        },
-                        color: AppColors.primaryColor,
-                        icon: Icons.arrow_forward,
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            print("hn bhaii");
+                      Padding(
+                        padding: const EdgeInsets.only(left:8.0),
+                        child: MiniButton(
+                          text: "Next",
+                          func: () {
+                            // setState(() {
+                            //   Navigator.push(context,MaterialPageRoute(builder: (context)=> Hostel_Registration() ));
+                            // });
+                            savedata();
                           },
-                          icon: Icon(Icons.add))
+                          color: AppColors.primaryColor,
+                          icon: Icons.arrow_forward,
+                        ),
+                      ),
                     ],
                   ),
                 ),
