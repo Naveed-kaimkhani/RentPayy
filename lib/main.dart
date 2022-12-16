@@ -2,12 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:rentpayy/navigation_page.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
-import 'package:rentpayy/view/Hostel_Screen/Hostel_Registration.dart';
 import 'package:rentpayy/view/Hostel_Screen/Hostel_signup.dart';
-import 'package:rentpayy/view/Hostel_Screen/publish_ad_screen.dart';
-import 'package:rentpayy/view/user_screen/User_signup.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 import 'package:rentpayy/view_model/UserDetailsProvider.dart';
 
@@ -44,7 +40,7 @@ class _MyAppState extends State<MyApp> {
                 // theme: ThemeData(
                 //   primarySwatch: Colors.blue,
                 // ),
-                home: login_with_rentpayy(), // initialRoute: RoutesName.login,
+                home:login_with_rentpayy(), // initialRoute: RoutesName.login,
                 // onGenerateRoutes: Routes.onGenerateRoute(settings),
                 onGenerateRoute: Routes.onGenerateRoute,
               ),

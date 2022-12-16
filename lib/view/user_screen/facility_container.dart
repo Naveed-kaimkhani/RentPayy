@@ -15,6 +15,7 @@ class facility_container extends StatelessWidget {
     return Row(
       children: [
         Container(
+          margin: EdgeInsets.zero,
           height: 16.h,
           width: 16.w,
           decoration: BoxDecoration(
@@ -27,7 +28,7 @@ class facility_container extends StatelessWidget {
           child: Center(
             child: Icon(
               Icons.check,
-              size: 7.h,
+              size: 14.h,
               color: Colors.white,
             ),
           ),
@@ -37,7 +38,7 @@ class facility_container extends StatelessWidget {
         ),
         Text(
           text,
-          style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w300),
+          style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w300),
         ),
       ],
     );

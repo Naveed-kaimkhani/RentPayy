@@ -36,7 +36,13 @@ class search_screen extends StatelessWidget {
             // ),
           ),
         ),
-        body: search_bar(isReadOnly: false)
+        body: Padding(
+          padding: const EdgeInsets.only(left: 12.0),
+          child: search_bar(
+            isReadOnly: false,
+            color: AppColors.textfieldsColor,
+          ),
+        )
         // Column(
         //   children: [
         //     Container(

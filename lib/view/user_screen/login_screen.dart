@@ -6,7 +6,6 @@ import 'package:rentpayy/utils/utils.dart';
 
 import '../../components/authButton.dart';
 import '../../components/auth_screens_decor.dart';
-import '../../components/custom_appbar.dart';
 import '../../components/or_line_widget.dart';
 import '../../components/terms_and_condition.dart';
 import '../../components/upper_design.dart';

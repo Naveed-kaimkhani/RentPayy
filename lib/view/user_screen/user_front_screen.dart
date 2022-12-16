@@ -5,7 +5,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:rentpayy/components/no_internetConnection.dart';
 import 'package:rentpayy/components/shimmer_hostel_container.dart';
 import 'package:rentpayy/model/UserModel.dart';
-import 'package:rentpayy/utils/Internet.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/user_screen/add_page.dart';
@@ -17,7 +16,6 @@ import '../../model/hostelModel.dart';
 import '../../resources/FirebaseMethods.dart';
 import '../../view_model/UserDetailsProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class user_front_Screen extends StatefulWidget {
   const user_front_Screen({Key? key}) : super(key: key);
@@ -75,6 +73,7 @@ class _user_front_ScreenState extends State<user_front_Screen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: false,
+          automaticallyImplyLeading: false,
           title: Column(
             children: [
               Container(
@@ -173,17 +172,18 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                       child: Container(
                         height: 42.h,
                         width: 339.w,
-                        decoration: BoxDecoration(
-                            color: Color(0xffFFFFFF),
-                            borderRadius: BorderRadius.circular(7.r),
-                            boxShadow: [
-                              BoxShadow(
-                                spreadRadius: 1,
-                                blurRadius: 1,
-                                color: Colors.grey.withOpacity(0.3),
-                              ),
-                            ]),
-                        child: search_bar(isReadOnly: true),
+                        // decoration: BoxDecoration(
+                        // color: Color(0xffFFFFFF),
+                        // borderRadius: BorderRadius.circular(7.r),
+                        // boxShadow: [
+                        //   BoxShadow(
+                        //     spreadRadius: 1,
+                        //     blurRadius: 1,
+                        //     color: Colors.grey.withOpacity(0.3),
+                        //   ),
+                        // ]),
+                        child:
+                            search_bar(isReadOnly: true, color: Colors.white),
                       ),
                     ),
                   ],
@@ -205,40 +205,23 @@ class _user_front_ScreenState extends State<user_front_Screen> {
               SizedBox(
                 height: 25.h,
               ),
-              // Container(
-              //   height: 480,
-              //   child: GridView.builder(
-              //     controller: _scrollViewController,
-              //     itemCount: 20,
-              //     itemBuilder: (context, index) {
-              //       return Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         mainAxisAlignment: MainAxisAlignment.start,
-              //         children: [
-              //           HostelContainer(),
-              //         ],
-              //       );
-              //     },
-              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //       crossAxisCount: 2,
-              //       mainAxisSpacing: 10,
-              //       crossAxisSpacing: 10,
-              //     ),
-              //   ),
+              // Row(
+              //   children: [
+              //     shimmer_hostel_container(),
+              //     shimmer_hostel_container(),
+              //   ],
               // ),
+              // Row(
+              //   children: [
+              //     shimmer_hostel_container(),
+              //     shimmer_hostel_container(),
+              //   ],
+              // )
               FutureBuilder(
                 builder: (ctx, AsyncSnapshot<List<hostelModel>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasError) {
                       return no_internetConnection();
-                      // Material(
-                      //   child: Contain,
-                      //   // child: Text(
-                      //   //   '${snapshot.error} occurred',
-                      //   //   style: TextStyle(fontSize: 18),
-                      //   // ),
-                      // );
-
                       // if we got our data
                     } else if (snapshot.hasData) {
                       // Extracting data from snapshot object
@@ -283,8 +266,18 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                   return Center(
                     child: Column(
                       children: [
-                        shimmer_hostel_container(),
-                        shimmer_hostel_container()
+                        Row(
+                          children: [
+                            shimmer_hostel_container(),
+                            shimmer_hostel_container(),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            shimmer_hostel_container(),
+                            shimmer_hostel_container(),
+                          ],
+                        )
                       ],
                     ),
                   );

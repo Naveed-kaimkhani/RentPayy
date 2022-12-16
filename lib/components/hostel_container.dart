@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 
 import '../resources/FirebaseRepository.dart';
+import 'circle_progress.dart';
 
 class HostelContainer extends StatelessWidget {
   final hostelModel? hostel;
@@ -10,7 +12,7 @@ class HostelContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  FirebaseRepository _firebaseRepository = new FirebaseRepository();
+    FirebaseRepository _firebaseRepository = new FirebaseRepository();
 
     return Padding(
       padding: EdgeInsets.only(
@@ -27,13 +29,29 @@ class HostelContainer extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
-                  height: 125.h,
-                  width: 187.w,
-                  decoration: BoxDecoration(),
-                  child: Image.network(
-                    hostel!.pictures![0]!,
+                CachedNetworkImage(
+                  imageUrl: hostel!.pictures![0]??"https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: 187.w,
+                    height: 125.h,
+                    // margin: EdgeInsets.symmetric(horizontal: 1.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25.r),
+                          topRight: Radius.circular(25.r)),
+
+                      // shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover),
+                    ),
                   ),
+                  placeholder: (context, url) => Center(
+                    widthFactor: 2.0,
+                    heightFactor: 2.0,
+                    // child: CircularProgressIndicator()
+                    child: circle_progress(),
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
                 Positioned(
                   top: 103.h,
@@ -63,7 +81,9 @@ class HostelContainer extends StatelessWidget {
                       Icons.favorite_border,
                       color: Colors.white,
                     ),
-                    onTap: ()async{await _firebaseRepository.addToFavourites(hostel!);},
+                    onTap: () async {
+                      await _firebaseRepository.addToFavourites(hostel!);
+                    },
                   ),
                 )
               ],
@@ -120,31 +140,29 @@ class HostelContainer extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 9.w, top: 10.41.h),
+              padding: EdgeInsets.only(left: 8.w, top: 8.41.h),
               child: Row(
                 children: [
-                  Image(
-                    image: AssetImage(
-                      'asset/human1.png',
-                    ),
-                    height: 12.h,
+                  Icon(
+                    Icons.man,
+                    color: Colors.black,
+                    size: 15.h,
+                  ),
+                  // SizedBox(
+                  //   width: 2.w,
+                  // ),
+                  Icon(
+                    Icons.hotel,
+                    color: Colors.black,
+                    size: 15.w,
                   ),
                   SizedBox(
-                    width: 7.w,
-                  ),
-                  Image(
-                    image: AssetImage(
-                      'asset/humanBed.png',
-                    ),
-                    width: 13.w,
-                  ),
-                  SizedBox(
-                    width: 2.sp,
+                    width: 4.w,
                   ),
                   Text(
                     hostel!.available_capacity.toString(),
                     style:
-                        TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w500),
+                        TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
                   )
                 ],
               ),

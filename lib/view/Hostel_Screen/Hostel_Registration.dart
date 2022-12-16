@@ -65,8 +65,12 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
         "person_per_room": person_per_room,
         "description": descriptionController.text
       });
-      print("data stored");
-      Navigator.popAndPushNamed(context, RoutesName.facilities);
+      // print("data stored");
+      // Navigator.popAndPushNamed(context, RoutesName.facilities);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Facilities()),
+      );
     }
     isLoading(false);
     print("data updated on hostel registration screen");
@@ -87,7 +91,11 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: upper_design(needcolor: true,needicon: true,isUserDelete: true,),
+        appBar: upper_design(
+          needcolor: true,
+          needicon: true,
+          isUserDelete: true,
+        ),
         body: Stack(
           children: [
             Container(

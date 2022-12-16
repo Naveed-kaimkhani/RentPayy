@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
@@ -38,10 +39,16 @@ class hostel_list extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 7, right: 10, top: 7, bottom: 7),
+                      left: 1, right: 10, top: 1, bottom: 4),
                   child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
                     // child: Image.asset("asset/roomrec.png"),
-                    child: Image.network(pic),
+                    child: CachedNetworkImage(
+                      imageUrl: pic,
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
                   ),
                 ),
                 Container(

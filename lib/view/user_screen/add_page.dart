@@ -100,7 +100,7 @@ class _AdPageState extends State<AdPage> {
                             enlargeCenterPage: true,
                             enableInfiniteScroll: false,
                             enlargeStrategy: CenterPageEnlargeStrategy.height,
-                            // autoPlay: true,
+                            autoPlay: true,
                             autoPlayInterval: Duration(seconds: 2)),
                         itemCount: widget.hostel.pictures!.length,
                         itemBuilder: (BuildContext context, int itemIndex,
@@ -230,18 +230,18 @@ class _AdPageState extends State<AdPage> {
                       children: [
                         Row(
                           children: [
-                            Image(
-                              image: AssetImage(
-                                Images.human1,
-                              ),
-                              height: 15.h,
+                            Icon(
+                              Icons.man,
+                              color: Colors.black,
+                              size: 20.w,
                             ),
-                            SizedBox(
-                              width: 7.w,
-                            ),
-                            Image(
-                              image: AssetImage(Images.humanBed),
-                              width: 15.w,
+                            // SizedBox(
+                            //   width: 2.w,
+                            // ),
+                            Icon(
+                              Icons.hotel,
+                              color: Colors.black,
+                              size: 20.w,
                             ),
                             SizedBox(
                               width: 6.sp,
@@ -249,7 +249,7 @@ class _AdPageState extends State<AdPage> {
                             Text(
                               widget.hostel.available_capacity.toString(),
                               style: TextStyle(
-                                  fontSize: 10.sp, fontWeight: FontWeight.w500),
+                                  fontSize: 16.sp, fontWeight: FontWeight.w500),
                             )
                           ],
                         ),
@@ -295,21 +295,22 @@ class _AdPageState extends State<AdPage> {
                     //   text: 'Electricity',
                     //   // image: Images.facilities,
                     // ),
-                    Container(
-                      height: 80.h,
-                      child: GridView.builder(
-                        // controller: _scrollViewController,
-                        itemCount: widget.hostel.facilities!.length,
-                        itemBuilder: (context, index) {
-                          return facility_container(
-                              text: widget.hostel.facilities![index]);
-                        },
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 5,
-                          crossAxisSpacing: 5,
-                        ),
-                      ),
+                    GridView.count(
+                      padding: EdgeInsets.zero,
+
+                      shrinkWrap: true,
+                      crossAxisSpacing: 0,
+                      mainAxisSpacing: 0,
+
+                      physics: new NeverScrollableScrollPhysics(),
+                      crossAxisCount: 3,
+                      childAspectRatio: 1,
+                      children: widget.hostel.facilities!
+                          .map<Widget>(
+                            (e) => facility_container(text: e),
+                          )
+                          .toList(),
+                      //  childAspectRatio: 1.1,
                     ),
                     SizedBox(
                       height: 24.h,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../components/hostel_appBarButton.dart';
 import '../../components/hostel_container.dart';
 import '../../components/no_internetConnection.dart';
@@ -46,13 +47,17 @@ class result_screen extends StatelessWidget {
           children: [
             search_bar(
               isReadOnly: true,
+              color: AppColors.textfieldsColor,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20.0, top: 20),
+              padding: const EdgeInsets.only(left: 18.0, top: 20),
               child: Text(
                 "Results for $query",
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
+            ),
+            SizedBox(
+              height: 10.h,
             ),
             FutureBuilder(
               builder: (ctx, AsyncSnapshot<List<hostelModel>> snapshot) {
@@ -110,8 +115,18 @@ class result_screen extends StatelessWidget {
                 return Center(
                   child: Column(
                     children: [
-                      shimmer_hostel_container(),
-                      shimmer_hostel_container()
+                      Row(
+                        children: [
+                          shimmer_hostel_container(),
+                          shimmer_hostel_container(),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          shimmer_hostel_container(),
+                          shimmer_hostel_container(),
+                        ],
+                      )
                     ],
                   ),
                 );

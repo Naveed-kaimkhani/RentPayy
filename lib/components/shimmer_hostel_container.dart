@@ -7,101 +7,62 @@ class shimmer_hostel_container extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: 18.sp,
-      ),
-      child: Shimmer.fromColors(
+    return Shimmer.fromColors(
         baseColor: Colors.grey.withOpacity(0.5),
         highlightColor: Colors.white,
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  height: 125.h,
-                  width: 187.w,
-                  decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.5),
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(25.r),
-                          topLeft: Radius.circular(25.r))),
+        child: Container(
+          margin: EdgeInsets.only(left: 10),
+          height: 187.h,
+          width: 198.w,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 125.h,
+                width: 187.w,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.5),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.r),
+                      topRight: Radius.circular(30.r)),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 6.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 9.w, right: 8.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 17.67.h,
-                    width: 90.w,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(7.r),
-                    ),
-                  ),
-                  // SizedBox(width: 12.sp,),
-                  Container(
-                    height: 17.67.h,
-                    width: 70.w,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(7.r),
-                    ),
-                  ),
-                ],
               ),
-            ),
-            SizedBox(
-              height: 6.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 9.w),
-              child: Row(
-                children: [
-                  Container(
-                    height: 17.67.h,
-                    width: 90.w,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(7.r),
-                    ),
-                  ),
-                ],
+              SizedBox(
+                height: 15.h,
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 9.w, top: 7.41.h,right: 8.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 17.67.h,
-                    width: 90.w,
-                    decoration: BoxDecoration(
+              Padding(
+                padding: const EdgeInsets.only(left: 3.0),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 110.w,
+                      height: 35.h,
                       color: Colors.grey.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(7.r),
                     ),
-                  ),
-                  Container(
-                    height: 17.67.h,
-                    width: 70.w,
-                    decoration: BoxDecoration(
+                    SizedBox(
+                      width: 20.w,
+                    ),
+                    Container(
                       color: Colors.grey.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(7.r),
-                    ),
-                  ),
-                ],
+                      width: 50.w,
+                      height: 35.h,
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+              // SizedBox(
+              //   height: 10.h,
+              // ),
+              // Container(
+              //   color: Colors.grey.withOpacity(0.5),
+              //   height: 20.h,
+              //   width: 35.w,
+              // )
+              SizedBox(
+                height: 10.h,
+              )
+            ],
+          ),
+        ));
   }
 }

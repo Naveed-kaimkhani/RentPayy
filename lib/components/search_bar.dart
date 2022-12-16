@@ -1,46 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../utils/routes/RoutesName.dart';
 import '../utils/style/AppColors.dart';
 import '../view/user_screen/result_screen.dart';
 
-class search_bar extends StatelessWidget {
-  TextEditingController _controller=TextEditingController();
+class search_bar extends StatefulWidget {
   bool isReadOnly;
-// bool hasBackButton;
+  Color color;
+//bool hasBackButton;
   search_bar({
+    required this.color,
     required this.isReadOnly,
     // required this.hasBackButton,
     super.key,
   });
 
   @override
+  State<search_bar> createState() => _search_barState();
+}
+
+class _search_barState extends State<search_bar> {
+  TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 47.h,
       width: 400.w,
-      padding: EdgeInsets.only(
-        left: 35,
-      ),
+      // padding: EdgeInsets.only(
+      //   left: 35,
+      // ),
       child: TextFormField(
         controller: _controller,
         decoration: InputDecoration(
           border: InputBorder.none,
 
           filled: true,
-          fillColor: Color.fromRGBO(242, 246, 255, 1),
+          fillColor: widget.color,
+          // fillColor: Color.fromRGBO(242, 246, 255, 1),
           // focusColor: Color.fromARGB(255, 197, 42, 42),
           prefixIcon: InkWell(
             child: Icon(
               Icons.search,
               color: AppColors.primaryColor,
             ),
-            onTap: (){
-               Navigator.push(
-              context,
-              MaterialPageRoute(  
-                  builder: (context) => result_screen(query: _controller.text)));
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          result_screen(query: _controller.text)));
             },
           ),
           hintText: 'Search',
@@ -66,7 +83,7 @@ class search_bar extends StatelessWidget {
               ),
         ),
         cursorColor: Colors.black,
-        readOnly: isReadOnly,
+        readOnly: widget.isReadOnly,
         onFieldSubmitted: (String query) {
           Navigator.push(
               context,
@@ -74,7 +91,7 @@ class search_bar extends StatelessWidget {
                   builder: (context) => result_screen(query: query)));
         },
         onTap: () {
-          if (isReadOnly) {
+          if (widget.isReadOnly) {
             Navigator.of(context).pushNamed(RoutesName.search_screen);
           }
         },

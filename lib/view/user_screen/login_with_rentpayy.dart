@@ -52,6 +52,8 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
   // bool _obsecureText = true;
 
   void dispose() {
+    // _firebaseRepository.dis
+    _obsecurePassword.dispose();
     _emailController.dispose();
     _passController.dispose();
 

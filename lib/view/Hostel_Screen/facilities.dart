@@ -8,10 +8,9 @@ import 'package:rentpayy/components/custom_checkbox.dart';
 import 'package:rentpayy/components/mini_Button.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
-import 'package:rentpayy/view/Hostel_Screen/Hostel_Registration.dart';
+import 'package:rentpayy/view/Hostel_Screen/add_gallery.dart';
 
 import '../../utils/routes/RoutesName.dart';
-import '../../utils/style/Images.dart';
 
 class Facilities extends StatefulWidget {
   Facilities({Key? key}) : super(key: key);
@@ -20,10 +19,10 @@ class Facilities extends StatefulWidget {
 }
 
 class _FacilitiesState extends State<Facilities> {
-  TextEditingController controller = TextEditingController();
+  // TextEditingController controller = TextEditingController();
   List<String> checkboxList = [];
-  bool isLoadingNow = false;
-  String? filled;
+  // bool isLoadingNow = false;
+  // String? filled;
 
   bool waterIsSelected = false,
       studyHallIsSelected = false,
@@ -43,38 +42,27 @@ class _FacilitiesState extends State<Facilities> {
 
   final user = FirebaseAuth.instance.currentUser!.uid;
 
-  @override
-  void initState() {
-    print("object");
+  // @override
+  // void initState() {
+  //   print("object");
 
-    super.initState();
-  }
-
-  // void savelist() {
-  //   setState(() {
-  //     for(int i =0;i < widget.checkboxList.length; i++)
-  //       print(widget.checkboxList[i]);
-  //   });
-
+  //   super.initState();
   // }
-//   List<String> toList() {
-
-//   chipstuete.forEach((item) {
-//     newtuete.add(item.toString());
-//   });
-
-//   return newtuete.toList();
-// }
-
   void savedata() {
     if (checkboxList.isEmpty) {
+      print(checkboxList);
       utils.flushBarErrorMessage("Please select facilites", context);
     } else {
       db.collection("hostels").doc(user).update({
         'facilities': checkboxList,
       }).then((value) {
         print("data updated for facilities");
-        Navigator.popAndPushNamed(context, RoutesName.uploadPictures);
+        // Navigator.popAndPushNamed(context, RoutesName.uploadPictures);
+        print(checkboxList);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => add_gallery()),
+        );
       });
     }
   }
@@ -115,10 +103,12 @@ class _FacilitiesState extends State<Facilities> {
                             func: () {
                               setState(() {
                                 waterIsSelected = !waterIsSelected;
-                                if (waterIsSelected)
-                                  checkboxList.add("water,");
-                                else
-                                  checkboxList.remove("water,");
+
+                                if (waterIsSelected) {
+                                  checkboxList.add("water");
+                                  print(checkboxList);
+                                } else
+                                  checkboxList.remove("water");
                               });
                             },
                           ),
@@ -130,8 +120,10 @@ class _FacilitiesState extends State<Facilities> {
                             func: () {
                               setState(() {
                                 studyHallIsSelected = !studyHallIsSelected;
-                                if (!studyHallIsSelected)
-                                  checkboxList.add("Study Hall,");
+                                if (studyHallIsSelected)
+                                  checkboxList.add("Study Hall");
+                                else
+                                  checkboxList.remove("Study Hall");
                               });
                             },
                           ),
@@ -148,7 +140,9 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 SecurityIsSelected = !SecurityIsSelected;
                                 if (SecurityIsSelected)
-                                  checkboxList.add("Security,");
+                                  checkboxList.add("Security");
+                                else
+                                  checkboxList.remove("Security");
                               });
                             },
                           ),
@@ -160,7 +154,10 @@ class _FacilitiesState extends State<Facilities> {
                             func: () {
                               setState(() {
                                 SolarIsSelected = !SolarIsSelected;
-                                if (SolarIsSelected) checkboxList.add("Solar,");
+                                if (SolarIsSelected)
+                                  checkboxList.add("Solar");
+                                else
+                                  checkboxList.remove("Solar");
                               });
                             },
                           ),
@@ -177,7 +174,9 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 LaundaryIsSelected = !LaundaryIsSelected;
                                 if (LaundaryIsSelected)
-                                  checkboxList.add("Laundary,");
+                                  checkboxList.add("Laundary");
+                                else
+                                  checkboxList.remove("Laundary");
                               });
                             },
                           ),
@@ -190,9 +189,9 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 KitchenIsSelected = !KitchenIsSelected;
                                 if (KitchenIsSelected)
-                                  checkboxList.add("Kitchen,");
-                                else if (!KitchenIsSelected)
-                                  checkboxList.remove("Kitchen,");
+                                  checkboxList.add("Kitchen");
+                                else
+                                  checkboxList.remove("Kitchen");
                               });
                             },
                           ),
@@ -208,7 +207,10 @@ class _FacilitiesState extends State<Facilities> {
                             func: () {
                               setState(() {
                                 MessIsSelected = !MessIsSelected;
-                                if (MessIsSelected) checkboxList.add("Mess,");
+                                if (MessIsSelected)
+                                  checkboxList.add("Mess");
+                                else
+                                  checkboxList.remove("Mess");
                               });
                             },
                           ),
@@ -220,8 +222,10 @@ class _FacilitiesState extends State<Facilities> {
                             func: () {
                               setState(() {
                                 CanteenIsSelected = !CanteenIsSelected;
-                                if (CanteenIsSelected)
-                                  checkboxList.add("Canteen,");
+                                if (CanteenIsSelected) {
+                                  checkboxList.add("Canteen");
+                                } else
+                                  checkboxList.remove("Canteen");
                               });
                             },
                           ),
@@ -237,7 +241,10 @@ class _FacilitiesState extends State<Facilities> {
                             func: () {
                               setState(() {
                                 LawnIsSelected = !LawnIsSelected;
-                                if (LawnIsSelected) checkboxList.add("Lawn,");
+                                if (LawnIsSelected)
+                                  checkboxList.add("Lawn");
+                                else
+                                  checkboxList.remove("Lawn");
                               });
                             },
                           ),
@@ -250,7 +257,9 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 TransportIsSelected = !TransportIsSelected;
                                 if (TransportIsSelected)
-                                  checkboxList.add("Transport,");
+                                  checkboxList.add("Transport");
+                                else
+                                  checkboxList.remove("Transport");
                               });
                             },
                           ),
@@ -266,8 +275,14 @@ class _FacilitiesState extends State<Facilities> {
                             func: () {
                               setState(() {
                                 ElectricityIsSelected = !ElectricityIsSelected;
-                                if (ElectricityIsSelected)
-                                  checkboxList.add("Electricity,");
+                                if (ElectricityIsSelected) {
+                                  checkboxList.add("Electricity");
+                                 
+                                } else {
+                                 
+                                  checkboxList.remove("Electricity");
+                                 
+                                }
                               });
                             },
                           ),
@@ -280,7 +295,9 @@ class _FacilitiesState extends State<Facilities> {
                               setState(() {
                                 GeneratorIsSelected = !GeneratorIsSelected;
                                 if (GeneratorIsSelected)
-                                  checkboxList.add("Generator,");
+                                  checkboxList.add("Generator");
+                                else
+                                  checkboxList.remove("Generator");
                               });
                             },
                           ),
@@ -292,14 +309,14 @@ class _FacilitiesState extends State<Facilities> {
                       SizedBox(
                         height: 22.6.h,
                       ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Others",
-                          style: TextStyle(
-                              fontSize: 17.sp, fontWeight: FontWeight.w600),
-                        ),
-                      ),
+                      // Container(
+                      //   alignment: Alignment.centerLeft,
+                      //   child: Text(
+                      //     "Others",
+                      //     style: TextStyle(
+                      //         fontSize: 17.sp, fontWeight: FontWeight.w600),
+                      //   ),
+                      // ),
                       // Container(
                       //   height: 20.h,
                       //   width: 20.w,
@@ -355,6 +372,11 @@ class _FacilitiesState extends State<Facilities> {
                         color: AppColors.primaryColor,
                         icon: Icons.arrow_forward,
                       ),
+                      IconButton(
+                          onPressed: () {
+                            print("hn bhaii");
+                          },
+                          icon: Icon(Icons.add))
                     ],
                   ),
                 ),
