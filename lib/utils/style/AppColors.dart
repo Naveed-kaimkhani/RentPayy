@@ -9,4 +9,9 @@ class AppColors {
   // static const kPrimaryColor = Color.fromARGB(255, 60, 44, 210);
   // static const kBackgroundColor = Color(0XFFE5E5E5);
   // static const deepPurple = Colors.deepPurple;
+
+  // Abdul Sattar
+  static const Color blackColor = Colors.black;
+  static const Color locationColor = Color.fromARGB(255, 241, 113, 8);
+  static const Color bgColor = Color(0xffFBEFD4);
 }

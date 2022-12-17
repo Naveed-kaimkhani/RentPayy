@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
-
+import 'package:rentpayy/utils/style/theme_manager.dart';
 
 import 'mainpage.dart';
 
@@ -38,6 +38,7 @@ class _MyAppState extends State<MyApp> {
               home: mainpage(), // initialRoute: RoutesName.login,
               // onGenerateRoutes: Routes.onGenerateRoute(settings),
               onGenerateRoute: Routes.onGenerateRoute,
+              theme: Thememanager().getApplicationTheme(),
             );
           }),
         );

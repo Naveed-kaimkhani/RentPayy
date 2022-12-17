@@ -5,7 +5,10 @@ import 'package:rentpayy/utils/style/AppColors.dart';
 class ad_page_container extends StatelessWidget {
   final String text;
   // final String image;
-  const ad_page_container({Key? key, required this.text,}) : super(key: key);
+  const ad_page_container({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +24,17 @@ class ad_page_container extends StatelessWidget {
             //   image: AssetImage(image),
             // )
           ),
-          child: Center(child: Icon(Icons.check),),
+          child: Center(
+            child: Icon(Icons.check),
+          ),
         ),
-        SizedBox(width: 6.w,),
-        Text(text , style: TextStyle(fontSize: 10.sp , fontWeight: FontWeight.w300),),
+        SizedBox(
+          width: 6.w,
+        ),
+        Text(
+          text,
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w300),
+        ),
       ],
     );
   }

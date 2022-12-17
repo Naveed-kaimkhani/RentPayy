@@ -56,6 +56,8 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   provider: ^6.0.4
   google_nav_bar: ^5.0.6
+  syncfusion_flutter_charts: ^20.3.59
+  percent_indicator: ^4.2.2
 
 dev_dependencies:
   flutter_test:
