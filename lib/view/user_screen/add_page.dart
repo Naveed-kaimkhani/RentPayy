@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/circle_progress.dart';
@@ -24,7 +25,19 @@ class AdPage extends StatefulWidget {
 class _AdPageState extends State<AdPage> {
   var selectedIndex = 0;
   bool isSelected = false;
+    FirebaseFirestore db = FirebaseFirestore.instance;
 
+  @override
+  void initState() {
+    super.initState();
+    int count=widget.hostel.visits!;
+      setState(() {
+        count++;
+      });
+      db.collection("hostels").doc(widget.hostel.uid).update({
+        'visits':count,
+      });
+  }
   @override
   Widget build(BuildContext context) {
     FirebaseRepository _firebaseRepository = new FirebaseRepository();

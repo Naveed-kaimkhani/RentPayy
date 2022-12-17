@@ -174,7 +174,10 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                     currentNode: emailFocusNode,
                     nextNode: passwordFocusNode,
                     obsecureText: false,
-                    onIconPress: () {},
+                    onIconPress: () {
+                      _emailController.clear();
+                    },
+                    keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(
                     height: 14.h,

@@ -41,10 +41,11 @@ class _MyAppState extends State<MyApp> {
                 // theme: ThemeData(
                 //   primarySwatch: Colors.blue,
                 // ),
-                // home: User_signup_page(),
+                // home: Hostel_Signup(),
                 home: login_with_rentpayy(),
                 // initialRoute: RoutesName.login,
-                // onGenerateRoutes: Routes.onGenerateRoute(settings),
+                // onGenerateRoutes: Routes.onGenerate
+                // Route(settings),
                 onGenerateRoute: Routes.onGenerateRoute,
               ),
             );

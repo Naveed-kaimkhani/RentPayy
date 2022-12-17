@@ -77,6 +77,7 @@ class _add_galleryState extends State<add_gallery> {
 
       db.collection("hostels").doc(user).update({
         'pictures': listOfImages,
+        'visits':0,
       });
     }
     isLoading(false);

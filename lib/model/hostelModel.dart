@@ -23,6 +23,7 @@ class hostelModel {
   // String? pic7;
   // String? pic8;
   List<dynamic>? pictures;
+  int? visits;
   hostelModel({
     this.uid,
     this.name,
@@ -40,6 +41,7 @@ class hostelModel {
     this.description,
     this.facilities,
     this.pictures,
+    this.visits,
 
     // ignore: non_constant_identifier_names
   });
@@ -61,6 +63,7 @@ class hostelModel {
     data['person_per_room'] = hostel.person_per_room;
     data['description'] = hostel.description;
     data['pictures'] = hostel.pictures;
+    data['visits'] = hostel.visits;
 
     // data['pic1'] = hostel.pic1;
     // data['pic2'] = hostel.pic2;
@@ -89,6 +92,7 @@ class hostelModel {
       description: json['description'],
       facilities: json['facilities'],
       pictures: json['pictures'],
+      visits: json['visits'] ?? 0,
       // pic1: json['pictures'][0],
       // pic2: json['pictures'][1],
       // pic3: json['pictures'][2],
