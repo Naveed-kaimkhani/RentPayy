@@ -3,6 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 
 class CustomTextStyle {
+  static final font_13 = TextStyle(
+    color: AppColors.blackColor,
+    fontSize: 13.sp,
+    fontWeight: FontWeight.w300,
+  );
   static final font_16 = TextStyle(
     color: AppColors.blackColor,
     fontSize: 16.sp,
@@ -12,6 +17,16 @@ class CustomTextStyle {
     color: Colors.white,
     fontSize: 17.sp,
     fontWeight: FontWeight.normal,
+  );
+  static final font_33 = TextStyle(
+    color: Colors.black,
+    fontSize: 33.sp,
+    fontWeight: FontWeight.w400,
+  );
+  static final font_54 = TextStyle(
+    color: Colors.black,
+    fontSize: 54.sp,
+    fontWeight: FontWeight.w700,
   );
   static final font_black = TextStyle(
     color: Colors.black,
@@ -34,6 +49,11 @@ class CustomTextStyle {
   static final headingsAll = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 23.sp,
+    color: Colors.black,
+  );
+  static final headingsAll_26 = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontSize: 26.sp,
     color: Colors.black,
   );
 

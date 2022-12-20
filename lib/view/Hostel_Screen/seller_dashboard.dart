@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:rentpayy/view/Hostel_Screen/ads_boost_screen.dart';
 import 'package:rentpayy/view/Hostel_Screen/ads_detail_screen.dart';
 
 import '../../utils/style/AppColors.dart';
@@ -17,7 +18,7 @@ class _SellerDashboardState extends State<SellerDashboard> {
   List pages = [
     AdsDetailScreen(),
     EditAdsScreen(),
-    AdsDetailScreen(),
+    AdBoostScreen(),
     EditAdsScreen(),
   ];
   int currentindex = 0;
@@ -62,7 +63,7 @@ class _SellerDashboardState extends State<SellerDashboard> {
               ),
               GButton(
                 icon: Icons.rocket_launch_outlined,
-                text: "Likes",
+                text: "Ad Boost",
               ),
               GButton(
                 icon: Icons.settings_outlined,

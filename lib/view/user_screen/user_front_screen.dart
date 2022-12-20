@@ -34,7 +34,7 @@ class _user_front_ScreenState extends State<user_front_Screen> {
         }
       }
 
-      if (_scrollViewController!.position.userScrollDirection ==
+      if (_scrollViewController.position.userScrollDirection ==
           ScrollDirection.forward) {
         if (isScrollingDown) {
           isScrollingDown = false;
@@ -193,6 +193,7 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                             context,
                             MaterialPageRoute(
                                 builder: (_) => SellerDashboard()));
+                        // builder: (_) => user_front_Screen()));
                       },
                       child: banner())),
               SizedBox(

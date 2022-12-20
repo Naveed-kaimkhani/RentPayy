@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/style/text_manager.dart';
@@ -432,81 +431,6 @@ class _EditAdsScreenState extends State<EditAdsScreen> {
               SizedBox(
                 height: 40,
               ),
-              // SizedBox(
-              //   height: 800,
-              //   child: GridView(
-              //     shrinkWrap: true,
-              //     physics: NeverScrollableScrollPhysics(),
-              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //         crossAxisCount: 1,
-              //         mainAxisSpacing: 0,
-              //         crossAxisSpacing: 0),
-              //     children: [
-              //       SizedBox(
-              //         height: 10,
-              //         width: Sizes.width * 0.5,
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           children: [
-              //             ad_page_container(
-              //               text: 'Electricity',
-              //               // image: Images.facilities,
-              //             ),
-              //             ad_page_container(
-              //               text: 'Electricity',
-              //               // image: Images.facilities,
-              //             ),
-              //             ad_page_container(
-              //               text: 'Electricity',
-              //               // image: Images.facilities,
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //       SizedBox(
-              //         height: 10,
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             ad_page_container(
-              //               text: 'Electricity',
-              //               // image: Images.facilities,
-              //             ),
-              //             ad_page_container(
-              //               text: 'Electricity',
-              //               // image: Images.facilities,
-              //             ),
-              //             ad_page_container(
-              //               text: 'Electricity',
-              //               // image: Images.facilities,
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //       SizedBox(
-              //         height: 10,
-              //         child: Row(
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           children: [
-              //             ad_page_container(
-              //               text: 'Electricity',
-              //               // image: Images.facilities,
-              //             ),
-              //             ad_page_container(
-              //               text: 'Electricity',
-              //               // image: Images.facilities,
-              //             ),
-              //             ad_page_container(
-              //               text: 'Electricity',
-              //               // image: Images.facilities,
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
 
               // Facilities(),
               // Description

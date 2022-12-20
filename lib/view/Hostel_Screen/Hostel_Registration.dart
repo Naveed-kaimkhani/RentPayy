@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
 import 'package:rentpayy/components/circle_progress.dart';
-import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/mini_Button.dart';
 import 'package:rentpayy/components/point_increament_button.dart';
 import 'package:rentpayy/components/upper_design.dart';
