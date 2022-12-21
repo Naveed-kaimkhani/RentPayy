@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -69,6 +68,7 @@ class utils {
     if (file != null) {
       return file.readAsBytes();
     }
+    return null;
   }
 
 // Widget UploadImage1(Uint8List? image) {

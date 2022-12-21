@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:rentpayy/view/Hostel_Screen/ads_boost_screen.dart';
 import 'package:rentpayy/view/Hostel_Screen/ads_detail_screen.dart';
+import 'package:rentpayy/view/Hostel_Screen/ad_boost_screen.dart';
 
 import '../../utils/style/AppColors.dart';
 import 'ads_edit_screen.dart';
@@ -19,7 +19,7 @@ class _SellerDashboardState extends State<SellerDashboard> {
     AdsDetailScreen(),
     EditAdsScreen(),
     AdBoostScreen(),
-    EditAdsScreen(),
+    AdsDetailScreen()
   ];
   int currentindex = 0;
   void onTap(int index) {
