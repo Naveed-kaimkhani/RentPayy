@@ -1,8 +1,11 @@
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/components/upper_design.dart';
 import 'package:rentpayy/utils/utils.dart';
@@ -21,7 +24,7 @@ class personal_data extends StatefulWidget {
 class _personal_dataState extends State<personal_data> {
   @override
   void initState() {
-    _nameController.text = "asd";
+    _nameController.text = "";
     _nameController.selection = TextSelection.fromPosition(
         TextPosition(offset: _nameController.text.length));
 
@@ -30,7 +33,7 @@ class _personal_dataState extends State<personal_data> {
 
     super.initState();
   }
-
+  bool  isLoadingNow = false;
   Uint8List? _profileImage;
   FocusNode nameFocusNode = FocusNode();
   FocusNode phoneFocusNode = FocusNode();
@@ -38,9 +41,45 @@ class _personal_dataState extends State<personal_data> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _ageController = TextEditingController();
-
   List<Gender> genders = <Gender>[];
 
+  FirebaseAuth auth = FirebaseAuth.instance;
+  final users = FirebaseFirestore.instance.collection('users');
+
+  // void _validateFields(){
+  //   if(_nameController.text.trim().isEmpty && _phoneController.text.trim().isEmpty){
+  //     utils.flushBarErrorMessage('Please Enter your Details', context);
+  //   }
+  //   if(_nameController.text.trim().isEmpty){
+  //     utils.flushBarErrorMessage('Enter Your Name', context);
+  //   }
+  //   else if(_phoneController.text.trim().isEmpty){
+  //     utils.flushBarErrorMessage('Enter Your Number', context);
+  //   }
+  //   else if(_phoneController.text.length != 10){
+  //     utils.flushBarErrorMessage('Invalid Phone Number', context);
+  //   }
+  // }
+
+  Future<void> updateData(){
+    final uid = auth.currentUser!.uid;
+     return users.doc(uid).update({
+       "name": _nameController.text,
+       "phone": _phoneController.text,
+       "age": _ageController.text,
+
+       // "profile_image": _profileImage,
+     }).then((value) => {
+       utils.toastMessage('Profile Updated'),
+       print('Data updated'),
+     }).onError((error, stackTrace) => {
+        utils.flushBarErrorMessage(error.toString(), context),
+       print(error.toString()),
+     });
+  }
+
+
+  
   @override
   Widget build(BuildContext context) {
     UserModel? user =
@@ -212,9 +251,20 @@ class _personal_dataState extends State<personal_data> {
                 height: 160.h,
               ),
               Center(
-                  child: authButton(
-                text: 'Save Changes',
-                func: () {},
+                  child: isLoadingNow ? circle_progress(): authButton(
+                    func: () {
+                      setState(() {
+                        isLoadingNow = true;
+                      });
+                      Future.delayed(Duration(seconds: 3) , (){
+                        setState(() {
+                          isLoadingNow = false;
+                        });
+                      });
+
+                   updateData();
+                  },
+                    text:  'Save Changes',
                 color: AppColors.primaryColor,
               )),
             ],

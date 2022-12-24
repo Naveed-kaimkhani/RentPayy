@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:rentpayy/components/hostel_appBarButton.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/view/user_screen/personal_data.dart';
 
 import '../../components/profilePic.dart';
 import '../../model/UserModel.dart';
-import '../../utils/style/Images.dart';
 import '../../view_model/UserDetailsProvider.dart';
 
 class setting_screen extends StatelessWidget {
@@ -23,14 +21,7 @@ class setting_screen extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          // leading: IconButton(
-          //   onPressed: (() => Navigator.pop(context)),
-          //   icon: hostel_appBarButton(
-          //     Buttoncolor: AppColors.primaryColor,
-          //     IconUrl: Images.whitebackButton,
-          //   ),
-          //   // SvgPicture.asset('asset/backIcon.png')
-          // ),
+
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -39,10 +30,7 @@ class setting_screen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    // CircleAvatar(
-                    //   backgroundImage: AssetImage("asset/profile.png"),
-                    // ),
-                    profilePic(url: user!.profileImage!),
+                    profilePic(url: user!.profileImage),
                     Column(
                       children: [
                         Text(
@@ -110,7 +98,6 @@ class setting_screen extends StatelessWidget {
                       padding: EdgeInsets.only(left: 45.w),
                       child: ListTile(
                           onTap: () {},
-                          // leading: Image.asset("asset/passwordyellow.png"),
                           leading: settingScreen_Miniicon(icon: Icons.lock),
                           title: Row(
                             children: [
