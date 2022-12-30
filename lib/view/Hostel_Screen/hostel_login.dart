@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,18 +19,21 @@ import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
 
 import '../../model/UserModel.dart';
+import '../../model/hostelModel.dart';
 import '../../resources/FirebaseRepository.dart';
+import '../../utils/StorageServiceHostel.dart';
 import '../../utils/style/Images.dart';
+import '../../view_model/HostelDetailsProvider.dart';
 import '../../view_model/UserDetailsProvider.dart';
 
-class login_with_rentpayy extends StatefulWidget {
-  login_with_rentpayy({super.key});
+class hostel_login extends StatefulWidget {
+  hostel_login({super.key});
 
   @override
-  State<login_with_rentpayy> createState() => _login_with_rentpayyState();
+  State<hostel_login> createState() => _hostel_loginState();
 }
 
-class _login_with_rentpayyState extends State<login_with_rentpayy> {
+class _hostel_loginState extends State<hostel_login> {
   TextEditingController _emailController = TextEditingController();
 
   final ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(true);
@@ -83,7 +87,9 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
         .login(_emailController.text, _passController.text, context)
         .then((User? user) {
       if (user != null) {
-        _getUserDetails(user.uid);
+        print(user.displayName);
+         _getHostelDetails(user.uid);
+        // Navigator.pushNamed(context, RoutesName.SellerDashboard);
       } else {
         isLoading(false);
         //utils.flushBarErrorMessage("Failed to login", context);
@@ -91,24 +97,31 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
     });
   }
 
-  void _getUserDetails(String uid) {
-    _firebaseRepository.getUserDetails(uid).then((UserModel? userModel) {
-      if (userModel != null) {
-        StorageService.saveUser(userModel).then((value) {
-          Provider.of<UserDetailsProvider>(context, listen: false)
-              .getUserLocally();
+  void _getHostelDetails(String uid)async {
+   print("user id");
+    print(uid);
+  await Provider.of<HostelDetailsProvider>(context, listen: false)
+              .getHostelFromServer(uid,context);
           isLoading(false);
-          Navigator.pushNamed(context, RoutesName.navigation);
-        }).catchError((error) {
-          utils.flushBarErrorMessage(error.message.toString(), context);
-        });
-      } else {
-        utils.flushBarErrorMessage("User is null", context);
-      }
-    }).catchError((error) {
-      isLoading(false);
-      utils.flushBarErrorMessage(error.message.toString(), context);
-    });
+      Navigator.pushNamed(context, RoutesName.SellerDashboard);
+
+    // _firebaseRepository.getHostelDetails(uid).then((hostelModel? hostel) {
+    //   if (hostel != null) {
+    //     StorageServiceHostel.saveHostel(hostel).then((value) {
+    //     Provider.of<HostelDetailsProvider>(context, listen: false)
+    //           .getHostelFromServer(uid,context);
+    //       isLoading(false);
+    //       Navigator.pushNamed(context, RoutesName.SellerDashboard);
+    //     }).catchError((error) {
+    //       utils.flushBarErrorMessage(error.message.toString(), context);
+    //     });
+    //   } else {
+    //     utils.flushBarErrorMessage("User is null", context);
+    //   }
+    // }).catchError((error) {
+    //   isLoading(false);
+    //   utils.flushBarErrorMessage(error.message.toString(), context);
+    // });
   }
 
   @override
@@ -158,7 +171,7 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                     height: 36.h,
                   ),
                   Text(
-                    "Login",
+                    "Login Hostel",
                     style:
                         TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500),
                   ),
@@ -166,7 +179,7 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                     height: 73.h,
                   ),
                   inputfields(
-                    hint_text: "  Email",
+                    hint_text: " Email",
                     controller: _emailController,
                     focusNode: emailFocusNode,
                     icon: Icons.remove,

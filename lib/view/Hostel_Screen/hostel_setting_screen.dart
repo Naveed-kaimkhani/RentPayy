@@ -1,40 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:rentpayy/components/hostel_appBarButton.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
-import 'package:rentpayy/view/user_screen/personal_data.dart';
 
 import '../../components/profilePic.dart';
-import '../../model/UserModel.dart';
-import '../../utils/style/Images.dart';
-import '../../view_model/UserDetailsProvider.dart';
+import '../../model/hostelModel.dart';
+import '../../view_model/HostelDetailsProvider.dart';
+import 'ads_edit_screen.dart';
 
-class setting_screen extends StatelessWidget {
-  const setting_screen({Key? key}) : super(key: key);
+class hostel_setting_screen extends StatelessWidget {
+  const hostel_setting_screen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    UserModel? user =
-        Provider.of<UserDetailsProvider>(context, listen: false).userDetails;
+    hostelModel? hostel =
+        Provider.of<HostelDetailsProvider>(context, listen: false)
+            .hostelDetails;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          // leading: IconButton(
-          //   onPressed: (() => Navigator.pop(context)),
-          //   icon: hostel_appBarButton(
-          //     Buttoncolor: AppColors.primaryColor,
-          //     IconUrl: Images.whitebackButton,
-          //   ),
-          //   // SvgPicture.asset('asset/backIcon.png')
-          // ),
-        ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(left: 27.w, top: 28.h, right: 27.w),
+            padding: EdgeInsets.only(left: 27.w, top: 50.h, right: 27.w),
             child: Column(
               children: [
                 Row(
@@ -42,11 +29,15 @@ class setting_screen extends StatelessWidget {
                     // CircleAvatar(
                     //   backgroundImage: AssetImage("asset/profile.png"),
                     // ),
-                    profilePic(url: user!.profileImage!,height: 61.h,width: 61.w,),
+                    profilePic(
+                      url: hostel!.pictures![0],
+                      height: 61.h,
+                      width: 61.w,
+                    ),
                     Column(
                       children: [
                         Text(
-                          user.name!,
+                          hostel.name!,
                           style: TextStyle(
                               fontSize: 22.sp, fontWeight: FontWeight.w600),
                         ),
@@ -91,15 +82,15 @@ class setting_screen extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => personal_data()));
+                                    builder: (context) => ads_edit_screen()));
                           },
                           // leading: Image.asset("asset/yellowprofile2.png"),
-                          leading: settingScreen_Miniicon(icon: Icons.person),
+                          leading: settingScreen_Miniicon(icon: Icons.edit),
                           title: Row(
                             children: [
-                              Text("Personal Data"),
+                              Text("Edit"),
                               SizedBox(
-                                width: 80.w,
+                                width: 163.w,
                               ),
                               Icon(Icons.arrow_forward_ios_rounded,
                                   size: 20.sp),

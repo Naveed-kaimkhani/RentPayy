@@ -177,6 +177,13 @@ class FirebaseMethods {
     return userModel;
   }
 
+ Future<hostelModel> getHostelDetails(String? uid) async {
+    DocumentSnapshot documentSnapshot = await _hostelCollection.doc(uid).get();
+    hostelModel hostel =
+        hostelModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+    return hostel;
+  }
+
   static Future<List<hostelModel>> getHostelsData() async {
     List<hostelModel> hostelModels = [];
     QuerySnapshot<Map<String, dynamic>> snap =

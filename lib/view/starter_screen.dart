@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/authButton.dart';
-import 'package:rentpayy/view/user_screen/login_screen.dart';
 import 'package:rentpayy/view/user_seller_screen.dart';
-
-import '../components/buttons.dart';
 import '../components/mini_container.dart';
-
 
 class StarterScreen extends StatelessWidget {
   const StarterScreen({Key? key}) : super(key: key);
@@ -18,12 +14,12 @@ class StarterScreen extends StatelessWidget {
         backgroundColor: const Color(0xffF5AD0D),
         body: Stack(
           children: [
-             Positioned(
-                left: -21.w,
-                top: 28.h,
-                child: MiniContainer(
-                    height: 92.h, width: 92.w, image: 'asset/car.png', ),),
-             Positioned(
+            //  Positioned(
+            //     left: -21.w,
+            //     top: 28.h,
+            //     child: MiniContainer(
+            //         height: 92.h, width: 92.w, image: 'asset/car.png', ),),
+            Positioned(
                 left: 41.w,
                 top: 159.h,
                 child: MiniContainer(
@@ -48,9 +44,8 @@ class StarterScreen extends StatelessWidget {
                 left: -2.w,
                 top: 362.h,
                 child: MiniContainer(
-                    height: 102.h, width: 102.w
-                    , image: 'asset/shirt.png')),
-             Positioned(
+                    height: 102.h, width: 102.w, image: 'asset/shirt.png')),
+            Positioned(
                 left: 343.w,
                 top: 430.h,
                 child: MiniContainer(
@@ -80,15 +75,16 @@ class StarterScreen extends StatelessWidget {
                     SizedBox(
                       height: 29.h,
                     ),
-                    Image(image: AssetImage('asset/rentB1.png') , width: 160.w, height: 42.4.h,),
-                      Padding(
-                      padding: EdgeInsets.only(left: 117.5.w),
-                      child: Image(image: AssetImage('asset/text.png'),height: 31.1.h, width: 82.w,),
+                    // Image(image: AssetImage('asset/rentB1.png') , width: 160.w, height: 42.4.h,),
+                    Image(
+                      image: AssetImage('asset/splash.png'),
+                      height: 90.1.h,
+                      width: 140.w,
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 25.6.h,
                     ),
-                     Padding(
+                    Padding(
                       padding: EdgeInsets.only(left: 50.w),
                       child: Text(
                         'Lorem ipsum dolor sit amet, consectetur'
@@ -99,9 +95,15 @@ class StarterScreen extends StatelessWidget {
                     SizedBox(
                       height: 60.h,
                     ),
-                   authButton(text: 'Get Started', func:(){
-                     Navigator.push(context, MaterialPageRoute(builder: (context)=> UserSellerScreen()));
-                   } , color: Color(0xffF5AD0D))
+                    authButton(
+                        text: 'Get Started',
+                        func: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UserSellerScreen()));
+                        },
+                        color: Color(0xffF5AD0D))
                   ],
                 ),
               ),

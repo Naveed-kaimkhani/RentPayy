@@ -12,6 +12,9 @@ class hostelModel {
   int? total_capacity;
   int? available_capacity;
   int? person_per_room;
+  int? confirms;
+  int? bookings;
+  int? cancel;
   String? description;
   List<dynamic>? facilities;
   // String? pic1;
@@ -42,7 +45,9 @@ class hostelModel {
     this.facilities,
     this.pictures,
     this.visits,
-
+    this.bookings,
+    this.cancel,
+    this.confirms,
     // ignore: non_constant_identifier_names
   });
 
@@ -64,6 +69,11 @@ class hostelModel {
     data['description'] = hostel.description;
     data['pictures'] = hostel.pictures;
     data['visits'] = hostel.visits;
+    data['confirms'] = hostel.confirms;
+        data['cancel'] = hostel.cancel;
+
+    data['bookings'] = hostel.bookings;
+
 
     // data['pic1'] = hostel.pic1;
     // data['pic2'] = hostel.pic2;
@@ -93,6 +103,9 @@ class hostelModel {
       facilities: json['facilities'],
       pictures: json['pictures'],
       visits: json['visits'] ?? 0,
+      confirms: json['confirms'] ?? 0,
+      bookings: json['bookings'] ?? 0,
+      cancel: json['cancel'] ?? 0,
       // pic1: json['pictures'][0],
       // pic2: json['pictures'][1],
       // pic3: json['pictures'][2],
@@ -111,6 +124,43 @@ class hostelModel {
       // pic8: json['pic8'],
     );
   }
+
+  // hostelModel.fromJson(Map<String, dynamic> json) {
+    
+  //     this.uid= json['uid'];
+  //     this.name= json['name'];
+  //     this.charges= json['charges'];
+  //     this.hostel_address= json['hostel_address'];
+  //     this.hostel_phone= json['hostel_phone'];
+  //     this.owner_name= json['owner_phone'];
+  //     this.hostel_type= json['hostel_type'];
+  //     this.hostel_gender_type= json['hostel_gender_type'];
+  //     this.total_capacity= json['total_capacity'];
+  //     this.available_capacity= json['available_capacity'];
+  //     this.person_per_room= json['person_per_room'];
+  //     this.description= json['description'];
+  //     this.facilities= json['facilities'];
+  //     this.pictures= json['pictures'];
+  //     this.visits= json['visits'] ?? 0;
+  //     // pic1: json['pictures'][0],
+  //     // pic2: json['pictures'][1],
+  //     // pic3: json['pictures'][2],
+  //     // pic4: json['pictures'][3],
+  //     // pic5: json['pictures'][4],
+  //     // pic6: json['pictures'][5],
+  //     // pic7: json['pictures'][6],
+  //     // pic8: json['pictures'][7],
+  //     // pic1: json['pic1'],
+  //     // pic2: json['pic2'],
+  //     // pic3: json['pic3'],
+  //     // pic4: json['pic4'],
+  //     // pic5: json['pic5'],
+  //     // pic6: json['pic6'],
+  //     // pic7: json['pic7'],
+  //     // pic8: json['pic8'],
+    
+  // }
+
 
   bool equals(hostelModel hostel) => hostel.uid == this.uid;
 }

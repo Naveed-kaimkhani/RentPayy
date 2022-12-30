@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:core';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,7 @@ class _Dropdown_buttonState extends State<Dropdown_button> {
   Widget build(BuildContext context) {
     return Container(
       height: 60.h,
-      width: 185.w,
+      // width: 185.w,
       decoration: BoxDecoration(
         color: Color(0xffF4F7FF),
         borderRadius: BorderRadius.circular(7.r),

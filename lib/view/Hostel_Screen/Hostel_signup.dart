@@ -8,7 +8,7 @@ import 'package:rentpayy/utils/style/AppColors.dart';
 import '../../components/auth_screens_decor.dart';
 import '../../components/mini_Button.dart';
 import 'package:rentpayy/model/hostelModel.dart';
-import 'package:rentpayy/utils/storage_service_hostel.dart';
+import 'package:rentpayy/utils/StorageServiceHostel.dart';
 import 'package:rentpayy/view/Hostel_Screen/Hostel_Registration.dart';
 
 import '../../components/upper_design.dart';
@@ -134,7 +134,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
 
   void _saveHostel(hostelModel hostelModels) {
     _firebaseRepository.saveHostelDataToFirestore(hostelModels).then((value) {
-      storage_service_hostel.saveUser(hostelModels).then((value) {
+      StorageServiceHostel.saveHostel(hostelModels).then((value) {
         isLoading(false);
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => Hostel_Registration()));

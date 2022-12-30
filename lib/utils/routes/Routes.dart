@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
 import 'package:rentpayy/view/Hostel_Screen/publish_ad_screen.dart';
+import 'package:rentpayy/view/Hostel_Screen/seller_dashboard.dart';
 import 'package:rentpayy/view/user_screen/User_signup.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 import 'package:rentpayy/view/user_screen/search_screen.dart';
@@ -44,6 +45,8 @@ class Routes {
         return _buildRoute(search_screen(), settings);
       case RoutesName.navigation_page:
         return _buildRoute(navigation_page(), settings);
+        case RoutesName.SellerDashboard:
+        return _buildRoute(SellerDashboard(), settings);
       default:
         return _buildRoute(const Scaffold(), settings);
     }

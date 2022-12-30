@@ -13,6 +13,7 @@ import '../../components/appbar_buttons.dart';
 import '../../model/hostelModel.dart';
 import '../../utils/style/Images.dart';
 import 'facility_container.dart';
+
 class AdPage extends StatefulWidget {
   final hostelModel hostel;
 
@@ -25,19 +26,20 @@ class AdPage extends StatefulWidget {
 class _AdPageState extends State<AdPage> {
   var selectedIndex = 0;
   bool isSelected = false;
-    FirebaseFirestore db = FirebaseFirestore.instance;
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
   void initState() {
     super.initState();
-    int count=widget.hostel.visits!;
-      setState(() {
-        count++;
-      });
-      db.collection("hostels").doc(widget.hostel.uid).update({
-        'visits':count,
-      });
+    int count = widget.hostel.visits!;
+    setState(() {
+      count++;
+    });
+    db.collection("hostels").doc(widget.hostel.uid).update({
+      'visits': count,
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     FirebaseRepository _firebaseRepository = new FirebaseRepository();
@@ -100,7 +102,7 @@ class _AdPageState extends State<AdPage> {
                             enlargeCenterPage: true,
                             enableInfiniteScroll: false,
                             enlargeStrategy: CenterPageEnlargeStrategy.height,
-                            autoPlay: true,
+                            // autoPlay: true,
                             autoPlayInterval: Duration(seconds: 2)),
                         itemCount: widget.hostel.pictures!.length,
                         itemBuilder: (BuildContext context, int itemIndex,

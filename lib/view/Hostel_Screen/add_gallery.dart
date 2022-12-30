@@ -69,7 +69,7 @@ class _add_galleryState extends State<add_gallery> {
       utils.flushBarErrorMessage("only 8 pictures are allowed", context);
     } else {
       isLoading(true);
-      utils.toastMessage("Please wait it may take somoe time");
+      utils.toastMessage("Please wait it may take some time");
       List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
           imageFile: imageFileList!, uid: user);
       // print("list of hostel images");
@@ -77,7 +77,10 @@ class _add_galleryState extends State<add_gallery> {
 
       db.collection("hostels").doc(user).update({
         'pictures': listOfImages,
-        'visits':0,
+        'visits': 0,
+        'cancel': 0,
+        'confirms': 0,
+        'bookings': 0,
       });
     }
     isLoading(false);

@@ -10,7 +10,10 @@ class UserDetailsProvider with ChangeNotifier{
 
   Future getUserLocally() async {
     // userDetails = await Firestore_method().getNameAndAddress();
+   
     userDetails =await StorageService.readUser();
+    print(userDetails);
+    print(userDetails!.name);
     notifyListeners();
   }
   

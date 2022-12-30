@@ -60,6 +60,10 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   share_plus: ^6.3.0
   shimmer: ^2.0.0
+  syncfusion_flutter_charts: ^20.3.59
+  percent_indicator: ^4.2.2
+  flutter_stripe: ^7.0.0
+  google_mobile_ads: ^2.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

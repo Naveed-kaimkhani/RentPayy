@@ -21,5 +21,5 @@ class Images {
         static const String checkImage= 'asset/checkImage.png';
         // static const String backButton='asset/backButton.png';
         static const String whitebackButton='asset/whiteBackIcon.png';
-
+static const String boost = 'asset/boost.png';
 }

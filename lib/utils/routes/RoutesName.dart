@@ -13,5 +13,8 @@ static const String publish_ad_screen ='publish_ad_screen';
 static const String search_screen ='search_screen';
 static const String navigation_page="navigation_page";
 static const String setting="setting";
+static const String SellerDashboard="SellerDashboard";
+
+
 
 }

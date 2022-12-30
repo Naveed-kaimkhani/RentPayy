@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:rentpayy/components/no_internetConnection.dart';
 import 'package:rentpayy/components/shimmer_hostel_container.dart';
@@ -8,11 +9,14 @@ import 'package:rentpayy/model/UserModel.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
+import 'package:rentpayy/view/Hostel_Screen/seller_dashboard.dart';
 import 'package:rentpayy/view/user_screen/add_page.dart';
+
 import '../../components/banner.dart';
 import '../../components/hostel_container.dart';
 import '../../components/profilePic.dart';
 import '../../components/search_bar.dart';
+import '../../model/AdMobServices.dart';
 import '../../model/hostelModel.dart';
 import '../../resources/FirebaseMethods.dart';
 import '../../view_model/UserDetailsProvider.dart';
@@ -29,18 +33,20 @@ class _user_front_ScreenState extends State<user_front_Screen> {
   final ScrollController _scrollViewController = ScrollController();
   bool _showAppbar = true;
   bool isScrollingDown = false;
+  BannerAd? _banner;
   @override
   void initState() {
     super.initState();
-
-    //Internet connectivity checker
-    InternetConnectionChecker().onStatusChange.listen((status) {
-      final connected = status == InternetConnectionStatus.connected;
-      // showSimpleNotification(connected?Text("Connected To Internet"):Text("No Internet Connected"));
-      utils.flushBarErrorMessage(
-          connected ? "Connected To Internet" : "No Internet Connection",
-          context);
-    });
+    Provider.of<UserDetailsProvider>(context, listen: false).getUserLocally();
+    // //Internet connectivity checker
+    // InternetConnectionChecker().onStatusChange.listen((status) {
+    //   final connected = status == InternetConnectionStatus.connected;
+    //   // showSimpleNotification(connected?Text("Connected To Internet"):Text("No Internet Connected"));
+    //   utils.flushBarErrorMessage(
+    //       connected ? "Connected To Internet" : "No Internet Connection",
+    //       context);
+    // }
+    // );
 
     _scrollViewController.addListener(() {
       if (_scrollViewController.position.userScrollDirection ==
@@ -61,6 +67,29 @@ class _user_front_ScreenState extends State<user_front_Screen> {
         }
       }
     });
+    // _createBannerAd();
+  }
+// void _createBannerAd(){
+//   print("before initializing _banner $_banner");
+//   _banner=BannerAd(
+//     size: AdSize.fullBanner,
+//      adUnitId: AdMobServices.bannerAdUnitId!,
+//       listener: AdMobServices.bannerAdListener,
+//       request: const AdRequest(),
+//       )..load();
+//       print("after initializing _banner $_banner");
+// }
+
+  @override
+  void didChangeDependencies() {
+    ;
+    super.didChangeDependencies();
+    _banner = BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: AdMobServices.bannerAdUnitId!,
+      listener: AdMobServices.bannerAdListener,
+      request: const AdRequest(),
+    )..load();
   }
 
   @override
@@ -69,6 +98,15 @@ class _user_front_ScreenState extends State<user_front_Screen> {
         Provider.of<UserDetailsProvider>(context, listen: false).userDetails;
     return SafeArea(
       child: Scaffold(
+        bottomNavigationBar: _banner == null
+            ? Container(
+                child: Text("No ad found"),
+              )
+            : Container(
+                margin: const EdgeInsets.only(bottom: 12),
+                height: 52.h,
+                child: AdWidget(ad: _banner!),
+              ),
         appBar: AppBar(
           toolbarHeight: 160,
           backgroundColor: Colors.transparent,
@@ -138,7 +176,7 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      user!.name!,
+                                      user!.name ?? "No name ",
                                       style: TextStyle(
                                           color: Color(0xff000000),
                                           fontSize: 35.sp,
@@ -160,7 +198,11 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                 //     height: 61.0,
                                 //   ),
                                 // ),
-                                profilePic(url: user.profileImage)
+                                // profilePic(
+                                //   url: user.profileImage,
+                                //   height: 61.h,
+                                //   width: 61.h,
+                                // )
                               ],
                             ),
                           ),

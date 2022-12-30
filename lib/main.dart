@@ -1,16 +1,39 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
-import 'package:rentpayy/view/Hostel_Screen/Hostel_signup.dart';
-import 'package:rentpayy/view/user_screen/User_signup.dart';
+import 'package:rentpayy/view/Hostel_Screen/ads_details_screen.dart';
+import 'package:rentpayy/view/Hostel_Screen/hostel_login.dart';
+import 'package:rentpayy/view/starter_screen.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
+import 'package:rentpayy/view/user_screen/user_front_screen.dart';
+import 'package:rentpayy/view/user_seller_screen.dart';
+import 'package:rentpayy/view_model/HostelDetailsProvider.dart';
 import 'package:rentpayy/view_model/UserDetailsProvider.dart';
-
-void main() async {
+import 'package:shared_preferences/shared_preferences.dart';
+int? initScreen;
+int? isUser;
+int? isSelller;
+List<String> testDeviceIds = ['1C597520A8B596626783357B70C4FA28'];
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // MobileAds.in
+  MobileAds.instance.initialize(); 
+  // RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("1C597520A8B596626783357B70C4FA28"))
+
+  RequestConfiguration configuration =
+       RequestConfiguration(testDeviceIds:testDeviceIds);
+  MobileAds.instance.updateRequestConfiguration(configuration);
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  initScreen = preferences.getInt('initScreen');
+  await preferences.setInt('initScreen', 1);
+
   runApp(const MyApp());
 }
 
@@ -33,6 +56,7 @@ class _MyAppState extends State<MyApp> {
           builder: ((context, child) {
             return MultiProvider(
               providers: [
+                ChangeNotifierProvider(create: (_) => HostelDetailsProvider()),
                 ChangeNotifierProvider(create: (_) => UserDetailsProvider()),
               ],
               child: MaterialApp(
@@ -41,8 +65,9 @@ class _MyAppState extends State<MyApp> {
                 // theme: ThemeData(
                 //   primarySwatch: Colors.blue,
                 // ),
-                // home: Hostel_Signup(),
-                home: login_with_rentpayy(),
+                // home:login_with_rentpayy(),
+                home: initScreen==0||initScreen==null?StarterScreen():isUser==1?user_front_Screen():ads_details_screen(),
+          //home: 
                 // initialRoute: RoutesName.login,
                 // onGenerateRoutes: Routes.onGenerate
                 // Route(settings),

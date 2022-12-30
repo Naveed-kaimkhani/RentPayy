@@ -5,8 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/hostel_list.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/resources/FirebaseRepository.dart';
-import 'package:rentpayy/utils/routes/RoutesName.dart';
-import 'package:rentpayy/utils/style/AppColors.dart';
+
 import 'package:rentpayy/view/user_screen/add_page.dart';
 
 import '../../utils/style/Images.dart';

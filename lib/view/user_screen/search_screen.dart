@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:rentpayy/components/hostel_appBarButton.dart';
 
 import '../../components/search_bar.dart';
-import '../../utils/routes/RoutesName.dart';
 import '../../utils/style/AppColors.dart';
 import '../../utils/style/Images.dart';
 

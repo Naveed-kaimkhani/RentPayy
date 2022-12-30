@@ -11,6 +11,7 @@ import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/utils/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../components/auth_screens_decor.dart';
 import 'package:rentpayy/utils/utils.dart';
 import '../../components/circle_progress.dart';
@@ -59,6 +60,13 @@ class _User_signup_pageState extends State<User_signup_page> {
 
   @override
   void dispose() {
+    dropdownFocusNode.dispose();
+    ageFocusNode.dispose();
+    confirmpasswordFocusNode.dispose();
+    passwordFocusNode.dispose();
+   emailFocusNode.dispose();
+   nameFocusNode.dispose();
+   numberFocusNode.dispose();
     _emailController.dispose();
     _nameController.dispose();
     _numberController.dispose();
@@ -128,6 +136,8 @@ class _User_signup_pageState extends State<User_signup_page> {
             imageFile: _profileImage!, uid: userModel.uid!);
         _saveUser(user, userModel);
 
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        await preferences.setInt('isUser', 1);
       } else {
         isLoading(false);
         // utils.flushBarErrorMessage('Failed to Signup', context);
@@ -139,12 +149,11 @@ class _User_signup_pageState extends State<User_signup_page> {
   }
 
   void _saveUser(User firebaseUser, UserModel userModel) {
-    _firebaseRepository.saveUserDataToFirestore(userModel).then((value)async {
-     await StorageService.saveUser(userModel).then((value)async {
-      //await  StorageService.readUser();
-           Provider.of<UserDetailsProvider>(context,
-                                listen: false)
-                            .getUserLocally();
+    _firebaseRepository.saveUserDataToFirestore(userModel).then((value) async {
+      await StorageService.saveUser(userModel).then((value) async {
+        //await  StorageService.readUser();
+        Provider.of<UserDetailsProvider>(context, listen: false)
+            .getUserLocally();
         isLoading(false);
         Navigator.pushNamed(context, RoutesName.navigation);
       });
@@ -343,28 +352,17 @@ class _User_signup_pageState extends State<User_signup_page> {
                         SizedBox(
                           height: 16.h,
                         ),
+
                         inputfields(
-                          hint_text: "Set password",
-                          currentNode: passwordFocusNode,
-                          focusNode: passwordFocusNode,
-                          nextNode: confirmpasswordFocusNode,
-                          controller: _passwordController,
-                          obsecureText: _obsecureText,
-                          // onIconPress: onIconPress,
-                          // icon: Icons.remove_red_eye,
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        inputfields(
-                            hint_text: "Confirm password",
-                            currentNode: confirmpasswordFocusNode,
-                            focusNode: confirmpasswordFocusNode,
+                            hint_text: "Set password",
+                            currentNode: passwordFocusNode,
+                            focusNode: passwordFocusNode,
                             nextNode: confirmpasswordFocusNode,
-                            controller: _confirmpasswordController,
+                            keyboardType: TextInputType.text,
+                            controller: _passwordController,
                             icon: obsecureText!
-                                ? Icons.visibility_off
-                                : Icons.remove_red_eye,
+                                ? Icons.remove_red_eye
+                                : Icons.visibility_off,
                             obsecureText: obsecureText,
                             onIconPress: () {
                               setState(() {
@@ -372,16 +370,46 @@ class _User_signup_pageState extends State<User_signup_page> {
                               });
                             }),
                         SizedBox(
+                          height: 16.h,
+                        ),
+                        inputfields(
+                          hint_text: "Confirm password",
+                          currentNode: confirmpasswordFocusNode,
+                          focusNode: confirmpasswordFocusNode,
+                          nextNode: confirmpasswordFocusNode,
+                          controller: _confirmpasswordController,
+                          obsecureText: _obsecureText,
+                          // onIconPress: onIconPress,
+                          // icon: Icons.remove_red_eye,
+                        ),
+
+                        // inputfields(
+                        //     hint_text: "Confirm password",
+                        //     currentNode: confirmpasswordFocusNode,
+                        //     focusNode: confirmpasswordFocusNode,
+                        //     nextNode: confirmpasswordFocusNode,
+                        //     keyboardType: TextInputType.text,
+                        //     controller: _confirmpasswordController,
+                        //     icon: obsecureText!
+                        //         ? Icons.visibility_off
+                        //         : Icons.remove_red_eye,
+                        //     obsecureText: obsecureText,
+                        //     onIconPress: () {
+                        //       setState(() {
+                        //         obsecureText = !obsecureText!;
+                        //       });
+                        //     }),
+                        SizedBox(
                           height: 31.h,
                         ),
-                          isLoadingNow
-                      ? circle_progress()
-                      : authButton(
-                          text: "Signup",
-                          func: () {
-                            _validateFields();
-                          },
-                          color: AppColors.primaryColor),
+                        isLoadingNow
+                            ? circle_progress()
+                            : authButton(
+                                text: "Signup",
+                                func: () {
+                                  _validateFields();
+                                },
+                                color: AppColors.primaryColor),
 
                         // authButton(
                         //   text: isLoadingNow ? "Please wait..." : "Sign Up",

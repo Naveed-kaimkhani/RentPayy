@@ -36,4 +36,7 @@ Future<User?> signUp(String email, String password,context) =>
 
     Future<UserModel> getUserDetails(String? uid) =>
       _firebaseMethods.getUserDetails(uid);
+
+Future<hostelModel> getHostelDetails(String? uid) =>
+      _firebaseMethods.getHostelDetails(uid);
 }
