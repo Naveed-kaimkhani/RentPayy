@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
@@ -61,13 +62,48 @@ class utils {
   //   print('size: ${imageToCompress.statSync().size}');
   //   return imageToCompress;
   // }
+  static Future<File> compressImage({
+    required File imagePathToCompress,
+    quality: 100,
+    percentage: 10,
+  }) async {
+    var path = await FlutterNativeImage.compressImage(
+      imagePathToCompress.absolute.path,
+      quality: quality,
+      percentage: 10,
+    );
+    return path;
+  }
+ Future<List<XFile>> compressHostelsImage(List<XFile> images)async{
+List<XFile> compressedList=[];
+for (var i = 0; i < images.length; i++) {
+   File image = File(images[i].path);
+      print(image.lengthSync() / 1024);
+      File compressedImage = await compressImage(
+          imagePathToCompress: image, quality: 100, percentage: 10);
+      print("after reducing size$compressedImage");
+      print(compressedImage.lengthSync() / 1024);
+      // return file.readAsBytes();
+      XFile file = new XFile(compressedImage.path);
+        compressedList.add(file);
+}//for end
+  return compressedList;
+}
+
   static Future<Uint8List?> PickImage() async {
     //    ImagePicker picker=ImagePicker();
     ImagePicker picker = ImagePicker();
     XFile? file = await picker.pickImage(source: ImageSource.gallery);
-
+    print("before redusing size $file");
     if (file != null) {
-      return file.readAsBytes();
+      File image = File(file.path);
+      print(image.lengthSync() / 1024);
+      File compressedImage = await compressImage(
+          imagePathToCompress: image, quality: 100, percentage: 10);
+      print("after reducing size$compressedImage");
+      print(compressedImage.lengthSync() / 1024);
+      // return file.readAsBytes();
+      return compressedImage.readAsBytes();
     }
   }
 

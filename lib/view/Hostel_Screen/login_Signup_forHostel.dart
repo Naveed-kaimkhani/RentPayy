@@ -14,14 +14,14 @@ import '../../resources/FirebaseRepository.dart';
 import '../../utils/style/AppColors.dart';
 import '../../utils/style/Images.dart';
 
-class login_screen extends StatefulWidget {
-  login_screen({Key? key}) : super(key: key);
+class login_Signup_forHostel extends StatefulWidget {
+  login_Signup_forHostel({Key? key}) : super(key: key);
 
   @override
-  State<login_screen> createState() => _login_screenState();
+  State<login_Signup_forHostel> createState() => _login_Signup_forHostelState();
 }
 
-class _login_screenState extends State<login_screen> {
+class _login_Signup_forHostelState extends State<login_Signup_forHostel> {
   FirebaseMethods _firebaseMethods = FirebaseMethods();
 
   final FirebaseRepository _firebaseRepository = FirebaseRepository();
@@ -94,7 +94,7 @@ class _login_screenState extends State<login_screen> {
                     color: Colors.black,
                     func: () {
                       Navigator.pushNamed(
-                          context, RoutesName.loginWithRentPayy);
+                          context, RoutesName.hostel_login);
                     },
                   ),
                   SizedBox(
@@ -104,7 +104,7 @@ class _login_screenState extends State<login_screen> {
                     text: "Sign Up",
                     color: AppColors.primaryColor,
                     func: () {
-                      Navigator.pushNamed(context, RoutesName.userSignup);
+                      Navigator.pushNamed(context, RoutesName.Hostel_Signup);
                     },
                   ),
                   SizedBox(
@@ -121,22 +121,22 @@ class _login_screenState extends State<login_screen> {
                   //     // border: BoxBorder()
                   //   ),
                   // ),
-                  InkWell(
-                    child: Image.asset(
-                      Images.google,
-                      height: 76.h,
-                      width: 321.w,
-                    ),
-                    onTap: handleGoogleSignIn,
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Image.asset(
-                    Images.facebook,
-                    height: 76.h,
-                    width: 321.w,
-                  ),
+                  // InkWell(
+                  //   child: Image.asset(
+                  //     Images.google,
+                  //     height: 76.h,
+                  //     width: 321.w,
+                  //   ),
+                  //   onTap: handleGoogleSignIn,
+                  // ),
+                  // SizedBox(
+                  //   height: 20.h,
+                  // ),
+                  // Image.asset(
+                  //   Images.facebook,
+                  //   height: 76.h,
+                  //   width: 321.w,
+                  // ),
                   SizedBox(
                     height: 58.h,
                   ),

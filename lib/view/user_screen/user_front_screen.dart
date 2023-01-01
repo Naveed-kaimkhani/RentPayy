@@ -34,10 +34,12 @@ class _user_front_ScreenState extends State<user_front_Screen> {
   bool _showAppbar = true;
   bool isScrollingDown = false;
   BannerAd? _banner;
+
   @override
   void initState() {
     super.initState();
-    Provider.of<UserDetailsProvider>(context, listen: false).getUserLocally();
+    initializeUser();
+
     // //Internet connectivity checker
     // InternetConnectionChecker().onStatusChange.listen((status) {
     //   final connected = status == InternetConnectionStatus.connected;
@@ -82,7 +84,6 @@ class _user_front_ScreenState extends State<user_front_Screen> {
 
   @override
   void didChangeDependencies() {
-    ;
     super.didChangeDependencies();
     _banner = BannerAd(
       size: AdSize.fullBanner,
@@ -92,10 +93,17 @@ class _user_front_ScreenState extends State<user_front_Screen> {
     )..load();
   }
 
+  Future<void> initializeUser() async {
+    await Provider.of<UserDetailsProvider>(context, listen: false)
+        .getUserLocally();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     UserModel? user =
         Provider.of<UserDetailsProvider>(context, listen: false).userDetails;
+
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: _banner == null
@@ -198,11 +206,11 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                 //     height: 61.0,
                                 //   ),
                                 // ),
-                                // profilePic(
-                                //   url: user.profileImage,
-                                //   height: 61.h,
-                                //   width: 61.h,
-                                // )
+                                profilePic(
+                                  url: user.profileImage,
+                                  height: 61.h,
+                                  width: 61.h,
+                                )
                               ],
                             ),
                           ),

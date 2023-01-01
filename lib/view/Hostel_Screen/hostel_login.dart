@@ -88,7 +88,7 @@ class _hostel_loginState extends State<hostel_login> {
         .then((User? user) {
       if (user != null) {
         print(user.displayName);
-         _getHostelDetails(user.uid);
+        _getHostelDetails(user.uid);
         // Navigator.pushNamed(context, RoutesName.SellerDashboard);
       } else {
         isLoading(false);
@@ -97,13 +97,13 @@ class _hostel_loginState extends State<hostel_login> {
     });
   }
 
-  void _getHostelDetails(String uid)async {
-   print("user id");
+  void _getHostelDetails(String uid) async {
+    print("user id");
     print(uid);
-  await Provider.of<HostelDetailsProvider>(context, listen: false)
-              .getHostelFromServer(uid,context);
-          isLoading(false);
-      Navigator.pushNamed(context, RoutesName.SellerDashboard);
+    await Provider.of<HostelDetailsProvider>(context, listen: false)
+        .getHostelFromServer(uid, context);
+    isLoading(false);
+    Navigator.pushNamed(context, RoutesName.SellerDashboard);
 
     // _firebaseRepository.getHostelDetails(uid).then((hostelModel? hostel) {
     //   if (hostel != null) {
@@ -171,7 +171,7 @@ class _hostel_loginState extends State<hostel_login> {
                     height: 36.h,
                   ),
                   Text(
-                    "Login Hostel",
+                    "Hostel Login ",
                     style:
                         TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500),
                   ),
@@ -234,20 +234,20 @@ class _hostel_loginState extends State<hostel_login> {
                     height: 73.h,
                   ),
                   or_line_widget(),
-                  Container(
-                    width: 349.w,
-                    height: 53.h,
-                    child: Image.asset(
-                      Images.google,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 17.h,
-                  ),
-                  Container(
-                      width: 349.w,
-                      height: 53.h,
-                      child: Image.asset(Images.facebook)),
+                  // Container(
+                  //   width: 349.w,
+                  //   height: 53.h,
+                  //   child: Image.asset(
+                  //     Images.google,
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 17.h,
+                  // ),
+                  // Container(
+                  //     width: 349.w,
+                  //     height: 53.h,
+                  //     child: Image.asset(Images.facebook)),
                   SizedBox(
                     height: 120.h,
                   ),

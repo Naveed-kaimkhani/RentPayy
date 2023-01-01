@@ -9,31 +9,37 @@ import 'package:provider/provider.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
 import 'package:rentpayy/view/Hostel_Screen/ads_details_screen.dart';
 import 'package:rentpayy/view/Hostel_Screen/hostel_login.dart';
+import 'package:rentpayy/view/Hostel_Screen/login_Signup_forHostel.dart';
+import 'package:rentpayy/view/Hostel_Screen/publish_ad_screen.dart';
 import 'package:rentpayy/view/starter_screen.dart';
+import 'package:rentpayy/view/user_screen/login_screen.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 import 'package:rentpayy/view/user_seller_screen.dart';
 import 'package:rentpayy/view_model/HostelDetailsProvider.dart';
 import 'package:rentpayy/view_model/UserDetailsProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 int? initScreen;
 int? isUser;
 int? isSelller;
 List<String> testDeviceIds = ['1C597520A8B596626783357B70C4FA28'];
 Future<void> main() async {
+  // int num;
+  // print(num);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   // MobileAds.in
-  MobileAds.instance.initialize(); 
+  MobileAds.instance.initialize();
   // RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("1C597520A8B596626783357B70C4FA28"))
 
   RequestConfiguration configuration =
-       RequestConfiguration(testDeviceIds:testDeviceIds);
+      RequestConfiguration(testDeviceIds: testDeviceIds);
   MobileAds.instance.updateRequestConfiguration(configuration);
   SharedPreferences preferences = await SharedPreferences.getInstance();
   initScreen = preferences.getInt('initScreen');
   await preferences.setInt('initScreen', 1);
-
+  isUser = preferences.getInt('isUser');
   runApp(const MyApp());
 }
 
@@ -66,8 +72,9 @@ class _MyAppState extends State<MyApp> {
                 //   primarySwatch: Colors.blue,
                 // ),
                 // home:login_with_rentpayy(),
+                // home: initScreen==0||initScreen==null?StarterScreen():isUser==1?UserSellerScreen():publish_ad_screen(),
                 home: initScreen==0||initScreen==null?StarterScreen():isUser==1?user_front_Screen():ads_details_screen(),
-          //home: 
+                // home: ads_details_screen(),
                 // initialRoute: RoutesName.login,
                 // onGenerateRoutes: Routes.onGenerate
                 // Route(settings),

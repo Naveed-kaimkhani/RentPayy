@@ -35,10 +35,18 @@ class _ads_details_screenState extends State<ads_details_screen> {
     ];
   }
 
+  Future initializeHostel() async {
+    await Provider.of<HostelDetailsProvider>(context, listen: false)
+        .getHostelFromServer(FirebaseAuth.instance.currentUser!.uid, context);
+    setState(() {});
+    for (var i = 0; i < 3; i++) {}
+  }
+
   @override
   void initState() {
-    Provider.of<HostelDetailsProvider>(context, listen: false)
-        .getHostelFromServer(FirebaseAuth.instance.currentUser!.uid, context);
+    initializeHostel();
+    // Provider.of<HostelDetailsProvider>(context, listen: false)
+    //     .getHostelFromServer(FirebaseAuth.instance.currentUser!.uid, context);
     _chartData = getChartData();
     super.initState();
   }
@@ -48,7 +56,7 @@ class _ads_details_screenState extends State<ads_details_screen> {
     hostelModel? hostel =
         Provider.of<HostelDetailsProvider>(context, listen: false)
             .hostelDetails;
-    print(hostel!.name);
+    // print(hostel!.name);
     final Size = MediaQuery.of(context).size;
     return SafeArea(
       top: true,
@@ -62,8 +70,9 @@ class _ads_details_screenState extends State<ads_details_screen> {
             children: [
               HeaderSection(
                 Size: Size,
-                hostelName: hostel!.name!,
-                ImageUrl: hostel.pictures![0],
+                hostelName: hostel!.name ?? "No Name",
+                ImageUrl: hostel.pictures![0] ??
+                    "https://tse4.mm.bing.net/th?id=OIP.iYpFSu2O2kVP1OptEdJ-uwHaHx&pid=Api&P=0",
               ),
               Text(
                 "Ad Performance",

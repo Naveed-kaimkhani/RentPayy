@@ -12,6 +12,7 @@ class HostelDetailsProvider with ChangeNotifier{
   Future getHostelLocally() async {
     // userDetails = await Firestore_method().getNameAndAddress();
     hostelDetails =await StorageServiceHostel.readHostel();
+   print(hostelDetails!.name);
     notifyListeners();
   }
 

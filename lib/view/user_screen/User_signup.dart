@@ -64,9 +64,9 @@ class _User_signup_pageState extends State<User_signup_page> {
     ageFocusNode.dispose();
     confirmpasswordFocusNode.dispose();
     passwordFocusNode.dispose();
-   emailFocusNode.dispose();
-   nameFocusNode.dispose();
-   numberFocusNode.dispose();
+    emailFocusNode.dispose();
+    nameFocusNode.dispose();
+    numberFocusNode.dispose();
     _emailController.dispose();
     _nameController.dispose();
     _numberController.dispose();
@@ -242,7 +242,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                             child: Row(
                               children: [
                                 Text(
-                                  "+92",
+                                  "  +92",
                                   style: TextStyle(fontSize: 17.sp),
                                 ),
                                 VerticalDivider(
@@ -456,6 +456,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                   onPressed: () async {
                     Uint8List? _image = await utils.PickImage();
                     if (_image != null) {
+                      
                       setState(() {
                         _profileImage = _image;
                       });

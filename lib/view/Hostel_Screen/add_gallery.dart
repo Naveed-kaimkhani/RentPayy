@@ -38,19 +38,20 @@ class _add_galleryState extends State<add_gallery> {
   }
 
   void selectImages() async {
-    print("in select image");
     final selectedImaged = await ImagePicker().pickMultiImage();
-    print("picked image");
+
     print(selectedImaged);
     if (selectedImaged.length > 8) {
       utils.flushBarErrorMessage("only 8 pictures are allowed", context);
+    } else if (selectedImaged.length < 8) {
+      utils.flushBarErrorMessage("select atleast 8 pictures", context);
     } else if (selectedImaged.isNotEmpty) {
       imageFileList!.addAll(selectedImaged);
       setState(() {
         imageFileList;
       });
-      print("pictures list");
-      print(imageFileList!.length);
+      // print("pictures list");
+      // print(imageFileList!.length);
     } else {
       utils.flushBarErrorMessage("Pictures not selected", context);
     }
@@ -70,8 +71,10 @@ class _add_galleryState extends State<add_gallery> {
     } else {
       isLoading(true);
       utils.toastMessage("Please wait it may take some time");
+      List<XFile> compressedImages =
+          await utils().compressHostelsImage(imageFileList!);
       List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
-          imageFile: imageFileList!, uid: user);
+          imageFile: compressedImages, uid: user);
       // print("list of hostel images");
       // print(listOfImages);
 

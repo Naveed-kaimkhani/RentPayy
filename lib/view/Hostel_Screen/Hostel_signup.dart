@@ -157,14 +157,14 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
     _confirmpasswordController.dispose();
     _ChargesController.dispose();
 
-  nameFocusNode.dispose();
- hosteladdrFocusNode.dispose(); 
-  hostelOwnernameFocusNode.dispose();
-hostelOwnercontactFocusNode.dispose(); 
- hostelOwnerEmailFocusNode.dispose();
-  hostelcontactFocusNode.dispose(); 
- passwordFocusNode.dispose();
-  confirmpasswordFocusNode.dispose(); 
+    nameFocusNode.dispose();
+    hosteladdrFocusNode.dispose();
+    hostelOwnernameFocusNode.dispose();
+    hostelOwnercontactFocusNode.dispose();
+    hostelOwnerEmailFocusNode.dispose();
+    hostelcontactFocusNode.dispose();
+    passwordFocusNode.dispose();
+    confirmpasswordFocusNode.dispose();
 
     super.dispose();
   }
@@ -176,7 +176,7 @@ hostelOwnercontactFocusNode.dispose();
       child: Scaffold(
         appBar: upper_design(
           needcolor: true,
-          needicon: false,
+          needicon: true,
           isUserDelete: false,
         ),
         body: Stack(
