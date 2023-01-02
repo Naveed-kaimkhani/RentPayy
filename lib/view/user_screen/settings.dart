@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+import 'package:rentpayy/view/user_screen/faq-screen.dart';
 import 'package:rentpayy/view/user_screen/personal_data.dart';
 
 import '../../components/profilePic.dart';
@@ -127,7 +128,9 @@ class setting_screen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 45.w),
                       child: ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> FAQScreen()));
+                          },
                           // leading: Image.asset("asset/faq.png"),
                           leading: settingScreen_icon(
                               icon: Icons.question_answer_outlined),
