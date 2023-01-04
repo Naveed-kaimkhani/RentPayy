@@ -71,10 +71,13 @@ class _add_galleryState extends State<add_gallery> {
     } else {
       isLoading(true);
       utils.toastMessage("Please wait it may take some time");
-      List<XFile> compressedImages =
-          await utils().compressHostelsImage(imageFileList!);
+      // List<XFile> compressedImages =
+          // await utils().compressHostelsImage(imageFileList!);
+      // List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
+      //     imageFile: compressedImages, uid: user);
       List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
-          imageFile: compressedImages, uid: user);
+          imageFile: imageFileList!, uid: user);
+    
       // print("list of hostel images");
       // print(listOfImages);
 

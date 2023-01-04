@@ -34,6 +34,33 @@ class _user_front_ScreenState extends State<user_front_Screen> {
   bool _showAppbar = true;
   bool isScrollingDown = false;
   BannerAd? _banner;
+  InterstitialAd? _interstitialAd;
+
+  void showInterstialAd() {
+    if (_interstitialAd != null) {
+      _interstitialAd!.fullScreenContentCallback =
+          FullScreenContentCallback(onAdDismissedFullScreenContent: (ad) {
+        ad.dispose();
+        _createInterstitialAd();
+      }, onAdFailedToShowFullScreenContent: (ad, error) {
+        ad.dispose();
+        _createInterstitialAd();
+      });
+      _interstitialAd!.show();
+      _interstitialAd = null;
+    }
+  }
+
+  void _createInterstitialAd() {
+    InterstitialAd.load(
+        adUnitId: AdMobServices.interstitialAdUnitId!,
+        request: const AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (ad) => _interstitialAd = ad,
+          onAdFailedToLoad: (LoadAdError error) => _interstitialAd = null,
+        ));
+    print("interstitial addd");
+  }
 
   @override
   void initState() {
@@ -106,6 +133,15 @@ class _user_front_ScreenState extends State<user_front_Screen> {
 
     return SafeArea(
       child: Scaffold(
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // floatingActionButton: FloatingActionButton(
+        //   child: Icon(Icons.add),
+        //   backgroundColor: Colors.green,
+        //   onPressed: () {
+        //     showInterstialAd();
+        //     print("sadddd show krr naa");
+        //   },
+        // ),
         bottomNavigationBar: _banner == null
             ? Container(
                 child: Text("No ad found"),
@@ -206,6 +242,7 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                 //     height: 61.0,
                                 //   ),
                                 // ),
+
                                 profilePic(
                                   url: user.profileImage,
                                   height: 61.h,
@@ -243,106 +280,102 @@ class _user_front_ScreenState extends State<user_front_Screen> {
             ],
           ),
         ),
-        body: RefreshIndicator(
-          onRefresh: () => FirebaseMethods.getHostelsData(),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 13.h,
-                ),
-                AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    height: _showAppbar ? 150 : 0,
-                    child: banner()),
-                SizedBox(
-                  height: 25.h,
-                ),
-                // Row(
-                //   children: [
-                //     shimmer_hostel_container(),
-                //     shimmer_hostel_container(),
-                //   ],
-                // ),
-                // Row(
-                //   children: [
-                //     shimmer_hostel_container(),
-                //     shimmer_hostel_container(),
-                //   ],
-                // )
-                FutureBuilder(
-                  builder: (ctx, AsyncSnapshot<List<hostelModel>> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasError) {
-                        return no_internetConnection();
-                        // if we got our data
-                      } else if (snapshot.hasData) {
-                        // Extracting data from snapshot object
-                        //final data = snapshot.data as String;
-                        return Container(
-                          height: MediaQuery.of(context).size.height,
-                          child: GridView.builder(
-                            controller: _scrollViewController,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => AdPage(
-                                                  hostel:
-                                                      snapshot.data![index])),
-                                        );
-                                      },
-                                      child: HostelContainer(
-                                        hostel: snapshot.data![index],
-                                      )),
-                                ],
-                              );
-                            },
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                            ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 13.h,
+              ),
+              AnimatedContainer(
+                  duration: Duration(milliseconds: 200),
+                  height: _showAppbar ? 150 : 0,
+                  child: banner()),
+              SizedBox(
+                height: 25.h,
+              ),
+              // Row(
+              //   children: [
+              //     shimmer_hostel_container(),
+              //     shimmer_hostel_container(),
+              //   ],
+              // ),
+              // Row(
+              //   children: [
+              //     shimmer_hostel_container(),
+              //     shimmer_hostel_container(),
+              //   ],
+              // )
+              FutureBuilder(
+                builder: (ctx, AsyncSnapshot<List<hostelModel>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return no_internetConnection();
+                      // if we got our data
+                    } else if (snapshot.hasData) {
+                      // Extracting data from snapshot object
+                      //final data = snapshot.data as String;
+                      return Container(
+                        height: MediaQuery.of(context).size.height,
+                        child: GridView.builder(
+                          controller: _scrollViewController,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => AdPage(
+                                                hostel: snapshot.data![index])),
+                                      );
+                                    },
+                                    child: HostelContainer(
+                                      hostel: snapshot.data![index],
+                                    )),
+                              ],
+                            );
+                          },
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
                           ),
-                        );
-                      }
+                        ),
+                      );
                     }
+                  }
 
-                    // Displaying LoadingSpinner to indicate waiting state
-                    return Center(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              shimmer_hostel_container(),
-                              shimmer_hostel_container(),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              shimmer_hostel_container(),
-                              shimmer_hostel_container(),
-                            ],
-                          )
-                        ],
-                      ),
-                    );
-                  },
+                  // Displaying LoadingSpinner to indicate waiting state
+                  return Center(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            shimmer_hostel_container(),
+                            shimmer_hostel_container(),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            shimmer_hostel_container(),
+                            shimmer_hostel_container(),
+                          ],
+                        )
+                      ],
+                    ),
+                  );
+                },
 
-                  // Future that needs to be resolved
-                  // inorder to display something on the Canvas
-                  future: FirebaseMethods.getHostelsData(),
-                ),
-              ],
-            ),
+                // Future that needs to be resolved
+                // inorder to display something on the Canvas
+                future: FirebaseMethods.getHostelsData(),
+              ),
+            ],
           ),
         ),
       ),

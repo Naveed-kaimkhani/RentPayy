@@ -34,7 +34,7 @@ class setting_screen extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(left: 27.w, top: 28.h, right: 27.w),
+            padding: EdgeInsets.only(left: 27.w, top: 6.h, right: 27.w),
             child: Column(
               children: [
                 Row(
@@ -42,7 +42,11 @@ class setting_screen extends StatelessWidget {
                     // CircleAvatar(
                     //   backgroundImage: AssetImage("asset/profile.png"),
                     // ),
-                    profilePic(url: user!.profileImage!,height: 61.h,width: 61.w,),
+                    profilePic(
+                      url: user!.profileImage!,
+                      height: 61.h,
+                      width: 61.w,
+                    ),
                     Column(
                       children: [
                         Text(

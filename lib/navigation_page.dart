@@ -43,7 +43,7 @@ class _navigation_pageState extends State<navigation_page> {
           onTabChange: onTap,
           tabs: [
             GButton(
-              icon: Icons.home,
+              icon: Icons.grid_view_rounded,
               text: "Home",
             ),
             GButton(
@@ -55,7 +55,7 @@ class _navigation_pageState extends State<navigation_page> {
               text: "Likes",
             ),
             GButton(
-              icon: Icons.settings,
+              icon: Icons.settings_outlined,
               text: "Setting",
             ),
           ],
