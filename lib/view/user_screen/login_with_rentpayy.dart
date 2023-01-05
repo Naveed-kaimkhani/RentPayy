@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/components/authButton.dart';
@@ -17,11 +20,13 @@ import 'package:rentpayy/resources/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
+import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 
 import '../../model/UserModel.dart';
 import '../../resources/FirebaseRepository.dart';
 import '../../utils/style/Images.dart';
 import '../../view_model/UserDetailsProvider.dart';
+import '../forgot_password/forgot_password.dart';
 
 class login_with_rentpayy extends StatefulWidget {
   login_with_rentpayy({super.key});
@@ -50,7 +55,12 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
   }
 
   // bool _obsecureText = true;
-
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
   void dispose() {
     _emailController.dispose();
     _passController.dispose();
@@ -113,6 +123,7 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
   @override
   void initState() {
     super.initState();
+    // ignore: unused_element
     checkConnectivity() {}
     //Internet connectivity checker
     InternetConnectionChecker().onStatusChange.listen((status) {
@@ -137,6 +148,21 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
       //           ));
       // }
     });
+  }
+
+  void signInWithGoogle() async {
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    if (userCredential.user != null) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => forgot_password()));
+    }
   }
 
   @override
@@ -214,14 +240,36 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                           },
                           color: AppColors.primaryColor),
                   SizedBox(
+                    height: 15.h,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => forgot_password()));
+                      },
+                      child: Text(
+                        'Forget Password?',
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontSize: 18.sp,
+                        ),
+                      )),
+                  SizedBox(
                     height: 73.h,
                   ),
                   or_line_widget(),
-                  Container(
-                    width: 349.w,
-                    height: 53.h,
-                    child: Image.asset(
-                      Images.google,
+                  InkWell(
+                    onTap: () async {
+                      await _googleSignIn.signIn();
+                    },
+                    child: Container(
+                      width: 349.w,
+                      height: 53.h,
+                      child: Image.asset(
+                        Images.google,
+                      ),
                     ),
                   ),
                   SizedBox(
