@@ -132,7 +132,7 @@ class HostelContainer extends StatelessWidget {
                     width: 2.w,
                   ),
                   Text(
-                    'Jamshoro,Pakistan',
+                    hostel!.hostel_address??"Address not found",
                     style:
                         TextStyle(fontSize: 8.sp, fontWeight: FontWeight.w400),
                   )

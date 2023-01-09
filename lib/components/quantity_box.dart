@@ -5,8 +5,13 @@ import '../../utils/style/AppColors.dart';
 
 class QuanityBox extends StatefulWidget {
   final int Quantity;
-  const QuanityBox({
+  Function()? plus;
+  Function()? minus;
+  
+  QuanityBox({
     required this.Quantity,
+    required this.plus,
+    required this.minus,
     Key? key,
   }) : super(key: key);
 
@@ -33,14 +38,15 @@ class _QuanityBoxState extends State<QuanityBox> {
             radius: 15,
             backgroundColor: AppColors.primaryColor,
             child: GestureDetector(
-              onTap: () {
-                if (quanity >= 2) {
-                  setState(() {
-                    quanity--;
-                    print('subtract Quantity $quanity');
-                  });
-                }
-              },
+              onTap:widget.minus,
+              // onTap: () {
+              //   if (quanity >= 2) {
+              //     setState(() {
+              //       quanity--;
+              //       print('subtract Quantity $quanity');
+              //     });
+              //   }
+              // },
               child: Icon(
                 Icons.remove,
                 color: Colors.white,
@@ -52,12 +58,13 @@ class _QuanityBoxState extends State<QuanityBox> {
             radius: 15,
             backgroundColor: AppColors.primaryColor,
             child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  quanity++;
-                  print('Add Quantity $quanity');
-                });
-              },
+              onTap: widget.plus,
+              // onTap: () {
+              //   setState(() {
+              //     quanity++;
+              //     print('Add Quantity $quanity');
+              //   });
+              // },
               child: Icon(
                 Icons.add,
                 color: Colors.white,

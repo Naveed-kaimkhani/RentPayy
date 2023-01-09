@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/style/Images.dart';
-import 'package:rentpayy/utils/utils.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../utils/routes/RoutesName.dart';
 import '../../utils/style/text_style.dart';
 
 class ad_boost_screen extends StatefulWidget {
@@ -28,73 +28,73 @@ class _ad_boost_screenState extends State<ad_boost_screen> {
     List pricingPlan = [500, 100, 1500];
     double iconSize = 15;
     double gap = 8;
-    return Scaffold(
-      backgroundColor: AppColors.primaryColor,
-      // appBar: AppBar(
-      //     leading: InkWell(
-      //         onTap: () {
-      //           Navigator.pop(context);
-      //         },
-      //         child: Image.asset(Images.backIcon))),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 48),
-            child: Center(
-                child: Text(
-              "Choose Your\n Plan",
-              textAlign: TextAlign.center,
-              style: CustomTextStyle.headingsAll_26,
-            )),
-          ),
-          Container(
-            // width: 600.w,
-            height: 520,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: PageView(
-                    controller: controller,
-                    children: [
-                      PricingPlanCard(
-                          pricingPlanHeading: 'Basic',
-                          pricingPlan: 500,
-                          iconSize: iconSize,
-                          gap: gap),
-                      PricingPlanCard(
-                          pricingPlanHeading: 'Standard',
-                          pricingPlan: 1000,
-                          iconSize: iconSize,
-                          gap: gap),
-                      PricingPlanCard(
-                          pricingPlanHeading: 'Premium',
-                          pricingPlan: 1500,
-                          iconSize: iconSize,
-                          gap: gap),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                SmoothPageIndicator(
-                  controller: controller,
-                  count: 3,
-                  axisDirection: Axis.horizontal,
-                  effect: WormEffect(
-                    activeDotColor: Colors.white,
-                    dotHeight: 10,
-                    dotColor: Colors.white54,
-                    dotWidth: 10,
-                  ),
-                ),
-              ],
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushNamed(context, RoutesName.SellerDashboard);
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.primaryColor,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 48),
+              child: Center(
+                  child: Text(
+                "Choose Your\n Plan",
+                textAlign: TextAlign.center,
+                style: CustomTextStyle.headingsAll_26,
+              )),
             ),
-          )
-        ],
+            Container(
+              // width: 600.w,
+              height: 520,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: PageView(
+                      controller: controller,
+                      children: [
+                        PricingPlanCard(
+                            pricingPlanHeading: 'Basic',
+                            pricingPlan: 500,
+                            iconSize: iconSize,
+                            gap: gap),
+                        PricingPlanCard(
+                            pricingPlanHeading: 'Standard',
+                            pricingPlan: 1000,
+                            iconSize: iconSize,
+                            gap: gap),
+                        PricingPlanCard(
+                            pricingPlanHeading: 'Premium',
+                            pricingPlan: 1500,
+                            iconSize: iconSize,
+                            gap: gap),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  SmoothPageIndicator(
+                    controller: controller,
+                    count: 3,
+                    axisDirection: Axis.horizontal,
+                    effect: WormEffect(
+                      activeDotColor: Colors.white,
+                      dotHeight: 10,
+                      dotColor: Colors.white54,
+                      dotWidth: 10,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -299,7 +299,6 @@ class PricingPlanCard extends StatelessWidget {
                       ),
                       onPressed: () {
                         //utils.flushBarErrorMessage('Thanks', context);
-                      
                       },
                       child: Text("Buy Now")),
                 ),

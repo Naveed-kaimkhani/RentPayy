@@ -9,6 +9,7 @@ import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 
 import 'package:rentpayy/components/inputfields.dart';
+import 'package:rentpayy/navigation_page.dart';
 import 'package:rentpayy/utils/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,6 +34,7 @@ class _User_signup_pageState extends State<User_signup_page> {
   @override
   void initState() {
     super.initState();
+    utils.checkConnectivity(context);
   }
 
   FocusNode emailFocusNode = FocusNode();
@@ -135,9 +137,6 @@ class _User_signup_pageState extends State<User_signup_page> {
         userModel.profileImage = await _firebaseRepository.uploadProfileImage(
             imageFile: _profileImage!, uid: userModel.uid!);
         _saveUser(user, userModel);
-
-        SharedPreferences preferences = await SharedPreferences.getInstance();
-        await preferences.setInt('isUser', 1);
       } else {
         isLoading(false);
         // utils.flushBarErrorMessage('Failed to Signup', context);
@@ -155,7 +154,14 @@ class _User_signup_pageState extends State<User_signup_page> {
         Provider.of<UserDetailsProvider>(context, listen: false)
             .getUserLocally();
         isLoading(false);
-        Navigator.pushNamed(context, RoutesName.navigation);
+        // Navigator.pushNamed(context, RoutesName.navigation);
+
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        // initScreen = preferences.getInt('initScreen');
+        await preferences.setInt('initScreen', 1);
+        await preferences.setInt('isUser', 1);
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => navigation_page()));
       });
     }).catchError((error) {
       isLoading(false);
@@ -192,27 +198,6 @@ class _User_signup_pageState extends State<User_signup_page> {
                         SizedBox(
                           height: 32.h,
                         ),
-                        // CircleAvatar(
-                        //   minRadius: 50.r,
-                        //   maxRadius: 50.r,
-                        //   backgroundImage: const AssetImage("asset/avatar.png"),
-                        //   child: Align(
-                        //     alignment: Alignment.bottomRight,
-                        //     child: Container(
-                        //       width: 36.w,
-                        //       height: 36.h,
-                        //       decoration: BoxDecoration(
-                        //         color: AppColors.primaryColor,
-                        //         borderRadius: BorderRadius.circular(50.r),
-                        //       ),
-                        //       child: Container(
-                        //         width: 20.w,
-                        //         height: 20.h,
-                        //         child: Image.asset('asset/gallery.png'),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                         UploadProfile(_profileImage),
                         SizedBox(
                           height: 15.16.h,
@@ -258,47 +243,6 @@ class _User_signup_pageState extends State<User_signup_page> {
                         ),
                         Row(
                           children: [
-                            // Container(
-                            //   width: 185.w,
-                            //   height: 60.h,
-                            //   decoration: BoxDecoration(
-                            //     color: AppColors.textfieldsColor,
-                            //     borderRadius: BorderRadius.circular(7.r),
-                            //   ),
-                            //   child: DropdownButtonHideUnderline(
-                            //     child: DropdownButton2(
-                            //       buttonElevation: 0,
-                            //       dropdownElevation: 0,
-                            //       itemHeight: 40,
-                            //       icon: Icon(
-                            //         Icons.arrow_drop_down,
-                            //         color: AppColors.primaryColor,
-                            //       ),
-                            //       focusNode: dropdownFocusNode,
-                            //       hint: Text(
-                            //         selectedvalue!,
-                            //         style: TextStyle(color: Colors.black),
-                            //       ),
-                            //       buttonWidth: 150,
-                            //       dropdownDecoration: BoxDecoration(
-                            //           borderRadius: BorderRadius.circular(7.r),
-                            //           color: AppColors.textfieldsColor),
-                            //       items: genderList
-                            //           .map(
-                            //             (value) => DropdownMenuItem<String>(
-                            //               value: value,
-                            //               child: Text(value),
-                            //             ),
-                            //           )
-                            //           .toList(),
-                            //       onChanged: (value) {
-                            //         setState(() {
-                            //           selectedvalue = value as String;
-                            //         });
-                            //       },
-                            //     ),
-                            //   ),
-                            // ),
                             SizedBox(
                               width: 7.w,
                             ),
@@ -361,8 +305,8 @@ class _User_signup_pageState extends State<User_signup_page> {
                             keyboardType: TextInputType.text,
                             controller: _passwordController,
                             icon: obsecureText!
-                                ? Icons.remove_red_eye
-                                : Icons.visibility_off,
+                                ? Icons.visibility_off
+                                : Icons.remove_red_eye,
                             obsecureText: obsecureText,
                             onIconPress: () {
                               setState(() {
@@ -383,22 +327,6 @@ class _User_signup_pageState extends State<User_signup_page> {
                           // icon: Icons.remove_red_eye,
                         ),
 
-                        // inputfields(
-                        //     hint_text: "Confirm password",
-                        //     currentNode: confirmpasswordFocusNode,
-                        //     focusNode: confirmpasswordFocusNode,
-                        //     nextNode: confirmpasswordFocusNode,
-                        //     keyboardType: TextInputType.text,
-                        //     controller: _confirmpasswordController,
-                        //     icon: obsecureText!
-                        //         ? Icons.visibility_off
-                        //         : Icons.remove_red_eye,
-                        //     obsecureText: obsecureText,
-                        //     onIconPress: () {
-                        //       setState(() {
-                        //         obsecureText = !obsecureText!;
-                        //       });
-                        //     }),
                         SizedBox(
                           height: 31.h,
                         ),
@@ -456,7 +384,6 @@ class _User_signup_pageState extends State<User_signup_page> {
                   onPressed: () async {
                     Uint8List? _image = await utils.PickImage();
                     if (_image != null) {
-                      
                       setState(() {
                         _profileImage = _image;
                       });

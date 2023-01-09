@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/components/authButton.dart';
+import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/style/Images.dart';
@@ -11,31 +12,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../view_model/HostelDetailsProvider.dart';
 
-class publish_ad_screen extends StatelessWidget {
+class publish_ad_screen extends StatefulWidget {
   const publish_ad_screen({Key? key}) : super(key: key);
 
-  void _getHostelDetails(String uid, context) async {
+  @override
+  State<publish_ad_screen> createState() => _publish_ad_screenState();
+}
+
+class _publish_ad_screenState extends State<publish_ad_screen> {
+  Future<void> _getHostelDetails(String uid, context) async {
     // final FirebaseRepository _firebaseRepository = FirebaseRepository();
     await Provider.of<HostelDetailsProvider>(context, listen: false)
         .getHostelFromServer(uid, context);
+    isLoading(false);
     Navigator.pushNamed(context, RoutesName.SellerDashboard);
-    // _firebaseRepository.getHostelDetails(uid).then((hostelModel? hostel) {
-    //   if (hostel != null) {
-    //     StorageServiceHostel.saveHostel(hostel).then((value) {
-    //       Provider.of<HostelDetailsProvider>(context, listen: false)
-    //           .getHostelFromServer(uid);
-    //       // isLoading(false);
-    //       Navigator.pushNamed(context, RoutesName.navigation);
-    //     }).catchError((error) {
-    //       utils.flushBarErrorMessage(error.message.toString(), context);
-    //     });
-    //   } else {
-    //     utils.flushBarErrorMessage("User is null", context);
-    //   }
-    // }).catchError((error) {
-    //   isLoading(false);
-    //   utils.flushBarErrorMessage(error.message.toString(), context);
-    // });
+  }
+
+  bool isLoadingNow = false;
+  void isLoading(bool value) {
+    setState(() {
+      isLoadingNow = value;
+    });
   }
 
   @override
@@ -71,19 +68,22 @@ class publish_ad_screen extends StatelessWidget {
               SizedBox(
                 height: 26.h,
               ),
-              authButton(
-                  text: 'Go to home',
-                  func: () async {
-                    // utils.flushBarErrorMessage("Please Wait", context);
-                    utils.toastMessage("Please Wait");
-                    SharedPreferences preferences =
-                        await SharedPreferences.getInstance();
-                    await preferences.setInt('isSeller', 1);
+              isLoadingNow
+                  ? circle_progress()
+                  : authButton(
+                      text: 'Go to home',
+                      func: () async {
+                        // utils.flushBarErrorMessage("Please Wait", context);
+                        utils.toastMessage("Please Wait");
+                        // SharedPreferences preferences =
+                        //     await SharedPreferences.getInstance();
+                        // await preferences.setInt('isSeller', 1);
 
-                    String uid = FirebaseAuth.instance.currentUser!.uid;
-                    _getHostelDetails(uid, context);
-                  },
-                  color: AppColors.primaryColor),
+                        String uid = FirebaseAuth.instance.currentUser!.uid;
+                        isLoading(true);
+                        _getHostelDetails(uid, context);
+                      },
+                      color: AppColors.primaryColor),
             ],
           ),
         ),

@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/components/authButton.dart';
@@ -12,15 +16,20 @@ import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/components/or_line_widget.dart';
 import 'package:rentpayy/components/terms_and_condition.dart';
+import 'package:rentpayy/navigation_page.dart';
 import 'package:rentpayy/resources/StorageService.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
+import 'package:rentpayy/view/user_screen/user_front_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../components/no_internetConnection.dart';
 import '../../model/UserModel.dart';
 import '../../resources/FirebaseRepository.dart';
 import '../../utils/style/Images.dart';
 import '../../view_model/UserDetailsProvider.dart';
+import '../forgot_password/forgot_password.dart';
 
 class login_with_rentpayy extends StatefulWidget {
   login_with_rentpayy({super.key});
@@ -49,10 +58,13 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
   }
 
   // bool _obsecureText = true;
-
+  GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
   void dispose() {
-    // _firebaseRepository.dis
-    _obsecurePassword.dispose();
     _emailController.dispose();
     _passController.dispose();
 
@@ -81,9 +93,12 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
   void _login() {
     _firebaseRepository
         .login(_emailController.text, _passController.text, context)
-        .then((User? user) {
+        .then((User? user) async {
       if (user != null) {
         _getUserDetails(user.uid);
+
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        await preferences.setInt('isUser', 1);
       } else {
         isLoading(false);
         //utils.flushBarErrorMessage("Failed to login", context);
@@ -94,11 +109,18 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
   void _getUserDetails(String uid) {
     _firebaseRepository.getUserDetails(uid).then((UserModel? userModel) {
       if (userModel != null) {
-        StorageService.saveUser(userModel).then((value) {
+        StorageService.saveUser(userModel).then((value) async {
           Provider.of<UserDetailsProvider>(context, listen: false)
               .getUserLocally();
           isLoading(false);
-          Navigator.pushNamed(context, RoutesName.navigation);
+
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          // initScreen = preferences.getInt('initScreen');
+          await preferences.setInt('initScreen', 1);
+          await preferences.setInt('isUser', 1);
+          // Navigator.pushNamed(context, RoutesName.navigation);
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => navigation_page()));
         }).catchError((error) {
           utils.flushBarErrorMessage(error.message.toString(), context);
         });
@@ -111,33 +133,27 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
     });
   }
 
+
   @override
   void initState() {
     super.initState();
-    checkConnectivity() {}
-    //Internet connectivity checker
-    InternetConnectionChecker().onStatusChange.listen((status) {
-      final connected = status == InternetConnectionStatus.connected;
-      // showSimpleNotification(connected
-      //     ? Text("Connected To Internet")
-      //     : Text("No Internet Connected"));
-      // utils.flushBarErrorMessage(
-      //     connected ? "Connected To Internet" : "No Internet Connection",
-      //     context);
-      // if (connected == false) {
-      //   showDialog(
-      //       barrierDismissible: false,
-      //       context: context,
-      //       builder: (context) => CupertinoAlertDialog(
-      //             title: Text("No Internet Connection"),
-      //             content: Text("Please check your Internet Connection"),
-      //             actions: [
-      //               CupertinoButton.filled(
-      //                   child: Text("Retry"), onPressed: () {})
-      //             ],
-      //           ));
-      // }
-    });
+    // ignore: unused_element
+    utils.checkConnectivity(context);
+  }
+
+  void signInWithGoogle() async {
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    if (userCredential.user != null) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => forgot_password()));
+    }
   }
 
   @override
@@ -172,11 +188,9 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                     icon: Icons.remove,
                     currentNode: emailFocusNode,
                     nextNode: passwordFocusNode,
-                    obsecureText: false,
-                    onIconPress: () {
-                      _emailController.clear();
-                    },
                     keyboardType: TextInputType.emailAddress,
+                    obsecureText: false,
+                    onIconPress: () {},
                   ),
                   SizedBox(
                     height: 14.h,
@@ -197,6 +211,7 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                       focusNode: passwordFocusNode,
                       nextNode: passwordFocusNode,
                       controller: _passController,
+                      keyboardType: TextInputType.text,
                       icon: _obsecureText
                           ? Icons.visibility_off
                           : Icons.remove_red_eye,
@@ -218,23 +233,45 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                           },
                           color: AppColors.primaryColor),
                   SizedBox(
+                    height: 15.h,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => forgot_password()));
+                      },
+                      child: Text(
+                        'Forget Password?',
+                        style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontSize: 18.sp,
+                        ),
+                      )),
+                  SizedBox(
                     height: 73.h,
                   ),
                   or_line_widget(),
-                  // // Container(
-                  // //   width: 349.w,
-                  // //   height: 53.h,
-                  // //   child: Image.asset(
-                  // //     Images.google,
-                  // //   ),
-                  // // ),
-                  // // SizedBox(
-                  // //   height: 17.h,
-                  // // ),
-                  // // Container(
-                  // //     width: 349.w,
-                  // //     height: 53.h,
-                  // //     child: Image.asset(Images.facebook)),
+                  InkWell(
+                    onTap: () async {
+                      await _googleSignIn.signIn();
+                    },
+                    child: Container(
+                      width: 349.w,
+                      height: 53.h,
+                      child: Image.asset(
+                        Images.google,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 17.h,
+                  ),
+                  Container(
+                      width: 349.w,
+                      height: 53.h,
+                      child: Image.asset(Images.facebook)),
                   SizedBox(
                     height: 120.h,
                   ),

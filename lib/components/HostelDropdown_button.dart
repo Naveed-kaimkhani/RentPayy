@@ -1,25 +1,28 @@
 import 'dart:core';
 
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 import '../utils/style/AppColors.dart';
-import '../utils/style/Images.dart';
 
-class Dropdown_button extends StatefulWidget {
-  Dropdown_button({required this.list, required this.hinttext, Key? key})
+class HostelDropdown_button extends StatefulWidget {
+  HostelDropdown_button({required this.list, required this.hinttext, Key? key})
       : super(key: key);
 
   List<String> list = [];
 
   String? hinttext;
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
+  final user = FirebaseAuth.instance.currentUser!.uid;
   @override
-  State<Dropdown_button> createState() => _Dropdown_buttonState();
+  State<HostelDropdown_button> createState() => _HostelDropdown_buttonState();
 }
 
-class _Dropdown_buttonState extends State<Dropdown_button> {
+class _HostelDropdown_buttonState extends State<HostelDropdown_button> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,14 +39,17 @@ class _Dropdown_buttonState extends State<Dropdown_button> {
           buttonElevation: 0,
           icon: Padding(
             padding: EdgeInsets.only(right: 17.w),
-            child: Icon(Icons.arrow_drop_down,color: AppColors.primaryColor,),
+            child: Icon(
+              Icons.arrow_drop_down,
+              color: AppColors.primaryColor,
+            ),
           ),
           dropdownDecoration: BoxDecoration(
             color: AppColors.textfieldsColor,
             borderRadius: BorderRadius.circular(7.r),
           ),
           hint: Text(widget.hinttext!),
-          items: widget.list!
+          items: widget.list
               .map(
                 (value) => DropdownMenuItem<String>(
                   value: value,
@@ -56,9 +62,24 @@ class _Dropdown_buttonState extends State<Dropdown_button> {
             setState(() {
               widget.hinttext = value as String;
             });
+                widget.db.collection("hostels").doc(widget.user).update({
+      "hostel_type": widget.hinttext,
+    });
           },
         ),
       ),
     );
   }
+
+  // setHostelType() {
+  //   widget.db.collection("hostels").doc(widget.user).update({
+  //     "hostel_type": widget.hinttext,
+  //   });
+  // }
+
+  // setGenderType() {
+  //   widget.db.collection("hostels").doc(widget.user).update({
+  //     "hostel_gender_type": widget.hinttext,
+  //   });
+  // }
 }

@@ -171,197 +171,212 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
 
   bool? obsecureText = true;
   @override
+  void initState() {
+    utils.checkConnectivity(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: upper_design(
-          needcolor: true,
-          needicon: true,
-          isUserDelete: false,
-        ),
-        body: Stack(
-          children: [
-            Container(
-              color: AppColors.primaryColor,
-              child: Container(
-                decoration: auth_screens_decor(),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 48.h,
-                        ),
-                        Text(
-                          "Hostel Signup",
-                          style: TextStyle(
-                              fontSize: 26.sp, fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          height: 28.h,
-                        ),
-                        inputfields(
-                          hint_text: "Enter Hostel name",
-                          currentNode: nameFocusNode,
-                          focusNode: nameFocusNode,
-                          nextNode: hosteladdrFocusNode,
-                          controller: _nameController,
-                          obsecureText: false,
-                          onIconPress: () {
-                            setState(() {});
-                          },
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        inputfields(
-                          hint_text: "Enter Hostel address",
-                          currentNode: hosteladdrFocusNode,
-                          focusNode: hosteladdrFocusNode,
-                          nextNode: hostelcontactFocusNode,
-                          controller: _hosteladdressController,
-                          obsecureText: false,
-                          onIconPress: () {
-                            setState(() {});
-                          },
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        inputfields(
-                          hint_text: "3XXXXXXXXX",
-                          currentNode: hostelcontactFocusNode,
-                          focusNode: hostelcontactFocusNode,
-                          nextNode: hostelOwnernameFocusNode,
-                          controller: _hostelcontactController,
-                          keyboardType: TextInputType.number,
-                          preicon: Container(
-                            width: 60.w,
-                            height: 60.h,
-                            child: Row(
-                              children: [
-                                Text(
-                                  " +92",
-                                  style: TextStyle(
-                                      fontSize: 17.sp,
-                                      color:
-                                          Color.fromARGB(255, 120, 111, 111)),
-                                ),
-                                VerticalDivider(
-                                  thickness: 2,
-                                  color: Colors.grey.shade700,
-                                ),
-                              ],
-                            ),
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: upper_design(
+            needcolor: true,
+            needicon: true,
+            isUserDelete: false,
+          ),
+          body: Stack(
+            children: [
+              Container(
+                color: AppColors.primaryColor,
+                child: Container(
+                  decoration: auth_screens_decor(),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(left: 28.w, right: 28.w, top: 10.h),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 48.h,
                           ),
-                          obsecureText: false,
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        inputfields(
-                          hint_text: "Charges/month",
-                          currentNode: hostelOwnernameFocusNode,
-                          focusNode: hostelOwnernameFocusNode,
-                          nextNode: hostelOwnerEmailFocusNode,
-                          controller: _chargesController,
-                          obsecureText: false,
-                          keyboardType: TextInputType.number,
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        inputfields(
-                          hint_text: "Enter your Email address",
-                          currentNode: hostelOwnerEmailFocusNode,
-                          focusNode: hostelOwnerEmailFocusNode,
-                          nextNode: hostelOwnercontactFocusNode,
-                          controller: _hostelOwnerEmailController,
-                          obsecureText: false,
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        inputfields(
-                          hint_text: "3XXXXXXXXX",
-                          currentNode: hostelOwnercontactFocusNode,
-                          focusNode: hostelOwnercontactFocusNode,
-                          nextNode: passwordFocusNode,
-                          controller: _hostelOwnerphoneController,
-                          keyboardType: TextInputType.number,
-                          preicon: Container(
-                            width: 60.w,
-                            height: 60.h,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "+92",
-                                  style: TextStyle(fontSize: 17.sp),
-                                ),
-                                VerticalDivider(
-                                  thickness: 2,
-                                  color: Color.fromARGB(255, 120, 111, 111),
-                                ),
-                              ],
-                            ),
+                          Text(
+                            "Hostel Signup",
+                            style: TextStyle(
+                                fontSize: 26.sp, fontWeight: FontWeight.w500),
                           ),
-                          obsecureText: false,
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        inputfields(
-                          hint_text: "Set Password",
-                          currentNode: passwordFocusNode,
-                          focusNode: passwordFocusNode,
-                          nextNode: confirmpasswordFocusNode,
-                          controller: _passwordController,
-                          obsecureText: true,
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        inputfields(
-                            hint_text: "Confirm Password",
-                            currentNode: confirmpasswordFocusNode,
-                            focusNode: confirmpasswordFocusNode,
-                            nextNode: confirmpasswordFocusNode,
-                            controller: _confirmpasswordController,
-                            icon: obsecureText!
-                                ? Icons.visibility_off
-                                : Icons.remove_red_eye,
-                            obsecureText: obsecureText!,
+                          SizedBox(
+                            height: 28.h,
+                          ),
+                          inputfields(
+                            hint_text: "Enter Hostel name",
+                            currentNode: nameFocusNode,
+                            focusNode: nameFocusNode,
+                            nextNode: hosteladdrFocusNode,
+                            controller: _nameController,
+                            obsecureText: false,
                             onIconPress: () {
-                              setState(() {
-                                obsecureText = !obsecureText!;
-                              });
-                            }),
-                        SizedBox(
-                          height: 30.h,
-                        ),
-                        Container(
-                          alignment: Alignment.centerRight,
-                          child: isLoadingNow
-                              ? circle_progress()
-                              : MiniButton(
-                                  text: 'Next',
-                                  func: () {
-                                    setState(() {
-                                      _validateFields();
-                                    });
-                                  },
-                                  color: AppColors.primaryColor,
-                                  icon: Icons.arrow_forward),
-                        ),
-                      ],
+                              setState(() {});
+                            },
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          inputfields(
+                            hint_text: "Enter Hostel address",
+                            currentNode: hosteladdrFocusNode,
+                            focusNode: hosteladdrFocusNode,
+                            nextNode: hostelcontactFocusNode,
+                            controller: _hosteladdressController,
+                            keyboardType: TextInputType.text,
+                            obsecureText: false,
+                            onIconPress: () {
+                              setState(() {});
+                            },
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          inputfields(
+                            hint_text: "3XXXXXXXXX",
+                            currentNode: hostelcontactFocusNode,
+                            focusNode: hostelcontactFocusNode,
+                            nextNode: hostelOwnernameFocusNode,
+                            controller: _hostelcontactController,
+                            keyboardType: TextInputType.number,
+                            preicon: Container(
+                              width: 60.w,
+                              height: 60.h,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "  +92",
+                                    style: TextStyle(
+                                        fontSize: 17.sp,
+                                        color:
+                                            Color.fromARGB(255, 120, 111, 111)),
+                                  ),
+                                  VerticalDivider(
+                                    thickness: 2,
+                                    color: Colors.grey.shade700,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            obsecureText: false,
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          inputfields(
+                            hint_text: "Charges/month",
+                            currentNode: hostelOwnernameFocusNode,
+                            focusNode: hostelOwnernameFocusNode,
+                            nextNode: hostelOwnerEmailFocusNode,
+                            controller: _chargesController,
+                            obsecureText: false,
+                            keyboardType: TextInputType.number,
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          inputfields(
+                            hint_text: "Enter Email address",
+                            currentNode: hostelOwnerEmailFocusNode,
+                            focusNode: hostelOwnerEmailFocusNode,
+                            nextNode: hostelOwnercontactFocusNode,
+                            controller: _hostelOwnerEmailController,
+                            obsecureText: false,
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          inputfields(
+                            hint_text: "3XXXXXXXXX",
+                            currentNode: hostelOwnercontactFocusNode,
+                            focusNode: hostelOwnercontactFocusNode,
+                            nextNode: passwordFocusNode,
+                            controller: _hostelOwnerphoneController,
+                            keyboardType: TextInputType.number,
+                            preicon: Container(
+                              width: 60.w,
+                              height: 60.h,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "  +92",
+                                    style: TextStyle(fontSize: 17.sp),
+                                  ),
+                                  VerticalDivider(
+                                    thickness: 2,
+                                    color: Color.fromARGB(255, 120, 111, 111),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            obsecureText: false,
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          inputfields(
+                            hint_text: "Set Password",
+                            currentNode: passwordFocusNode,
+                            focusNode: passwordFocusNode,
+                            nextNode: confirmpasswordFocusNode,
+                            controller: _passwordController,
+                            keyboardType: TextInputType.text,
+                            obsecureText: true,
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          inputfields(
+                              hint_text: "Confirm Password",
+                              currentNode: confirmpasswordFocusNode,
+                              focusNode: confirmpasswordFocusNode,
+                              nextNode: confirmpasswordFocusNode,
+                              controller: _confirmpasswordController,
+                              keyboardType: TextInputType.text,
+                              icon: obsecureText!
+                                  ? Icons.visibility_off
+                                  : Icons.remove_red_eye,
+                              obsecureText: obsecureText!,
+                              onIconPress: () {
+                                setState(() {
+                                  obsecureText = !obsecureText!;
+                                });
+                              }),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          Container(
+                            alignment: Alignment.centerRight,
+                            child: isLoadingNow
+                                ? circle_progress()
+                                : MiniButton(
+                                    text: 'Next',
+                                    func: () {
+                                      setState(() {
+                                        _validateFields();
+                                      });
+                                    },
+                                    color: AppColors.primaryColor,
+                                    icon: Icons.arrow_forward),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

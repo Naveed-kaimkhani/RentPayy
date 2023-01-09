@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
-import 'package:rentpayy/view/Hostel_Screen/Hostel_signup.dart';
 import 'package:rentpayy/view/Hostel_Screen/login_Signup_forHostel.dart';
-import 'package:rentpayy/view/user_screen/User_signup.dart';
 import 'package:rentpayy/view/user_screen/login_screen.dart';
 import '../components/user_seller_component.dart';
 

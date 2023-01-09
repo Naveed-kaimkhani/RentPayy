@@ -1,29 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/custom_checkbox.dart';
-import 'package:rentpayy/components/mini_Button.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
-import 'package:rentpayy/view/Hostel_Screen/add_gallery.dart';
+import 'package:rentpayy/view/Hostel_Screen/ads_edit_screen.dart';
 
+import '../../components/hostel_appBarButton.dart';
 import '../../utils/routes/RoutesName.dart';
+import '../../utils/style/Images.dart';
 
-class Facilities extends StatefulWidget {
-  Facilities({Key? key}) : super(key: key);
+class edit_facilities extends StatefulWidget {
+  edit_facilities({Key? key}) : super(key: key);
   @override
-  State<Facilities> createState() => _FacilitiesState();
+  State<edit_facilities> createState() => _edit_facilitiesState();
 }
 
-class _FacilitiesState extends State<Facilities> {
-  // TextEditingController controller = TextEditingController();
+class _edit_facilitiesState extends State<edit_facilities> {
   List<String> checkboxList = [];
-  // bool isLoadingNow = false;
-  // String? filled;
-
   bool waterIsSelected = false,
       studyHallIsSelected = false,
       SecurityIsSelected = false,
@@ -40,26 +36,17 @@ class _FacilitiesState extends State<Facilities> {
       WifiIsSelected = false;
   FirebaseFirestore db = FirebaseFirestore.instance;
 
-  final user = FirebaseAuth.instance.currentUser!.uid;
-
-  // @override
-  // void initState() {
-  //   print("object");
-
-  //   super.initState();
-  // }
   void savedata() {
     if (checkboxList.isEmpty) {
       print(checkboxList);
       utils.flushBarErrorMessage("Please select facilites", context);
     } else {
-      db.collection("hostels").doc(user).update({
-        'facilities': checkboxList,
+      db.collection("hostels").doc(utils.getCurrentUserUid()).update({
+        'edit_facilities': checkboxList,
       }).then((value) {
-        print(checkboxList);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => add_gallery()),
+          MaterialPageRoute(builder: (context) => ads_edit_screen()),
         );
       });
     }
@@ -69,7 +56,17 @@ class _FacilitiesState extends State<Facilities> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: custom_appbar(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: (() => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ads_edit_screen()))),
+          icon: hostel_appBarButton(
+            Buttoncolor: AppColors.primaryColor,
+            IconUrl: Images.whitebackButton,
+          ),
+          // SvgPicture.asset('asset/backIcon.png')
+        ),
+      ),
       body: Stack(
         children: [
           Container(
@@ -87,7 +84,7 @@ class _FacilitiesState extends State<Facilities> {
                         height: 47.h,
                       ),
                       Text(
-                        "Select Facilities",
+                        "Select edit_facilities",
                         style: TextStyle(
                             fontSize: 26.sp, fontWeight: FontWeight.w500),
                       ),
@@ -285,11 +282,8 @@ class _FacilitiesState extends State<Facilities> {
                                 ElectricityIsSelected = !ElectricityIsSelected;
                                 if (ElectricityIsSelected) {
                                   checkboxList.add("Electricity");
-                                 
                                 } else {
-                                 
                                   checkboxList.remove("Electricity");
-                                 
                                 }
                               });
                             },
@@ -316,25 +310,18 @@ class _FacilitiesState extends State<Facilities> {
                       SizedBox(
                         height: 60.h,
                       ),
-                      // SizedBox(
-                      //   height: 22.6.h,
-                      // ),
-                      // SizedBox(
-                      //   height: 5,
-                      // ),
-                      Padding(
-                        padding: const EdgeInsets.only(left:8.0),
-                        child: MiniButton(
-                          text: "Next",
-                          func: () {
-                            // setState(() {
-                            //   Navigator.push(context,MaterialPageRoute(builder: (context)=> Hostel_Registration() ));
-                            // });
-                            savedata();
-                          },
-                          color: AppColors.primaryColor,
-                          icon: Icons.arrow_forward,
-                        ),
+                      SizedBox(
+                        width: 321.w,
+                        height: 67.h,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              backgroundColor: AppColors.primaryColor,
+                            ),
+                            onPressed: () async {
+                              savedata();
+                            },
+                            child: Text("Save Changes")),
                       ),
                     ],
                   ),

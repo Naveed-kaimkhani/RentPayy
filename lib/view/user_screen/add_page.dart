@@ -1,18 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:getwidget/components/floating_widget/gf_floating_widget.dart';
 import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/hostel_appBarButton.dart';
 import 'package:rentpayy/resources/FirebaseRepository.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+import 'package:rentpayy/view/user_screen/book_now.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../../components/appbar_buttons.dart';
 import '../../model/hostelModel.dart';
 import '../../utils/style/Images.dart';
 import 'facility_container.dart';
+// import '../components/ad_page_container.dart';
+// import '../components/profile_reviews_component.dart';
+// import '../utils/style/Images.dart';
 
 class AdPage extends StatefulWidget {
   final hostelModel hostel;
@@ -26,18 +32,52 @@ class AdPage extends StatefulWidget {
 class _AdPageState extends State<AdPage> {
   var selectedIndex = 0;
   bool isSelected = false;
-  FirebaseFirestore db = FirebaseFirestore.instance;
 
-  @override
-  void initState() {
-    super.initState();
-    int count = widget.hostel.visits!;
-    setState(() {
-      count++;
-    });
-    db.collection("hostels").doc(widget.hostel.uid).update({
-      'visits': count,
-    });
+  launchWhatsapp() async {
+    var whatsapp = widget.hostel.hostel_phone!;
+    var whatsappAndroid = Uri.parse("whatsapp://send?phone=" +
+        "(" +
+        "92$whatsapp)" +
+        "&text=Hello i want to book a hostel");
+    if (await canLaunchUrl(whatsappAndroid)) {
+      await launchUrl(whatsappAndroid);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("WhatsApp is not installed on the device"),
+        ),
+      );
+    }
+  }
+
+  launchMessages() async {
+    var whatsapp = widget.hostel.hostel_phone!;
+    Uri whatsappAndroid = Uri.parse(
+        "sms:" + "(" + "92$whatsapp)" + "?body=Hello i want to book a hostel");
+    if (await canLaunchUrl(whatsappAndroid)) {
+      await launchUrl(whatsappAndroid);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("unable to open"),
+        ),
+      );
+    }
+  }
+
+  launchphone() async {
+    var whatsapp = widget.hostel.hostel_phone!;
+    Uri whatsappAndroid = Uri.parse(
+        "tel:" + "(" + "92$whatsapp)" + "?body=Hello i want to book a hostel");
+    if (await canLaunchUrl(whatsappAndroid)) {
+      await launchUrl(whatsappAndroid);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("unable to open"),
+        ),
+      );
+    }
   }
 
   @override
@@ -45,6 +85,159 @@ class _AdPageState extends State<AdPage> {
     FirebaseRepository _firebaseRepository = new FirebaseRepository();
     return SafeArea(
       child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        floatingActionButton: SizedBox(
+          height: 60,
+          width: double.infinity,
+          child: Row(
+            children: [
+              GFFloatingWidget(
+                  child: Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return Container(
+                                width: 403,
+                                height: 166,
+                                alignment: Alignment.center,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 22.h,
+                                    ),
+                                    Text(
+                                      "Contact via",
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    SizedBox(
+                                      height: 29.h,
+                                    ),
+                                    Center(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  launchWhatsapp();
+                                                });
+                                              },
+                                              child: Image.asset(
+                                                "asset/whatsapp.png",
+                                                height: 66.h,
+                                                width: 66.w,
+                                              )),
+                                          SizedBox(
+                                            width: 58.w,
+                                          ),
+                                          InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  launchMessages();
+                                                });
+                                              },
+                                              child: Image.asset(
+                                                "asset/sms.png",
+                                                height: 66.h,
+                                                width: 66.w,
+                                              )),
+                                          SizedBox(
+                                            width: 58.w,
+                                          ),
+                                          InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  launchphone();
+                                                });
+                                              },
+                                              child: Image.asset(
+                                                "asset/whatsapp.png",
+                                                height: 66.h,
+                                                width: 66.w,
+                                              )),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ));
+                          },
+                        );
+                      });
+                    },
+                    child: Container(
+                      height: 47,
+                      width: 149,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryColor,
+                        borderRadius: BorderRadius.circular(7.r),
+                      ),
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.chat,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 15.w,
+                          ),
+                          Text(
+                            "Contact",
+                            style:
+                                TextStyle(fontSize: 20.sp, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 35.w,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => book_now()));
+                    },
+                    child: Container(
+                      height: 47,
+                      width: 149,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryColor,
+                        borderRadius: BorderRadius.circular(7.r),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.calendar_today_outlined,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 15.w,
+                          ),
+                          Text(
+                            "Book now",
+                            style:
+                                TextStyle(fontSize: 20.sp, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+            ],
+          ),
+        ),
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -75,7 +268,7 @@ class _AdPageState extends State<AdPage> {
             ),
             IconButton(
               onPressed: () async {
-                await Share.share(widget.hostel.pictures![1]);
+                await Share.share(widget.hostel.pictures.toString());
               },
               icon: appbar_buttons(icon: Icons.share),
             ),
@@ -90,6 +283,14 @@ class _AdPageState extends State<AdPage> {
               Container(
                   height: 469.h,
                   width: 428.w,
+                  // decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(50.r),
+                  //     image: DecorationImage(
+                  //       image: AssetImage(
+                  //         Images.hostelImage,
+                  //       ),
+                  //       fit: BoxFit.cover,
+                  //     )),
                   child: Column(
                     children: [
                       CarouselSlider.builder(
@@ -186,7 +387,7 @@ class _AdPageState extends State<AdPage> {
                           width: 2.w,
                         ),
                         Text(
-                          'Jamshoro,Pakistan',
+                          widget.hostel.hostel_address??"No Address found",
                           style: TextStyle(
                               fontSize: 12.sp, fontWeight: FontWeight.w400),
                         ),
@@ -235,15 +436,15 @@ class _AdPageState extends State<AdPage> {
                             Icon(
                               Icons.man,
                               color: Colors.black,
-                              size: 20.w,
+                              size: 15.h,
                             ),
-                            // SizedBox(
-                            //   width: 2.w,
-                            // ),
+                            SizedBox(
+                              width: 7.w,
+                            ),
                             Icon(
                               Icons.hotel,
                               color: Colors.black,
-                              size: 20.w,
+                              size: 15.h,
                             ),
                             SizedBox(
                               width: 6.sp,
@@ -251,7 +452,7 @@ class _AdPageState extends State<AdPage> {
                             Text(
                               widget.hostel.available_capacity.toString(),
                               style: TextStyle(
-                                  fontSize: 16.sp, fontWeight: FontWeight.w500),
+                                  fontSize: 10.sp, fontWeight: FontWeight.w500),
                             )
                           ],
                         ),
@@ -277,7 +478,7 @@ class _AdPageState extends State<AdPage> {
                       height: 7.h,
                     ),
                     Text(
-                      widget.hostel.description!,
+                      widget.hostel.description ?? "No Description",
                       style: TextStyle(
                           fontSize: 12.sp, fontWeight: FontWeight.w300),
                     ),
@@ -289,14 +490,9 @@ class _AdPageState extends State<AdPage> {
                       style: TextStyle(
                           fontWeight: FontWeight.w600, fontSize: 15.sp),
                     ),
-                    // SizedBox(
-                    //   height: 2.h,
-                    // ),
-
-                    // facility_container(
-                    //   text: 'Electricity',
-                    //   // image: Images.facilities,
-                    // ),
+                    SizedBox(
+                      height: 11.h,
+                    ),
                     GridView.count(
                       padding: EdgeInsets.zero,
 
@@ -317,10 +513,10 @@ class _AdPageState extends State<AdPage> {
                     // SizedBox(
                     //   height: 24.h,
                     // ),
-                    Text(
-                      'Ad ID 10231445',
-                      style: TextStyle(fontSize: 10.sp),
-                    ),
+                    // Text(
+                    //   'Ad ID 10231445',
+                    //   style: TextStyle(fontSize: 10.sp),
+                    // ),
                     SizedBox(
                       height: 7.h,
                     ),
@@ -342,16 +538,7 @@ class _AdPageState extends State<AdPage> {
                     SizedBox(
                       height: 9.h,
                     ),
-                    // ProfileReviewsComponent(),
-                    // SizedBox(
-                    //   height: 15.h,
-                    // ),
-                    // ProfileReviewsComponent(),
-                    // SizedBox(
-                    //   height: 15.h,
-                    // ),
-                    // ProfileReviewsComponent(),
-                  ],
+],
                 ),
               ),
             ],

@@ -71,6 +71,7 @@ class hostelModel {
     data['visits'] = hostel.visits;
     data['confirms'] = hostel.confirms;
         data['cancel'] = hostel.cancel;
+        data['facilities'] = hostel.facilities;
 
     data['bookings'] = hostel.bookings;
 

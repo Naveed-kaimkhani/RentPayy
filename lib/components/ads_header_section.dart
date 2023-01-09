@@ -5,9 +5,11 @@ import '../utils/style/AppColors.dart';
 
 class HeaderSection extends StatelessWidget {
   final hostelName;
+  final hostelAddress;
   const HeaderSection({
     Key? key,
     required this.Size,
+    required this.hostelAddress,
     required this.hostelName,
     required this.ImageUrl,
   }) : super(key: key);
@@ -42,7 +44,7 @@ class HeaderSection extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        'Jamshoro, Sindh',
+                       hostelAddress,
                         style: TextStyle(
                           color: Color(0xff000000),
                           fontSize: 15.sp,

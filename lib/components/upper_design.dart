@@ -32,7 +32,6 @@ upper_design({
                     await db.collection("hostels").doc(user!.uid).delete();
                     user?.delete();
                     Navigator.pop(context);
-                    print(user);
                   }
                   else
                     Navigator.pop(context);

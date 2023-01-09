@@ -14,9 +14,16 @@ class book_now extends StatefulWidget {
 }
 
 class _book_nowState extends State<book_now> {
-  List<Widget> payment = [];
+  void initState() {
+    payments.add(Payment("Jazzcash", false, "asset/easypaisa.png"));
+    payments.add(Payment("Easypaisa", false, "asset/jazzcash.png"));
+    payments.add(Payment("male", false, "asset/bank.png"));
 
-  List<String> genderList = ["1 month", "3 months","6 months","1 year"];
+    super.initState();
+  }
+
+  List<Payment> payments = <Payment>[];
+  List<String> plan = [" 1 month", " 3 months", " 6 months", " 1 year"];
   int increment = 0;
   int value = 0;
   String? selectedvalue = " Per month";
@@ -49,7 +56,7 @@ class _book_nowState extends State<book_now> {
               height: 38.h,
             ),
             Container(
-              height: 240.h,
+              height: 283.h,
               width: 392.w,
               decoration: BoxDecoration(
                 color: AppColors.textfieldsColor,
@@ -57,11 +64,6 @@ class _book_nowState extends State<book_now> {
               ),
               child: Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 7, right: 10, top: 7, bottom: 7),
-                    child: Image.asset("asset/room.png"),
-                  ),
                   Container(
                     alignment: Alignment.topLeft,
                     child: Column(
@@ -84,7 +86,6 @@ class _book_nowState extends State<book_now> {
                         ),
                         Row(
                           children: [
-                            Image.asset("asset/location.png"),
                             SizedBox(
                               width: 2.w,
                             ),
@@ -101,11 +102,11 @@ class _book_nowState extends State<book_now> {
                         Row(
                           children: [
                             Container(
-                              width: 92.w,
-                              height: 26.h,
+                              width: 110.w,
+                              height: 42.h,
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(23.r),
+                                borderRadius: BorderRadius.circular(25.r),
                               ),
                               child: Padding(
                                 padding:
@@ -117,14 +118,20 @@ class _book_nowState extends State<book_now> {
                                   children: [
                                     InkWell(
                                       child: Container(
-                                        width: 10.8.w,
-                                        height: 10.8.h,
+                                        width: 20.8.w,
+                                        height: 20.8.h,
                                         decoration: BoxDecoration(
                                           color: AppColors.primaryColor,
                                           borderRadius:
                                               BorderRadius.circular(10.r),
                                         ),
-                                        child: Image.asset("asset/minus2.png"),
+                                        child: Container(
+                                          child: Icon(
+                                            Icons.remove,
+                                            size: 15,
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                       ),
                                       onTap: () {
                                         setState(() {
@@ -138,18 +145,24 @@ class _book_nowState extends State<book_now> {
                                     ),
                                     Text(
                                       increment.toString(),
-                                      style: TextStyle(fontSize: 15.sp),
+                                      style: TextStyle(fontSize: 17.sp),
                                     ),
                                     InkWell(
                                       child: Container(
-                                        width: 10.8.w,
-                                        height: 10.8.h,
+                                        width: 20.8.w,
+                                        height: 20.8.h,
                                         decoration: BoxDecoration(
                                           color: AppColors.primaryColor,
                                           borderRadius:
                                               BorderRadius.circular(10.r),
                                         ),
-                                        child: Image.asset("asset/plus2.png"),
+                                        child: Container(
+                                          child: Icon(
+                                            Icons.add,
+                                            size: 15,
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                       ),
                                       onTap: () {
                                         setState(() {
@@ -166,9 +179,8 @@ class _book_nowState extends State<book_now> {
                             ),
                             StatefulBuilder(builder: (context, setState) {
                               return Container(
-                                width: 92.w,
-                                height: 26.h,
-                                color: Colors.white,
+                                width: 120.w,
+                                height: 45.h,
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButton2(
                                     buttonElevation: 0,
@@ -181,19 +193,23 @@ class _book_nowState extends State<book_now> {
                                     hint: Text(
                                       selectedvalue!,
                                       style: TextStyle(
-                                          color: Colors.black, fontSize: 10),
+                                          color: Colors.black, fontSize: 17.sp),
                                     ),
                                     buttonWidth: 100,
                                     dropdownDecoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(7.r),
                                         color: AppColors.textfieldsColor),
-                                    items: genderList
+                                    items: plan
                                         .map(
                                           (value) => DropdownMenuItem<String>(
                                             value: value,
-                                            child: Text(value,style: TextStyle(
-                                                color: Colors.black, fontSize: 10),),
+                                            child: Text(
+                                              value,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 17.sp),
+                                            ),
                                           ),
                                         )
                                         .toList(),
@@ -203,6 +219,10 @@ class _book_nowState extends State<book_now> {
                                       });
                                     },
                                   ),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20.r),
                                 ),
                               );
                             }),
@@ -217,7 +237,7 @@ class _book_nowState extends State<book_now> {
                             Text(
                               "Subtotal",
                               style: TextStyle(
-                                fontSize: 7.sp,
+                                fontSize: 14.sp,
                               ),
                             ),
                             SizedBox(
@@ -229,57 +249,61 @@ class _book_nowState extends State<book_now> {
                                 TextSpan(
                                     text: "200",
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 20.sp,
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.primaryColor)),
                                 TextSpan(
                                     text: " Rs",
                                     style: TextStyle(
-                                        fontSize: 7, color: Colors.black)),
+                                        fontSize: 10.sp, color: Colors.black)),
                               ],
                             ))
                           ],
                         ),
-                        SizedBox(height: 12.h,),
+                        SizedBox(
+                          height: 12.h,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               "Subtotal x $increment",
                               style: TextStyle(
-                                fontSize: 7.sp,
+                                fontSize: 14.sp,
                               ),
                             ),
                             SizedBox(
                               width: 100.w,
                             ),
                             RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                        text: "400",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                            color: AppColors.primaryColor)),
-                                    TextSpan(
-                                        text: " Rs",
-                                        style: TextStyle(
-                                            fontSize: 7, color: Colors.black)),
-                                  ],
-                                ),),
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text: "400",
+                                      style: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.primaryColor)),
+                                  TextSpan(
+                                      text: " Rs",
+                                      style: TextStyle(
+                                          fontSize: 10.sp,
+                                          color: Colors.black)),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                        SizedBox(height: 12.h,),
+                        SizedBox(
+                          height: 12.h,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               "Total",
                               style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w300
-                              ),
+                                  fontSize: 26.sp, fontWeight: FontWeight.w300),
                             ),
                             SizedBox(
                               width: 100.w,
@@ -296,12 +320,13 @@ class _book_nowState extends State<book_now> {
                                   TextSpan(
                                       text: " Rs",
                                       style: TextStyle(
-                                          fontSize: 7, color: Colors.black)),
+                                          fontSize: 10.sp,
+                                          color: Colors.black)),
                                 ],
-                              ),),
+                              ),
+                            ),
                           ],
                         ),
-
                       ],
                     ),
                   ),
@@ -318,18 +343,91 @@ class _book_nowState extends State<book_now> {
             SizedBox(
               height: 19.h,
             ),
-            custom_payment("Jazz Cash", "asset/jazzcash.png", 0, 0),  SizedBox(
-              height: 11.h,
+            Container(
+              height: 210.h,
+              width: 392.w,
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: payments.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        payments
+                            .forEach((payments) => payments.isSelected = false);
+                        payments[index].isSelected = true;
+                      });
+                    },
+                    child: CustomRadio(payments[index]),
+                  );
+                },
+              ),
             ),
-            custom_payment("Easy Paisa", "asset/easypaisa.png", 1, 0),  SizedBox(
-              height: 11.h,
+            SizedBox(
+              height: 90.h,
             ),
-            custom_payment("Bank Transfer", "asset/hbl.png", 2, 0),
-            SizedBox(height: 170.h,),
-            authButton(text: "Continue to Payment", func: ()
-                {}, color: AppColors.primaryColor)
+            authButton(
+                text: "Continue to Payment",
+                func: () {},
+                color: AppColors.primaryColor)
           ],
         ),
+      ),
+    );
+  }
+}
+
+class Payment {
+  String name;
+  String image;
+  bool isSelected;
+
+  Payment(this.name, this.isSelected, this.image);
+}
+
+class CustomRadio extends StatelessWidget {
+  Payment _payment;
+
+  CustomRadio(this._payment);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: AppColors.textfieldsColor,
+          borderRadius: BorderRadius.circular(10.r)),
+      height: 61.h,
+      width: 392.w,
+      margin: EdgeInsets.only(bottom: 10.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              SizedBox(
+                width: 8.w,
+              ),
+              Image.asset(_payment.image),
+              SizedBox(
+                width: 14.w,
+              ),
+              Text(
+                _payment.name,
+                style: TextStyle(color: Colors.black),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Container(
+              height: 20.h,
+              width: 20.w,
+              child: _payment.isSelected
+                  ? Image.asset("asset/radiobutton_colored.png")
+                  : Image.asset("asset/radiobutton.png"),
+            ),
+          ),
+        ],
       ),
     );
   }

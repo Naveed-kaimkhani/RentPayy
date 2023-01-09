@@ -14,6 +14,7 @@ import 'package:rentpayy/utils/routes/RoutesName.dart';
 
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../resources/FirebaseRepository.dart';
 
@@ -72,12 +73,12 @@ class _add_galleryState extends State<add_gallery> {
       isLoading(true);
       utils.toastMessage("Please wait it may take some time");
       // List<XFile> compressedImages =
-          // await utils().compressHostelsImage(imageFileList!);
+      // await utils().compressHostelsImage(imageFileList!);
       // List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
       //     imageFile: compressedImages, uid: user);
       List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
           imageFile: imageFileList!, uid: user);
-    
+
       // print("list of hostel images");
       // print(listOfImages);
 
@@ -90,6 +91,8 @@ class _add_galleryState extends State<add_gallery> {
       });
     }
     isLoading(false);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setInt('initScreen', 1);
     Navigator.popAndPushNamed(context, RoutesName.publish_ad_screen);
   }
 
@@ -172,33 +175,7 @@ class _add_galleryState extends State<add_gallery> {
                       SizedBox(
                         height: 6.h,
                       ),
-                      // Container(
-                      //     alignment: Alignment.centerLeft,
-                      //     child: RichText(
-                      //         text: TextSpan(
-                      //       children: [
-                      //         TextSpan(
-                      //           text: '*  Video with max size of 12 MB \n',
-                      //           style: TextStyle(
-                      //               fontSize: 15.sp,
-                      //               fontWeight: FontWeight.w300,
-                      //               color: Colors.black),
-                      //         ),
-                      //         TextSpan(
-                      //             text: '*  Please refer to ',
-                      //             style: TextStyle(
-                      //                 fontSize: 15.sp,
-                      //                 fontWeight: FontWeight.w300,
-                      //                 color: Colors.black)),
-                      //         TextSpan(
-                      //             text: 'Video Guidelines',
-                      //             style: TextStyle(
-                      //                 color: Colors.black,
-                      //                 fontSize: 15.sp,
-                      //                 fontWeight: FontWeight.bold,
-                      //                 decoration: TextDecoration.underline))
-                      //       ],
-                      //     ))),
+
                       SizedBox(
                         height: 76.h,
                       ),
@@ -207,8 +184,6 @@ class _add_galleryState extends State<add_gallery> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                // onClick = true;
-                                // onClick ? onClick = true : onClick = false;
                                 onClick = !onClick;
                               });
                             },
@@ -235,26 +210,29 @@ class _add_galleryState extends State<add_gallery> {
                           SizedBox(
                             width: 10.w,
                           ),
-                          RichText(
-                              text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'By checking this you agree to our ',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              TextSpan(
-                                text: 'Terms and Conditions',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13.sp,
-                                    decoration: TextDecoration.underline),
-                              ),
-                            ],
-                          )),
+
+                          //Terms and condition will be added later
+
+                          // RichText(
+                          //     text: TextSpan(
+                          //   children: [
+                          //     TextSpan(
+                          //       text: 'By checking this you agree to our ',
+                          //       style: TextStyle(
+                          //           color: Colors.black,
+                          //           fontSize: 13.sp,
+                          //           fontWeight: FontWeight.w500),
+                          //     ),
+                          //     TextSpan(
+                          //       text: 'Terms and Conditions',
+                          //       style: TextStyle(
+                          //           color: Colors.black,
+                          //           fontWeight: FontWeight.bold,
+                          //           fontSize: 13.sp,
+                          //           decoration: TextDecoration.underline),
+                          //     ),
+                          //   ],
+                          // )),
                         ],
                       ),
                       SizedBox(

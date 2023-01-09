@@ -18,7 +18,7 @@ class SellerDashboard extends StatefulWidget {
 class _SellerDashboardState extends State<SellerDashboard> {
   List pages = [
     ads_details_screen(),
-    ads_details_screen(),
+    ads_edit_screen(),
     ad_boost_screen(),
     hostel_setting_screen(),
   ];
@@ -64,7 +64,7 @@ class _SellerDashboardState extends State<SellerDashboard> {
               ),
               GButton(
                 icon: Icons.rocket_launch_outlined,
-                text: "Likes",
+                text: "Plans",
               ),
               GButton(
                 icon: Icons.settings_outlined,
