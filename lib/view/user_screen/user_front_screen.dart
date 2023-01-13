@@ -128,7 +128,6 @@ class _user_front_ScreenState extends State<user_front_Screen> {
       child: WillPopScope(
         onWillPop: () => showExitPopup(context),
         child: Scaffold(
-         
           bottomNavigationBar: _banner == null
               ? Container(
                   child: Text("No ad found"),
@@ -165,7 +164,6 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                         
                             Padding(
                               padding: EdgeInsets.only(
                                   left: 14.w, right: 15.w, top: 26.h),
@@ -193,14 +191,6 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                       )
                                     ],
                                   ),
-                                  // ClipOval(
-                                  //   child: CachedNetworkImage(
-                                  //     imageUrl: user.profileImage!,
-                                  //     width: 61.0,
-                                  //     height: 61.0,
-                                  //   ),
-                                  // ),
-
                                   profilePic(
                                     url: user.profileImage,
                                     height: 61.h,
@@ -218,16 +208,6 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                         child: Container(
                           height: 42.h,
                           width: 339.w,
-                          // decoration: BoxDecoration(
-                          // color: Color(0xffFFFFFF),
-                          // borderRadius: BorderRadius.circular(7.r),
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     spreadRadius: 1,
-                          //     blurRadius: 1,
-                          //     color: Colors.grey.withOpacity(0.3),
-                          //   ),
-                          // ]),
                           child:
                               search_bar(isReadOnly: true, color: Colors.white),
                         ),
@@ -251,19 +231,6 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                 SizedBox(
                   height: 25.h,
                 ),
-                // Row(
-                //   children: [
-                //     shimmer_hostel_container(),
-                //     shimmer_hostel_container(),
-                //   ],
-                // ),
-                // Row(
-                //   children: [
-                //     shimmer_hostel_container(),
-                //     shimmer_hostel_container(),
-                //   ],
-                // )
-
                 FutureBuilder(
                   builder: (ctx, AsyncSnapshot<List<hostelModel>> snapshot) {
                     if (snapshot.hasData) {
@@ -318,81 +285,8 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                       ),
                     );
                   },
-
-                  // Future that needs to be resolved
-                  // inorder to display something on the Canvas
                   future: FirebaseMethods.getHostelsData(),
                 ),
-                // FutureBuilder(
-                //   builder: (ctx, AsyncSnapshot<List<hostelModel>> snapshot) {
-                //     if (snapshot.connectionState == ConnectionState.done) {
-                //       if (snapshot.hasError) {
-                //         return no_internetConnection();
-                //         // if we got our data
-                //       } else if (snapshot.hasData) {
-                //         // Extracting data from snapshot object
-                //         //final data = snapshot.data as String;
-                //         return Container(
-                //           height: MediaQuery.of(context).size.height,
-                //           child: GridView.builder(
-                //             controller: _scrollViewController,
-                //             itemCount: snapshot.data!.length,
-                //             itemBuilder: (context, index) {
-                //               return Column(
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 mainAxisAlignment: MainAxisAlignment.start,
-                //                 children: [
-                //                   InkWell(
-                //                       onTap: () {
-                //                         Navigator.push(
-                //                           context,
-                //                           MaterialPageRoute(
-                //                               builder: (context) => AdPage(
-                //                                   hostel: snapshot.data![index])),
-                //                         );
-                //                       },
-                //                       child: HostelContainer(
-                //                         hostel: snapshot.data![index],
-                //                       )),
-                //                 ],
-                //               );
-                //             },
-                //             gridDelegate:
-                //                 SliverGridDelegateWithFixedCrossAxisCount(
-                //               crossAxisCount: 2,
-                //               mainAxisSpacing: 10,
-                //               crossAxisSpacing: 10,
-                //             ),
-                //           ),
-                //         );
-                //       }
-                //     }
-
-                //     // Displaying LoadingSpinner to indicate waiting state
-                //     return Center(
-                //       child: Column(
-                //         children: [
-                //           Row(
-                //             children: [
-                //               shimmer_hostel_container(),
-                //               shimmer_hostel_container(),
-                //             ],
-                //           ),
-                //           Row(
-                //             children: [
-                //               shimmer_hostel_container(),
-                //               shimmer_hostel_container(),
-                //             ],
-                //           )
-                //         ],
-                //       ),
-                //     );
-                //   },
-
-                //   // Future that needs to be resolved
-                //   // inorder to display something on the Canvas
-                //   future: FirebaseMethods.getHostelsData(),
-                // ),
               ],
             ),
           ),

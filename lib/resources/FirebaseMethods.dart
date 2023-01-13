@@ -177,7 +177,7 @@ class FirebaseMethods {
     return userModel;
   }
 
- Future<hostelModel> getHostelDetails(String? uid) async {
+  Future<hostelModel> getHostelDetails(String? uid) async {
     DocumentSnapshot documentSnapshot = await _hostelCollection.doc(uid).get();
     hostelModel hostel =
         hostelModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
@@ -194,9 +194,24 @@ class FirebaseMethods {
 
       hostelModel model = hostelModel.fromJson(docsSnap.data() as dynamic);
       //print(model.Category);
-      hostelModels.add(model);
+      if (model.pictures != null) {
+        hostelModels.add(model);
+      }
     }
     return hostelModels;
+  }
+
+  static Future<void> delete_User(context) async {
+    FirebaseFirestore db = utils.getFireStoreInstance();
+    String uid = utils.getCurrentUserUid();
+    await db.collection("hostels").doc(uid).delete();
+// mRef.child(FirebaseAuth.getInstance().currentUser.uid).remove().addO  nSuccessListener { FirebaseAuth.getInstance().currentUser!!.delete().addOnCompleteListener { //Go to login screen } }                    user.delete();
+    try {
+      await utils.getCurrentUser().delete();
+    } catch (e) {
+      utils.flushBarErrorMessage("can't delete user", context);
+      // print(e);
+    }
   }
 
   static Future<List<hostelModel>> getHostelByCategory(

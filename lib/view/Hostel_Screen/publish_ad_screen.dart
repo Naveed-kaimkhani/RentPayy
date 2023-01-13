@@ -8,7 +8,6 @@ import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/style/Images.dart';
 import 'package:rentpayy/utils/utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../view_model/HostelDetailsProvider.dart';
 

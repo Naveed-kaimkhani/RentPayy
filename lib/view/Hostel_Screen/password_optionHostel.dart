@@ -4,17 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/upper_design.dart';
-import 'package:rentpayy/navigation_page.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/Hostel_Screen/seller_dashboard.dart';
 import '../../components/authButton.dart';
 import '../../components/inputfields.dart';
 import '../../components/profilePic.dart';
-import '../../model/UserModel.dart';
 import '../../model/hostelModel.dart';
 import '../../view_model/HostelDetailsProvider.dart';
-import '../../view_model/UserDetailsProvider.dart';
 
 class password_optionHostel extends StatefulWidget {
   const password_optionHostel({Key? key}) : super(key: key);
@@ -203,36 +200,6 @@ class _password_optionHostelState extends State<password_optionHostel> {
                         color: AppColors.primaryColor,
                         func: () {
                           _validateFields();
-                          // password update code
-                          //  current_user!
-                          //         .reauthenticateWithCredential(
-                          //             EmailAuthProvider.credential(
-                          //                 email: current_user.email.toString(),
-                          //                 password:
-                          //                     _passController.text.toString())).then((value) => null)..onError((error, stackTrace) {
-                          //         utils.flushBarErrorMessage(
-                          //             error.toString(), context);
-                          //       })
-                          //         .then((value) {
-                          //       current_user
-                          //           .updatePassword(_newPasswordController.text)
-                          //           .then((value) {
-                          //         isLoading(false);
-                          //         utils.toastMessage(
-                          //             "Password updated Successfully");
-                          //         Navigator.push(
-                          //             context,
-                          //             MaterialPageRoute(
-                          //                 builder: (context) =>
-                          //                     SellerDashboard()));
-                          //       }).onError((error, stackTrace) {
-                          //         utils.flushBarErrorMessage(
-                          //             error.toString(), context);
-                          //       });
-                          //     }).onError((error, stackTrace) {
-                          //       utils.flushBarErrorMessage(
-                          //           error.toString(), context);
-                          //     });
                         }),
               ),
             ],

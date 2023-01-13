@@ -2,11 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/upper_design.dart';
-import 'package:rentpayy/navigation_page.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
+import 'package:rentpayy/view/user_screen/settings.dart';
 import '../../components/authButton.dart';
 import '../../components/inputfields.dart';
 import '../../components/profilePic.dart';
@@ -27,7 +26,7 @@ class _password_optionState extends State<password_option> {
   bool _obsecureText1 = true;
   FocusNode passwordFocusNode = FocusNode();
   FirebaseAuth auth = FirebaseAuth.instance;
-  bool isLoadingNow = false;
+
   void _validateFields() {
     if (_passController.text.trim().isEmpty &&
         _newPasswordController.text.trim().isEmpty) {
@@ -36,32 +35,12 @@ class _password_optionState extends State<password_option> {
       utils.flushBarErrorMessage('Please Enter Current password', context);
     } else if (_newPasswordController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Please Enter New Password', context);
-    } else if (_newPasswordController.text != _passController.text) {
-      utils.flushBarErrorMessage(
-          'Please Enter Same Password to Confirm', context);
-    } else {
-      updatePassword();
     }
-    isLoading(false);
-  }
-
-  @override
-  void dispose() {
-    _passController.dispose();
-    _newPasswordController.dispose();
-    passwordFocusNode.dispose();
-    super.dispose();
-  }
-
-  void isLoading(bool value) {
-    setState(() {
-      isLoadingNow = value;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final current_user = auth.currentUser;
+    final current_user =utils.getCurrentUser();
     UserModel? user =
         Provider.of<UserDetailsProvider>(context, listen: false).userDetails;
     return Scaffold(
@@ -81,8 +60,8 @@ class _password_optionState extends State<password_option> {
                 children: [
                   profilePic(
                     url: user!.profileImage,
-                    height: 62,
-                    width: 62,
+                    height: 63.h,
+                    width: 63.w,
                   ),
                   SizedBox(
                     width: 10,
@@ -131,7 +110,7 @@ class _password_optionState extends State<password_option> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'New Password',
+                  'Current Password',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18.sp,
@@ -142,7 +121,7 @@ class _password_optionState extends State<password_option> {
                 height: 10.h,
               ),
               inputfields(
-                  hint_text: "New Password",
+                  hint_text: "Current Password",
                   currentNode: null,
                   focusNode: null,
                   nextNode: null,
@@ -162,7 +141,7 @@ class _password_optionState extends State<password_option> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Confirm Password',
+                  'New Password',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18.sp,
@@ -173,7 +152,7 @@ class _password_optionState extends State<password_option> {
                 height: 10.h,
               ),
               inputfields(
-                  hint_text: "Confirm Password",
+                  hint_text: "New Password",
                   currentNode: null,
                   focusNode: null,
                   nextNode: null,
@@ -192,34 +171,45 @@ class _password_optionState extends State<password_option> {
               ),
               Align(
                 alignment: Alignment.center,
-                child: isLoadingNow
-                    ? circle_progress()
-                    : authButton(
-                        text: 'Change Password',
-                        color: AppColors.primaryColor,
-                        func: () {
-                          _validateFields();
-                        },
-                      ),
+                child: authButton(
+                  text: 'Change Password',
+                  color: AppColors.primaryColor,
+                  func: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+
+                    _validateFields();
+                    // password update code
+                    try {
+                      current_user!
+                        .reauthenticateWithCredential(
+                            EmailAuthProvider.credential(
+                                email: current_user.email.toString(),
+                                password: _passController.text.toString()))
+                        .then((value) {
+                      current_user
+                          .updatePassword(_newPasswordController.text)
+                          .then((value) {
+                        utils.toastMessage("Password updated Successfully");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => setting_screen()));
+                      }).onError((error, stackTrace) {
+                        utils.flushBarErrorMessage(error.toString(), context);
+                      });
+                    }).onError((error, stackTrace) {
+                      utils.flushBarErrorMessage(error.toString(), context);
+                    });
+                    } catch (e) {
+                      utils.flushBarErrorMessage(e.toString(), context);
+                    }
+                  },
+                ),
               ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  void updatePassword() {
-    utils
-        .getCurrentUser()
-        .updatePassword(_newPasswordController.text)
-        .then((value) {
-      isLoading(false);
-      utils.toastMessage("Password updated Successfully");
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => navigation_page()));
-    }).onError((error, stackTrace) {
-      utils.flushBarErrorMessage(error.toString(), context);
-    });
   }
 }

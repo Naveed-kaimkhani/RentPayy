@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
@@ -11,12 +9,11 @@ import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/resources/FirebaseMethods.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
-
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../resources/FirebaseRepository.dart';
+import '../starter_screen.dart';
 
 class add_gallery extends StatefulWidget {
   const add_gallery({Key? key}) : super(key: key);
@@ -25,7 +22,7 @@ class add_gallery extends StatefulWidget {
   State<add_gallery> createState() => _add_galleryState();
 }
 
-class _add_galleryState extends State<add_gallery> {
+class _add_galleryState extends State<add_gallery> with WidgetsBindingObserver {
   List<XFile>? imageFileList = [];
   final FirebaseMethods _firebaseMethods = FirebaseMethods();
   final user = FirebaseAuth.instance.currentUser!.uid;
@@ -56,7 +53,6 @@ class _add_galleryState extends State<add_gallery> {
     } else {
       utils.flushBarErrorMessage("Pictures not selected", context);
     }
-
     print(imageFileList!.length);
     print("selected image is empty");
     // setState(() {});
@@ -72,16 +68,9 @@ class _add_galleryState extends State<add_gallery> {
     } else {
       isLoading(true);
       utils.toastMessage("Please wait it may take some time");
-      // List<XFile> compressedImages =
-      // await utils().compressHostelsImage(imageFileList!);
-      // List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
-      //     imageFile: compressedImages, uid: user);
+
       List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
           imageFile: imageFileList!, uid: user);
-
-      // print("list of hostel images");
-      // print(listOfImages);
-
       db.collection("hostels").doc(user).update({
         'pictures': listOfImages,
         'visits': 0,
@@ -97,6 +86,38 @@ class _add_galleryState extends State<add_gallery> {
   }
 
   bool onClick = false;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => StarterScreen()));
+
+      // print("resumed");
+      Navigator.pushNamed(context, RoutesName.starterScreen);
+    } else if (state == AppLifecycleState.inactive) {
+      // await FirebaseMethods.delete_User(context);
+    } else if (state == AppLifecycleState.detached) {
+      print("detached"); //
+    } else if (state == AppLifecycleState.paused) {
+      // print("paused");
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -210,29 +231,6 @@ class _add_galleryState extends State<add_gallery> {
                           SizedBox(
                             width: 10.w,
                           ),
-
-                          //Terms and condition will be added later
-
-                          // RichText(
-                          //     text: TextSpan(
-                          //   children: [
-                          //     TextSpan(
-                          //       text: 'By checking this you agree to our ',
-                          //       style: TextStyle(
-                          //           color: Colors.black,
-                          //           fontSize: 13.sp,
-                          //           fontWeight: FontWeight.w500),
-                          //     ),
-                          //     TextSpan(
-                          //       text: 'Terms and Conditions',
-                          //       style: TextStyle(
-                          //           color: Colors.black,
-                          //           fontWeight: FontWeight.bold,
-                          //           fontSize: 13.sp,
-                          //           decoration: TextDecoration.underline),
-                          //     ),
-                          //   ],
-                          // )),
                         ],
                       ),
                       SizedBox(

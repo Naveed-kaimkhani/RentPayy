@@ -154,8 +154,6 @@ class _User_signup_pageState extends State<User_signup_page> {
         Provider.of<UserDetailsProvider>(context, listen: false)
             .getUserLocally();
         isLoading(false);
-        // Navigator.pushNamed(context, RoutesName.navigation);
-
         SharedPreferences preferences = await SharedPreferences.getInstance();
         // initScreen = preferences.getInt('initScreen');
         await preferences.setInt('initScreen', 1);
@@ -171,188 +169,197 @@ class _User_signup_pageState extends State<User_signup_page> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: custom_appbar(),
-        body: Stack(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              color: AppColors.primaryColor,
-              child: Container(
-                decoration: auth_screens_decor(),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 28.w, right: 28.w),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 38.h,
-                        ),
-                        Text(
-                          "User Signup",
-                          style: TextStyle(
-                              fontSize: 26.sp, fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        UploadProfile(_profileImage),
-                        SizedBox(
-                          height: 15.16.h,
-                        ),
-                        inputfields(
-                          hint_text: "Enter name",
-                          currentNode: nameFocusNode,
-                          focusNode: nameFocusNode,
-                          nextNode: numberFocusNode,
-                          controller: _nameController,
-                          obsecureText: false,
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        inputfields(
-                          hint_text: "Enter phone number",
-                          currentNode: numberFocusNode,
-                          focusNode: numberFocusNode,
-                          nextNode: ageFocusNode,
-                          controller: _numberController,
-                          keyboardType: TextInputType.number,
-                          obsecureText: false,
-                          preicon: Container(
-                            width: 60.w,
-                            height: 60.h,
-                            child: Row(
-                              children: [
-                                Text(
-                                  "  +92",
-                                  style: TextStyle(fontSize: 17.sp),
-                                ),
-                                VerticalDivider(
-                                  thickness: 2.r,
-                                  color: Colors.grey.shade700,
-                                ),
-                              ],
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: custom_appbar(),
+          body: Stack(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: AppColors.primaryColor,
+                child: Container(
+                  decoration: auth_screens_decor(),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 28.w, right: 28.w),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 38.h,
+                          ),
+                          Text(
+                            "User Signup",
+                            style: TextStyle(
+                                fontSize: 26.sp, fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(
+                            height: 32.h,
+                          ),
+                          UploadProfile(_profileImage),
+                          SizedBox(
+                            height: 15.16.h,
+                          ),
+                          inputfields(
+                            hint_text: "Enter name",
+                            currentNode: nameFocusNode,
+                            focusNode: nameFocusNode,
+                            nextNode: numberFocusNode,
+                            controller: _nameController,
+                            obsecureText: false,
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          inputfields(
+                            hint_text: "Enter phone number",
+                            currentNode: numberFocusNode,
+                            focusNode: numberFocusNode,
+                            nextNode: ageFocusNode,
+                            controller: _numberController,
+                            keyboardType: TextInputType.number,
+                            obsecureText: false,
+                            preicon: Container(
+                              width: 60.w,
+                              height: 60.h,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "  +92",
+                                    style: TextStyle(fontSize: 17.sp),
+                                  ),
+                                  VerticalDivider(
+                                    thickness: 2.r,
+                                    color: Colors.grey.shade700,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 7.w,
-                            ),
-                            Expanded(
-                              child: Container(
-                                height: 60.h,
-                                width: 179.w,
-                                decoration: BoxDecoration(
-                                    color: AppColors.textfieldsColor,
-                                    borderRadius: BorderRadius.circular(7.r)),
-                                child: TextField(
-                                  // keyboardType: keyboardType,
-                                  onEditingComplete: () =>
-                                      utils.fieldFocusChange(context,
-                                          ageFocusNode, emailFocusNode),
-                                  controller: _ageController,
-                                  cursorColor: Colors.black,
-                                  focusNode: ageFocusNode,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12.r),
-                                      borderSide: BorderSide(
-                                          color: AppColors.primaryColor,
-                                          width: 1.0),
-                                    ),
-                                    border: InputBorder.none,
-                                    hintText: " Age",
-                                    hintStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 17.sp,
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 7.w,
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: 60.h,
+                                  width: 179.w,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.textfieldsColor,
+                                      borderRadius: BorderRadius.circular(7.r)),
+                                  child: TextField(
+                                    // keyboardType: keyboardType,
+                                    onEditingComplete: () =>
+                                        utils.fieldFocusChange(context,
+                                            ageFocusNode, emailFocusNode),
+                                    controller: _ageController,
+                                    cursorColor: Colors.black,
+                                    focusNode: ageFocusNode,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12.r),
+                                        borderSide: BorderSide(
+                                            color: AppColors.primaryColor,
+                                            width: 1.0),
+                                      ),
+                                      border: InputBorder.none,
+                                      hintText: " Age",
+                                      hintStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 17.sp,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        inputfields(
-                          hint_text: "Enter email address",
-                          currentNode: emailFocusNode,
-                          focusNode: emailFocusNode,
-                          nextNode: passwordFocusNode,
-                          controller: _emailController,
-                          obsecureText: false,
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          inputfields(
+                            hint_text: "Enter email address",
+                            currentNode: emailFocusNode,
+                            focusNode: emailFocusNode,
+                            nextNode: passwordFocusNode,
+                            controller: _emailController,
+                            obsecureText: false,
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
 
-                        inputfields(
-                            hint_text: "Set password",
-                            currentNode: passwordFocusNode,
-                            focusNode: passwordFocusNode,
+                          inputfields(
+                              hint_text: "Set password",
+                              currentNode: passwordFocusNode,
+                              focusNode: passwordFocusNode,
+                              nextNode: confirmpasswordFocusNode,
+                              keyboardType: TextInputType.text,
+                              controller: _passwordController,
+                              icon: obsecureText!
+                                  ? Icons.visibility_off
+                                  : Icons.remove_red_eye,
+                              obsecureText: obsecureText,
+                              onIconPress: () {
+                                setState(() {
+                                  obsecureText = !obsecureText!;
+                                });
+                              }),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          inputfields(
+                            hint_text: "Confirm password",
+                            currentNode: confirmpasswordFocusNode,
+                            focusNode: confirmpasswordFocusNode,
                             nextNode: confirmpasswordFocusNode,
-                            keyboardType: TextInputType.text,
-                            controller: _passwordController,
-                            icon: obsecureText!
-                                ? Icons.visibility_off
-                                : Icons.remove_red_eye,
-                            obsecureText: obsecureText,
-                            onIconPress: () {
-                              setState(() {
-                                obsecureText = !obsecureText!;
-                              });
-                            }),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        inputfields(
-                          hint_text: "Confirm password",
-                          currentNode: confirmpasswordFocusNode,
-                          focusNode: confirmpasswordFocusNode,
-                          nextNode: confirmpasswordFocusNode,
-                          controller: _confirmpasswordController,
-                          obsecureText: _obsecureText,
-                          // onIconPress: onIconPress,
-                          // icon: Icons.remove_red_eye,
-                        ),
+                            controller: _confirmpasswordController,
+                            obsecureText: _obsecureText,
+                            // onIconPress: onIconPress,
+                            // icon: Icons.remove_red_eye,
+                          ),
 
-                        SizedBox(
-                          height: 31.h,
-                        ),
-                        isLoadingNow
-                            ? circle_progress()
-                            : authButton(
-                                text: "Signup",
-                                func: () {
-                                  _validateFields();
-                                },
-                                color: AppColors.primaryColor),
+                          SizedBox(
+                            height: 31.h,
+                          ),
+                          isLoadingNow
+                              ? circle_progress()
+                              : authButton(
+                                  text: "Signup",
+                                  func: () {
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
 
-                        // authButton(
-                        //   text: isLoadingNow ? "Please wait..." : "Sign Up",
-                        //   color: Color(0xffF5AD0D),
-                        //   func: () {
-                        //     _validateFields();
-                        //   },
-                        // )
-                      ],
+                                    _validateFields();
+                                  },
+                                  color: AppColors.primaryColor),
+
+                          // authButton(
+                          //   text: isLoadingNow ? "Please wait..." : "Sign Up",
+                          //   color: Color(0xffF5AD0D),
+                          //   func: () {
+                          //     _validateFields();
+                          //   },
+                          // )
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

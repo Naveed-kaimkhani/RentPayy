@@ -9,8 +9,9 @@ import 'package:rentpayy/components/mini_Button.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/Hostel_Screen/add_gallery.dart';
-
+import '../../resources/FirebaseMethods.dart';
 import '../../utils/routes/RoutesName.dart';
+import '../starter_screen.dart';
 
 class Facilities extends StatefulWidget {
   Facilities({Key? key}) : super(key: key);
@@ -18,11 +19,8 @@ class Facilities extends StatefulWidget {
   State<Facilities> createState() => _FacilitiesState();
 }
 
-class _FacilitiesState extends State<Facilities> {
-  // TextEditingController controller = TextEditingController();
+class _FacilitiesState extends State<Facilities> with WidgetsBindingObserver {
   List<String> checkboxList = [];
-  // bool isLoadingNow = false;
-  // String? filled;
 
   bool waterIsSelected = false,
       studyHallIsSelected = false,
@@ -42,12 +40,6 @@ class _FacilitiesState extends State<Facilities> {
 
   final user = FirebaseAuth.instance.currentUser!.uid;
 
-  // @override
-  // void initState() {
-  //   print("object");
-
-  //   super.initState();
-  // }
   void savedata() {
     if (checkboxList.isEmpty) {
       print(checkboxList);
@@ -63,6 +55,33 @@ class _FacilitiesState extends State<Facilities> {
         );
       });
     }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => StarterScreen()));
+      // print("resumed");
+      Navigator.pushNamed(context, RoutesName.starterScreen);
+    } else if (state == AppLifecycleState.inactive) {
+      await FirebaseMethods.delete_User(context);
+    } else if (state == AppLifecycleState.detached) {
+      // print("detached"); //
+    } else if (state == AppLifecycleState.paused) {
+      // print("paused");
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+  @override
+  void dispose() {
+        WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -285,11 +304,8 @@ class _FacilitiesState extends State<Facilities> {
                                 ElectricityIsSelected = !ElectricityIsSelected;
                                 if (ElectricityIsSelected) {
                                   checkboxList.add("Electricity");
-                                 
                                 } else {
-                                 
                                   checkboxList.remove("Electricity");
-                                 
                                 }
                               });
                             },
@@ -323,13 +339,12 @@ class _FacilitiesState extends State<Facilities> {
                       //   height: 5,
                       // ),
                       Padding(
-                        padding: const EdgeInsets.only(left:8.0),
+                        padding: const EdgeInsets.only(left: 8.0),
                         child: MiniButton(
                           text: "Next",
                           func: () {
-                            // setState(() {
-                            //   Navigator.push(context,MaterialPageRoute(builder: (context)=> Hostel_Registration() ));
-                            // });
+                            FocusManager.instance.primaryFocus?.unfocus();
+
                             savedata();
                           },
                           color: AppColors.primaryColor,

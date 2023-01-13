@@ -63,7 +63,6 @@ dependencies:
   google_mobile_ads: ^2.3.0
   url_launcher: ^6.0.20
   getwidget: ^2.0.4
-  flutter_native_image: ^0.0.6+1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,7 +70,7 @@ dev_dependencies:
 flutter_icons:
   image_path: "asset/appIcon.png"
   android: true
-  ios: true  
+  ios: true
   flutter_native_splash: ^2.2.11
 flutter_native_splash:
   color: "#ffffff"

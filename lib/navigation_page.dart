@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+import 'package:rentpayy/view/user_screen/chat_screen.dart';
 import 'package:rentpayy/view/user_screen/favourites.dart';
 import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 import 'package:rentpayy/view/user_screen/settings.dart';
@@ -8,7 +9,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 class navigation_page extends StatefulWidget {
   const navigation_page({Key? key}) : super(key: key);
-
   @override
   State<navigation_page> createState() => _navigation_pageState();
 }
@@ -16,7 +16,7 @@ class navigation_page extends StatefulWidget {
 class _navigation_pageState extends State<navigation_page> {
   List pages = [
     user_front_Screen(),
-    favourites(),
+    chat_screen(),
     favourites(),
     setting_screen(),
   ];

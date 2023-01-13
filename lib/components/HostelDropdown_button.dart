@@ -5,9 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-
 import '../utils/style/AppColors.dart';
-
 class HostelDropdown_button extends StatefulWidget {
   HostelDropdown_button({required this.list, required this.hinttext, Key? key})
       : super(key: key);

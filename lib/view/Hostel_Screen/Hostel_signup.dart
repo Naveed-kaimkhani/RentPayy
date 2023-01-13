@@ -10,7 +10,6 @@ import '../../components/mini_Button.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/StorageServiceHostel.dart';
 import 'package:rentpayy/view/Hostel_Screen/Hostel_Registration.dart';
-
 import '../../components/upper_design.dart';
 import '../../resources/FirebaseRepository.dart';
 import 'package:rentpayy/utils/utils.dart';
@@ -76,7 +75,6 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
 
   Future<void> _validateFields() async {
     if (
-
         // _workTypeController.text.trim().isEmpty &&
         _nameController.text.trim().isEmpty &&
             _hosteladdressController.text.trim().isEmpty &&
@@ -127,8 +125,10 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
           person_per_room: 0,
           description: "");
       _signup(HostelModel, context);
-//  Navigator.push(context,
-//             MaterialPageRoute(builder: (context) => Hostel_Registration()));
+      //      Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) =>  Hostel_Registration(hostel: HostelModel,)),
+      // );
     }
   }
 
@@ -165,7 +165,6 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
     hostelcontactFocusNode.dispose();
     passwordFocusNode.dispose();
     confirmpasswordFocusNode.dispose();
-
     super.dispose();
   }
 
@@ -362,6 +361,9 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                                 : MiniButton(
                                     text: 'Next',
                                     func: () {
+                                      FocusManager.instance.primaryFocus
+                                          ?.unfocus();
+
                                       setState(() {
                                         _validateFields();
                                       });

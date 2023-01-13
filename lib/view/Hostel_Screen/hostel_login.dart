@@ -1,7 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/components/authButton.dart';
@@ -13,7 +12,6 @@ import 'package:rentpayy/components/or_line_widget.dart';
 import 'package:rentpayy/components/terms_and_condition.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
-
 import '../../resources/FirebaseRepository.dart';
 import '../../utils/routes/RoutesName.dart';
 import '../../view_model/HostelDetailsProvider.dart';
@@ -149,7 +147,6 @@ class _hostel_loginState extends State<hostel_login> {
                     SizedBox(
                       height: 14.h,
                     ),
-
                     inputfields(
                         hint_text: "Password",
                         currentNode: passwordFocusNode,
@@ -173,6 +170,8 @@ class _hostel_loginState extends State<hostel_login> {
                         : authButton(
                             text: "Login",
                             func: () {
+                              FocusManager.instance.primaryFocus?.unfocus();
+
                               _validateFields();
                             },
                             color: AppColors.primaryColor),
@@ -180,20 +179,6 @@ class _hostel_loginState extends State<hostel_login> {
                       height: 73.h,
                     ),
                     or_line_widget(),
-                    // Container(
-                    //   width: 349.w,
-                    //   height: 53.h,
-                    //   child: Image.asset(
-                    //     Images.google,
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 17.h,
-                    // ),
-                    // Container(
-                    //     width: 349.w,
-                    //     height: 53.h,
-                    //     child: Image.asset(Images.facebook)),
                     SizedBox(
                       height: 120.h,
                     ),

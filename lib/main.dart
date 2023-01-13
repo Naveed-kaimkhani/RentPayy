@@ -1,21 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
-import 'package:rentpayy/navigation_page.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
-import 'package:rentpayy/view/Hostel_Screen/ads_details_screen.dart';
 import 'package:rentpayy/view/Hostel_Screen/seller_dashboard.dart';
 import 'package:rentpayy/view/starter_screen.dart';
-import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 import 'package:rentpayy/view/user_screen/user_front_screen.dart';
-
 import 'package:rentpayy/view_model/HostelDetailsProvider.dart';
 import 'package:rentpayy/view_model/UserDetailsProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'navigation_page.dart';
 
 int? initScreen;
 int? isUser;
@@ -69,17 +64,14 @@ class _MyAppState extends State<MyApp> {
                 // theme: ThemeData(
                 //   primarySwatch: Colors.blue,
                 // ),
-                // // home: initScreen==0||initScreen==null?StarterScreen():isUser==1?UserSellerScreen():publish_ad_screen(),
                 // home: initScreen == 0 || initScreen == null
                 //     ? StarterScreen()
                 //     : isUser == 1
                 //         ? navigation_page()
                 //         : SellerDashboard(),
 
-                home:StarterScreen(),
-                // initialRoute: RoutesName.login,
-                // onGenerateRoutes: Routes.onGenerate
-                // Route(settings),
+                home: StarterScreen(),
+
                 onGenerateRoute: Routes.onGenerateRoute,
               ),
             );

@@ -40,7 +40,6 @@ class Routes {
 
       case RoutesName.publish_ad_screen:
         return _buildRoute(publish_ad_screen(), settings);
-
       case RoutesName.user_front_screen:
         return _buildRoute(user_front_Screen(), settings);
       case RoutesName.search_screen:
@@ -54,7 +53,9 @@ class Routes {
       case RoutesName.Hostel_Signup:
         return _buildRoute(Hostel_Signup(), settings);
       default:
-        return _buildRoute(const Scaffold(), settings);
+        return _buildRoute(const Scaffold(body: Center(
+          child: Text("NO Route Found"),
+        ),), settings);
     }
   }
 

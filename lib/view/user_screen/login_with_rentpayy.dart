@@ -133,7 +133,6 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
     });
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -158,125 +157,132 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: const custom_appbar(),
-        body: Container(
-          color: AppColors.primaryColor,
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: auth_screens_decor(),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 36.h,
-                  ),
-                  Text(
-                    "Login",
-                    style:
-                        TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    height: 73.h,
-                  ),
-                  inputfields(
-                    hint_text: "  Email",
-                    controller: _emailController,
-                    focusNode: emailFocusNode,
-                    icon: Icons.remove,
-                    currentNode: emailFocusNode,
-                    nextNode: passwordFocusNode,
-                    keyboardType: TextInputType.emailAddress,
-                    obsecureText: false,
-                    onIconPress: () {},
-                  ),
-                  SizedBox(
-                    height: 14.h,
-                  ),
-                  // inputfields(
-                  //   hint_text: "  Password",
-                  //   controller: _passController,
-                  //   focusNode: passwordFocusNode,
-                  //   icon: Icons.remove_red_eye,
-                  //   currentNode: passwordFocusNode,
-                  //   nextNode: passwordFocusNode,
-                  //   obsecureText: _obsecureText,
-                  //   onIconPress: onIconPress,
-                  // ),
-                  inputfields(
-                      hint_text: "Password",
-                      currentNode: passwordFocusNode,
-                      focusNode: passwordFocusNode,
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: const custom_appbar(),
+          body: Container(
+            color: AppColors.primaryColor,
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: auth_screens_decor(),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 36.h,
+                    ),
+                    Text(
+                      "Login",
+                      style: TextStyle(
+                          fontSize: 26.sp, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(
+                      height: 73.h,
+                    ),
+                    inputfields(
+                      hint_text: "  Email",
+                      controller: _emailController,
+                      focusNode: emailFocusNode,
+                      icon: Icons.remove,
+                      currentNode: emailFocusNode,
                       nextNode: passwordFocusNode,
-                      controller: _passController,
-                      keyboardType: TextInputType.text,
-                      icon: _obsecureText
-                          ? Icons.visibility_off
-                          : Icons.remove_red_eye,
-                      obsecureText: _obsecureText,
-                      onIconPress: () {
-                        setState(() {
-                          _obsecureText = !_obsecureText;
-                        });
-                      }),
-                  SizedBox(
-                    height: 38.h,
-                  ),
-                  isLoadingNow
-                      ? circle_progress()
-                      : authButton(
-                          text: "Login",
-                          func: () {
-                            _validateFields();
-                          },
-                          color: AppColors.primaryColor),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => forgot_password()));
+                      keyboardType: TextInputType.emailAddress,
+                      obsecureText: false,
+                      onIconPress: () {},
+                    ),
+                    SizedBox(
+                      height: 14.h,
+                    ),
+                    // inputfields(
+                    //   hint_text: "  Password",
+                    //   controller: _passController,
+                    //   focusNode: passwordFocusNode,
+                    //   icon: Icons.remove_red_eye,
+                    //   currentNode: passwordFocusNode,
+                    //   nextNode: passwordFocusNode,
+                    //   obsecureText: _obsecureText,
+                    //   onIconPress: onIconPress,
+                    // ),
+                    inputfields(
+                        hint_text: "Password",
+                        currentNode: passwordFocusNode,
+                        focusNode: passwordFocusNode,
+                        nextNode: passwordFocusNode,
+                        controller: _passController,
+                        keyboardType: TextInputType.text,
+                        icon: _obsecureText
+                            ? Icons.visibility_off
+                            : Icons.remove_red_eye,
+                        obsecureText: _obsecureText,
+                        onIconPress: () {
+                          setState(() {
+                            _obsecureText = !_obsecureText;
+                          });
+                        }),
+                    SizedBox(
+                      height: 38.h,
+                    ),
+                    isLoadingNow
+                        ? circle_progress()
+                        : authButton(
+                            text: "Login",
+                            func: () {
+                              FocusManager.instance.primaryFocus?.unfocus();
+
+                              _validateFields();
+                            },
+                            color: AppColors.primaryColor),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => forgot_password()));
+                        },
+                        child: Text(
+                          'Forget Password?',
+                          style: TextStyle(
+                            color: AppColors.primaryColor,
+                            fontSize: 18.sp,
+                          ),
+                        )),
+                    SizedBox(
+                      height: 73.h,
+                    ),
+                    or_line_widget(),
+                    InkWell(
+                      onTap: () async {
+                        await _googleSignIn.signIn();
                       },
-                      child: Text(
-                        'Forget Password?',
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontSize: 18.sp,
+                      child: Container(
+                        width: 349.w,
+                        height: 53.h,
+                        child: Image.asset(
+                          Images.google,
                         ),
-                      )),
-                  SizedBox(
-                    height: 73.h,
-                  ),
-                  or_line_widget(),
-                  InkWell(
-                    onTap: () async {
-                      await _googleSignIn.signIn();
-                    },
-                    child: Container(
-                      width: 349.w,
-                      height: 53.h,
-                      child: Image.asset(
-                        Images.google,
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 17.h,
-                  ),
-                  Container(
-                      width: 349.w,
-                      height: 53.h,
-                      child: Image.asset(Images.facebook)),
-                  SizedBox(
-                    height: 120.h,
-                  ),
-                  terms_and_conditions()
-                ],
+                    SizedBox(
+                      height: 17.h,
+                    ),
+                    Container(
+                        width: 349.w,
+                        height: 53.h,
+                        child: Image.asset(Images.facebook)),
+                    SizedBox(
+                      height: 120.h,
+                    ),
+                    terms_and_conditions()
+                  ],
+                ),
               ),
             ),
           ),

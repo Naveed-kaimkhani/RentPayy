@@ -1,14 +1,15 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/no_internetConnection.dart';
 
@@ -65,7 +66,6 @@ class utils {
     });
     // return true;
   }
-
   // static Future<File?> pickImage(ImageSource imageSource,
   //     [int quality = 85, double width = 500, double height = 500]) async {
   //   ImagePicker imagePicker = ImagePicker();
@@ -132,54 +132,16 @@ class utils {
 static String getCurrentUserUid(){
   return FirebaseAuth.instance.currentUser!.uid;
 }
+
+static FirebaseFirestore getFireStoreInstance(){
+    FirebaseFirestore db = FirebaseFirestore.instance;
+  return db;
+}
 static User getCurrentUser(){
   return FirebaseAuth.instance.currentUser!;
 }
-
-// Widget UploadImage1(Uint8List? image) {
-//     return image == null
-//         ? Padding(
-//             padding: const EdgeInsets.only(top: 18.0),
-//             child: Stack(
-//               children: [
-//                 // Image.network(
-//                 //   "https://m.media-amazon.com/images/I/11uufjN3lYL._SX90_SY90_.png",
-//                 //   height: 60,
-//                 // ),
-//                 Image.asset("asset/avatar.png"),
-//                 IconButton(
-//                     onPressed: () async {
-//                       Uint8List? _image = await Utils().PickImage();
-//                       if (_image != null) {
-//                         setState(() {
-//                           image1 = _image;
-//                         });
-//                       } else {
-//                         print("Image not loaded");
-//                       }
-//                     },
-//                     icon: Icon(Icons.upload)),
-//               ],
-//             ),
-//           )
-//         : Stack(
-//             children: [
-//               Image.memory(
-//                 image1!,
-//                 height: MediaQuery.of(context).size.height / 15,
-//               ),
-//               IconButton(
-//                   onPressed: () async {
-//                     Uint8List? _image = await Utils().PickImage();
-//                     if (_image != null) {
-//                       setState(() {
-//                         image1 = _image;
-//                       });
-//                     }
-//                     print("Image not loaded");
-//                   },
-//                   icon: Icon(Icons.upload)),
-//             ],
-//           );
-//   } // for 1st image
+static Future<SharedPreferences> getPreferencesObject() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+return preferences;
+}
 }

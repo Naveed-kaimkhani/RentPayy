@@ -15,8 +15,6 @@ class InternetConnectivityProvider extends ChangeNotifier{
           _isOnline=false;
           notifyListeners();
         }
-        // showSimpleNotification(connected?Text("Connected To Internet"):Text("No Internet Connected"));
-    // utils.flushBarErrorMessage(connected?"Connected To Internet":"No Internet Connection", context);
     });
  }
 }

@@ -9,7 +9,6 @@ void main() {
 class GridCheck1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -85,7 +84,7 @@ class _MyGridCheckState extends State<MyGridCheckDemo> {
                                 } else {
                                   selectedItem = '';
                                   selecteValue =
-                                      checkBoxListTileModel[index].isCheck!;
+                                      checkBoxListTileModel[index].isCheck;
                                 }
                               });
                             }),

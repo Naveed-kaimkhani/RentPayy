@@ -11,9 +11,10 @@ import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
-
+import 'package:rentpayy/view/starter_screen.dart';
 import '../../components/GenderDropdown_button.dart';
 import '../../components/HostelDropdown_button.dart';
+import '../../resources/FirebaseMethods.dart';
 
 class Hostel_Registration extends StatefulWidget {
   final hostelModel? hostel;
@@ -23,15 +24,13 @@ class Hostel_Registration extends StatefulWidget {
   State<Hostel_Registration> createState() => _Hostel_RegistrationState();
 }
 
-class _Hostel_RegistrationState extends State<Hostel_Registration> {
+class _Hostel_RegistrationState extends State<Hostel_Registration>
+    with WidgetsBindingObserver {
   TextEditingController descriptionController = TextEditingController();
   final FirebaseAuth auth = FirebaseAuth.instance;
-  hostelModel HostelModel = hostelModel();
-  FirebaseFirestore db = FirebaseFirestore.instance;
-
-  final user = FirebaseAuth.instance.currentUser!.uid;
-  // final users = FirebaseAuth.instance.currentUser;
-
+  FirebaseFirestore db = utils.getFireStoreInstance();
+  final user = utils.getCurrentUser();
+  final uid = utils.getCurrentUserUid();
   List<String> genderList = ["Male", "Female"];
   List<String> HostelList = ["Bachelor Hostel", "Working Hostel"];
   String? hostelselectedvalue = "Hostel Type";
@@ -42,11 +41,13 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
   int person_per_room = 0;
   @override
   void dispose() {
-    descriptionController.dispose();
     super.dispose();
+
+    descriptionController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
-  Facilities fac = Facilities();
+  // Facilities fac = Facilities();
 
   void savedata() {
     isLoading(true);
@@ -55,7 +56,7 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
         available_capacity_increment == 0) {
       utils.flushBarErrorMessage("Please enter hostel details", context);
     } else {
-      db.collection("hostels").doc(user).update({
+      db.collection("hostels").doc(uid).update({
         "hostel_gender_type": typeselectedvalue,
         "hostel_type": hostelselectedvalue,
         "total_capacity": total_capacity_increment,
@@ -81,7 +82,26 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
   @override
   void initState() {
     utils.checkConnectivity(context);
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => StarterScreen()));
+
+      // print("resumed");
+    } else if (state == AppLifecycleState.inactive) {
+      await FirebaseMethods.delete_User(context);
+    } else if (state == AppLifecycleState.detached) {
+      // print("detached"); //
+    } else if (state == AppLifecycleState.paused) {
+      // print("paused");
+    }
   }
 
   @override
@@ -285,6 +305,9 @@ class _Hostel_RegistrationState extends State<Hostel_Registration> {
                                 : MiniButton(
                                     text: "Next",
                                     func: () {
+                                      FocusManager.instance.primaryFocus
+                                          ?.unfocus();
+
                                       savedata();
                                     },
                                     color: AppColors.primaryColor,

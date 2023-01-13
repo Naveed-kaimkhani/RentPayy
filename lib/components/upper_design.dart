@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rentpayy/components/hostel_appBarButton.dart';
-
+import 'package:rentpayy/utils/utils.dart';
 import '../utils/style/AppColors.dart';
 import '../utils/style/Images.dart';
 
@@ -17,8 +17,7 @@ upper_design({
   bool needcolor = false;
   bool needicon = false;
   bool isUserDelete = false;
-  FirebaseFirestore db = FirebaseFirestore.instance;
-  final user = FirebaseAuth.instance.currentUser;
+  FirebaseFirestore db = utils.getFireStoreInstance();
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -29,8 +28,8 @@ upper_design({
             ? IconButton(
                 onPressed: (() async {
                   if (isUserDelete) {
-                    await db.collection("hostels").doc(user!.uid).delete();
-                    user?.delete();
+                    await db.collection("hostels").doc(utils.getCurrentUserUid()).delete();
+                    utils.getCurrentUser().delete();
                     Navigator.pop(context);
                   }
                   else

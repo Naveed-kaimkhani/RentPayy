@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/view/Hostel_Screen/password_optionHostel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../components/profilePic.dart';
 import '../../model/hostelModel.dart';
 import '../../utils/routes/RoutesName.dart';

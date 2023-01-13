@@ -16,9 +16,6 @@ import '../../components/appbar_buttons.dart';
 import '../../model/hostelModel.dart';
 import '../../utils/style/Images.dart';
 import 'facility_container.dart';
-// import '../components/ad_page_container.dart';
-// import '../components/profile_reviews_component.dart';
-// import '../utils/style/Images.dart';
 
 class AdPage extends StatefulWidget {
   final hostelModel hostel;
@@ -79,6 +76,7 @@ class _AdPageState extends State<AdPage> {
       );
     }
   }
+  
 
   @override
   Widget build(BuildContext context) {

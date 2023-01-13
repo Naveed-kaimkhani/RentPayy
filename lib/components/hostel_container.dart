@@ -30,7 +30,8 @@ class HostelContainer extends StatelessWidget {
             Stack(
               children: [
                 CachedNetworkImage(
-                  imageUrl: hostel!.pictures![0]??"https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
+                  imageUrl: hostel!.pictures![0] ??
+                      "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
                   imageBuilder: (context, imageProvider) => Container(
                     width: 187.w,
                     height: 125.h,
@@ -132,7 +133,7 @@ class HostelContainer extends StatelessWidget {
                     width: 2.w,
                   ),
                   Text(
-                    hostel!.hostel_address??"Address not found",
+                    hostel!.hostel_address ?? "Address not found",
                     style:
                         TextStyle(fontSize: 8.sp, fontWeight: FontWeight.w400),
                   )

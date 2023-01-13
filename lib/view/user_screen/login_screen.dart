@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/model/UserModel.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/utils.dart';
-
 import '../../components/authButton.dart';
 import '../../components/auth_screens_decor.dart';
 import '../../components/or_line_widget.dart';

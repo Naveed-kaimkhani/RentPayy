@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/model/UserModel.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/utils.dart';
-
 import '../../components/authButton.dart';
 import '../../components/auth_screens_decor.dart';
 import '../../components/or_line_widget.dart';
@@ -12,7 +11,6 @@ import '../../components/upper_design.dart';
 import '../../resources/FirebaseMethods.dart';
 import '../../resources/FirebaseRepository.dart';
 import '../../utils/style/AppColors.dart';
-import '../../utils/style/Images.dart';
 
 class login_Signup_forHostel extends StatefulWidget {
   login_Signup_forHostel({Key? key}) : super(key: key);
