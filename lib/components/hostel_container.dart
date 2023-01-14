@@ -100,7 +100,7 @@ class HostelContainer extends StatelessWidget {
                   Text(
                     hostel!.name.toString(),
                     style: TextStyle(
-                        fontSize: hostel!.name!.length > 15 ? 12.sp : 15.sp,
+                        fontSize: hostel!.name!.length > 15 ? 13.sp : 15.sp,
                         fontWeight: FontWeight.w500),
                   ),
                   // SizedBox(width: 12.sp,),
@@ -110,7 +110,7 @@ class HostelContainer extends StatelessWidget {
                         text: hostel!.charges.toString(),
                         style: TextStyle(
                             color: Color.fromRGBO(245, 173, 13, 1),
-                            fontSize: 23.sp,
+                            fontSize: hostel!.name!.length > 15 ? 18.sp : 23.sp,
                             fontWeight: FontWeight.w700)),
                     TextSpan(
                       text: '/month',

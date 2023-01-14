@@ -1,13 +1,8 @@
-import 'dart:ui';
-
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
@@ -193,21 +188,13 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                       nextNode: passwordFocusNode,
                       keyboardType: TextInputType.emailAddress,
                       obsecureText: false,
-                      onIconPress: () {},
+                      onIconPress: () {
+                        _emailController.clear();
+                      },
                     ),
                     SizedBox(
                       height: 14.h,
                     ),
-                    // inputfields(
-                    //   hint_text: "  Password",
-                    //   controller: _passController,
-                    //   focusNode: passwordFocusNode,
-                    //   icon: Icons.remove_red_eye,
-                    //   currentNode: passwordFocusNode,
-                    //   nextNode: passwordFocusNode,
-                    //   obsecureText: _obsecureText,
-                    //   onIconPress: onIconPress,
-                    // ),
                     inputfields(
                         hint_text: "Password",
                         currentNode: passwordFocusNode,

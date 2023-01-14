@@ -76,7 +76,6 @@ class _AdPageState extends State<AdPage> {
       );
     }
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -281,14 +280,6 @@ class _AdPageState extends State<AdPage> {
               Container(
                   height: 469.h,
                   width: 428.w,
-                  // decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(50.r),
-                  //     image: DecorationImage(
-                  //       image: AssetImage(
-                  //         Images.hostelImage,
-                  //       ),
-                  //       fit: BoxFit.cover,
-                  //     )),
                   child: Column(
                     children: [
                       CarouselSlider.builder(
@@ -331,21 +322,6 @@ class _AdPageState extends State<AdPage> {
                           errorWidget: (context, url, error) =>
                               Icon(Icons.error),
                         ),
-                        //     Container(
-                        //   height: 469.h,
-                        //   width: 428.w,
-                        //   margin: EdgeInsets.symmetric(horizontal: 8.0),
-                        //   decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(30.r),
-                        //       image:
-                        //       DecorationImage(
-                        //         image:
-                        //         NetworkImage(
-                        //             widget.hostel.pictures![itemIndex]),
-                        //         fit: BoxFit.cover,
-                        //       )
-                        //       ),
-                        // ),
                       ),
                       SizedBox(
                         height: 18.h,
@@ -374,6 +350,8 @@ class _AdPageState extends State<AdPage> {
                       height: 2.h,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Image(image: AssetImage(Images.location)),
                         Icon(
@@ -385,7 +363,7 @@ class _AdPageState extends State<AdPage> {
                           width: 2.w,
                         ),
                         Text(
-                          widget.hostel.hostel_address??"No Address found",
+                          widget.hostel.hostel_address ?? "No Address found",
                           style: TextStyle(
                               fontSize: 12.sp, fontWeight: FontWeight.w400),
                         ),
@@ -484,13 +462,46 @@ class _AdPageState extends State<AdPage> {
                       height: 16.h,
                     ),
                     Text(
-                      'Facilities',
+                      'Hostel Type',
                       style: TextStyle(
                           fontWeight: FontWeight.w600, fontSize: 15.sp),
                     ),
                     SizedBox(
-                      height: 11.h,
+                      height: 2.h,
                     ),
+                    Text(
+                      widget.hostel.hostel_type!,
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.w300),
+                    ),
+
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    Text(
+                      'Gender Type',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 15.sp),
+                    ),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    Text(
+                      widget.hostel.hostel_gender_type!,
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.w300),
+                    ),
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    Text(
+                      'Facilities',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 15.sp),
+                    ),
+                    // SizedBox(
+                    //   height: 11.h,
+                    // ),
                     GridView.count(
                       padding: EdgeInsets.zero,
 
@@ -518,16 +529,16 @@ class _AdPageState extends State<AdPage> {
                     SizedBox(
                       height: 7.h,
                     ),
-                    Container(
-                      height: 115.h,
-                      width: 388.w,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    // Container(
+                    //   height: 115.h,
+                    //   width: 388.w,
+                    //   decoration: BoxDecoration(
+                    //     border: Border.all(color: Colors.black),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 20.h,
+                    // ),
                     Text(
                       'Reviews',
                       style: TextStyle(
@@ -536,7 +547,7 @@ class _AdPageState extends State<AdPage> {
                     SizedBox(
                       height: 9.h,
                     ),
-],
+                  ],
                 ),
               ),
             ],

@@ -6,7 +6,9 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:rentpayy/components/no_internetConnection.dart';
 import 'package:rentpayy/components/shimmer_hostel_container.dart';
 import 'package:rentpayy/model/UserModel.dart';
+import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/view/user_screen/add_page.dart';
+import 'package:rentpayy/view/user_screen/personal_data.dart';
 
 import '../../components/banner.dart';
 import '../../components/exit_pop.dart';
@@ -120,6 +122,12 @@ class _user_front_ScreenState extends State<user_front_Screen> {
   }
 
   @override
+  void dispose() {
+    _scrollViewController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     UserModel? user =
         Provider.of<UserDetailsProvider>(context, listen: false).userDetails;
@@ -176,7 +184,9 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        user!.name!.split(" ")[0] ?? "No name ",
+                                        user!.name!.split(" ")[0].isEmpty
+                                            ? "Hi ${user.name!}"
+                                            : "Hi ${user.name!.split(" ")[0]}",
                                         style: TextStyle(
                                             color: Color(0xff000000),
                                             fontSize: 35.sp,
@@ -191,10 +201,19 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                                       )
                                     ],
                                   ),
-                                  profilePic(
-                                    url: user.profileImage,
-                                    height: 61.h,
-                                    width: 61.h,
+                                  InkWell(
+                                    child: profilePic(
+                                      url: user.profileImage,
+                                      height: 61.h,
+                                      width: 61.h,
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  personal_data()));
+                                    },
                                   )
                                 ],
                               ),

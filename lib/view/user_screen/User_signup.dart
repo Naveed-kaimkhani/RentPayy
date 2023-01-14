@@ -11,7 +11,6 @@ import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/navigation_page.dart';
 import 'package:rentpayy/utils/StorageService.dart';
-import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../components/auth_screens_decor.dart';
 import 'package:rentpayy/utils/utils.dart';

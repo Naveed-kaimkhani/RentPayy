@@ -2,10 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/upper_design.dart';
+import 'package:rentpayy/navigation_page.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
-import 'package:rentpayy/view/user_screen/settings.dart';
 import '../../components/authButton.dart';
 import '../../components/inputfields.dart';
 import '../../components/profilePic.dart';
@@ -20,10 +21,11 @@ class password_option extends StatefulWidget {
 }
 
 class _password_optionState extends State<password_option> {
-  final _passController = TextEditingController();
-  final _newPasswordController = TextEditingController();
+  TextEditingController _passController = TextEditingController();
+  TextEditingController _newPasswordController = TextEditingController();
   bool _obsecureText = true;
   bool _obsecureText1 = true;
+  bool isLoading = false;
   FocusNode passwordFocusNode = FocusNode();
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -38,9 +40,55 @@ class _password_optionState extends State<password_option> {
     }
   }
 
+  void isLoadingg(bool value) {
+    setState(() {
+      isLoading = value;
+    });
+  }
+
+  void _changePassword() async {
+    User user = utils.getCurrentUser();
+    try {
+      isLoadingg(true);
+      final userr = (await FirebaseAuth.instance.signInWithEmailAndPassword(
+              email: user.email!, password: _passController.text))
+          .user;
+      print(userr);
+      user
+          .reauthenticateWithCredential(EmailAuthProvider.credential(
+              email: user.email.toString(),
+              password: _passController.text.toString()))
+          .then((value) {
+        user.updatePassword(_newPasswordController.text).then((value) {
+          isLoadingg(false);
+          utils.toastMessage("Password updated Successfully");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => navigation_page()));
+        }).onError((error, stackTrace) {
+          isLoadingg(false);
+          utils.flushBarErrorMessage(error.toString(), context);
+        });
+      }).onError((error, stackTrace) {
+        isLoadingg(false);
+        utils.flushBarErrorMessage(error.toString(), context);
+      });
+    } catch (e) {
+      isLoadingg(false);
+      utils.flushBarErrorMessage(e.toString(), context);
+    }
+  }
+
+  @override
+  void dispose() {
+    _passController.dispose();
+    _newPasswordController.dispose();
+    passwordFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final current_user =utils.getCurrentUser();
+    // final current_user = utils.getCurrentUser();
     UserModel? user =
         Provider.of<UserDetailsProvider>(context, listen: false).userDetails;
     return Scaffold(
@@ -73,26 +121,6 @@ class _password_optionState extends State<password_option> {
                         user.name!,
                         style: TextStyle(
                             fontSize: 22.sp, fontWeight: FontWeight.w600),
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 13.w,
-                          ),
-                          Icon(
-                            Icons.location_on_outlined,
-                            size: 14.h,
-                          ),
-                          // Image(image: AssetImage(Images.location)),
-                          SizedBox(
-                            width: 2.w,
-                          ),
-                          Text(
-                            'Jamshoro,Pakistan',
-                            style: TextStyle(
-                                fontSize: 12.sp, fontWeight: FontWeight.w400),
-                          ),
-                        ],
                       ),
                     ],
                   ),
@@ -171,40 +199,47 @@ class _password_optionState extends State<password_option> {
               ),
               Align(
                 alignment: Alignment.center,
-                child: authButton(
-                  text: 'Change Password',
-                  color: AppColors.primaryColor,
-                  func: () {
-                    FocusManager.instance.primaryFocus?.unfocus();
+                child: isLoading
+                    ? circle_progress()
+                    : authButton(
+                        text: 'Change Password',
+                        color: AppColors.primaryColor,
+                        func: () async {
+                          FocusManager.instance.primaryFocus?.unfocus();
 
-                    _validateFields();
-                    // password update code
-                    try {
-                      current_user!
-                        .reauthenticateWithCredential(
-                            EmailAuthProvider.credential(
-                                email: current_user.email.toString(),
-                                password: _passController.text.toString()))
-                        .then((value) {
-                      current_user
-                          .updatePassword(_newPasswordController.text)
-                          .then((value) {
-                        utils.toastMessage("Password updated Successfully");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => setting_screen()));
-                      }).onError((error, stackTrace) {
-                        utils.flushBarErrorMessage(error.toString(), context);
-                      });
-                    }).onError((error, stackTrace) {
-                      utils.flushBarErrorMessage(error.toString(), context);
-                    });
-                    } catch (e) {
-                      utils.flushBarErrorMessage(e.toString(), context);
-                    }
-                  },
-                ),
+                          _validateFields();
+
+                          _changePassword();
+                          // password update code
+                          // User user = utils.getCurrentUser();
+                          // try {
+                          //    final  userr = (await FirebaseAuth.instance.signInWithEmailAndPassword(email:user.email!, password:_passController.text)).user;
+                          //   print(userr);
+                          //   user
+                          //       .reauthenticateWithCredential(
+                          //           EmailAuthProvider.credential(
+                          //               email: user.email.toString(),
+                          //               password: _passController.text.toString()))
+                          //       .then((value) {
+                          //     user
+                          //         .updatePassword(_newPasswordController.text)
+                          //         .then((value) {
+                          //       utils.toastMessage("Password updated Successfully");
+                          //       Navigator.push(
+                          //           context,
+                          //           MaterialPageRoute(
+                          //               builder: (context) => navigation_page()));
+                          //     }).onError((error, stackTrace) {
+                          //       utils.flushBarErrorMessage(error.toString(), context);
+                          //     });
+                          //   }).onError((error, stackTrace) {
+                          //     utils.flushBarErrorMessage(error.toString(), context);
+                          //   });
+                          // } catch (e) {
+                          //   utils.flushBarErrorMessage(e.toString(), context);
+                          // }
+                        },
+                      ),
               ),
             ],
           ),

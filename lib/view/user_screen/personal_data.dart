@@ -9,10 +9,11 @@ import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/components/upper_design.dart';
 import 'package:rentpayy/resources/FirebaseRepository.dart';
+import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/utils.dart';
 import '../../components/authButton.dart';
+import '../../components/profilePic.dart';
 import '../../model/UserModel.dart';
-import '../../navigation_page.dart';
 import '../../resources/StorageService.dart';
 import '../../utils/style/AppColors.dart';
 import '../../view_model/UserDetailsProvider.dart';
@@ -36,6 +37,7 @@ class _personal_dataState extends State<personal_data> {
 
     super.initState();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -45,7 +47,7 @@ class _personal_dataState extends State<personal_data> {
     phoneFocusNode.dispose();
     ageFocusNode.dispose();
     _phoneController.dispose();
-    _ageController.dispose();    
+    _ageController.dispose();
   }
 
   bool isLoadingNow = false;
@@ -58,65 +60,76 @@ class _personal_dataState extends State<personal_data> {
   TextEditingController _ageController = TextEditingController();
   List<Gender> genders = <Gender>[];
 
+  final FirebaseRepository _firebaseRepository = FirebaseRepository();
   final users = FirebaseFirestore.instance.collection('users');
+  UserModel? user;
+  Future<String> updateProfile() async {
+    String profileUrl = await _firebaseRepository.uploadProfileImage(
+        imageFile: _profileImage!, uid: utils.getCurrentUserUid());
+    return profileUrl;
+  }
 
-  // void _validateFields(){
-  //   if(_nameController.text.trim().isEmpty && _phoneController.text.trim().isEmpty){
-  //     utils.flushBarErrorMessage('Please Enter your Details', context);
-  //   }
-  //   if(_nameController.text.trim().isEmpty){
-  //     utils.flushBarErrorMessage('Enter Your Name', context);
-  //   }
-  //   else if(_phoneController.text.trim().isEmpty){
-  //     utils.flushBarErrorMessage('Enter Your Number', context);
-  //   }
-  //   else if(_phoneController.text.length != 10){
-  //     utils.flushBarErrorMessage('Invalid Phone Number', context);
-  //   }
-  // }
+  void isLoading(bool value) {
+    setState(() {
+      isLoadingNow = value;
+    });
+  }
 
   Future<void> updateData() {
     final uid = utils.getCurrentUserUid();
+    if (_profileImage != null) {
+      updateProfile()
+          .then((url) => {
+                users.doc(uid).update({
+                  "profile_image": url,
+                }),
+                debugPrint('Data updated'),
+              })
+          .onError((error, stackTrace) => {
+                utils.flushBarErrorMessage(error.toString(), context),
+                //  print(error.toString()),
+                isLoading(false),
+              });
+    }
+
     return users
         .doc(uid)
         .update({
           "name": _nameController.text,
           "phone": _phoneController.text,
           "age": _ageController.text,
-
-          // "profile_image": _profileImage,
         })
         .then((value) => {
+              isLoading(false),
               utils.toastMessage('Profile Updated'),
-              print('Data updated'),
+              // debugPrint('Data updated'),
             })
         .onError((error, stackTrace) => {
+              isLoading(false),
               utils.flushBarErrorMessage(error.toString(), context),
               //  print(error.toString()),
             });
   }
 
-  void _getUserDetails(String uid) {
+  Future<void> _getUserDetails(String uid) async {
+    //  isLoading(true);
     FirebaseRepository _firebaseRepository = FirebaseRepository();
     _firebaseRepository.getUserDetails(uid).then((UserModel? userModel) {
       if (userModel != null) {
         StorageService.saveUser(userModel).then((value) async {
           Provider.of<UserDetailsProvider>(context, listen: false)
               .getUserLocally();
-          // isLoading(false);
-          // Navigator.pushNamed(context, RoutesName.navigation);
-          // setState(() {
-            
-          // });
-          // Navigator.pushReplacement(context,
-          //     MaterialPageRoute(builder: (context) => navigation_page()));
+          Navigator.pushNamed(context, RoutesName.navigation);
         }).catchError((error) {
+          isLoading(false);
           utils.flushBarErrorMessage(error.message.toString(), context);
         });
       } else {
+        isLoading(false);
         utils.flushBarErrorMessage("User is null", context);
       }
     }).catchError((error) {
+      isLoading(false);
       // isLoading(false);
       utils.flushBarErrorMessage(error.message.toString(), context);
     });
@@ -124,8 +137,7 @@ class _personal_dataState extends State<personal_data> {
 
   @override
   Widget build(BuildContext context) {
-    UserModel? user =
-        Provider.of<UserDetailsProvider>(context, listen: false).userDetails;
+    user = Provider.of<UserDetailsProvider>(context, listen: false).userDetails;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: upper_design(
@@ -185,9 +197,10 @@ class _personal_dataState extends State<personal_data> {
               inputfields(
                 currentNode: phoneFocusNode,
                 focusNode: phoneFocusNode,
+                keyboardType: TextInputType.number,
                 nextNode: ageFocusNode,
                 controller: _phoneController,
-                hint_text: user.phone,
+                hint_text: user!.phone,
                 preicon: Container(
                   width: 60.w,
                   height: 60.h,
@@ -267,10 +280,11 @@ class _personal_dataState extends State<personal_data> {
                             borderRadius: BorderRadius.circular(7.r)),
                         // ignore: prefer_const_constructors
                         child: TextField(
-                          // keyboardType: keyboardType,
+                          keyboardType: TextInputType.number,
                           controller: _ageController,
                           cursorColor: Colors.black,
                           decoration: InputDecoration(
+                            hintText: user!.age,
                             contentPadding: EdgeInsets.all(12),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(7.r),
@@ -297,22 +311,12 @@ class _personal_dataState extends State<personal_data> {
                       ? circle_progress()
                       : authButton(
                           func: () async {
-                            setState(() {
-                              isLoadingNow = true;
-                            });
-                            Future.delayed(Duration(seconds: 3), () {
-                              setState(() {
-                                isLoadingNow = false;
-                              });
-                            });
                             utils.checkConnectivity(context);
+                            isLoading(true);
                             await updateData();
-                            _getUserDetails(
+                            await _getUserDetails(
                                 FirebaseAuth.instance.currentUser!.uid);
-
-                            // await Provider.of<UserDetailsProvider>(context,
-                            //         listen: false)
-                            //     .getUserLocally();
+                            isLoading(false);
                           },
                           text: 'Save Changes',
                           color: AppColors.primaryColor,
@@ -328,15 +332,13 @@ class _personal_dataState extends State<personal_data> {
     return image == null
         ? Stack(
             children: [
-              // Image.network(
-              //   "https://m.media-amazon.com/images/I/11uufjN3lYL._SX90_SY90_.png",
-              //   height: 60,
+              // Image.asset(
+              //   "asset/avatar.png",
+              //   height: 100.h,
+              //   width: 100.w,
               // ),
-              Image.asset(
-                "asset/avatar.png",
-                height: 100.h,
-                width: 100.w,
-              ),
+              profilePic(url: user!.profileImage, height: 100.h, width: 100.w),
+
               Positioned(
                 left: 45.w,
                 bottom: 0.h,
@@ -417,9 +419,7 @@ class _personal_dataState extends State<personal_data> {
 
 class Gender {
   String name;
-
   bool isSelected;
-
   Gender(this.name, this.isSelected);
 }
 
