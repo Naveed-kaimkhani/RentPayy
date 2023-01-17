@@ -10,10 +10,12 @@ import 'package:rentpayy/utils/routes/routes.dart';
 import 'package:rentpayy/view/Hostel_Screen/ads_details_screen.dart';
 import 'package:rentpayy/view/Hostel_Screen/seller_dashboard.dart';
 import 'package:rentpayy/view/starter_screen.dart';
+import 'package:rentpayy/view/user_screen/login_screen.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 
 import 'package:rentpayy/view_model/HostelDetailsProvider.dart';
+import 'package:rentpayy/view_model/SigninProvider.dart';
 import 'package:rentpayy/view_model/UserDetailsProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -76,7 +78,24 @@ class _MyAppState extends State<MyApp> {
                 //         ? navigation_page()
                 //         : SellerDashboard(),
 
-                home:StarterScreen(),
+                home: StreamBuilder(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Scaffold(
+                        body: Center(
+                          child: user_front_Screen(),
+                        ),
+                      );
+                    }
+                    else{
+                      return login_screen();
+                    }
+
+
+                  },
+                ),
+
                 // initialRoute: RoutesName.login,
                 // onGenerateRoutes: Routes.onGenerate
                 // Route(settings),

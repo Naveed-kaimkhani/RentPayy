@@ -26,10 +26,10 @@ class FirebaseMethods {
       firestore.collection(HOSTEL_COLLECTION);
 
   Reference _storageReference = FirebaseStorage.instance.ref();
-  Future<UserCredential> signInWithGoogle() async {
+
+   signInWithGoogle() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser =
-        await GoogleSignIn(scopes: <String>["email"]).signIn();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
@@ -40,11 +40,15 @@ class FirebaseMethods {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-// UserCredential authResult = await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // FirebaseAuth.instance.signInWithCredential(credential);
+    return await FirebaseAuth.instance.signInWithCredential(credential);
 
     // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    // print(authResult.user?.displayName);
   }
+
+
 
   Future<User?> signUp(String email, String password, context) async {
     // User? user=FirebaseAuth.instance.currentUser;
@@ -177,7 +181,7 @@ class FirebaseMethods {
     return userModel;
   }
 
- Future<hostelModel> getHostelDetails(String? uid) async {
+  Future<hostelModel> getHostelDetails(String? uid) async {
     DocumentSnapshot documentSnapshot = await _hostelCollection.doc(uid).get();
     hostelModel hostel =
         hostelModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);

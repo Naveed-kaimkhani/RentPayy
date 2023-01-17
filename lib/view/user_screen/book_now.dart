@@ -15,8 +15,8 @@ class book_now extends StatefulWidget {
 
 class _book_nowState extends State<book_now> {
   void initState() {
-    payments.add(Payment("Jazzcash", false, "asset/easypaisa.png"));
-    payments.add(Payment("Easypaisa", false, "asset/jazzcash.png"));
+    payments.add(Payment("Easypaisa", false, "asset/easypaisa.png"));
+    payments.add(Payment("Jazz cash", false, "asset/jazzcash.png"));
     payments.add(Payment("male", false, "asset/bank.png"));
 
     super.initState();
