@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +8,6 @@ import 'package:another_flushbar/flushbar_route.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../components/no_internetConnection.dart';
 
 class utils {
@@ -50,10 +47,6 @@ class utils {
  static void checkConnectivity(context) {
     InternetConnectionChecker().onStatusChange.listen((status) {
       final connected = status == InternetConnectionStatus.connected;
-      // showSimpleNotification(connected?Text("Connected To Internet"):Text("No Internet Connected"));
-      // utils.flushBarErrorMessage(
-      //     connected ? "Connected To Internet" : "No Internet Connection",
-      //     context);
       if (connected == false) {
         Navigator.of(context).push(
           MaterialPageRoute(

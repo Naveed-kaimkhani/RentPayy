@@ -100,8 +100,7 @@ class _StarterScreenState extends State<StarterScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 50.w),
                       child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur'
-                        ' adipiscing elit, sed do eiusmod tempor ',
+                        "Facing problems while renting something? \n        Say No More! Rentpayy is here.",
                         style: TextStyle(fontSize: 16),
                       ),
                     ),

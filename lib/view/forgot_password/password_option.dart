@@ -88,7 +88,6 @@ class _password_optionState extends State<password_option> {
 
   @override
   Widget build(BuildContext context) {
-    // final current_user = utils.getCurrentUser();
     UserModel? user =
         Provider.of<UserDetailsProvider>(context, listen: false).userDetails;
     return Scaffold(

@@ -332,12 +332,7 @@ class _FacilitiesState extends State<Facilities> with WidgetsBindingObserver {
                       SizedBox(
                         height: 60.h,
                       ),
-                      // SizedBox(
-                      //   height: 22.6.h,
-                      // ),
-                      // SizedBox(
-                      //   height: 5,
-                      // ),
+          
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: MiniButton(

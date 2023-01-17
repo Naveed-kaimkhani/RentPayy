@@ -2,14 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rentpayy/components/hostel_list.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/resources/FirebaseRepository.dart';
-
 import 'package:rentpayy/view/user_screen/add_page.dart';
-
+import '../../components/hostel_list.dart';
 import '../../utils/routes/RoutesName.dart';
-import '../../utils/style/Images.dart';
 
 class favourites extends StatefulWidget {
   const favourites({Key? key}) : super(key: key);
@@ -32,21 +29,7 @@ class _favouritesState extends State<favourites> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
-            // leading: IconButton(
-            //   onPressed: (() =>
-            //   // Navigator.pushNamed(context, RoutesName.user_front_screen)
-            //   Navigator.pop(context)
-            //   ),
-            //   icon: Container(
-            //     height: 32,
-            //     width: 32,
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.circular(30),
-            //       color: AppColors.primaryColor,
-            //     ),
-            //     child: Center(child: Image.asset(Images.whitebackButton)),
-            //   ),
-            // ),
+     
             centerTitle: true,
             title: Text(
               "Favourites",
@@ -66,7 +49,7 @@ class _favouritesState extends State<favourites> {
                 AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting)
                 return Center(
-                  child: Text("Nothing to show"),
+                  child: Text("No favorites"),
                 );
               else if (snapshot.data!.docs.length == 0) {
                 return Center(

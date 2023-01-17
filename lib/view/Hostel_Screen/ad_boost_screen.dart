@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/style/Images.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../utils/routes/RoutesName.dart';
 import '../../utils/style/text_style.dart';
 

@@ -4,10 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/payment_button.dart';
 
+import '../../components/hostel_appBarButton.dart';
+import '../../model/hostelModel.dart';
 import '../../utils/style/AppColors.dart';
+import '../../utils/style/Images.dart';
 
 class book_now extends StatefulWidget {
-  book_now({Key? key}) : super(key: key);
+  final hostelModel? hostel;
+  book_now({Key? key, required this.hostel}) : super(key: key);
 
   @override
   State<book_now> createState() => _book_nowState();
@@ -27,7 +31,6 @@ class _book_nowState extends State<book_now> {
   int increment = 0;
   int value = 0;
   String? selectedvalue = " Per month";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +40,9 @@ class _book_nowState extends State<book_now> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: (() => Navigator.pop(context)),
-          icon: Image.asset("asset/back2.png"),
+          icon: hostel_appBarButton(
+              Buttoncolor: AppColors.primaryColor,
+              IconUrl: Images.whitebackButton),
         ),
         centerTitle: true,
         title: Text(
@@ -72,15 +77,21 @@ class _book_nowState extends State<book_now> {
                         SizedBox(
                           height: 19.h,
                         ),
-                        Text(
-                          "Bakhtawar Hostel",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 20.sp),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            widget.hostel!.name!,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 20.sp),
+                          ),
                         ),
                         SizedBox(
                           height: 5.h,
                         ),
-                        Image.asset("asset/stars.png"),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Image.asset("asset/stars.png"),
+                        ),
                         SizedBox(
                           height: 8.h,
                         ),
@@ -89,10 +100,14 @@ class _book_nowState extends State<book_now> {
                             SizedBox(
                               width: 2.w,
                             ),
-                            Text(
-                              "Jamshoro,Pakistan",
-                              style: TextStyle(
-                                  fontSize: 10.sp, fontWeight: FontWeight.w300),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                widget.hostel!.hostel_address!,
+                                style: TextStyle(
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w300),
+                              ),
                             ),
                           ],
                         ),
@@ -247,7 +262,7 @@ class _book_nowState extends State<book_now> {
                                 text: TextSpan(
                               children: [
                                 TextSpan(
-                                    text: "200",
+                                    text: widget.hostel!.charges!.toString(),
                                     style: TextStyle(
                                         fontSize: 20.sp,
                                         fontWeight: FontWeight.w700,
@@ -279,7 +294,9 @@ class _book_nowState extends State<book_now> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                      text: "400",
+                                      text:
+                                          (widget.hostel!.charges! * increment)
+                                              .toString(),
                                       style: TextStyle(
                                           fontSize: 20.sp,
                                           fontWeight: FontWeight.w700,
@@ -306,13 +323,15 @@ class _book_nowState extends State<book_now> {
                                   fontSize: 26.sp, fontWeight: FontWeight.w300),
                             ),
                             SizedBox(
-                              width: 100.w,
+                              width: 112.w,
                             ),
                             RichText(
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                      text: "400",
+                                      text:
+                                          (widget.hostel!.charges! * increment)
+                                              .toString(),
                                       style: TextStyle(
                                           fontSize: 27.sp,
                                           fontWeight: FontWeight.w700,

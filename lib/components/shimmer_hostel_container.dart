@@ -50,14 +50,6 @@ class shimmer_hostel_container extends StatelessWidget {
                   ],
                 ),
               ),
-              // SizedBox(
-              //   height: 10.h,
-              // ),
-              // Container(
-              //   color: Colors.grey.withOpacity(0.5),
-              //   height: 20.h,
-              //   width: 35.w,
-              // )
               SizedBox(
                 height: 10.h,
               )

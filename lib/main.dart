@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:rentpayy/utils/routes/routes.dart';
 import 'package:rentpayy/view/Hostel_Screen/seller_dashboard.dart';
 import 'package:rentpayy/view/starter_screen.dart';
-import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 import 'package:rentpayy/view_model/HostelDetailsProvider.dart';
 import 'package:rentpayy/view_model/UserDetailsProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,21 +16,18 @@ int? isUser;
 int? isSelller;
 List<String> testDeviceIds = ['1C597520A8B596626783357B70C4FA28'];
 Future<void> main() async {
-  // int num;
-  // print(num);
+ 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   // MobileAds.in
   MobileAds.instance.initialize();
-  // RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("1C597520A8B596626783357B70C4FA28"))
 
   RequestConfiguration configuration =
       RequestConfiguration(testDeviceIds: testDeviceIds);
   MobileAds.instance.updateRequestConfiguration(configuration);
   SharedPreferences preferences = await SharedPreferences.getInstance();
   initScreen = preferences.getInt('initScreen');
-  // await preferences.setInt('initScreen', 1);
   isUser = preferences.getInt('isUser');
   runApp(const MyApp());
 }
@@ -61,16 +57,15 @@ class _MyAppState extends State<MyApp> {
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: 'RentPayy',
-                // theme: ThemeData(
-                //   primarySwatch: Colors.blue,
-                // ),
-                // home: initScreen == 0 || initScreen == null
-                //     ? StarterScreen()
-                //     : isUser == 1
-                //         ? navigation_page()
-                //         : SellerDashboard(),
-
-                home: StarterScreen(),
+                theme: ThemeData(
+                  primarySwatch: Colors.blue,
+                ),
+                home: initScreen == 0 || initScreen == null
+                    ? StarterScreen()
+                    : isUser == 1
+                        ? navigation_page()
+                        : SellerDashboard(),
+                // // home: StarterScreen(),
 
                 onGenerateRoute: Routes.onGenerateRoute,
               ),

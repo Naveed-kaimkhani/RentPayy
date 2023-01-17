@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../utils/style/AppColors.dart';
 
 class banner_component2 extends StatelessWidget {
@@ -18,7 +17,7 @@ class banner_component2 extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            height: double.infinity,
+            height: 100.h,
             width: 160.w,
             decoration: BoxDecoration(
               color: AppColors.primaryColor,
@@ -27,18 +26,14 @@ class banner_component2 extends StatelessWidget {
                   bottomRight: Radius.circular(40.r)),
               // shape: BoxShape.circle,
             ),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: 25.h, left: 11.w, right: 25.w, bottom: 23.h),
-              child: Image.asset(
-                'asset/phone.png',
-                height: 137.h,
-                width: 128.w,
-              ),
+            child: Image.asset(
+              'asset/phone.png',
+              height: 157.h,
+              width: 148.w,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 10.w),
+            padding: EdgeInsets.only(left: 10.w, bottom: 8.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -47,18 +42,18 @@ class banner_component2 extends StatelessWidget {
                   'Made Renting Asan!',
                   style: TextStyle(
                       color: AppColors.primaryColor,
-                      fontSize: 21.sp,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
                   height: 5.h,
                 ),
                 Text(
-                  'Lorem ipsum dolor sit amet, consectetur\nadipiscing elit, sed do eiusmod tempor ',
+                  'students can quickly contact hostel owners.\nAnd able to select their preferred place instantly',
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w400,
-                      fontSize: 11.sp),
+                      fontSize: 9.sp),
                 )
               ],
             ),

@@ -37,8 +37,7 @@ class _SellerDashboardState extends State<SellerDashboard> {
           backgroundColor: Colors.transparent,
           toolbarHeight: 0,
           elevation: 0,
-          // systemOverlayStyle:
-          //     SystemUiOverlayStyle(statusBarColor: AppColors.primaryColor),
+   
         ),
         bottomNavigationBar: Container(
           padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 20.h),

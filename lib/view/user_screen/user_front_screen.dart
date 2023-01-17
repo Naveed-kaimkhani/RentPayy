@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,11 +7,13 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:rentpayy/components/no_internetConnection.dart';
 import 'package:rentpayy/components/shimmer_hostel_container.dart';
 import 'package:rentpayy/model/UserModel.dart';
-import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/view/user_screen/add_page.dart';
 import 'package:rentpayy/view/user_screen/personal_data.dart';
 
 import '../../components/banner.dart';
+
+import '../../components/banner_component1.dart';
+import '../../components/banner_component2.dart';
 import '../../components/exit_pop.dart';
 import '../../components/hostel_container.dart';
 import '../../components/profilePic.dart';
@@ -34,7 +37,12 @@ class _user_front_ScreenState extends State<user_front_Screen> {
   bool isScrollingDown = false;
   BannerAd? _banner;
   InterstitialAd? _interstitialAd;
-
+  int selectedIndex = 0;
+  List<Widget> ListOfBanners = [
+    banner(),
+    banner_component1(),
+    banner_component2()
+  ];
   void showInterstialAd() {
     if (_interstitialAd != null) {
       _interstitialAd!.fullScreenContentCallback =
@@ -244,11 +252,27 @@ class _user_front_ScreenState extends State<user_front_Screen> {
                   height: 13.h,
                 ),
                 AnimatedContainer(
-                    duration: Duration(milliseconds: 700),
-                    height: _showAppbar ? 150 : 0,
-                    child: banner()),
+                  duration: Duration(milliseconds: 700),
+                  height: _showAppbar ? 150 : 0,
+                  child: CarouselSlider.builder(
+                      options: CarouselOptions(
+                          onPageChanged: (index, reason) => setState(() {
+                                selectedIndex = index;
+                              }),
+                          height: 200.h,
+                          viewportFraction: 1,
+                          enlargeCenterPage: true,
+                          enableInfiniteScroll: false,
+                          enlargeStrategy: CenterPageEnlargeStrategy.height,
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 3)),
+                      itemCount: 3,
+                      itemBuilder: (BuildContext context, int itemIndex,
+                              int pageViewIndex) =>
+                          ListOfBanners[itemIndex]),
+                ),
                 SizedBox(
-                  height: 25.h,
+                  height: 29.h,
                 ),
                 FutureBuilder(
                   builder: (ctx, AsyncSnapshot<List<hostelModel>> snapshot) {

@@ -40,29 +40,11 @@ class FirebaseMethods {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-// UserCredential authResult = await FirebaseAuth.instance.signInWithCredential(credential);
 
-    // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   Future<User?> signUp(String email, String password, context) async {
-    // User? user=FirebaseAuth.instance.currentUser;
-    // if (user==null) {
-    //   try {
-    //   UserCredential userCredential =
-    //       await _auth.createUserWithEmailAndPassword(
-    //     email: email,
-    //     password: password,
-    //   );
-    //   return userCredential.user;
-    // } catch (e) {
-    //   // print(e);
-    //   utils.flushBarErrorMessage(e.toString(), context);
-    // }
-    // } else {
-    //   return user;
-    // }
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
@@ -94,13 +76,8 @@ class FirebaseMethods {
     await _hostelCollection.doc(hostelModel.uid).set(
           hostelModel.toMap(hostelModel),
         );
-    print("user created in firebase");
   }
-
   Future<void> addToFavourites(hostelModel hostel) async {
-//  await FirebaseFirestore.instance.collection("favorites").doc(FirebaseAuth.instance.currentUser!.uid).collection("cart").doc(product.uid).set(product.getJson());
-    // await _userCollection.doc(FirebaseAuth.instance.currentUser!.uid).collection("favorites").doc(hostel.uid).set(hostel.toMap(hostel));
-
     print(FirebaseAuth.instance.currentUser!.uid);
     await _favoritesCollection
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -133,11 +110,6 @@ class FirebaseMethods {
       result.add(item.toJson());
     });
   }
-
-  //  static Future<void> AddToFav({required hostelModel hostel}) async{
-
-  //     await FirebaseFirestore.instance.collection("Fav").doc(FirebaseAuth.instance.currentUser!.uid).collection(hostel.uid!).set(product.getJson());
-  // }
 
   Future<String> uploadProfileImage(
       {required Uint8List? imageFile, required String uid}) async {

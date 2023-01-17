@@ -35,7 +35,6 @@ class MiniButton extends StatelessWidget {
             ),
             SizedBox(width: 10.w,),
             Icon(icon,size: 16.h,color: Colors.white,)
-            // Image.asset(icon!.toString(),height: 16.h,width: 14.w,),
           ],
         ),
       ),

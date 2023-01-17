@@ -8,7 +8,6 @@ import 'package:rentpayy/view/Hostel_Screen/seller_dashboard.dart';
 import 'package:rentpayy/view/user_screen/User_signup.dart';
 import 'package:rentpayy/view/user_screen/login_with_rentpayy.dart';
 import 'package:rentpayy/view/user_screen/search_screen.dart';
-
 import '../../navigation_page.dart';
 import '../../view/Hostel_Screen/add_gallery.dart';
 import '../../view/user_screen/login_screen.dart';

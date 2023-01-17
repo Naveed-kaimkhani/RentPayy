@@ -60,8 +60,6 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
         .then((User? user) async {
       if (user != null) {
         hostelModel.uid = user.uid;
-        print("user created");
-        print(user.uid);
         _saveHostel(hostelModel);
       } else {
         isLoading(false);
@@ -125,10 +123,6 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
           person_per_room: 0,
           description: "");
       _signup(HostelModel, context);
-      //      Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) =>  Hostel_Registration(hostel: HostelModel,)),
-      // );
     }
   }
 

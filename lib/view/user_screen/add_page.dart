@@ -201,8 +201,12 @@ class _AdPageState extends State<AdPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => book_now()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => book_now(
+                                    hostel: widget.hostel,
+                                  )));
                     },
                     child: Container(
                       height: 47,
@@ -292,8 +296,8 @@ class _AdPageState extends State<AdPage> {
                             enlargeCenterPage: true,
                             enableInfiniteScroll: false,
                             enlargeStrategy: CenterPageEnlargeStrategy.height,
-                            // autoPlay: true,
-                            autoPlayInterval: Duration(seconds: 2)),
+                            autoPlay: true,
+                            autoPlayInterval: Duration(seconds: 4)),
                         itemCount: widget.hostel.pictures!.length,
                         itemBuilder: (BuildContext context, int itemIndex,
                                 int pageViewIndex) =>
@@ -517,28 +521,11 @@ class _AdPageState extends State<AdPage> {
                             (e) => facility_container(text: e),
                           )
                           .toList(),
-                      //  childAspectRatio: 1.1,
                     ),
-                    // SizedBox(
-                    //   height: 24.h,
-                    // ),
-                    // Text(
-                    //   'Ad ID 10231445',
-                    //   style: TextStyle(fontSize: 10.sp),
-                    // ),
+                 
                     SizedBox(
                       height: 7.h,
                     ),
-                    // Container(
-                    //   height: 115.h,
-                    //   width: 388.w,
-                    //   decoration: BoxDecoration(
-                    //     border: Border.all(color: Colors.black),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 20.h,
-                    // ),
                     Text(
                       'Reviews',
                       style: TextStyle(

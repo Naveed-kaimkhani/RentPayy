@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +25,6 @@ class _forgot_passwordState extends State<forgot_password> {
   bool isLoading = false;
 
   Future<void> sentLink(String email) async {
-    // print(email);
-    // print(_emailController.text);
    await auth
         .sendPasswordResetEmail(email: email)
         .then((Value) {

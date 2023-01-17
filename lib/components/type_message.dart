@@ -22,8 +22,6 @@ class _type_messageState extends State<type_message> {
           Expanded(
             child: Container(
               height: 42.h,
-              // width: 371.w,
-              //  color: Colors.white,
               decoration: BoxDecoration(
                   color: AppColors.textfieldsColor,
                   borderRadius: BorderRadius.circular(10.r)),

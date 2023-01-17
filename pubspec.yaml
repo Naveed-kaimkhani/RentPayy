@@ -36,7 +36,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_screenutil: ^5.5.4
-  http: ^0.13.5
   fluttertoast: ^8.0.9
   another_flushbar: ^1.12.29
   image_picker: ^0.8.6

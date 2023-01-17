@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,8 +8,8 @@ class banner extends StatelessWidget {
   Widget build(BuildContext context) {
     return   SingleChildScrollView(
       child: Container(
-        height: 185.h,
-        width: 393.w,
+        height: 185.h,   width: 393.w,
+     
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.r),
           color: Color.fromRGBO(245, 173, 13, 1),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../utils/style/AppColors.dart';
 
 class FAQComponent extends StatelessWidget {

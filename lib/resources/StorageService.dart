@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../model/UserModel.dart';
 import '../utils/Strings.dart';
 class StorageService {

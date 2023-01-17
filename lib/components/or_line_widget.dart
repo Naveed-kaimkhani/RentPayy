@@ -1,8 +1,5 @@
 
 import 'package:flutter/material.dart';
-
-import '../utils/style/Images.dart';
-
 class or_line_widget extends StatelessWidget {
   const or_line_widget({
     Key? key,

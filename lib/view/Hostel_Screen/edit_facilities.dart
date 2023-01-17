@@ -9,7 +9,6 @@ import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/Hostel_Screen/ads_edit_screen.dart';
 
 import '../../components/hostel_appBarButton.dart';
-import '../../utils/routes/RoutesName.dart';
 import '../../utils/style/Images.dart';
 
 class edit_facilities extends StatefulWidget {
@@ -42,7 +41,7 @@ class _edit_facilitiesState extends State<edit_facilities> {
       utils.flushBarErrorMessage("Please select facilites", context);
     } else {
       db.collection("hostels").doc(utils.getCurrentUserUid()).update({
-        'edit_facilities': checkboxList,
+        'facilities': checkboxList,
       }).then((value) {
         Navigator.push(
           context,

@@ -38,15 +38,7 @@ class _QuanityBoxState extends State<QuanityBox> {
             radius: 15,
             backgroundColor: AppColors.primaryColor,
             child: GestureDetector(
-              onTap:widget.minus,
-              // onTap: () {
-              //   if (quanity >= 2) {
-              //     setState(() {
-              //       quanity--;
-              //       print('subtract Quantity $quanity');
-              //     });
-              //   }
-              // },
+              onTap:widget.minus,  
               child: Icon(
                 Icons.remove,
                 color: Colors.white,
@@ -59,12 +51,6 @@ class _QuanityBoxState extends State<QuanityBox> {
             backgroundColor: AppColors.primaryColor,
             child: GestureDetector(
               onTap: widget.plus,
-              // onTap: () {
-              //   setState(() {
-              //     quanity++;
-              //     print('Add Quantity $quanity');
-              //   });
-              // },
               child: Icon(
                 Icons.add,
                 color: Colors.white,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 class UserSellerComponent extends StatelessWidget {
   final double height;
   final double width;

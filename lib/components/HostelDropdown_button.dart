@@ -69,15 +69,4 @@ class _HostelDropdown_buttonState extends State<HostelDropdown_button> {
     );
   }
 
-  // setHostelType() {
-  //   widget.db.collection("hostels").doc(widget.user).update({
-  //     "hostel_type": widget.hinttext,
-  //   });
-  // }
-
-  // setGenderType() {
-  //   widget.db.collection("hostels").doc(widget.user).update({
-  //     "hostel_gender_type": widget.hinttext,
-  //   });
-  // }
 }

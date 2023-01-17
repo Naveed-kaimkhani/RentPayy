@@ -16,7 +16,6 @@ class UserModel {
     this.gender,
     this.age,
    
-    // ignore: non_constant_identifier_names
 
   });
 

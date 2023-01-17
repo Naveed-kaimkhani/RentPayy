@@ -94,18 +94,7 @@ class HeaderSection extends StatelessWidget {
                           )
                         ],
                       ),
-                      // profilePic(url: ImageUrl,height: 61.h,width: 61.w,),
-                      // Container(
-                      //   height: 61.h,
-                      //   width: 61.w,
-                      //   child: CircleAvatar(
-                      //     backgroundColor: Color(0xffFBEFD4),
-                      //     child: Icon(
-                      //       Icons.location_on_outlined,
-                      //       color: AppColors.locationColor,
-                      //     ),
-                      //   ),
-                      // ),
+             
                       profilePic(url: ImageUrl, height: 61.h, width: 61.w)
                     ],
                   ),

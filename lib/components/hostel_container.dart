@@ -93,17 +93,16 @@ class HostelContainer extends StatelessWidget {
               height: 6.h,
             ),
             Padding(
-              padding: EdgeInsets.only(left: 9.w, right: 8.w),
+              padding: EdgeInsets.only(left: 9.w, right: 6.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     hostel!.name.toString(),
                     style: TextStyle(
-                        fontSize: hostel!.name!.length > 15 ? 13.sp : 15.sp,
+                        fontSize: hostel!.name!.length > 15 ? 12.sp : 15.sp,
                         fontWeight: FontWeight.w500),
                   ),
-                  // SizedBox(width: 12.sp,),
                   RichText(
                       text: TextSpan(children: [
                     TextSpan(
@@ -127,8 +126,7 @@ class HostelContainer extends StatelessWidget {
               padding: EdgeInsets.only(left: 9.w),
               child: Row(
                 children: [
-                  // Image(image: AssetImage('asset/hostelRoom.png')),
-                  // Image.network(hostel!.pic1!),
+          
                   SizedBox(
                     width: 2.w,
                   ),
@@ -149,9 +147,7 @@ class HostelContainer extends StatelessWidget {
                     color: Colors.black,
                     size: 15.h,
                   ),
-                  // SizedBox(
-                  //   width: 2.w,
-                  // ),
+                
                   Icon(
                     Icons.hotel,
                     color: Colors.black,
