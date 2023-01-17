@@ -6,6 +6,7 @@ import 'package:rentpayy/components/profilePic.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/style/text_style.dart';
 import 'package:rentpayy/utils/utils.dart';
+import 'package:rentpayy/view/Hostel_Screen/edit_facilities.dart';
 import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
 import '../../components/GenderDropdown_button.dart';
 import '../../components/HostelDropdown_button.dart';
@@ -189,19 +190,23 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
                           'Total Capacity',
                           style: CustomTextStyle.font_black_w500,
                         ),
-                        QuanityBox(
-                          Quantity: hostel.total_capacity!,
-                          minus: () {
-                            setState(() {
-                              hostel.total_capacity =
-                                  (hostel.total_capacity! - 1);
-                            });
-                          },
-                          plus: () {
-                            setState(() {
-                              hostel.total_capacity =
-                                  (hostel.total_capacity! + 1);
-                            });
+                        StatefulBuilder(
+                          builder: (context, myStatefunc) {
+                            return QuanityBox(
+                              Quantity: hostel.total_capacity!,
+                              minus: () {
+                                myStatefunc(() {
+                                  hostel.total_capacity =
+                                      (hostel.total_capacity! - 1);
+                                });
+                              },
+                              plus: () {
+                                myStatefunc(() {
+                                  hostel.total_capacity =
+                                      (hostel.total_capacity! + 1);
+                                });
+                              },
+                            );
                           },
                         ),
                       ],
@@ -215,20 +220,23 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
                           'Available Capacity',
                           style: CustomTextStyle.font_black_w500,
                         ),
-                        // Quantity Box
-                        QuanityBox(
-                          Quantity: hostel.available_capacity!,
-                          minus: () {
-                            setState(() {
-                              hostel.available_capacity =
-                                  (hostel.available_capacity! - 1);
-                            });
-                          },
-                          plus: () {
-                            setState(() {
-                              hostel.available_capacity =
-                                  (hostel.available_capacity! + 1);
-                            });
+                        StatefulBuilder(
+                          builder: (context, myStatefunc) {
+                            return QuanityBox(
+                              Quantity: hostel.available_capacity!,
+                              minus: () {
+                                myStatefunc(() {
+                                  hostel.available_capacity =
+                                      (hostel.available_capacity! - 1);
+                                });
+                              },
+                              plus: () {
+                                myStatefunc(() {
+                                  hostel.available_capacity =
+                                      (hostel.available_capacity! + 1);
+                                });
+                              },
+                            );
                           },
                         ),
                       ],
@@ -247,20 +255,23 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
                           'Persons per Room',
                           style: CustomTextStyle.font_black_w500,
                         ),
-                        // Quantity Box
-                        QuanityBox(
-                          Quantity: hostel.person_per_room!,
-                          minus: () {
-                            setState(() {
-                              hostel.person_per_room =
-                                  (hostel.person_per_room! - 1);
-                            });
-                          },
-                          plus: () {
-                            setState(() {
-                              hostel.person_per_room =
-                                  (hostel.person_per_room! + 1);
-                            });
+                        StatefulBuilder(
+                          builder: (context, myStatefunc) {
+                            return QuanityBox(
+                              Quantity: hostel.person_per_room!,
+                              minus: () {
+                                myStatefunc(() {
+                                  hostel.person_per_room =
+                                      (hostel.person_per_room! - 1);
+                                });
+                              },
+                              plus: () {
+                                myStatefunc(() {
+                                  hostel.person_per_room =
+                                      (hostel.person_per_room! + 1);
+                                });
+                              },
+                            );
                           },
                         ),
                       ],
@@ -283,8 +294,10 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
                     TextButton(
                         style: TextButton.styleFrom(),
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => Facilities()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => edit_facilities()));
                         },
                         child: Text(
                           "edit",

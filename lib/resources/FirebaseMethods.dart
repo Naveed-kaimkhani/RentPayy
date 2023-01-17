@@ -77,6 +77,7 @@ class FirebaseMethods {
           hostelModel.toMap(hostelModel),
         );
   }
+
   Future<void> addToFavourites(hostelModel hostel) async {
     print(FirebaseAuth.instance.currentUser!.uid);
     await _favoritesCollection
@@ -174,16 +175,19 @@ class FirebaseMethods {
   }
 
   static Future<void> delete_User(context) async {
+    print("delete user called");
     FirebaseFirestore db = utils.getFireStoreInstance();
     String uid = utils.getCurrentUserUid();
     await db.collection("hostels").doc(uid).delete();
 // mRef.child(FirebaseAuth.getInstance().currentUser.uid).remove().addO  nSuccessListener { FirebaseAuth.getInstance().currentUser!!.delete().addOnCompleteListener { //Go to login screen } }                    user.delete();
-    try {
-      await utils.getCurrentUser().delete();
-    } catch (e) {
-      utils.flushBarErrorMessage("can't delete user", context);
-      // print(e);
-    }
+    await utils.getCurrentUser().delete();
+
+    // try {
+    //   await utils.getCurrentUser().delete();
+    // } catch (e) {
+    //   utils.flushBarErrorMessage("can't delete user", context);
+    //   // print(e);
+    // }
   }
 
   static Future<List<hostelModel>> getHostelByCategory(

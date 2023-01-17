@@ -16,7 +16,6 @@ int? isUser;
 int? isSelller;
 List<String> testDeviceIds = ['1C597520A8B596626783357B70C4FA28'];
 Future<void> main() async {
- 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -60,12 +59,12 @@ class _MyAppState extends State<MyApp> {
                 theme: ThemeData(
                   primarySwatch: Colors.blue,
                 ),
-                home: initScreen == 0 || initScreen == null
-                    ? StarterScreen()
-                    : isUser == 1
-                        ? navigation_page()
-                        : SellerDashboard(),
-                // // home: StarterScreen(),
+                // home: initScreen == 0 || initScreen == null
+                //     ? StarterScreen()
+                //     : isUser == 1
+                //         ? navigation_page()
+                //         : SellerDashboard(),
+                home: StarterScreen(),
 
                 onGenerateRoute: Routes.onGenerateRoute,
               ),

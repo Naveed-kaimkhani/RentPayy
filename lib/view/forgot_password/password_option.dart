@@ -209,35 +209,7 @@ class _password_optionState extends State<password_option> {
                           _validateFields();
 
                           _changePassword();
-                          // password update code
-                          // User user = utils.getCurrentUser();
-                          // try {
-                          //    final  userr = (await FirebaseAuth.instance.signInWithEmailAndPassword(email:user.email!, password:_passController.text)).user;
-                          //   print(userr);
-                          //   user
-                          //       .reauthenticateWithCredential(
-                          //           EmailAuthProvider.credential(
-                          //               email: user.email.toString(),
-                          //               password: _passController.text.toString()))
-                          //       .then((value) {
-                          //     user
-                          //         .updatePassword(_newPasswordController.text)
-                          //         .then((value) {
-                          //       utils.toastMessage("Password updated Successfully");
-                          //       Navigator.push(
-                          //           context,
-                          //           MaterialPageRoute(
-                          //               builder: (context) => navigation_page()));
-                          //     }).onError((error, stackTrace) {
-                          //       utils.flushBarErrorMessage(error.toString(), context);
-                          //     });
-                          //   }).onError((error, stackTrace) {
-                          //     utils.flushBarErrorMessage(error.toString(), context);
-                          //   });
-                          // } catch (e) {
-                          //   utils.flushBarErrorMessage(e.toString(), context);
-                          // }
-                        },
+                                               },
                       ),
               ),
             ],

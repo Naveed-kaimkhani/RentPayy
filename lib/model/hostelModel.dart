@@ -61,11 +61,8 @@ class hostelModel {
     data['pictures'] = hostel.pictures;
     data['visits'] = hostel.visits;
     data['confirms'] = hostel.confirms;
-        data['cancel'] = hostel.cancel;
-        data['facilities'] = hostel.facilities;
-    data['search']= List<String>.generate(
-          hostel.name!.length,
-          (index) => hostel.name![index]);
+    data['cancel'] = hostel.cancel;
+    data['facilities'] = hostel.facilities;
     data['bookings'] = hostel.bookings;
     return data;
   }

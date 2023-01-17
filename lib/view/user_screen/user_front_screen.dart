@@ -77,10 +77,6 @@ class _user_front_ScreenState extends State<user_front_Screen> {
     //Internet connectivity checker
     InternetConnectionChecker().onStatusChange.listen((status) {
       final connected = status == InternetConnectionStatus.connected;
-      // showSimpleNotification(connected?Text("Connected To Internet"):Text("No Internet Connected"));
-      // utils.flushBarErrorMessage(
-      //     connected ? "Connected To Internet" : "No Internet Connection",
-      //     context);
       if (connected == false) {
         Navigator.of(context).push(
           MaterialPageRoute(

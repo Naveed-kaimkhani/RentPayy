@@ -1,4 +1,4 @@
-
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +7,7 @@ import 'package:rentpayy/components/auth_screens_decor.dart';
 import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
+import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/utils.dart';
 import '../../utils/style/AppColors.dart';
 
@@ -25,13 +26,15 @@ class _forgot_passwordState extends State<forgot_password> {
   bool isLoading = false;
 
   Future<void> sentLink(String email) async {
-   await auth
-        .sendPasswordResetEmail(email: email)
-        .then((Value) {
-      utils.toastMessage('Sent a link');
-    }).onError((error, stackTrace) {
-      utils.flushBarErrorMessage("Something went wrong", context);
-    });
+    if (!EmailValidator.validate(email)) {
+      utils.flushBarErrorMessage("Invalid Email", context);
+    } else {
+      await auth.sendPasswordResetEmail(email: email).then((Value) {
+        utils.toastMessage('Sent a link to your Email');
+      }).onError((error, stackTrace) {
+        utils.flushBarErrorMessage("Something went wrong", context);
+      });
+    }
   }
 
   @override
@@ -61,7 +64,7 @@ class _forgot_passwordState extends State<forgot_password> {
                       height: 27.h,
                     ),
                     Text(
-                      "Enter your email address and we will send a code to reset your password. ",
+                      "Enter your email address to get a link to reset your password. ",
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
@@ -81,7 +84,9 @@ class _forgot_passwordState extends State<forgot_password> {
                         ? circle_progress()
                         : authButton(
                             text: "Send Code",
-                            func: () {
+                            func: () async {
+                              FocusManager.instance.primaryFocus?.unfocus();
+
                               setState(() {
                                 isLoading = true;
                               });
@@ -91,8 +96,8 @@ class _forgot_passwordState extends State<forgot_password> {
                                 });
                               });
                               // _emailController.clear();
-                              sentLink(_emailController.text);
-                              // _emailController.clear();
+                              await sentLink(_emailController.text);
+                              _emailController.clear();
                             },
                             color: AppColors.primaryColor,
                           ),

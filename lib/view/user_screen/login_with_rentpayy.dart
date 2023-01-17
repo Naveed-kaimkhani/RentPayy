@@ -227,20 +227,23 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                     SizedBox(
                       height: 15.h,
                     ),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => forgot_password()));
-                        },
-                        child: Text(
-                          'Forget Password?',
-                          style: TextStyle(
-                            color: AppColors.primaryColor,
-                            fontSize: 18.sp,
-                          ),
-                        )),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 150.0),
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => forgot_password()));
+                          },
+                          child: Text(
+                            'Forget Password?',
+                            style: TextStyle(
+                              color: AppColors.primaryColor,
+                              fontSize: 18.sp,
+                            ),
+                          )),
+                    ),
                     SizedBox(
                       height: 73.h,
                     ),

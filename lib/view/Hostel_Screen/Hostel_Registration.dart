@@ -44,7 +44,7 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
     super.dispose();
 
     descriptionController.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    // WidgetsBinding.instance.removeObserver(this);
   }
 
   // Facilities fac = Facilities();
@@ -82,27 +82,26 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
   @override
   void initState() {
     utils.checkConnectivity(context);
-    WidgetsBinding.instance.addObserver(this);
+    // WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    // TODO: implement didChangeAppLifecycleState
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => StarterScreen()));
-
-      // print("resumed");
-    } else if (state == AppLifecycleState.inactive) {
-      await FirebaseMethods.delete_User(context);
-    } else if (state == AppLifecycleState.detached) {
-      // print("detached"); //
-    } else if (state == AppLifecycleState.paused) {
-      // print("paused");
-    }
-  }
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) async {
+  //   // TODO: implement didChangeAppLifecycleState
+  //   super.didChangeAppLifecycleState(state);
+  //   if (state == AppLifecycleState.resumed) {
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => StarterScreen()));
+  //     // print("resumed");
+  //   } else if (state == AppLifecycleState.inactive) {
+  //     await FirebaseMethods.delete_User(context);
+  //   } else if (state == AppLifecycleState.detached) {
+  //     // print("detached"); //
+  //   } else if (state == AppLifecycleState.paused) {
+  //     // print("paused");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -181,41 +180,54 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
                           ),
                           Row(
                             children: [
-                              Point_increament_button(
-                                minus: () {
-                                  setState(() {
-                                    if (total_capacity_increment == 0)
-                                      total_capacity_increment = 0;
-                                    else
-                                      total_capacity_increment--;
-                                  });
+                              StatefulBuilder(
+                                builder: (context, myStatefunc) {
+                                  return Point_increament_button(
+                                    minus: () {
+                                 
+                                      if (total_capacity_increment > 0) {
+                                        myStatefunc(
+                                            () => total_capacity_increment--);
+                                      }
+                                    },
+                                    plus: () {
+                                   
+                                      myStatefunc(
+                                          () => total_capacity_increment++);
+                                    },
+                                    increment: total_capacity_increment,
+                                  );
                                 },
-                                plus: () {
-                                  setState(() {
-                                    total_capacity_increment++;
-                                    print(total_capacity_increment);
-                                  });
-                                },
-                                increment: total_capacity_increment,
                               ),
                               SizedBox(
                                 width: 21.w,
                               ),
-                              Point_increament_button(
-                                minus: () {
-                                  setState(() {
-                                    if (available_capacity_increment == 0)
-                                      available_capacity_increment = 0;
-                                    else
-                                      available_capacity_increment--;
-                                  });
+                           
+                              StatefulBuilder(
+                                builder: (context, myStatefunc) {
+                                  return Point_increament_button(
+                                    minus: () {
+                                      // setState(() {
+                                      //   if (total_capacity_increment == 0)
+                                      //     total_capacity_increment = 0;
+                                      //   else
+                                      //     total_capacity_increment--;
+                                      // });
+                                      if (available_capacity_increment > 0) {
+                                        myStatefunc(() =>
+                                            available_capacity_increment--);
+                                      }
+                                    },
+                                    plus: () {
+                                      // setState(() {
+                                      //   total_capacity_increment++;
+                                      // });
+                                      myStatefunc(
+                                          () => available_capacity_increment++);
+                                    },
+                                    increment: available_capacity_increment,
+                                  );
                                 },
-                                plus: () {
-                                  setState(() {
-                                    available_capacity_increment++;
-                                  });
-                                },
-                                increment: available_capacity_increment,
                               ),
                             ],
                           ),
@@ -237,22 +249,24 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
                                 SizedBox(
                                   height: 13.04.h,
                                 ),
-                                Point_increament_button(
-                                  minus: () {
-                                    setState(() {
-                                      if (person_per_room == 0)
-                                        person_per_room = 0;
-                                      else
-                                        person_per_room--;
-                                    });
+                            
+                                StatefulBuilder(
+                                  builder: (context, myStatefunc) {
+                                    return Point_increament_button(
+                                      minus: () {
+                                      
+                                        if (person_per_room > 0) {
+                                          myStatefunc(() => person_per_room--);
+                                        }
+                                      },
+                                      plus: () {
+                                     
+                                        myStatefunc(() => person_per_room++);
+                                      },
+                                      increment: person_per_room,
+                                    );
                                   },
-                                  plus: () {
-                                    setState(() {
-                                      person_per_room++;
-                                    });
-                                  },
-                                  increment: person_per_room,
-                                )
+                                ),
                               ],
                             ),
                           ),

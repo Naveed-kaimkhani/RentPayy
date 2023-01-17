@@ -22,7 +22,7 @@ class add_gallery extends StatefulWidget {
   State<add_gallery> createState() => _add_galleryState();
 }
 
-class _add_galleryState extends State<add_gallery> with WidgetsBindingObserver {
+class _add_galleryState extends State<add_gallery> {
   List<XFile>? imageFileList = [];
   final FirebaseMethods _firebaseMethods = FirebaseMethods();
   final user = FirebaseAuth.instance.currentUser!.uid;
@@ -38,7 +38,6 @@ class _add_galleryState extends State<add_gallery> with WidgetsBindingObserver {
   void selectImages() async {
     final selectedImaged = await ImagePicker().pickMultiImage();
 
-    print(selectedImaged);
     if (selectedImaged.length > 8) {
       utils.flushBarErrorMessage("only 8 pictures are allowed", context);
     } else if (selectedImaged.length < 8) {
@@ -48,14 +47,9 @@ class _add_galleryState extends State<add_gallery> with WidgetsBindingObserver {
       setState(() {
         imageFileList;
       });
-      // print("pictures list");
-      // print(imageFileList!.length);
     } else {
       utils.flushBarErrorMessage("Pictures not selected", context);
     }
-    print(imageFileList!.length);
-    print("selected image is empty");
-    // setState(() {});
   }
 
   void saveImagestoFireStore() async {
@@ -87,35 +81,35 @@ class _add_galleryState extends State<add_gallery> with WidgetsBindingObserver {
 
   bool onClick = false;
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    // TODO: implement didChangeAppLifecycleState
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => StarterScreen()));
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) async {
+  //   // TODO: implement didChangeAppLifecycleState
+  // super.didChangeAppLifecycleState(state);
+  //   if (state == AppLifecycleState.resumed) {
+  //     // Navigator.push(
+  //     //     context, MaterialPageRoute(builder: (context) => StarterScreen()));
 
-      // print("resumed");
-      Navigator.pushNamed(context, RoutesName.starterScreen);
-    } else if (state == AppLifecycleState.inactive) {
-      // await FirebaseMethods.delete_User(context);
-    } else if (state == AppLifecycleState.detached) {
-      print("detached"); //
-    } else if (state == AppLifecycleState.paused) {
-      // print("paused");
-    }
-  }
+  //     // print("resumed");
+  //     Navigator.pushNamed(context, RoutesName.starterScreen);
+  //   } else if (state == AppLifecycleState.inactive) {
+  //     // await FirebaseMethods.delete_User(context);
+  //   } else if (state == AppLifecycleState.detached) {
+  //     // print("detached"); //
+  //   } else if (state == AppLifecycleState.paused) {
+  //     // print("paused");
+  //   }
+  // }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    // WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    // WidgetsBinding.instance.addObserver(this);
   }
 
   @override

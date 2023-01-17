@@ -19,7 +19,7 @@ class Facilities extends StatefulWidget {
   State<Facilities> createState() => _FacilitiesState();
 }
 
-class _FacilitiesState extends State<Facilities> with WidgetsBindingObserver {
+class _FacilitiesState extends State<Facilities>  {
   List<String> checkboxList = [];
 
   bool waterIsSelected = false,
@@ -57,30 +57,30 @@ class _FacilitiesState extends State<Facilities> with WidgetsBindingObserver {
     }
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => StarterScreen()));
-      // print("resumed");
-      Navigator.pushNamed(context, RoutesName.starterScreen);
-    } else if (state == AppLifecycleState.inactive) {
-      await FirebaseMethods.delete_User(context);
-    } else if (state == AppLifecycleState.detached) {
-      // print("detached"); //
-    } else if (state == AppLifecycleState.paused) {
-      // print("paused");
-    }
-  }
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) async {
+  //   super.didChangeAppLifecycleState(state);
+  //   if (state == AppLifecycleState.resumed) {
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => StarterScreen()));
+  //     // print("resumed");
+  //     Navigator.pushNamed(context, RoutesName.starterScreen);
+  //   } else if (state == AppLifecycleState.inactive) {
+  //     await FirebaseMethods.delete_User(context);
+  //   } else if (state == AppLifecycleState.detached) {
+  //     // print("detached"); //
+  //   } else if (state == AppLifecycleState.paused) {
+  //     // print("paused");
+  //   }
+  // }
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    // WidgetsBinding.instance.addObserver(this);
   }
   @override
   void dispose() {
-        WidgetsBinding.instance.removeObserver(this);
+        // WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

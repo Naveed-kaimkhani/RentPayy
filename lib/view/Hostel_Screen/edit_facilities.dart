@@ -55,17 +55,18 @@ class _edit_facilitiesState extends State<edit_facilities> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: (() => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ads_edit_screen()))),
-          icon: hostel_appBarButton(
-            Buttoncolor: AppColors.primaryColor,
-            IconUrl: Images.whitebackButton,
-          ),
-          // SvgPicture.asset('asset/backIcon.png')
-        ),
-      ),
+      appBar: custom_appbar(),
+      // AppBar(
+      //   leading: IconButton(
+      //     onPressed: (() => Navigator.push(context,
+      //         MaterialPageRoute(builder: (context) => ads_edit_screen()))),
+      //     icon: hostel_appBarButton(
+      //       Buttoncolor: AppColors.primaryColor,
+      //       IconUrl: Images.whitebackButton,
+      //     ),
+      //     // SvgPicture.asset('asset/backIcon.png')
+      //   ),
+      // ),
       body: Stack(
         children: [
           Container(

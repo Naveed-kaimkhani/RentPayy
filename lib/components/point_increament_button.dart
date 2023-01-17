@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
+
 class Point_increament_button extends StatelessWidget {
-  Point_increament_button({required this.minus,required this.plus,required this.increment,Key? key}) : super(key: key);
+  Point_increament_button(
+      {required this.minus,
+      required this.plus,
+      required this.increment,
+      Key? key})
+      : super(key: key);
 
   int increment;
   Function()? minus;
@@ -18,20 +24,19 @@ class Point_increament_button extends StatelessWidget {
           child: Row(
             children: [
               InkWell(
-                child: Container(
-                  width: 44.w,
-                  height: 60.h,
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(7.h),
-                      bottomLeft: Radius.circular(7.r),
+                  child: Container(
+                    width: 44.w,
+                    height: 60.h,
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(7.h),
+                        bottomLeft: Radius.circular(7.r),
+                      ),
                     ),
+                    child: Icon(Icons.remove),
                   ),
-                  child: Icon(Icons.remove),
-                ),
-                onTap: minus
-              ),
+                  onTap: minus),
               Container(
                 decoration: BoxDecoration(
                     color: AppColors.textfieldsColor,

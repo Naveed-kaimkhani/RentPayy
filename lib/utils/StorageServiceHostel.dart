@@ -9,7 +9,6 @@ class StorageServiceHostel{
     _sharedPreferences = await SharedPreferences.getInstance();
     _sharedPreferences.setString(
         HOSTEL_PREFS_KEY, json.encode(hostelModel.toMap(hostelModel)));
-      print("user created in preferences");
   
   }
 

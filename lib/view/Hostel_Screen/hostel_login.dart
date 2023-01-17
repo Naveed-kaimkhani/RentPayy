@@ -15,6 +15,7 @@ import 'package:rentpayy/utils/utils.dart';
 import '../../resources/FirebaseRepository.dart';
 import '../../utils/routes/RoutesName.dart';
 import '../../view_model/HostelDetailsProvider.dart';
+import '../forgot_password/forgot_password.dart';
 
 class hostel_login extends StatefulWidget {
   hostel_login({super.key});
@@ -175,6 +176,23 @@ class _hostel_loginState extends State<hostel_login> {
                               _validateFields();
                             },
                             color: AppColors.primaryColor),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 150.0),
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => forgot_password()));
+                          },
+                          child: Text(
+                            'Forget Password?',
+                            style: TextStyle(
+                              color: AppColors.primaryColor,
+                              fontSize: 18.sp,
+                            ),
+                          )),
+                    ),
                     SizedBox(
                       height: 73.h,
                     ),

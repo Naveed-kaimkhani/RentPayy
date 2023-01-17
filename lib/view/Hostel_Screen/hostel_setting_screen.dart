@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
-import 'package:rentpayy/view/Hostel_Screen/password_optionHostel.dart';
+import 'package:rentpayy/view/Hostel_Screen/update_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../components/profilePic.dart';
 import '../../model/hostelModel.dart';
@@ -110,7 +110,7 @@ class hostel_setting_screen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const password_optionHostel()),
+                                        const update_password()),
                               );
                             },
                             leading: settingScreen_Miniicon(icon: Icons.lock),

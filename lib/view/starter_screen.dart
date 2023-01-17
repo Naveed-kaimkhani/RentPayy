@@ -4,29 +4,11 @@ import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/view/user_seller_screen.dart';
 import '../components/mini_container.dart';
 
-class StarterScreen extends StatefulWidget {
+class StarterScreen extends StatelessWidget {
   const StarterScreen({Key? key}) : super(key: key);
 
   @override
-  State<StarterScreen> createState() => _StarterScreenState();
-}
-
-class _StarterScreenState extends State<StarterScreen> {
-  @override
-  void dispose() {
-    super.dispose();
-    print("starter disposed");
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    print("in init");
-  }
-
-  @override
   Widget build(BuildContext context) {
-    print("in build");
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffF5AD0D),
