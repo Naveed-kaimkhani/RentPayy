@@ -1,13 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:rentpayy/components/authButton.dart';
-import 'package:rentpayy/components/payment_button.dart';
+import 'package:rentpayy/components/circle_progress.dart';
+import 'package:rentpayy/model/HostelBookings.dart';
+import 'package:rentpayy/model/UserBookingInfo.dart';
+import 'package:rentpayy/resources/FirebaseMethods.dart';
 
 import '../../components/hostel_appBarButton.dart';
+import '../../model/UserModel.dart';
 import '../../model/hostelModel.dart';
 import '../../utils/style/AppColors.dart';
 import '../../utils/style/Images.dart';
+import '../../view_model/UserDetailsProvider.dart';
 
 class book_now extends StatefulWidget {
   final hostelModel? hostel;
@@ -28,9 +35,17 @@ class _book_nowState extends State<book_now> {
 
   List<Payment> payments = <Payment>[];
   List<String> plan = [" 1 month", " 3 months", " 6 months", " 1 year"];
-  int increment = 0;
+  int increment = 1;
   int value = 0;
+  bool isLoadingNow = false;
   String? selectedvalue = " Per month";
+
+  void isLoading(bool value) {
+    setState(() {
+      isLoadingNow = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -385,14 +400,56 @@ class _book_nowState extends State<book_now> {
             SizedBox(
               height: 90.h,
             ),
-            authButton(
-                text: "Continue to Payment",
-                func: () {},
-                color: AppColors.primaryColor)
+            isLoadingNow
+                ? circle_progress()
+                : authButton(
+                    text: "Continue to Payment",
+                    func: () async {
+                      await bookHostel();
+                    },
+                    color: AppColors.primaryColor)
           ],
         ),
       ),
     );
+  }
+
+  Future<void> bookHostel() async {
+    isLoading(true);
+    DateTime today = new DateTime.now();
+    String date =
+        "${today.day.toString().padLeft(2, '0')}/${today.month.toString().padLeft(2, '0')}/${today.year.toString()}";
+    UserModel? user =
+        Provider.of<UserDetailsProvider>(context, listen: false).userDetails;
+    HostelBookings hostelBooking = HostelBookings(
+      uid: widget.hostel!.uid,
+      name: widget.hostel!.name,
+      charges: widget.hostel!.charges! * increment,
+      hostel_address: widget.hostel!.hostel_address,
+      bookings: increment,
+      booking_date: date,
+    );
+    UserBookingInfo userModel=UserBookingInfo(
+      uid: user!.uid,
+      bookingDate: date,
+      name: user.name,
+      phone: user.phone
+    );
+    await FirebaseMethods.bookHostel(hostelBooking, context);
+    await FirebaseMethods.hostelBooking(
+      userModel,
+      widget.hostel!,
+      context
+    );
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    int count = widget.hostel!.bookings!;
+    setState(() {
+      count++;
+    });
+    db.collection("hostels").doc(widget.hostel!.uid).update({
+      'bookings': count,
+    });
+    isLoading(false);
   }
 }
 

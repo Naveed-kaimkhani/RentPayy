@@ -7,7 +7,7 @@ class Images {
   static const String yellowBackIcon= 'asset/yellowBackIcon.png';
   // static const String or= 'asset/or.png';
    static const String google= 'asset/Google.png';
-     static const String facebook= 'asset/facebook.png';
+    //  static const String facebook= 'asset/facebook.png';
     //  static const String favourite = 'asset/favourite.png';
     //  static const String share = 'asset/share.png';
     //  static const String location = 'asset/location.png';

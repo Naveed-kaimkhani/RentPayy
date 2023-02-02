@@ -1,17 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:rentpayy/components/logout_popup.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/view/forgot_password/password_option.dart';
-import 'package:rentpayy/view/starter_screen.dart';
 import 'package:rentpayy/view/user_screen/personal_data.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../components/profilePic.dart';
 import '../../model/UserModel.dart';
 import '../../view_model/UserDetailsProvider.dart';
+import 'booking_history.dart';
 import 'faq_screen.dart';
 
 class setting_screen extends StatelessWidget {
@@ -152,7 +150,15 @@ class setting_screen extends StatelessWidget {
                     trailing:
                         Icon(Icons.arrow_forward_ios_rounded, size: 20.sp),
                     collapsedTextColor: Colors.black,
-                    title: Text("Booking History"),
+                    title: InkWell(
+                        child: Text("Booking History"),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const booking_history()));
+                        }),
                     // leading: Image.asset("asset/history.png"),
                     leading: settingScreen_icon(icon: Icons.schedule_rounded),
                   ),
@@ -174,12 +180,7 @@ class setting_screen extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () async {
-                            await FirebaseAuth.instance.signOut();
-                            SharedPreferences preferences =
-                                await SharedPreferences.getInstance();
-                            await preferences.setInt('initScreen', 0);
-                            await preferences.setInt('isUser', 0);
-                            Navigator.push(context,MaterialPageRoute(builder: (context)=>StarterScreen()));
+                            showLogoutPopup(context);
                           },
                           child: Text(
                             "Logout",

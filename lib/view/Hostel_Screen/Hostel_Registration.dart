@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,10 +12,7 @@ import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
-import 'package:rentpayy/view/starter_screen.dart';
-import '../../components/GenderDropdown_button.dart';
-import '../../components/HostelDropdown_button.dart';
-import '../../resources/FirebaseMethods.dart';
+
 
 class Hostel_Registration extends StatefulWidget {
   final hostelModel? hostel;
@@ -29,8 +27,7 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
   TextEditingController descriptionController = TextEditingController();
   final FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore db = utils.getFireStoreInstance();
-  final user = utils.getCurrentUser();
-  final uid = utils.getCurrentUserUid();
+
   List<String> genderList = ["Male", "Female"];
   List<String> HostelList = ["Bachelor Hostel", "Working Hostel"];
   String? hostelselectedvalue = "Hostel Type";
@@ -44,10 +41,10 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
     super.dispose();
 
     descriptionController.dispose();
-    // WidgetsBinding.instance.removeObserver(this);
+ 
   }
 
-  // Facilities fac = Facilities();
+ 
 
   void savedata() {
     isLoading(true);
@@ -56,18 +53,27 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
         available_capacity_increment == 0) {
       utils.flushBarErrorMessage("Please enter hostel details", context);
     } else {
-      db.collection("hostels").doc(uid).update({
-        "hostel_gender_type": typeselectedvalue,
-        "hostel_type": hostelselectedvalue,
-        "total_capacity": total_capacity_increment,
-        "available_capacity": available_capacity_increment,
-        "person_per_room": person_per_room,
-        "description": descriptionController.text
-      });
-
+    
+      hostelModel Hostel = hostelModel(
+        name: widget.hostel!.name,
+        email: widget.hostel!.email,
+        uid: widget.hostel!.uid,
+        charges: widget.hostel!.charges,
+        hostel_address: widget.hostel!.hostel_address,
+        hostel_phone: widget.hostel!.hostel_phone,
+        hostel_gender_type: typeselectedvalue,
+        hostel_type: hostelselectedvalue,
+        available_capacity: available_capacity_increment,
+        person_per_room: person_per_room,
+        description: descriptionController.text,
+        total_capacity: total_capacity_increment,
+      );
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Facilities()),
+        MaterialPageRoute(
+            builder: (context) => Facilities(
+                  hostel: Hostel,
+                )),
       );
     }
     isLoading(false);
@@ -82,29 +88,13 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
   @override
   void initState() {
     utils.checkConnectivity(context);
-    // WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) async {
-  //   // TODO: implement didChangeAppLifecycleState
-  //   super.didChangeAppLifecycleState(state);
-  //   if (state == AppLifecycleState.resumed) {
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: (context) => StarterScreen()));
-  //     // print("resumed");
-  //   } else if (state == AppLifecycleState.inactive) {
-  //     await FirebaseMethods.delete_User(context);
-  //   } else if (state == AppLifecycleState.detached) {
-  //     // print("detached"); //
-  //   } else if (state == AppLifecycleState.paused) {
-  //     // print("paused");
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -140,17 +130,13 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
                           ),
                           Row(
                             children: [
-                              HostelDropdown_button(
-                                list: HostelList,
-                                hinttext: hostelselectedvalue,
-                              ),
+                      
+                              hostelType(),
                               SizedBox(
                                 width: 15.w,
                               ),
-                              GenderDropdown_button(
-                                list: genderList,
-                                hinttext: typeselectedvalue,
-                              ),
+                         
+                              genderType(),
                             ],
                           ),
                           SizedBox(
@@ -184,14 +170,12 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
                                 builder: (context, myStatefunc) {
                                   return Point_increament_button(
                                     minus: () {
-                                 
                                       if (total_capacity_increment > 0) {
                                         myStatefunc(
                                             () => total_capacity_increment--);
                                       }
                                     },
                                     plus: () {
-                                   
                                       myStatefunc(
                                           () => total_capacity_increment++);
                                     },
@@ -202,26 +186,16 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
                               SizedBox(
                                 width: 21.w,
                               ),
-                           
                               StatefulBuilder(
                                 builder: (context, myStatefunc) {
                                   return Point_increament_button(
                                     minus: () {
-                                      // setState(() {
-                                      //   if (total_capacity_increment == 0)
-                                      //     total_capacity_increment = 0;
-                                      //   else
-                                      //     total_capacity_increment--;
-                                      // });
                                       if (available_capacity_increment > 0) {
                                         myStatefunc(() =>
                                             available_capacity_increment--);
                                       }
                                     },
                                     plus: () {
-                                      // setState(() {
-                                      //   total_capacity_increment++;
-                                      // });
                                       myStatefunc(
                                           () => available_capacity_increment++);
                                     },
@@ -249,18 +223,15 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
                                 SizedBox(
                                   height: 13.04.h,
                                 ),
-                            
                                 StatefulBuilder(
                                   builder: (context, myStatefunc) {
                                     return Point_increament_button(
                                       minus: () {
-                                      
                                         if (person_per_room > 0) {
                                           myStatefunc(() => person_per_room--);
                                         }
                                       },
                                       plus: () {
-                                     
                                         myStatefunc(() => person_per_room++);
                                       },
                                       increment: person_per_room,
@@ -335,6 +306,89 @@ class _Hostel_RegistrationState extends State<Hostel_Registration>
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Container hostelType() {
+    return Container(
+      height: 60.h,
+      decoration: BoxDecoration(
+        color: Color(0xffF4F7FF),
+        borderRadius: BorderRadius.circular(7.r),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton2(
+          focusColor: AppColors.primaryColor,
+          dropdownElevation: 0,
+          buttonElevation: 0,
+          icon: Padding(
+            padding: EdgeInsets.only(right: 17.w),
+            child: Icon(
+              Icons.arrow_drop_down,
+              color: AppColors.primaryColor,
+            ),
+          ),
+          dropdownDecoration: BoxDecoration(
+            color: AppColors.textfieldsColor,
+            borderRadius: BorderRadius.circular(7.r),
+          ),
+          hint: Text(hostelselectedvalue!),
+          items: HostelList.map(
+            (value) => DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            ),
+          ).toList(),
+          onChanged: (value) {
+            setState(() {
+              hostelselectedvalue = value as String;
+            });
+        
+          },
+        ),
+      ),
+    );
+  }
+
+  Container genderType() {
+    return Container(
+      height: 60.h,
+      decoration: BoxDecoration(
+        color: Color(0xffF4F7FF),
+        borderRadius: BorderRadius.circular(7.r),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton2(
+          focusColor: AppColors.primaryColor,
+          dropdownElevation: 0,
+          buttonElevation: 0,
+          icon: Padding(
+            padding: EdgeInsets.only(right: 17.w),
+            child: Icon(
+              Icons.arrow_drop_down,
+              color: AppColors.primaryColor,
+            ),
+          ),
+          dropdownDecoration: BoxDecoration(
+            color: AppColors.textfieldsColor,
+            borderRadius: BorderRadius.circular(7.r),
+          ),
+          hint: Text(typeselectedvalue!),
+          items: genderList
+              .map(
+                (value) => DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                ),
+              )
+              .toList(),
+          onChanged: (value) {
+            setState(() {
+              typeselectedvalue = value as String;
+            });
+          },
         ),
       ),
     );

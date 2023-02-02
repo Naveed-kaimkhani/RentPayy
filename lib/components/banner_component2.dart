@@ -28,12 +28,12 @@ class banner_component2 extends StatelessWidget {
             ),
             child: Image.asset(
               'asset/phone.png',
-              height: 157.h,
+              height: 154.h,
               width: 148.w,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 10.w, bottom: 8.h),
+            padding: EdgeInsets.only(left: 10.w, bottom: 5.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,

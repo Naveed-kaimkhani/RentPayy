@@ -91,8 +91,7 @@ class _login_Signup_forHostelState extends State<login_Signup_forHostel> {
                     text: "Login",
                     color: Colors.black,
                     func: () {
-                      Navigator.pushNamed(
-                          context, RoutesName.hostel_login);
+                      Navigator.pushNamed(context, RoutesName.hostel_login);
                     },
                   ),
                   SizedBox(
@@ -108,37 +107,12 @@ class _login_Signup_forHostelState extends State<login_Signup_forHostel> {
                   SizedBox(
                     height: 80.h,
                   ),
-                  or_line_widget(),
-                  // Container(
-                  //   height: 80.h,
-                  //   width: 321.w,
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     border: Border.all(color: Colors.black, width: 2),
-                  //     // border: BoxBorder()
-                  //   ),
-                  // ),
-                  // InkWell(
-                  //   child: Image.asset(
-                  //     Images.google,
-                  //     height: 76.h,
-                  //     width: 321.w,
-                  //   ),
-                  //   onTap: handleGoogleSignIn,
-                  // ),
-                  // SizedBox(
-                  //   height: 20.h,
-                  // ),
-                  // Image.asset(
-                  //   Images.facebook,
-                  //   height: 76.h,
-                  //   width: 321.w,
-                  // ),
+                  // or_line_widget(),
+
                   SizedBox(
                     height: 58.h,
                   ),
-                  terms_and_conditions()
+                  // terms_and_conditions()
                 ],
               ),
             ),

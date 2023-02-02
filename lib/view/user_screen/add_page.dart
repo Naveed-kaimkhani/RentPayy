@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:getwidget/components/floating_widget/gf_floating_widget.dart';
@@ -11,7 +12,6 @@ import 'package:rentpayy/view/user_screen/book_now.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../components/appbar_buttons.dart';
 import '../../model/hostelModel.dart';
 import '../../utils/style/Images.dart';
@@ -64,8 +64,7 @@ class _AdPageState extends State<AdPage> {
 
   launchphone() async {
     var whatsapp = widget.hostel.hostel_phone!;
-    Uri whatsappAndroid = Uri.parse(
-        "tel:" + "(" + "92$whatsapp)" + "?body=Hello i want to book a hostel");
+    Uri whatsappAndroid = Uri.parse("tel:" + "(" + "92$whatsapp)");
     if (await canLaunchUrl(whatsappAndroid)) {
       await launchUrl(whatsappAndroid);
     } else {
@@ -75,6 +74,20 @@ class _AdPageState extends State<AdPage> {
         ),
       );
     }
+  }
+
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    int count = widget.hostel.visits!;
+    setState(() {
+      count++;
+    });
+    db.collection("hostels").doc(widget.hostel.uid).update({
+      'visits': count,
+    });
   }
 
   @override
@@ -508,11 +521,9 @@ class _AdPageState extends State<AdPage> {
                     // ),
                     GridView.count(
                       padding: EdgeInsets.zero,
-
                       shrinkWrap: true,
                       crossAxisSpacing: 0,
                       mainAxisSpacing: 0,
-
                       physics: new NeverScrollableScrollPhysics(),
                       crossAxisCount: 4,
                       childAspectRatio: 1,
@@ -522,7 +533,7 @@ class _AdPageState extends State<AdPage> {
                           )
                           .toList(),
                     ),
-                 
+
                     SizedBox(
                       height: 7.h,
                     ),

@@ -131,11 +131,7 @@ class _login_screenState extends State<login_screen> {
                   SizedBox(
                     height: 20.h,
                   ),
-                  Image.asset(
-                    Images.facebook,
-                    height: 76.h,
-                    width: 321.w,
-                  ),
+               
                   SizedBox(
                     height: 58.h,
                   ),

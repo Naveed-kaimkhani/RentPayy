@@ -8,7 +8,6 @@ import 'package:rentpayy/utils/style/AppColors.dart';
 import '../../components/auth_screens_decor.dart';
 import '../../components/mini_Button.dart';
 import 'package:rentpayy/model/hostelModel.dart';
-import 'package:rentpayy/utils/StorageServiceHostel.dart';
 import 'package:rentpayy/view/Hostel_Screen/Hostel_Registration.dart';
 import '../../components/upper_design.dart';
 import '../../resources/FirebaseRepository.dart';
@@ -60,10 +59,13 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
         .then((User? user) async {
       if (user != null) {
         hostelModel.uid = user.uid;
-        _saveHostel(hostelModel);
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return Hostel_Registration(
+            hostel: hostelModel,
+          );
+        }));
       } else {
         isLoading(false);
-        // utils.flushBarErrorMessage('Failed to Signup', context);
       }
     }).catchError((error) {
       isLoading(false);
@@ -72,16 +74,14 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
   }
 
   Future<void> _validateFields() async {
-    if (
-        // _workTypeController.text.trim().isEmpty &&
-        _nameController.text.trim().isEmpty &&
-            _hosteladdressController.text.trim().isEmpty &&
-            _hostelcontactController.text.trim().isEmpty &&
-            _chargesController.text.trim().isEmpty &&
-            _hostelOwnerEmailController.text.trim().isEmpty &&
-            _hostelOwnerphoneController.text.trim().isEmpty &&
-            _passwordController.text.trim().isEmpty &&
-            _confirmpasswordController.text.trim().isEmpty) {
+    if (_nameController.text.trim().isEmpty &&
+        _hosteladdressController.text.trim().isEmpty &&
+        _hostelcontactController.text.trim().isEmpty &&
+        _chargesController.text.trim().isEmpty &&
+        _hostelOwnerEmailController.text.trim().isEmpty &&
+        _hostelOwnerphoneController.text.trim().isEmpty &&
+        _passwordController.text.trim().isEmpty &&
+        _confirmpasswordController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Enter your complete details', context);
     } else if (_nameController.text.trim().isEmpty) {
       utils.flushBarErrorMessage('Enter your full name', context);
@@ -110,33 +110,14 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
     } else {
       isLoading(true);
       hostelModel HostelModel = hostelModel(
-          name: _nameController.text.trim(),
-          hostel_address: _hosteladdressController.text.trim(),
-          hostel_phone: _hostelcontactController.text.trim(),
-          charges: int.parse(_chargesController.text),
-          email: _hostelOwnerEmailController.text.trim(),
-          owner_phone: _hostelOwnerphoneController.text.trim(),
-          hostel_type: "",
-          hostel_gender_type: "",
-          total_capacity: 0,
-          available_capacity: 0,
-          person_per_room: 0,
-          description: "");
+        name: _nameController.text.trim(),
+        hostel_address: _hosteladdressController.text.trim(),
+        hostel_phone: _hostelcontactController.text.trim(),
+        charges: int.parse(_chargesController.text),
+        email: _hostelOwnerEmailController.text.trim(),
+      );
       _signup(HostelModel, context);
     }
-  }
-
-  void _saveHostel(hostelModel hostelModels) {
-    _firebaseRepository.saveHostelDataToFirestore(hostelModels).then((value) {
-      StorageServiceHostel.saveHostel(hostelModels).then((value) {
-        isLoading(false);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => Hostel_Registration()));
-      });
-    }).catchError((error) {
-      isLoading(false);
-      utils.flushBarErrorMessage(error, context);
-    });
   }
 
   @override
@@ -357,10 +338,10 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
                                     func: () {
                                       FocusManager.instance.primaryFocus
                                           ?.unfocus();
+                                      _validateFields();
+                                      // setState(() {
 
-                                      setState(() {
-                                        _validateFields();
-                                      });
+                                      // });
                                     },
                                     color: AppColors.primaryColor,
                                     icon: Icons.arrow_forward),

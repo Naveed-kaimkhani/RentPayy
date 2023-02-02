@@ -6,9 +6,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rentpayy/model/HostelBookings.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/Strings.dart';
 import 'package:rentpayy/utils/utils.dart';
+import '../model/UserBookingInfo.dart';
 import '../model/UserModel.dart';
 
 class FirebaseMethods {
@@ -21,6 +23,12 @@ class FirebaseMethods {
 
   static final CollectionReference _favoritesCollection =
       firestore.collection("favorites");
+
+  static final CollectionReference _bookingCollection =
+      firestore.collection("bookings");
+
+  static final CollectionReference _usersWhoBookedHostel =
+      firestore.collection("usersWhoBookedHostel");
 
   static final CollectionReference _hostelCollection =
       firestore.collection(HOSTEL_COLLECTION);
@@ -53,7 +61,6 @@ class FirebaseMethods {
       );
       return userCredential.user;
     } catch (e) {
-      // print(e);
       utils.flushBarErrorMessage(e.toString(), context);
     }
   }
@@ -79,7 +86,6 @@ class FirebaseMethods {
   }
 
   Future<void> addToFavourites(hostelModel hostel) async {
-    print(FirebaseAuth.instance.currentUser!.uid);
     await _favoritesCollection
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection("user_fav")
@@ -87,6 +93,33 @@ class FirebaseMethods {
         .set(hostel.toMap(hostel));
 
     utils.toastMessage("Added to Favorites");
+  }
+
+  static Future<void> hostelBooking(
+      UserBookingInfo userModel, hostelModel hostel, context) async {
+    try {
+      await _usersWhoBookedHostel
+          .doc(hostel.uid)
+          .collection("users")
+          .doc(userModel.uid)
+          .set(userModel.toMap(userModel));
+    } catch (e) {
+      utils.flushBarErrorMessage(e.toString(), context);
+    }
+  }
+
+  static Future<void> bookHostel(HostelBookings hostel, context) async {
+    try {
+      await _bookingCollection
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("user_bookings")
+          .doc(hostel.uid)
+          .set(hostel.toMap(hostel));
+
+      utils.toastMessage("Hostel Booked Succesfully");
+    } catch (e) {
+      utils.flushBarErrorMessage(e.toString(), context);
+    }
   }
 
   Future<User?> login(String email, String password, context) async {
@@ -161,12 +194,10 @@ class FirebaseMethods {
     List<hostelModel> hostelModels = [];
     QuerySnapshot<Map<String, dynamic>> snap =
         await FirebaseFirestore.instance.collection("hostels").get();
-    // print(snap.docs.length);
     for (var i = 0; i < snap.docs.length; i++) {
       DocumentSnapshot docsSnap = snap.docs[i];
 
       hostelModel model = hostelModel.fromJson(docsSnap.data() as dynamic);
-      //print(model.Category);
       if (model.pictures != null) {
         hostelModels.add(model);
       }
@@ -174,20 +205,50 @@ class FirebaseMethods {
     return hostelModels;
   }
 
+  static Future<List<HostelBookings>> getUserBookings() async {
+    List<HostelBookings> hostelModels = [];
+    QuerySnapshot<Map<String, dynamic>> snap = await FirebaseFirestore.instance
+        .collection("bookings")
+        .doc(utils.getCurrentUserUid())
+        .collection("user_bookings")
+        .get();
+    for (var i = 0; i < snap.docs.length; i++) {
+      DocumentSnapshot docsSnap = snap.docs[i];
+
+      HostelBookings model =
+          HostelBookings.fromJson(docsSnap.data() as dynamic);
+      hostelModels.add(model);
+      // if (model.name != null) {
+
+      // }
+    }
+    return hostelModels;
+  }
+
+  static Future<List<UserBookingInfo>> getUserDetailsWhoBookedHostels() async {
+    List<UserBookingInfo> Models = [];
+    QuerySnapshot<Map<String, dynamic>> snap = await FirebaseFirestore.instance
+        .collection("usersWhoBookedHostel")
+        .doc(utils.getCurrentUserUid())
+        .collection("users")
+        .get();
+    for (var i = 0; i < snap.docs.length; i++) {
+      DocumentSnapshot docsSnap = snap.docs[i];
+
+      UserBookingInfo model =
+          UserBookingInfo.fromMap(docsSnap.data() as dynamic);
+      if (model.name != null) {
+        Models.add(model);
+      }
+    }
+    return Models;
+  }
+
   static Future<void> delete_User(context) async {
-    print("delete user called");
     FirebaseFirestore db = utils.getFireStoreInstance();
     String uid = utils.getCurrentUserUid();
     await db.collection("hostels").doc(uid).delete();
-// mRef.child(FirebaseAuth.getInstance().currentUser.uid).remove().addO  nSuccessListener { FirebaseAuth.getInstance().currentUser!!.delete().addOnCompleteListener { //Go to login screen } }                    user.delete();
     await utils.getCurrentUser().delete();
-
-    // try {
-    //   await utils.getCurrentUser().delete();
-    // } catch (e) {
-    //   utils.flushBarErrorMessage("can't delete user", context);
-    //   // print(e);
-    // }
   }
 
   static Future<List<hostelModel>> getHostelByCategory(

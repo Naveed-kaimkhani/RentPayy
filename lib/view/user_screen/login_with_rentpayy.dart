@@ -247,26 +247,9 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
                     SizedBox(
                       height: 73.h,
                     ),
-                    or_line_widget(),
-                    InkWell(
-                      onTap: () async {
-                        await _googleSignIn.signIn();
-                      },
-                      child: Container(
-                        width: 349.w,
-                        height: 53.h,
-                        child: Image.asset(
-                          Images.google,
-                        ),
-                      ),
-                    ),
                     SizedBox(
                       height: 17.h,
                     ),
-                    Container(
-                        width: 349.w,
-                        height: 53.h,
-                        child: Image.asset(Images.facebook)),
                     SizedBox(
                       height: 120.h,
                     ),

@@ -57,7 +57,7 @@ class _search_screenState extends State<search_screen> {
                         hintStyle: TextStyle(
                             fontSize: 15.sp, fontWeight: FontWeight.w400),
                         contentPadding: EdgeInsets.only(top: 1.h),
-                        suffixIcon: Image.asset('asset/vector(1).png'),
+                        // suffixIcon: Icon(Icons.hotel),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                                 color: Color.fromRGBO(242, 246, 255, 1)),

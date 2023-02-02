@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/authButton.dart';
@@ -96,6 +97,7 @@ class StarterScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => UserSellerScreen()));
+
                         },
                         color: Color(0xffF5AD0D))
                   ],

@@ -1,5 +1,4 @@
 import 'dart:core';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +55,7 @@ class _HostelDropdown_buttonState extends State<HostelDropdown_button> {
               )
               .toList(),
           onChanged: (value) {
-            print(value);
+            // print(value);
             setState(() {
               widget.hinttext = value as String;
             });

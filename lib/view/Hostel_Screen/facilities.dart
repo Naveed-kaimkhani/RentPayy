@@ -1,25 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/components/auth_screens_decor.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/custom_checkbox.dart';
 import 'package:rentpayy/components/mini_Button.dart';
+import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/Hostel_Screen/add_gallery.dart';
-import '../../resources/FirebaseMethods.dart';
-import '../../utils/routes/RoutesName.dart';
-import '../starter_screen.dart';
 
 class Facilities extends StatefulWidget {
-  Facilities({Key? key}) : super(key: key);
+  hostelModel hostel;
+  Facilities({Key? key, required this.hostel}) : super(key: key);
   @override
   State<Facilities> createState() => _FacilitiesState();
 }
 
-class _FacilitiesState extends State<Facilities>  {
+class _FacilitiesState extends State<Facilities> {
   List<String> checkboxList = [];
 
   bool waterIsSelected = false,
@@ -38,49 +36,47 @@ class _FacilitiesState extends State<Facilities>  {
       WifiIsSelected = false;
   FirebaseFirestore db = FirebaseFirestore.instance;
 
-  final user = FirebaseAuth.instance.currentUser!.uid;
+  // final user = FirebaseAuth.instance.currentUser!.uid;
 
   void savedata() {
     if (checkboxList.isEmpty) {
-      print(checkboxList);
       utils.flushBarErrorMessage("Please select facilites", context);
     } else {
-      db.collection("hostels").doc(user).update({
-        'facilities': checkboxList,
-      }).then((value) {
-        print(checkboxList);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => add_gallery()),
-        );
-      });
+      hostelModel Hostel = hostelModel(
+        name: widget.hostel.name,
+        email: widget.hostel.email,
+        uid: widget.hostel.uid,
+        charges: widget.hostel.charges,
+        total_capacity: widget.hostel.total_capacity,
+        // owner_phone: widget.hostel.owner_name,
+        hostel_address: widget.hostel.hostel_address,
+        hostel_phone: widget.hostel.hostel_phone,
+        hostel_gender_type: widget.hostel.hostel_gender_type,
+        hostel_type: widget.hostel.hostel_type,
+        available_capacity: widget.hostel.available_capacity,
+        person_per_room: widget.hostel.person_per_room,
+        description: widget.hostel.description,
+        facilities: checkboxList,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => add_gallery(
+                  hostel: Hostel,
+                )),
+      );
     }
   }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) async {
-  //   super.didChangeAppLifecycleState(state);
-  //   if (state == AppLifecycleState.resumed) {
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: (context) => StarterScreen()));
-  //     // print("resumed");
-  //     Navigator.pushNamed(context, RoutesName.starterScreen);
-  //   } else if (state == AppLifecycleState.inactive) {
-  //     await FirebaseMethods.delete_User(context);
-  //   } else if (state == AppLifecycleState.detached) {
-  //     // print("detached"); //
-  //   } else if (state == AppLifecycleState.paused) {
-  //     // print("paused");
-  //   }
-  // }
   @override
   void initState() {
     super.initState();
     // WidgetsBinding.instance.addObserver(this);
   }
+
   @override
   void dispose() {
-        // WidgetsBinding.instance.removeObserver(this);
+    // WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -123,7 +119,6 @@ class _FacilitiesState extends State<Facilities>  {
 
                                 if (waterIsSelected) {
                                   checkboxList.add("water");
-                                  print(checkboxList);
                                 } else
                                   checkboxList.remove("water");
                               });
@@ -332,9 +327,8 @@ class _FacilitiesState extends State<Facilities>  {
                       SizedBox(
                         height: 60.h,
                       ),
-          
                       Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
+                        padding: const EdgeInsets.only(left: 15.0),
                         child: MiniButton(
                           text: "Next",
                           func: () {

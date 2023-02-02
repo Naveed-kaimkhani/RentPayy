@@ -28,11 +28,11 @@ class Routes {
 
       case RoutesName.navigation:
         return _buildRoute(navigation_page(), settings);
-      case RoutesName.facilities:
-        return _buildRoute(Facilities(), settings);
+      // case RoutesName.facilities:
+      //   return _buildRoute(Facilities(), settings);
 
-      case RoutesName.uploadPictures:
-        return _buildRoute(add_gallery(), settings);
+      // case RoutesName.uploadPictures:
+      //   return _buildRoute(add_gallery(), settings);
 
       case RoutesName.setting:
         return _buildRoute(setting_screen(), settings);

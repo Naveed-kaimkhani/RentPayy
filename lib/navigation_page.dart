@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
-import 'package:rentpayy/view/user_screen/chat_screen.dart';
+import 'package:rentpayy/view/user_screen/booking_history.dart';
 import 'package:rentpayy/view/user_screen/favourites.dart';
 import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 import 'package:rentpayy/view/user_screen/settings.dart';
@@ -16,7 +16,7 @@ class navigation_page extends StatefulWidget {
 class _navigation_pageState extends State<navigation_page> {
   List pages = [
     user_front_Screen(),
-    chat_screen(),
+    booking_history(),
     favourites(),
     setting_screen(),
   ];
@@ -47,11 +47,11 @@ class _navigation_pageState extends State<navigation_page> {
               text: "Home",
             ),
             GButton(
-              icon: Icons.chat,
-              text: "Chat",
+              icon: Icons.hotel,
+              text: "Bookings",
             ),
             GButton(
-              icon: Icons.favorite,
+              icon: Icons.favorite_outline,
               text: "Likes",
             ),
             GButton(
@@ -61,23 +61,6 @@ class _navigation_pageState extends State<navigation_page> {
           ],
         ),
       ),
-      // BottomNavigationBar(
-      //   backgroundColor: AppColors.primaryColor,
-      //   onTap: onTap,
-      //   currentIndex: currentindex,
-      //   selectedItemColor: Colors.black,
-      //   unselectedItemColor: Colors.grey.shade300,
-      //   showSelectedLabels: false,
-      //   showUnselectedLabels: false,
-      //   elevation: 0,
-      //   items: [
-      //     BottomNavigationBarItem(icon: Icon(Icons.apps), label: "Home"),
-      //     BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Bar"),
-      //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.search_rounded), label: "Search"),
-      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account"),
-      //   ],
-      // ),
       body: pages[currentindex],
     );
   }

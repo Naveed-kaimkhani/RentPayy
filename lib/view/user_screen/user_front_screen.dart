@@ -9,9 +9,7 @@ import 'package:rentpayy/components/shimmer_hostel_container.dart';
 import 'package:rentpayy/model/UserModel.dart';
 import 'package:rentpayy/view/user_screen/add_page.dart';
 import 'package:rentpayy/view/user_screen/personal_data.dart';
-
 import '../../components/banner.dart';
-
 import '../../components/banner_component1.dart';
 import '../../components/banner_component2.dart';
 import '../../components/exit_pop.dart';

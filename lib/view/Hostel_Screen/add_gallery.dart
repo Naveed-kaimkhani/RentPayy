@@ -8,15 +8,20 @@ import 'package:rentpayy/components/auth_screens_decor.dart';
 import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/resources/FirebaseMethods.dart';
+import 'package:rentpayy/resources/FirebaseRepository.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
+import 'package:rentpayy/view/Hostel_Screen/publish_ad_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../model/hostelModel.dart';
+import '../../utils/StorageServiceHostel.dart';
 import '../starter_screen.dart';
 
 class add_gallery extends StatefulWidget {
-  const add_gallery({Key? key}) : super(key: key);
+  hostelModel hostel;
+  add_gallery({Key? key, required this.hostel}) : super(key: key);
 
   @override
   State<add_gallery> createState() => _add_galleryState();
@@ -65,22 +70,65 @@ class _add_galleryState extends State<add_gallery> {
 
       List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
           imageFile: imageFileList!, uid: user);
-      db.collection("hostels").doc(user).update({
-        'pictures': listOfImages,
-        'visits': 0,
-        'cancel': 0,
-        'confirms': 0,
-        'bookings': 0,
-      });
+      //   db.collection("hostels").doc(user).update({
+      //     'pictures': listOfImages,
+      //     'visits': 0,
+      //     'cancel': 0,
+      //     'confirms': 0,
+      //     'bookings': 0,
+      //   });
+      // }
+      hostelModel Hostel = hostelModel(
+        name: widget.hostel.name,
+        uid: widget.hostel.uid,
+        email: widget.hostel.email,
+        charges: widget.hostel.charges,
+        total_capacity: widget.hostel.total_capacity,
+        // owner_phone: widget.hostel.owner_name,
+        hostel_address: widget.hostel.hostel_address,
+        hostel_phone: widget.hostel.hostel_phone,
+        hostel_gender_type: widget.hostel.hostel_gender_type,
+        hostel_type: widget.hostel.hostel_type,
+        available_capacity: widget.hostel.available_capacity,
+        person_per_room: widget.hostel.person_per_room,
+        description: widget.hostel.description,
+        facilities: widget.hostel.facilities,
+        pictures: listOfImages,
+        visits: 0,
+        confirms: 0,
+        bookings: 0,
+        cancel: 0,
+      );
+      print(Hostel.name);
+      print(Hostel.hostel_address);
+      print(Hostel.facilities);
+      print(Hostel.available_capacity);
+      print(Hostel.available_capacity);
+      print(Hostel.pictures);
+      _saveHostel(Hostel);
     }
-    isLoading(false);
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setInt('initScreen', 1);
-    Navigator.popAndPushNamed(context, RoutesName.publish_ad_screen);
   }
 
   bool onClick = false;
 
+  void _saveHostel(hostelModel hostelModels) {
+   print("hostel uid");
+    print(hostelModels.uid);
+    FirebaseRepository _firebaseRepository = FirebaseRepository();
+    _firebaseRepository.saveHostelDataToFirestore(hostelModels).then((value) {
+      StorageServiceHostel.saveHostel(hostelModels).then((value) async {
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        await preferences.setInt('initScreen', 1);
+        Navigator.popAndPushNamed(context, RoutesName.publish_ad_screen);
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) =>publish_ad_screen()));
+      });
+      isLoading(false);
+    }).catchError((error) {
+      isLoading(false);
+      utils.flushBarErrorMessage(error, context);
+    });
+  }
   // @override
   // void didChangeAppLifecycleState(AppLifecycleState state) async {
   //   // TODO: implement didChangeAppLifecycleState
@@ -106,11 +154,11 @@ class _add_galleryState extends State<add_gallery> {
     super.dispose();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    // WidgetsBinding.instance.addObserver(this);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // WidgetsBinding.instance.addObserver(this);
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -196,7 +196,6 @@ class _hostel_loginState extends State<hostel_login> {
                     SizedBox(
                       height: 73.h,
                     ),
-                    or_line_widget(),
                     SizedBox(
                       height: 120.h,
                     ),

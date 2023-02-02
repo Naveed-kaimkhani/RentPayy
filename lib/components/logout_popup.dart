@@ -1,7 +1,12 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
-Future<bool> showExitPopup(context) async {
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../view/starter_screen.dart';
+
+showLogoutPopup(context) async {
   return await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -11,14 +16,22 @@ Future<bool> showExitPopup(context) async {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Do you want to exit?"),
+                Text("Do you want to logout?"),
                 SizedBox(height: 20),
                 Row(
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {
-                          exit(0);
+                        onPressed: () async {
+                          await FirebaseAuth.instance.signOut();
+                          SharedPreferences preferences =
+                              await SharedPreferences.getInstance();
+                          await preferences.setInt('initScreen', 0);
+                          await preferences.setInt('isUser', 0);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => StarterScreen()));
                         },
                         child: Text("Yes"),
                         style: ElevatedButton.styleFrom(
@@ -29,7 +42,7 @@ Future<bool> showExitPopup(context) async {
                     Expanded(
                         child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pop(context);
                       },
                       child: Text("No", style: TextStyle(color: Colors.black)),
                       style: ElevatedButton.styleFrom(

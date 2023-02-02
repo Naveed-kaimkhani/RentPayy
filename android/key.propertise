@@ -1,0 +1,4 @@
+storePassword=4410803762508
+keyPassword=4410803762508
+keyAlias=upload
+storeFile=<location of the key store file, such as /Users/<user name>/upload-keystore.jks>

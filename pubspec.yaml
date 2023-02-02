@@ -62,6 +62,8 @@ dependencies:
   google_mobile_ads: ^2.3.0
   url_launcher: ^6.0.20
   getwidget: ^2.0.4
+  intl: ^0.18.0
+  firebase_crashlytics: ^3.0.11
 dev_dependencies:
   flutter_test:
     sdk: flutter
