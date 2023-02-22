@@ -110,7 +110,6 @@ class _User_signup_pageState extends State<User_signup_page> {
     } else if (_profileImage == null) {
       utils.flushBarErrorMessage('Please upload a profile picture', context);
     } else {
-
       isLoading(true);
       UserModel userModel = UserModel(
         name: _nameController.text.trim(),
@@ -295,7 +294,6 @@ class _User_signup_pageState extends State<User_signup_page> {
                           SizedBox(
                             height: 16.h,
                           ),
-
                           inputfields(
                               hint_text: "Set password",
                               currentNode: passwordFocusNode,
@@ -304,8 +302,8 @@ class _User_signup_pageState extends State<User_signup_page> {
                               keyboardType: TextInputType.text,
                               controller: _passwordController,
                               icon: obsecureText!
-                                  ? Icons.visibility_off
-                                  : Icons.remove_red_eye,
+                                  ? Icons.remove_red_eye
+                                  : Icons.visibility_off,
                               obsecureText: obsecureText,
                               onIconPress: () {
                                 setState(() {
@@ -322,9 +320,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                             nextNode: confirmpasswordFocusNode,
                             controller: _confirmpasswordController,
                             obsecureText: _obsecureText,
-                        
                           ),
-
                           SizedBox(
                             height: 31.h,
                           ),
@@ -335,12 +331,9 @@ class _User_signup_pageState extends State<User_signup_page> {
                                   func: () {
                                     FocusManager.instance.primaryFocus
                                         ?.unfocus();
-
                                     _validateFields();
                                   },
                                   color: AppColors.primaryColor),
-
-                  
                         ],
                       ),
                     ),

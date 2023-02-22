@@ -1,3 +1,4 @@
+// import 'package:charts_flutter/flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +7,13 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/components/circle_progress.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 import '../../components/ads_header_section.dart';
 import '../../components/banner.dart';
 import '../../components/exit_pop.dart';
 import '../../model/AdMobServices.dart';
+import '../../model/BarCharts.dart';
 import '../../utils/style/AppColors.dart';
 import '../../utils/style/text_style.dart';
 import '../../view_model/HostelDetailsProvider.dart';
@@ -24,23 +26,10 @@ class ads_details_screen extends StatefulWidget {
 }
 
 class _ads_details_screenState extends State<ads_details_screen> {
-  late List<SampleChartData> _chartData;
   BannerAd? _banner;
-
-  List<SampleChartData> getChartData() {
-    return <SampleChartData>[
-      SampleChartData(
-        x: DateTime(2016, 12, 10),
-        high: 116.73,
-        close: 115.98,
-        open: 113.23,
-      )
-    ];
-  }
 
   @override
   void initState() {
-    _chartData = getChartData();
     super.initState();
   }
 
@@ -53,6 +42,36 @@ class _ads_details_screenState extends State<ads_details_screen> {
       listener: AdMobServices.bannerAdListener,
       request: const AdRequest(),
     )..load();
+  }
+
+  List<charts.Series<BarCharts, String>> initializeCharts(snapshot) {
+    final List<BarCharts> data = [
+      BarCharts(
+          label: "View",
+          value: snapshot.data!['visits'],
+          color: charts.ColorUtil.fromDartColor(Colors.blueGrey)),
+      BarCharts(
+          label: "Bookings",
+          value: snapshot.data!['bookings'],
+          color: charts.ColorUtil.fromDartColor(Colors.green)),
+      BarCharts(
+          label: "confirms",
+          value: snapshot.data!['confirms'],
+          color: charts.ColorUtil.fromDartColor(Colors.yellow)),
+      BarCharts(
+          label: "Cancel",
+          value: snapshot.data!['cancel'],
+          color: charts.ColorUtil.fromDartColor(Colors.red)),
+    ];
+    List<charts.Series<BarCharts, String>> series = [
+      charts.Series(
+          id: "Bookings",
+          data: data,
+          domainFn: (BarCharts series, _) => series.label,
+          measureFn: (BarCharts series, _) => series.value,
+          colorFn: (BarCharts series, _) => series.color)
+    ];
+    return series;
   }
 
   @override
@@ -86,9 +105,9 @@ class _ads_details_screenState extends State<ads_details_screen> {
                 } else if (snapshot.hasError) {
                   return Text("No data found");
                 } else {
+                  List<charts.Series<BarCharts, String>> series =
+                      initializeCharts(snapshot);
                   return Scaffold(
-                    // appBar: SellerAppBar(height: 160),
-
                     body: Padding(
                       padding: const EdgeInsets.fromLTRB(15, 20, 15, 10),
                       child: ListView(
@@ -108,44 +127,15 @@ class _ads_details_screenState extends State<ads_details_screen> {
                             height: 10,
                           ),
 
-                          // Line Chart
                           Container(
-                            height: 300.h,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: AppColors.greyBackgroundCOlor),
-                            child: Container(
-                                child: SfSparkLineChart(
-                              axisCrossesAt: 20.5,
-                              //Enable the trackball
-                              trackball: SparkChartTrackball(
-                                  activationMode: SparkChartActivationMode.tap),
-                              //Enable marker
-                              marker: SparkChartMarker(
-                                  displayMode: SparkChartMarkerDisplayMode.all),
-                              //Enable data label
-                              labelDisplayMode: SparkChartLabelDisplayMode.all,
-                              data: <double>[
-                                1,
-                                5,
-                                -6,
-                                0,
-                                1,
-                                -2,
-                                7,
-                                -7,
-                                -4,
-                                -10,
-                                13,
-                                -6,
-                                7,
-                                5,
-                                11,
-                                5,
-                                3
-                              ],
-                            )),
-                          ),
+                              height: 300.h,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: AppColors.greyBackgroundCOlor),
+                              child: charts.BarChart(
+                                series,
+                                animate: true,
+                              )),
                           SizedBox(
                             height: 10,
                           ),
@@ -156,7 +146,6 @@ class _ads_details_screenState extends State<ads_details_screen> {
                           SizedBox(
                             height: 10,
                           ),
-                          // Ads Analsis Circular Progress bar
 
                           AdsCard(
                             visits: snapshot.data!['visits'],
@@ -209,9 +198,12 @@ class _AdsCardState extends State<AdsCard> {
             Row(
               children: [
                 Container(
-                  width: 200,
+                  // width: 200,
+                  // // width: Size.width,
+                  // height: 120.h,
+                  width: 180.w,
                   // width: Size.width,
-                  height: 120.h,
+                  height: 100.h,
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(242, 246, 255, 1),
                     borderRadius: BorderRadius.circular(10),
@@ -221,7 +213,7 @@ class _AdsCardState extends State<AdsCard> {
                     children: [
                       Padding(
                         padding:
-                            EdgeInsets.only(left: 14.w, right: 15.w, top: 26.h),
+                            EdgeInsets.only(left: 12.w, right: 13.w, top: 24.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -230,7 +222,7 @@ class _AdsCardState extends State<AdsCard> {
                               radius: 23.0,
                               lineWidth: 5.0,
                               animation: true,
-                              percent: widget.visits / 100.toDouble() ,
+                              percent: widget.visits / 100.toDouble(),
                               center: new Text(
                                 widget.visits.toString(),
                                 style: new TextStyle(
@@ -251,7 +243,9 @@ class _AdsCardState extends State<AdsCard> {
                                     style: CustomTextStyle.font_16,
                                   ),
                                   Text(
-                                      'Sunt sunt veniam et minim id ea esse anim ex velit ')
+                                    'No. of user view your add',
+                                    style: TextStyle(fontSize: 11.sp),
+                                  )
                                 ],
                               ),
                             )
@@ -265,9 +259,9 @@ class _AdsCardState extends State<AdsCard> {
                   width: 5,
                 ),
                 Container(
-                  width: 200,
+                  width: 180.w,
                   // width: Size.width,
-                  height: 120.h,
+                  height: 100.h,
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(242, 246, 255, 1),
                     borderRadius: BorderRadius.circular(10),
@@ -277,7 +271,7 @@ class _AdsCardState extends State<AdsCard> {
                     children: [
                       Padding(
                         padding:
-                            EdgeInsets.only(left: 14.w, right: 15.w, top: 26.h),
+                            EdgeInsets.only(left: 12.w, right: 13.w, top: 24.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -307,7 +301,9 @@ class _AdsCardState extends State<AdsCard> {
                                     style: CustomTextStyle.font_16,
                                   ),
                                   Text(
-                                      'Sunt sunt veniam et minim id ea esse anim ex velit ')
+                                    'No. of user booked your hostel',
+                                    style: TextStyle(fontSize: 11.sp),
+                                  )
                                 ],
                               ),
                             )
@@ -325,9 +321,9 @@ class _AdsCardState extends State<AdsCard> {
             Row(
               children: [
                 Container(
-                  width: 200,
+                  width: 180.w,
                   // width: Size.width,
-                  height: 120.h,
+                  height: 100.h,
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(242, 246, 255, 1),
                     borderRadius: BorderRadius.circular(10),
@@ -336,7 +332,7 @@ class _AdsCardState extends State<AdsCard> {
                     children: [
                       Padding(
                         padding:
-                            EdgeInsets.only(left: 14.w, right: 15.w, top: 26.h),
+                            EdgeInsets.only(left: 12.w, right: 13.w, top: 24.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -366,7 +362,9 @@ class _AdsCardState extends State<AdsCard> {
                                     style: CustomTextStyle.font_16,
                                   ),
                                   Text(
-                                      'Sunt sunt veniam et minim id ea esse anim ex velit ')
+                                    'No. of user confirm their add ',
+                                    style: TextStyle(fontSize: 12.sp),
+                                  )
                                 ],
                               ),
                             )
@@ -380,9 +378,9 @@ class _AdsCardState extends State<AdsCard> {
                   width: 5,
                 ),
                 Container(
-                  width: 200,
+                  width: 180.w,
                   // width: Size.width,
-                  height: 120.h,
+                  height: 100.h,
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(242, 246, 255, 1),
                     borderRadius: BorderRadius.circular(10),
@@ -392,7 +390,7 @@ class _AdsCardState extends State<AdsCard> {
                     children: [
                       Padding(
                         padding:
-                            EdgeInsets.only(left: 14.w, right: 15.w, top: 26.h),
+                            EdgeInsets.only(left: 12.w, right: 13.w, top: 24.h),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -422,7 +420,9 @@ class _AdsCardState extends State<AdsCard> {
                                     style: CustomTextStyle.font_16,
                                   ),
                                   Text(
-                                      'Sunt sunt veniam et minim id ea esse anim ex velit ')
+                                    'No. of user cancel their booking',
+                                    style: TextStyle(fontSize: 11.sp),
+                                  )
                                 ],
                               ),
                             )
@@ -437,25 +437,4 @@ class _AdsCardState extends State<AdsCard> {
           ],
         ));
   }
-}
-
-class SalesData {
-  SalesData(this.year, this.sales);
-  final String year;
-  final double sales;
-}
-
-class SampleChartData {
-  SampleChartData({
-    this.x,
-    this.open,
-    this.close,
-    this.low,
-    this.high,
-  });
-  final DateTime? x;
-  final num? open;
-  final num? close;
-  final num? low;
-  final num? high;
 }

@@ -449,7 +449,8 @@ class _AdPageState extends State<AdPage> {
                               widget.hostel.available_capacity.toString(),
                               style: TextStyle(
                                   fontSize: 10.sp, fontWeight: FontWeight.w500),
-                            )
+                            ),
+
                           ],
                         ),
                         SizedBox(
