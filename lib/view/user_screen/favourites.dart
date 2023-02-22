@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/resources/FirebaseRepository.dart';
 import 'package:rentpayy/view/user_screen/add_page.dart';
+import '../../components/circle_progress.dart';
 import '../../components/hostel_list.dart';
 import '../../utils/routes/RoutesName.dart';
 
@@ -29,7 +30,6 @@ class _favouritesState extends State<favourites> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
-     
             centerTitle: true,
             title: Text(
               "Favourites",
@@ -49,7 +49,7 @@ class _favouritesState extends State<favourites> {
                 AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting)
                 return Center(
-                  child: Text("No favorites"),
+                  child: circle_progress(),
                 );
               else if (snapshot.data!.docs.length == 0) {
                 return Center(

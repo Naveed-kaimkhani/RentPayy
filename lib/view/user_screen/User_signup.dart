@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/components/authButton.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
-
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/navigation_page.dart';
 import 'package:rentpayy/utils/StorageService.dart';
@@ -112,8 +110,7 @@ class _User_signup_pageState extends State<User_signup_page> {
     } else if (_profileImage == null) {
       utils.flushBarErrorMessage('Please upload a profile picture', context);
     } else {
-      // Regex for Pakistani number (+92 123 4567890)
-      // if (!RegExp(r'^(?:[+0]9)?[0-9]{10}$').hasMatch(_phoneController.text)) {
+
       isLoading(true);
       UserModel userModel = UserModel(
         name: _nameController.text.trim(),
@@ -325,8 +322,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                             nextNode: confirmpasswordFocusNode,
                             controller: _confirmpasswordController,
                             obsecureText: _obsecureText,
-                            // onIconPress: onIconPress,
-                            // icon: Icons.remove_red_eye,
+                        
                           ),
 
                           SizedBox(
@@ -344,13 +340,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                                   },
                                   color: AppColors.primaryColor),
 
-                          // authButton(
-                          //   text: isLoadingNow ? "Please wait..." : "Sign Up",
-                          //   color: Color(0xffF5AD0D),
-                          //   func: () {
-                          //     _validateFields();
-                          //   },
-                          // )
+                  
                         ],
                       ),
                     ),
@@ -394,7 +384,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                         _profileImage = _image;
                       });
                     } else {
-                      print("Image not loaded");
+                      debugPrint("Image not loaded");
                     }
                   },
                   icon: Container(
@@ -439,7 +429,7 @@ class _User_signup_pageState extends State<User_signup_page> {
                         image = _image;
                       });
                     }
-                    print("Image not loaded");
+                    debugPrint("Image not loaded");
                   },
                   icon: Container(
                     width: 36.w,

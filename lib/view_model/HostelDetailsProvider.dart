@@ -3,21 +3,25 @@ import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/utils.dart';
 import '../resources/FirebaseRepository.dart';
 import '../utils/StorageServiceHostel.dart';
-class HostelDetailsProvider with ChangeNotifier{
+import '../utils/routes/RoutesName.dart';
+
+class HostelDetailsProvider with ChangeNotifier {
   hostelModel? hostelDetails;
   Future getHostelLocally() async {
-    hostelDetails =await StorageServiceHostel.readHostel();
-   print(hostelDetails!.name);
+    hostelDetails = await StorageServiceHostel.readHostel();
     notifyListeners();
   }
-  Future getHostelFromServer(String uid,context) async {
-    print("getHostelFromServer");
-      final FirebaseRepository _firebaseRepository = FirebaseRepository();
-    hostelDetails =await _firebaseRepository.getHostelDetails(uid);
-    print("after calling getHostelDetails");
-    print(hostelDetails);
-    if (hostelDetails==null)utils.flushBarErrorMessage("No user found",context);
-    notifyListeners();
+
+  Future<hostelModel?> getHostelFromServer(String uid, context) async {
+    final FirebaseRepository _firebaseRepository = FirebaseRepository();
+    hostelDetails = await _firebaseRepository.getHostelDetails(
+      uid,
+    );
+    if (hostelDetails == null) {
+      utils.flushBarErrorMessage("No user found", context);
+    } else {
+      return hostelDetails;
+      // Navigator.pushNamed(context, RoutesName.SellerDashboard);
+    }
   }
-  
 }

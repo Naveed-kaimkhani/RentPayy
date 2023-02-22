@@ -15,6 +15,7 @@ import '../../model/hostelModel.dart';
 import '../../utils/style/AppColors.dart';
 import '../../utils/style/Images.dart';
 import '../../view_model/UserDetailsProvider.dart';
+import 'confirm_bookings.dart';
 
 class book_now extends StatefulWidget {
   final hostelModel? hostel;
@@ -370,40 +371,41 @@ class _book_nowState extends State<book_now> {
             SizedBox(
               height: 43.h,
             ),
-            Text(
-              "Choose Payment Method",
-              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
-            ),
+            // Text(
+            //   "Choose Payment Method",
+            //   style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
+            // ),
+            // SizedBox(
+            //   height: 19.h,
+            // ),
+            // Container(
+            //   height: 210.h,
+            //   width: 392.w,
+            //   child: ListView.builder(
+            //     scrollDirection: Axis.vertical,
+            //     itemCount: payments.length,
+            //     itemBuilder: (context, index) {
+            //       return GestureDetector(
+            //         onTap: () {
+            //           setState(() {
+            //             payments
+            //                 .forEach((payments) => payments.isSelected = false);
+            //             payments[index].isSelected = true;
+            //           });
+            //         },
+            //         child: CustomRadio(payments[index]),
+            //       );
+            //     },
+            //   ),
+            // ),
             SizedBox(
-              height: 19.h,
-            ),
-            Container(
-              height: 210.h,
-              width: 392.w,
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: payments.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        payments
-                            .forEach((payments) => payments.isSelected = false);
-                        payments[index].isSelected = true;
-                      });
-                    },
-                    child: CustomRadio(payments[index]),
-                  );
-                },
-              ),
-            ),
-            SizedBox(
-              height: 90.h,
+              height: 330.h,
             ),
             isLoadingNow
                 ? circle_progress()
                 : authButton(
-                    text: "Continue to Payment",
+                    // text: "Continue to Payment",
+                    text: "Confirm Booking",
                     func: () async {
                       await bookHostel();
                     },
@@ -429,18 +431,10 @@ class _book_nowState extends State<book_now> {
       bookings: increment,
       booking_date: date,
     );
-    UserBookingInfo userModel=UserBookingInfo(
-      uid: user!.uid,
-      bookingDate: date,
-      name: user.name,
-      phone: user.phone
-    );
+    UserBookingInfo userModel = UserBookingInfo(
+        uid: user!.uid, bookingDate: date, name: user.name, phone: user.phone);
     await FirebaseMethods.bookHostel(hostelBooking, context);
-    await FirebaseMethods.hostelBooking(
-      userModel,
-      widget.hostel!,
-      context
-    );
+    await FirebaseMethods.hostelBooking(userModel, widget.hostel!, context);
     FirebaseFirestore db = FirebaseFirestore.instance;
     int count = widget.hostel!.bookings!;
     setState(() {
@@ -449,6 +443,10 @@ class _book_nowState extends State<book_now> {
     db.collection("hostels").doc(widget.hostel!.uid).update({
       'bookings': count,
     });
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => confirm_bookings()),
+    );
     isLoading(false);
   }
 }

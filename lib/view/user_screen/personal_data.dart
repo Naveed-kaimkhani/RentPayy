@@ -87,7 +87,6 @@ class _personal_dataState extends State<personal_data> {
               })
           .onError((error, stackTrace) => {
                 utils.flushBarErrorMessage(error.toString(), context),
-                //  print(error.toString()),
                 isLoading(false),
               });
     }
@@ -102,12 +101,10 @@ class _personal_dataState extends State<personal_data> {
         .then((value) => {
               isLoading(false),
               utils.toastMessage('Profile Updated'),
-              // debugPrint('Data updated'),
             })
         .onError((error, stackTrace) => {
               isLoading(false),
               utils.flushBarErrorMessage(error.toString(), context),
-              //  print(error.toString()),
             });
   }
 
@@ -274,11 +271,9 @@ class _personal_dataState extends State<personal_data> {
                       Container(
                         height: 59.h,
                         width: 136.w,
-                        //  color: Colors.white,
                         decoration: BoxDecoration(
                             color: AppColors.textfieldsColor,
                             borderRadius: BorderRadius.circular(7.r)),
-                        // ignore: prefer_const_constructors
                         child: TextField(
                           keyboardType: TextInputType.number,
                           controller: _ageController,
@@ -332,11 +327,6 @@ class _personal_dataState extends State<personal_data> {
     return image == null
         ? Stack(
             children: [
-              // Image.asset(
-              //   "asset/avatar.png",
-              //   height: 100.h,
-              //   width: 100.w,
-              // ),
               profilePic(url: user!.profileImage, height: 100.h, width: 100.w),
 
               Positioned(
@@ -350,7 +340,7 @@ class _personal_dataState extends State<personal_data> {
                         _profileImage = _image;
                       });
                     } else {
-                      print("Image not loaded");
+                      debugPrint("Image not loaded");
                     }
                   },
                   icon: Container(
@@ -395,7 +385,7 @@ class _personal_dataState extends State<personal_data> {
                         image = _image;
                       });
                     }
-                    print("Image not loaded");
+                    debugPrint("Image not loaded");
                   },
                   icon: Container(
                     width: 36.w,

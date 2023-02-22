@@ -5,13 +5,11 @@ import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/utils.dart';
 import '../../components/authButton.dart';
 import '../../components/auth_screens_decor.dart';
-import '../../components/or_line_widget.dart';
 import '../../components/terms_and_condition.dart';
 import '../../components/upper_design.dart';
 import '../../resources/FirebaseMethods.dart';
 import '../../resources/FirebaseRepository.dart';
 import '../../utils/style/AppColors.dart';
-import '../../utils/style/Images.dart';
 
 class login_screen extends StatefulWidget {
   login_screen({Key? key}) : super(key: key);
@@ -109,7 +107,7 @@ class _login_screenState extends State<login_screen> {
                   SizedBox(
                     height: 80.h,
                   ),
-                  or_line_widget(),
+                  // or_line_widget(),
                   // Container(
                   //   height: 80.h,
                   //   width: 321.w,
@@ -120,18 +118,18 @@ class _login_screenState extends State<login_screen> {
                   //     // border: BoxBorder()
                   //   ),
                   // ),
-                  InkWell(
-                    child: Image.asset(
-                      Images.google,
-                      height: 76.h,
-                      width: 321.w,
-                    ),
-                    onTap: handleGoogleSignIn,
-                  ),
+                  // InkWell(
+                  //   child: Image.asset(
+                  //     Images.google,
+                  //     height: 76.h,
+                  //     width: 321.w,
+                  //   ),
+                  //   onTap: handleGoogleSignIn,
+                  // ),
                   SizedBox(
                     height: 20.h,
                   ),
-               
+
                   SizedBox(
                     height: 58.h,
                   ),

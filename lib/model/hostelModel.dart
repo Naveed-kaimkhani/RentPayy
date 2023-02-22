@@ -46,7 +46,8 @@ class hostelModel {
 
   Map<String, dynamic> toMap(hostelModel hostel) {
     DateTime today = new DateTime.now();
-String date ="${today.day.toString().padLeft(2, '0')}/${today.month.toString().padLeft(2,'0')}/${today.year.toString()}";
+    String date =
+        "${today.day.toString().padLeft(2, '0')}/${today.month.toString().padLeft(2, '0')}/${today.year.toString()}";
     var data = Map<String, dynamic>();
     data['uid'] = hostel.uid;
     data['name'] = hostel.name;
@@ -68,9 +69,10 @@ String date ="${today.day.toString().padLeft(2, '0')}/${today.month.toString().p
     data['cancel'] = hostel.cancel;
     data['facilities'] = hostel.facilities;
     data['bookings'] = hostel.bookings;
-    data['registration_date'] = hostel.registration_date!;
+    data['registration_date'] = date;
     return data;
   }
+
   factory hostelModel.fromJson(Map<String, dynamic> json) {
     return hostelModel(
       uid: json['uid'],

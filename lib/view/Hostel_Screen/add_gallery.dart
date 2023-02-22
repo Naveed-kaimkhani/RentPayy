@@ -12,12 +12,10 @@ import 'package:rentpayy/resources/FirebaseRepository.dart';
 import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
-import 'package:rentpayy/view/Hostel_Screen/publish_ad_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/hostelModel.dart';
 import '../../utils/StorageServiceHostel.dart';
-import '../starter_screen.dart';
 
 class add_gallery extends StatefulWidget {
   hostelModel hostel;
@@ -70,14 +68,7 @@ class _add_galleryState extends State<add_gallery> {
 
       List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
           imageFile: imageFileList!, uid: user);
-      //   db.collection("hostels").doc(user).update({
-      //     'pictures': listOfImages,
-      //     'visits': 0,
-      //     'cancel': 0,
-      //     'confirms': 0,
-      //     'bookings': 0,
-      //   });
-      // }
+      
       hostelModel Hostel = hostelModel(
         name: widget.hostel.name,
         uid: widget.hostel.uid,
@@ -99,12 +90,6 @@ class _add_galleryState extends State<add_gallery> {
         bookings: 0,
         cancel: 0,
       );
-      print(Hostel.name);
-      print(Hostel.hostel_address);
-      print(Hostel.facilities);
-      print(Hostel.available_capacity);
-      print(Hostel.available_capacity);
-      print(Hostel.pictures);
       _saveHostel(Hostel);
     }
   }
@@ -112,8 +97,6 @@ class _add_galleryState extends State<add_gallery> {
   bool onClick = false;
 
   void _saveHostel(hostelModel hostelModels) {
-   print("hostel uid");
-    print(hostelModels.uid);
     FirebaseRepository _firebaseRepository = FirebaseRepository();
     _firebaseRepository.saveHostelDataToFirestore(hostelModels).then((value) {
       StorageServiceHostel.saveHostel(hostelModels).then((value) async {
@@ -129,36 +112,12 @@ class _add_galleryState extends State<add_gallery> {
       utils.flushBarErrorMessage(error, context);
     });
   }
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) async {
-  //   // TODO: implement didChangeAppLifecycleState
-  // super.didChangeAppLifecycleState(state);
-  //   if (state == AppLifecycleState.resumed) {
-  //     // Navigator.push(
-  //     //     context, MaterialPageRoute(builder: (context) => StarterScreen()));
-
-  //     // print("resumed");
-  //     Navigator.pushNamed(context, RoutesName.starterScreen);
-  //   } else if (state == AppLifecycleState.inactive) {
-  //     // await FirebaseMethods.delete_User(context);
-  //   } else if (state == AppLifecycleState.detached) {
-  //     // print("detached"); //
-  //   } else if (state == AppLifecycleState.paused) {
-  //     // print("paused");
-  //   }
-  // }
-
   @override
   void dispose() {
     // WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // WidgetsBinding.instance.addObserver(this);
-  // }
 
   @override
   Widget build(BuildContext context) {

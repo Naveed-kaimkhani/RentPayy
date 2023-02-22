@@ -57,7 +57,7 @@ class _Hostel_SignupState extends State<Hostel_Signup> {
       context,
     )
         .then((User? user) async {
-      if (user != null) {
+      if (user != null ) {
         hostelModel.uid = user.uid;
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return Hostel_Registration(

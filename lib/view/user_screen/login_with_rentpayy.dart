@@ -9,20 +9,14 @@ import 'package:rentpayy/components/auth_screens_decor.dart';
 import 'package:rentpayy/components/circle_progress.dart';
 import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
-import 'package:rentpayy/components/or_line_widget.dart';
 import 'package:rentpayy/components/terms_and_condition.dart';
 import 'package:rentpayy/navigation_page.dart';
 import 'package:rentpayy/resources/StorageService.dart';
-import 'package:rentpayy/utils/routes/RoutesName.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
-import 'package:rentpayy/view/user_screen/user_front_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../components/no_internetConnection.dart';
 import '../../model/UserModel.dart';
 import '../../resources/FirebaseRepository.dart';
-import '../../utils/style/Images.dart';
 import '../../view_model/UserDetailsProvider.dart';
 import '../forgot_password/forgot_password.dart';
 
@@ -108,12 +102,9 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
           Provider.of<UserDetailsProvider>(context, listen: false)
               .getUserLocally();
           isLoading(false);
-
           SharedPreferences preferences = await SharedPreferences.getInstance();
-          // initScreen = preferences.getInt('initScreen');
           await preferences.setInt('initScreen', 1);
           await preferences.setInt('isUser', 1);
-          // Navigator.pushNamed(context, RoutesName.navigation);
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => navigation_page()));
         }).catchError((error) {
@@ -121,6 +112,7 @@ class _login_with_rentpayyState extends State<login_with_rentpayy> {
         });
       } else {
         utils.flushBarErrorMessage("User is null", context);
+        isLoading(false);
       }
     }).catchError((error) {
       isLoading(false);

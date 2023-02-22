@@ -64,13 +64,11 @@ class _user_front_ScreenState extends State<user_front_Screen> {
           onAdLoaded: (ad) => _interstitialAd = ad,
           onAdFailedToLoad: (LoadAdError error) => _interstitialAd = null,
         ));
-    print("interstitial addd");
   }
 
   @override
   void initState() {
     super.initState();
-    initializeUser();
 
     //Internet connectivity checker
     InternetConnectionChecker().onStatusChange.listen((status) {
@@ -104,6 +102,7 @@ class _user_front_ScreenState extends State<user_front_Screen> {
       }
     });
     // _createBannerAd();
+    initializeUser();
   }
 
   @override

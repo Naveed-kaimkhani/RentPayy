@@ -12,13 +12,9 @@ class UserDetailsProvider with ChangeNotifier {
 
     userDetails = await StorageService.readUser();
     notifyListeners();
-
-    print(userDetails);
-    print(userDetails!.name);
   }
 
   Future getHostelFromServer(String uid, context) async {
-    print("getHostelFromServer");
     final FirebaseRepository _firebaseRepository = FirebaseRepository();
     userDetails = await _firebaseRepository.getUserDetails(uid);
     if (userDetails == null)

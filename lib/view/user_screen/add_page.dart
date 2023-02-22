@@ -16,6 +16,7 @@ import '../../components/appbar_buttons.dart';
 import '../../model/hostelModel.dart';
 import '../../utils/style/Images.dart';
 import 'facility_container.dart';
+import 'package:rentpayy/utils/utils.dart';
 
 class AdPage extends StatefulWidget {
   final hostelModel hostel;
@@ -81,6 +82,8 @@ class _AdPageState extends State<AdPage> {
   @override
   void initState() {
     super.initState();
+
+    utils.checkConnectivity(context);
     int count = widget.hostel.visits!;
     setState(() {
       count++;

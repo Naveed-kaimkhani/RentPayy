@@ -53,7 +53,6 @@ class _password_optionState extends State<password_option> {
       final userr = (await FirebaseAuth.instance.signInWithEmailAndPassword(
               email: user.email!, password: _passController.text))
           .user;
-      print(userr);
       user
           .reauthenticateWithCredential(EmailAuthProvider.credential(
               email: user.email.toString(),

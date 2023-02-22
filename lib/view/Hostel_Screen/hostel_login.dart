@@ -10,6 +10,7 @@ import 'package:rentpayy/components/custom_appbar.dart';
 import 'package:rentpayy/components/inputfields.dart';
 import 'package:rentpayy/components/or_line_widget.dart';
 import 'package:rentpayy/components/terms_and_condition.dart';
+import 'package:rentpayy/model/hostelModel.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/utils.dart';
 import '../../resources/FirebaseRepository.dart';
@@ -78,7 +79,6 @@ class _hostel_loginState extends State<hostel_login> {
         .login(_emailController.text, _passController.text, context)
         .then((User? user) {
       if (user != null) {
-        print(user.displayName);
         _getHostelDetails(user.uid);
         // Navigator.pushNamed(context, RoutesName.SellerDashboard);
       } else {
@@ -89,12 +89,13 @@ class _hostel_loginState extends State<hostel_login> {
   }
 
   void _getHostelDetails(String uid) async {
-    print("user id");
-    print(uid);
-    await Provider.of<HostelDetailsProvider>(context, listen: false)
+    hostelModel? hostel;
+    hostel = await Provider.of<HostelDetailsProvider>(context, listen: false)
         .getHostelFromServer(uid, context);
     isLoading(false);
-    Navigator.pushNamed(context, RoutesName.SellerDashboard);
+    if (hostel != null) {
+      Navigator.pushNamed(context, RoutesName.SellerDashboard);
+    }
   }
 
   @override

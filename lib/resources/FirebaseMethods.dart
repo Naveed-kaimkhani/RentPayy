@@ -176,18 +176,32 @@ class FirebaseMethods {
     return listOfHoselImages;
   }
 
-  Future<UserModel> getUserDetails(String? uid) async {
+  Future<UserModel?> getUserDetails(String? uid) async {
     DocumentSnapshot documentSnapshot = await _userCollection.doc(uid).get();
-    UserModel userModel =
-        UserModel.fromMap(documentSnapshot.data() as Map<String, dynamic>);
-    return userModel;
+    if (documentSnapshot.data() != null) {
+      UserModel userModel =
+          UserModel.fromMap(documentSnapshot.data() as Map<String, dynamic>);
+      if (userModel != null) {
+        return userModel;
+      } else {
+        return null;
+      }
+    }
   }
 
-  Future<hostelModel> getHostelDetails(String? uid) async {
+  Future<hostelModel?> getHostelDetails(String? uid) async {
     DocumentSnapshot documentSnapshot = await _hostelCollection.doc(uid).get();
-    hostelModel hostel =
-        hostelModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
-    return hostel;
+    if (documentSnapshot.data() != null) {
+      hostelModel hostel =
+          hostelModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+      return hostel;
+    }
+
+    // else {
+    //   // utils.flushBarErrorMessage("User not found", context)
+    //   utils.toastMessage("No user found");
+    //   Navigator.push
+    // }
   }
 
   static Future<List<hostelModel>> getHostelsData() async {
