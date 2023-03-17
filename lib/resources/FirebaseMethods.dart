@@ -60,8 +60,8 @@ class FirebaseMethods {
         password: password,
       );
       return userCredential.user;
-    } catch (error) {
-      utils.flushBarErrorMessage(error.toString(), context);
+    } on FirebaseAuthException catch (error) {
+      utils.flushBarErrorMessage(error.message.toString(), context);
     }
   }
 
@@ -195,6 +195,7 @@ class FirebaseMethods {
     }
     return listOfHoselImages;
   }
+
   Future<UserModel?> getUserDetails(String? uid) async {
     DocumentSnapshot documentSnapshot = await _userCollection.doc(uid).get();
     if (documentSnapshot.data() != null) {
@@ -242,7 +243,7 @@ class FirebaseMethods {
     List<HostelBookings> hostelModels = [];
     QuerySnapshot<Map<String, dynamic>> snap = await FirebaseFirestore.instance
         .collection("bookings")
-        .doc(utils.getCurrentUserUid())
+        .doc(utils.currentUserUid)
         .collection("user_bookings")
         .get();
     for (var i = 0; i < snap.docs.length; i++) {
@@ -262,7 +263,7 @@ class FirebaseMethods {
     List<UserBookingInfo> Models = [];
     QuerySnapshot<Map<String, dynamic>> snap = await FirebaseFirestore.instance
         .collection("usersWhoBookedHostel")
-        .doc(utils.getCurrentUserUid())
+        .doc(utils.currentUserUid)
         .collection("users")
         .get();
     for (var i = 0; i < snap.docs.length; i++) {
@@ -279,7 +280,7 @@ class FirebaseMethods {
 
   static Future<void> delete_User(context) async {
     FirebaseFirestore db = utils.getFireStoreInstance();
-    String uid = utils.getCurrentUserUid();
+    String uid = utils.currentUserUid;
     await db.collection("hostels").doc(uid).delete();
     await utils.getCurrentUser().delete();
   }

@@ -27,7 +27,7 @@ upper_design({
             ? IconButton(
                 onPressed: (() async {
                   if (isUserDelete) {
-                    await db.collection("hostels").doc(utils.getCurrentUserUid()).delete();
+                    await db.collection("hostels").doc(utils.currentUserUid).delete();
                     utils.getCurrentUser().delete();
                     Navigator.pop(context);
                   }

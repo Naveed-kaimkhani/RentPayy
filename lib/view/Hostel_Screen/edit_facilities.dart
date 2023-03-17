@@ -40,7 +40,7 @@ class _edit_facilitiesState extends State<edit_facilities> {
       print(checkboxList);
       utils.flushBarErrorMessage("Please select facilites", context);
     } else {
-      db.collection("hostels").doc(utils.getCurrentUserUid()).update({
+      db.collection("hostels").doc(utils.currentUserUid).update({
         'facilities': checkboxList,
       }).then((value) {
         Navigator.push(

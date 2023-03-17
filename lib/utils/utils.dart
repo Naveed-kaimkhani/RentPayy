@@ -2,11 +2,13 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:rentpayy/components/circle_progress.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/no_internetConnection.dart';
 
@@ -44,7 +46,8 @@ class utils {
     current.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }
- static void checkConnectivity(context) {
+
+  static void checkConnectivity(context) {
     InternetConnectionChecker().onStatusChange.listen((status) {
       final connected = status == InternetConnectionStatus.connected;
       if (connected == false) {
@@ -52,59 +55,12 @@ class utils {
           MaterialPageRoute(
             builder: (context) => const no_internetConnection(),
           ),
-        
         );
         // return connected;
       }
     });
     // return true;
   }
-  // static Future<File?> pickImage(ImageSource imageSource,
-  //     [int quality = 85, double width = 500, double height = 500]) async {
-  //   ImagePicker imagePicker = ImagePicker();
-  //   var pickedFile = await (imagePicker.pickImage(
-  //     source: imageSource,
-  //     imageQuality: quality,
-  //     maxHeight: height,
-  //     maxWidth: width,
-  //   ));
-  //   if (pickedFile == null) return null;
-  //   File imageFile = File(pickedFile.path);
-  //   return await compressImage(imageFile);
-  // }
-
-  // static Future<File> compressImage(File imageToCompress) async {
-  // //  imageToCompress.readAsBytes();
-  //   print('size: ${imageToCompress.statSync().size}');
-  //   return imageToCompress;
-  // // }
-  // static Future<File> compressImage({
-  //   required File imagePathToCompress,
-  //   quality: 100,
-  //   percentage: 10,
-  // }) async {
-  //   var path = await FlutterNativeImage.compressImage(
-  //     imagePathToCompress.absolute.path,
-  //     quality: quality,
-  //     percentage: 10,
-  //   );
-  //   return path;
-  // }
-//  Future<List<XFile>> compressHostelsImage(List<XFile> images)async{
-// List<XFile> compressedList=[];
-// for (var i = 0; i < images.length; i++) {
-//    File image = File(images[i].path);
-//       print(image.lengthSync() / 1024);
-//       File compressedImage = await compressImage(
-//           imagePathToCompress: image, quality: 100, percentage: 10);
-//       print("after reducing size$compressedImage");
-//       print(compressedImage.lengthSync() / 1024);
-//       // return file.readAsBytes();
-//       XFile file = new XFile(compressedImage.path);
-//         compressedList.add(file);
-// }//for end
-//   return compressedList;
-// }
 
   static Future<Uint8List?> PickImage() async {
     //    ImagePicker picker=ImagePicker();
@@ -112,29 +68,78 @@ class utils {
     XFile? file = await picker.pickImage(source: ImageSource.gallery);
     print("before redusing size $file");
     if (file != null) {
-      // File image = File(file.path);
-      // print(image.lengthSync() / 1024);
-      // File compressedImage = await compressImage(
-      //     imagePathToCompress: image, quality: 100, percentage: 10);
-      // print("after reducing size$compressedImage");
-      // print(compressedImage.lengthSync() / 1024);
       return file.readAsBytes();
-      // return compressedImage.readAsBytes();
     }
   }
-static String getCurrentUserUid(){
-  return FirebaseAuth.instance.currentUser!.uid;
-}
 
-static FirebaseFirestore getFireStoreInstance(){
+  static String get currentUserUid => FirebaseAuth.instance.currentUser!.uid;
+
+  static hideLoading() {
+    Navigator.pop(dialogContext);
+  }
+
+  static late BuildContext dialogContext;
+  static showLoading(context) {
+    // showDialog(context: context, builder: builder)
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        dialogContext = context;
+        return Dialog(
+          // The background color
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: SizedBox(
+              height: 100.h,
+              width: 20.w,
+              child: Column(
+                // mainAxisSize: MainAxisSize.min,
+                children: const [
+                  circle_progress(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('Uploading... ')
+                ],
+              ),
+            ),
+          ),
+        );
+        // Dialog(
+        //   child: Container(
+        //     height: 50.h,
+        //     width: 50.w,
+        //     color: Colors.white,
+        //     decoration: BoxDecoration(
+        //       borderRadius: BorderRadius.circular(
+
+        //       )
+        //     ),
+        //     child: Column(
+        //       children: [
+
+        //       ],
+        //     ),
+        //   )
+        // );
+      },
+    );
+  }
+
+  static FirebaseFirestore getFireStoreInstance() {
     FirebaseFirestore db = FirebaseFirestore.instance;
-  return db;
-}
-static User getCurrentUser(){
-  return FirebaseAuth.instance.currentUser!;
-}
-static Future<SharedPreferences> getPreferencesObject() async {
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-return preferences;
-}
+    return db;
+  }
+
+  static User getCurrentUser() {
+    return FirebaseAuth.instance.currentUser!;
+  }
+
+  static Future<SharedPreferences> getPreferencesObject() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences;
+  }
 }

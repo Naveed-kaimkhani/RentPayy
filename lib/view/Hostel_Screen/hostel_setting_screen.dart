@@ -65,7 +65,7 @@ class hostel_setting_screen extends StatelessWidget {
                                 Text(
                                   hostel.hostel_address!,
                                   style: TextStyle(
-                                      fontSize: 12.sp,
+                                      fontSize: 10.sp,
                                       fontWeight: FontWeight.w400),
                                 ),
                               ],

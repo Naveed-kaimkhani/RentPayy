@@ -65,7 +65,7 @@ class _personal_dataState extends State<personal_data> {
   UserModel? user;
   Future<String> updateProfile() async {
     String profileUrl = await _firebaseRepository.uploadProfileImage(
-        imageFile: _profileImage!, uid: utils.getCurrentUserUid());
+        imageFile: _profileImage!, uid:utils.currentUserUid);
     return profileUrl;
   }
 
@@ -76,7 +76,7 @@ class _personal_dataState extends State<personal_data> {
   }
 
   Future<void> updateData() {
-    final uid = utils.getCurrentUserUid();
+    final uid =utils.currentUserUid;
     if (_profileImage != null) {
       updateProfile()
           .then((url) => {

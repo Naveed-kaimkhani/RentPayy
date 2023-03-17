@@ -166,16 +166,25 @@ class _AdPageState extends State<AdPage> {
                                             width: 58.w,
                                           ),
                                           InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  launchphone();
-                                                });
-                                              },
-                                              child: Image.asset(
-                                                "asset/whatsapp.png",
-                                                height: 66.h,
-                                                width: 66.w,
-                                              )),
+                                            onTap: () {
+                                              setState(() {
+                                                launchphone();
+                                              });
+                                            },
+                                            child: CircleAvatar(
+                                                radius: 32.r,
+                                                backgroundColor:
+                                                    AppColors.primaryColor,
+                                                child: Icon(
+                                                  Icons.phone,
+                                                  color: Colors.white,
+                                                )),
+                                            // Image.asset(
+                                            //   "asset/whatsapp.png",
+                                            //   height: 66.h,
+                                            //   width: 66.w,
+                                            // )
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -450,7 +459,6 @@ class _AdPageState extends State<AdPage> {
                               style: TextStyle(
                                   fontSize: 10.sp, fontWeight: FontWeight.w500),
                             ),
-
                           ],
                         ),
                         SizedBox(

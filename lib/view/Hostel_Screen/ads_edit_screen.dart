@@ -1,15 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:rentpayy/components/profilePic.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/style/text_style.dart';
 import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/Hostel_Screen/edit_facilities.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../components/GenderDropdown_button.dart';
 import '../../components/HostelDropdown_button.dart';
+import '../../components/circle_progress.dart';
 import '../../components/hostel_appBarButton.dart';
 import '../../components/quantity_box.dart';
 import '../../model/hostelModel.dart';
@@ -32,7 +35,7 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
   final users = FirebaseFirestore.instance.collection('hostels');
   List<XFile>? imageFileList = [];
   final FirebaseMethods _firebaseMethods = FirebaseMethods();
-
+  var selectedIndex = 0;
   bool isLoadingNow = false;
   void isLoading(bool value) {
     setState(() {
@@ -46,7 +49,7 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
       required int person_per_room,
       required int total_capacity,
       required String Description}) {
-    final uid = utils.getCurrentUserUid();
+    final uid = utils.currentUserUid;
     return users
         .doc(uid)
         .update({
@@ -69,34 +72,7 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
             });
   }
 
-  void updateModel(List<String> images) {
-    FirebaseFirestore db = FirebaseFirestore.instance;
-
-    db.collection("hostels").doc(utils.getCurrentUserUid()).update({
-      'pictures': images,
-    }).then((value) {
-      utils.toastMessage("Pictures Updated");
-    });
-  }
-
-  void saveImagestoFirebaseStorage() async {
-    if (imageFileList!.isEmpty) {
-      utils.flushBarErrorMessage("Pictures not selected", context);
-    } else if (imageFileList!.length < 8) {
-      utils.flushBarErrorMessage("select atleast 8 pictures", context);
-    } else if (imageFileList!.length > 8) {
-      utils.flushBarErrorMessage("only 8 pictures are allowed", context);
-    } else {
-      isLoading(true);
-      utils.toastMessage("Please wait it may take some time");
-
-      List<String> listOfImages = await _firebaseMethods.updateHostelsImage(
-          imageFile: imageFileList!, uid: utils.getCurrentUserUid());
-      updateModel(listOfImages);
-    }
-  }
-
-  void selectImages() async {
+  Future<void> selectImages() async {
     final selectedImaged = await ImagePicker().pickMultiImage();
 
     if (selectedImaged.length > 8) {
@@ -108,8 +84,40 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
       setState(() {
         imageFileList;
       });
+      saveImagestoFirebaseStorage();
     } else {
       utils.flushBarErrorMessage("Pictures not selected", context);
+    }
+  }
+
+  void saveImagestoFirebaseStorage() async {
+    // utils.toastMessage("Please wait it may take some time");
+
+    utils.showLoading(context);
+    List<String> listOfImages = await _firebaseMethods.updateHostelsImage(
+        imageFile: imageFileList!, uid: utils.currentUserUid);
+    updateModel(listOfImages);
+  }
+
+  void updateModel(List<String> images) {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    db.collection("hostels").doc(utils.currentUserUid).update({
+      'pictures': images,
+    }).then((value) async {
+      await _getHostelDetails(utils.currentUserUid);
+      utils.toastMessage("Pictures Updated");
+    });
+  }
+
+  Future<void> _getHostelDetails(String uid) async {
+    hostelModel? hostel;
+    hostel = await Provider.of<HostelDetailsProvider>(context, listen: false)
+        .getHostelFromServer(uid, context);
+    // isLoading(false);
+    if (hostel != null) {
+      utils.hideLoading();
+      Navigator.pushNamed(context, RoutesName.SellerDashboard);
     }
   }
 
@@ -118,7 +126,6 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
     hostelModel? hostel =
         Provider.of<HostelDetailsProvider>(context, listen: false)
             .hostelDetails;
-    // final Sizes = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
         Navigator.pushNamed(context, RoutesName.SellerDashboard);
@@ -154,11 +161,91 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 30,
+                CarouselSlider.builder(
+                  options: CarouselOptions(
+                      onPageChanged: (index, reason) => setState(() {
+                            selectedIndex = index;
+                          }),
+                      // height: 400.h,
+                      height: 250.h,
+                      viewportFraction: 1,
+                      enlargeCenterPage: true,
+                      enableInfiniteScroll: false,
+                      enlargeStrategy: CenterPageEnlargeStrategy.height,
+                      // autoPlay: true,
+                      autoPlayInterval: Duration(seconds: 4)),
+                  itemCount: hostel!.pictures!.length,
+                  itemBuilder: (BuildContext context, int itemIndex,
+                          int pageViewIndex) =>
+                      CachedNetworkImage(
+                    imageUrl: hostel.pictures![itemIndex],
+                    imageBuilder: (context, imageProvider) => Container(
+                      // width: 428.w,
+                      // height: 469.h,
+                      width: 400.w,
+                      height: 440.h,
+                      margin: EdgeInsets.symmetric(horizontal: 1.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(30.r),
+                          bottomRight: Radius.circular(30.r),
+                          topRight: Radius.circular(30.r),
+                          topLeft: Radius.circular(30.r),
+                        ),
+
+                        // shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
+                    placeholder: (context, url) => Center(
+                      widthFactor: 2.0,
+                      heightFactor: 2.0,
+                      // child: CircularProgressIndicator()
+                      child: circle_progress(),
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
                 ),
-                profilePic(
-                    url: hostel!.pictures![0], height: 111.h, width: 111.w),
+                // SizedBox(
+                //   height: .h,
+                // ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 110.0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      AnimatedSmoothIndicator(
+                        activeIndex: selectedIndex,
+                        count: hostel.pictures!.length,
+                        effect: WormEffect(
+                          dotWidth: 8.w,
+                          dotHeight: 8.h,
+                          activeDotColor: AppColors.primaryColor,
+                          dotColor: Color.fromARGB(255, 177, 167, 167),
+                        ),
+                        duration: Duration(milliseconds: 700),
+                      ),
+                      SizedBox(
+                        width: 15.w,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            selectImages();
+                          },
+                          child: Text(
+                            "Update Images",
+                            style: TextStyle(
+                                fontSize: 12.sp, color: AppColors.primaryColor),
+                          ))
+                    ],
+                  ),
+                ),
+
+                ///////////////
                 SizedBox(
                   height: 20,
                 ),

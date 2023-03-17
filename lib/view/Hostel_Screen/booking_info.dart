@@ -33,7 +33,35 @@ class booking_info extends StatelessWidget {
       ),
       body: FutureBuilder(
         builder: (ctx, AsyncSnapshot<List<UserBookingInfo>> snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 12.0, top: 12.0),
+              child: Column(
+                children: [
+                  booking_info_shimmer(),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  booking_info_shimmer(),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  booking_info_shimmer(),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  booking_info_shimmer(),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                ],
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return no_internetConnection();
+          } else if (snapshot.data!.length == 0) {
+            return Center( child: Text("No bookings"));
+          } else {
             return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
@@ -82,39 +110,8 @@ class booking_info extends StatelessWidget {
                     ],
                   );
                 });
-          } else if (snapshot.hasError) {
-            return no_internetConnection();
-          } else if (snapshot.data == null) {
-            return Padding(
-              padding: const EdgeInsets.only(left: 12.0, top: 12.0),
-              child: Column(
-                children: [
-                  booking_info_shimmer(),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  booking_info_shimmer(),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  booking_info_shimmer(),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  booking_info_shimmer(),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                ],
-              ),
-            );
-          } else if (snapshot.data!.length < 1) {
-            return Text("No bookings");
           }
           // Displaying LoadingSpinner to indicate waiting state
-          return Container(
-            child: Text("No Bookings"),
-          );
         },
         future: FirebaseMethods.getUserDetailsWhoBookedHostels(),
       ),

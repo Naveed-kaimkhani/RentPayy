@@ -44,10 +44,10 @@ class HeaderSection extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                       hostelAddress,
+                        hostelAddress,
                         style: TextStyle(
                           color: Color(0xff000000),
-                          fontSize: 15.sp,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -94,7 +94,6 @@ class HeaderSection extends StatelessWidget {
                           )
                         ],
                       ),
-             
                       profilePic(url: ImageUrl, height: 61.h, width: 61.w)
                     ],
                   ),
