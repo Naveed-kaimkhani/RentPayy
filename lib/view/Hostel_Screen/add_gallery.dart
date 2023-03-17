@@ -68,7 +68,7 @@ class _add_galleryState extends State<add_gallery> {
 
       List<String> listOfImages = await _firebaseMethods.uploadHostelsImage(
           imageFile: imageFileList!, uid: user);
-      
+
       hostelModel Hostel = hostelModel(
         name: widget.hostel.name,
         uid: widget.hostel.uid,
@@ -112,12 +112,12 @@ class _add_galleryState extends State<add_gallery> {
       utils.flushBarErrorMessage(error, context);
     });
   }
+
   @override
   void dispose() {
     // WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +185,7 @@ class _add_galleryState extends State<add_gallery> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          '*  Only PNG,JPG  with max size of 12 MB ',
+                          '*  Only PNG,JPG  with max size of 12 MB \n*  Please select 8 pictures',
                           style: TextStyle(
                               fontSize: 12.sp, fontWeight: FontWeight.w300),
                         ),
@@ -201,39 +201,7 @@ class _add_galleryState extends State<add_gallery> {
                       SizedBox(
                         height: 76.h,
                       ),
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                onClick = !onClick;
-                              });
-                            },
-                            child: Container(
-                              width: 21.w,
-                              height: 21.h,
-                              decoration: BoxDecoration(
-                                color: onClick
-                                    ? AppColors.primaryColor
-                                    : Colors.white,
-                                border: Border.all(
-                                    color: onClick
-                                        ? AppColors.primaryColor
-                                        : Colors.black),
-                                borderRadius: BorderRadius.circular(3.r),
-                              ),
-                              child: Icon(
-                                Icons.check,
-                                color: onClick ? Colors.white : Colors.black,
-                                size: 13.h,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                        ],
-                      ),
+
                       SizedBox(
                         height: 22,
                       ),

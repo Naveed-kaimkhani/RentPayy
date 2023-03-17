@@ -1,18 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:rentpayy/components/profilePic.dart';
 import 'package:rentpayy/utils/style/AppColors.dart';
 import 'package:rentpayy/utils/style/text_style.dart';
 import 'package:rentpayy/utils/utils.dart';
 import 'package:rentpayy/view/Hostel_Screen/edit_facilities.dart';
-import 'package:rentpayy/view/Hostel_Screen/facilities.dart';
 import '../../components/GenderDropdown_button.dart';
 import '../../components/HostelDropdown_button.dart';
 import '../../components/hostel_appBarButton.dart';
 import '../../components/quantity_box.dart';
 import '../../model/hostelModel.dart';
+import '../../resources/FirebaseMethods.dart';
 import '../../utils/routes/RoutesName.dart';
 import '../../utils/style/Images.dart';
 import '../../view_model/HostelDetailsProvider.dart';
@@ -29,7 +30,15 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
   TextEditingController _DescriptionController = TextEditingController();
 
   final users = FirebaseFirestore.instance.collection('hostels');
-  // hostelModel? hostel;
+  List<XFile>? imageFileList = [];
+  final FirebaseMethods _firebaseMethods = FirebaseMethods();
+
+  bool isLoadingNow = false;
+  void isLoading(bool value) {
+    setState(() {
+      isLoadingNow = value;
+    });
+  }
 
   Future<void> updateData(
       {required String hostelName,
@@ -59,9 +68,51 @@ class _ads_edit_screenState extends State<ads_edit_screen> {
               //  print(error.toString()),
             });
   }
-// void updateData(){
 
-// }
+  void updateModel(List<String> images) {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    db.collection("hostels").doc(utils.getCurrentUserUid()).update({
+      'pictures': images,
+    }).then((value) {
+      utils.toastMessage("Pictures Updated");
+    });
+  }
+
+  void saveImagestoFirebaseStorage() async {
+    if (imageFileList!.isEmpty) {
+      utils.flushBarErrorMessage("Pictures not selected", context);
+    } else if (imageFileList!.length < 8) {
+      utils.flushBarErrorMessage("select atleast 8 pictures", context);
+    } else if (imageFileList!.length > 8) {
+      utils.flushBarErrorMessage("only 8 pictures are allowed", context);
+    } else {
+      isLoading(true);
+      utils.toastMessage("Please wait it may take some time");
+
+      List<String> listOfImages = await _firebaseMethods.updateHostelsImage(
+          imageFile: imageFileList!, uid: utils.getCurrentUserUid());
+      updateModel(listOfImages);
+    }
+  }
+
+  void selectImages() async {
+    final selectedImaged = await ImagePicker().pickMultiImage();
+
+    if (selectedImaged.length > 8) {
+      utils.flushBarErrorMessage("only 8 pictures are allowed", context);
+    } else if (selectedImaged.length < 8) {
+      utils.flushBarErrorMessage("select atleast 8 pictures", context);
+    } else if (selectedImaged.isNotEmpty) {
+      imageFileList!.addAll(selectedImaged);
+      setState(() {
+        imageFileList;
+      });
+    } else {
+      utils.flushBarErrorMessage("Pictures not selected", context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     hostelModel? hostel =

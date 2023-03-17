@@ -49,7 +49,7 @@ class _User_signup_pageState extends State<User_signup_page> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmpasswordController = TextEditingController();
 
-  bool? obsecureText = false;
+  bool? obsecureText = true;
   List<String> genderList = ["Male", "Female"];
   String? selectedvalue = "Gender";
   bool isLoadingNow = false;
@@ -302,8 +302,8 @@ class _User_signup_pageState extends State<User_signup_page> {
                               keyboardType: TextInputType.text,
                               controller: _passwordController,
                               icon: obsecureText!
-                                  ? Icons.remove_red_eye
-                                  : Icons.visibility_off,
+                                  ? Icons.visibility_off
+                                  : Icons.remove_red_eye,
                               obsecureText: obsecureText,
                               onIconPress: () {
                                 setState(() {

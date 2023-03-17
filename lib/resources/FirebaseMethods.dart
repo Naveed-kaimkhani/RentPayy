@@ -60,8 +60,8 @@ class FirebaseMethods {
         password: password,
       );
       return userCredential.user;
-    } catch (e) {
-      utils.flushBarErrorMessage(e.toString(), context);
+    } catch (error) {
+      utils.flushBarErrorMessage(error.toString(), context);
     }
   }
 
@@ -176,6 +176,25 @@ class FirebaseMethods {
     return listOfHoselImages;
   }
 
+  Future<List<String>> updateHostelsImage(
+      {required List<XFile> imageFile, required String uid}) async {
+    int id = 1;
+    List<String> listOfHoselImages = [];
+    for (var element in imageFile) {
+      await _storageReference
+          .child('hostel_images')
+          .child(uid)
+          .child(id.toString())
+          .putFile(File(element.path));
+      ;
+      String downloadURL = await _storageReference
+          .child('hostel_images/$uid/${id}')
+          .getDownloadURL();
+      listOfHoselImages.add(downloadURL);
+      id++;
+    }
+    return listOfHoselImages;
+  }
   Future<UserModel?> getUserDetails(String? uid) async {
     DocumentSnapshot documentSnapshot = await _userCollection.doc(uid).get();
     if (documentSnapshot.data() != null) {
