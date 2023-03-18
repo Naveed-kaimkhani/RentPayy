@@ -404,7 +404,10 @@ class _AdPageState extends State<AdPage> {
                         Text(
                           widget.hostel.name!,
                           style: TextStyle(
-                              fontSize: 24.sp, fontWeight: FontWeight.w500),
+                              fontSize: widget.hostel.name!.length > 12
+                                  ? 18.sp
+                                  : 24.sp,
+                              fontWeight: FontWeight.w500),
                         ),
                         // SizedBox(width: 12.sp,),
                         Row(
@@ -417,7 +420,10 @@ class _AdPageState extends State<AdPage> {
                                       style: TextStyle(
                                           color:
                                               Color.fromRGBO(245, 173, 13, 1),
-                                          fontSize: 33.sp,
+                                          fontSize:
+                                              widget.hostel.name!.length > 12
+                                                  ? 23.sp
+                                                  : 33.sp,
                                           fontWeight: FontWeight.w700)),
                                   TextSpan(
                                     text: '/month',
@@ -458,6 +464,15 @@ class _AdPageState extends State<AdPage> {
                               widget.hostel.available_capacity.toString(),
                               style: TextStyle(
                                   fontSize: 10.sp, fontWeight: FontWeight.w500),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 85.0),
+                              child: Text(
+                                widget.hostel.registration_date.toString(),
+                                style: TextStyle(
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
                           ],
                         ),

@@ -59,11 +59,12 @@ class _MyAppState extends State<MyApp> {
                 theme: ThemeData(
                   primarySwatch: Colors.blue,
                 ),
-                home: initScreen == 0 || initScreen == null
-                    ? StarterScreen()
-                    : isUser == 1
-                        ? navigation_page()
-                        : SellerDashboard(),
+                home: StarterScreen(),
+                //  initScreen == 0 || initScreen == null
+                //     ? StarterScreen()
+                //     : isUser == 1
+                //         ? navigation_page()
+                //         : SellerDashboard(),
                 // home: StarterScreen(),
 
                 onGenerateRoute: Routes.onGenerateRoute,

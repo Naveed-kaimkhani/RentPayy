@@ -100,7 +100,7 @@ class HostelContainer extends StatelessWidget {
                   Text(
                     hostel!.name.toString(),
                     style: TextStyle(
-                        fontSize: hostel!.name!.length > 15 ? 12.sp : 15.sp,
+                        fontSize: hostel!.name!.length > 15 ? 10.sp : 14.sp,
                         fontWeight: FontWeight.w500),
                   ),
                   RichText(
@@ -109,12 +109,12 @@ class HostelContainer extends StatelessWidget {
                         text: hostel!.charges.toString(),
                         style: TextStyle(
                             color: Color.fromRGBO(245, 173, 13, 1),
-                            fontSize: hostel!.name!.length > 15 ? 18.sp : 23.sp,
+                            fontSize: hostel!.name!.length > 12 ? 13.sp : 23.sp,
                             fontWeight: FontWeight.w700)),
                     TextSpan(
                       text: '/month',
                       style: TextStyle(
-                          fontSize: 6.sp,
+                          fontSize: 4.sp,
                           color: Colors.black,
                           fontWeight: FontWeight.w500),
                     ),
@@ -126,15 +126,17 @@ class HostelContainer extends StatelessWidget {
               padding: EdgeInsets.only(left: 9.w),
               child: Row(
                 children: [
-          
                   SizedBox(
                     width: 2.w,
                   ),
                   Text(
                     hostel!.hostel_address ?? "Address not found",
-                    style:
-                        TextStyle(fontSize: 8.sp, fontWeight: FontWeight.w400),
-                  )
+                    style: TextStyle(
+                        fontSize:
+                            hostel!.hostel_address!.length > 40 ? 7.sp : 10.sp,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  // Text(hostel!.hostel_address!.length.toString())
                 ],
               ),
             ),
@@ -147,7 +149,6 @@ class HostelContainer extends StatelessWidget {
                     color: Colors.black,
                     size: 15.h,
                   ),
-                
                   Icon(
                     Icons.hotel,
                     color: Colors.black,
