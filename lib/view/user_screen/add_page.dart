@@ -466,7 +466,7 @@ class _AdPageState extends State<AdPage> {
                                   fontSize: 10.sp, fontWeight: FontWeight.w500),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 85.0),
+                              padding: const EdgeInsets.only(left: 230.0),
                               child: Text(
                                 widget.hostel.registration_date.toString(),
                                 style: TextStyle(
@@ -476,9 +476,9 @@ class _AdPageState extends State<AdPage> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          width: 100.w,
-                        ),
+                        // SizedBox(
+                        //   width: 100.w,
+                        // ),
                         // Text(
                         //   '16/09/2020',
                         //   style: TextStyle(

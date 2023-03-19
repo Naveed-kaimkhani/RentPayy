@@ -20,6 +20,7 @@ class booking_history extends StatelessWidget {
         return true;
       },
       child: Scaffold(
+        
         appBar: AppBar(
           elevation: 0,
           title: Text(

@@ -26,6 +26,7 @@ class setting_screen extends StatelessWidget {
           return true;
         },
         child: Scaffold(
+      
           backgroundColor: Colors.white,
           // appBar: AppBar(
           //   elevation: 0,

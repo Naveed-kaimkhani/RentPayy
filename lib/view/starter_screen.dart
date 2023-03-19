@@ -12,6 +12,7 @@ class StarterScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffF5AD0D),
+        
         body: Stack(
           children: [
             Positioned(
